@@ -14,7 +14,7 @@ app.use(cors());
 
 // connecting to mongoDB Database
 mongoose
-  .connect("mongodb://0.0.0.0:27017/restaurant-system", {
+  .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
