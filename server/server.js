@@ -4,6 +4,8 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
+// require routes
+const login = require("./routes/UserRoutes")
 // initialisizing the app
 const app = express();
 
@@ -28,11 +30,11 @@ mongoose
     console.error("Error while trying to connect", err.message);
   });
 
-// fallback route for handling unknown routes
+  // Routes
 
-app.get("/all", (req,res) => {
-  return res.send('Hello World');
-})
+  app.use(login)
+
+// fallback route for handling unknown routes
 
 app.use((req, res) => {
   res.status(404).json({ message: "Route not found!" });
