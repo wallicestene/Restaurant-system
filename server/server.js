@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 // require routes
-const login = require("./routes/UserRoutes")
+const userRoutes = require("./routes/UserRoutes")
 // initialisizing the app
 const app = express();
 
@@ -32,7 +32,7 @@ mongoose
 
   // Routes
 
-  app.use(login)
+  app.use(userRoutes)
 
 // fallback route for handling unknown routes
 
