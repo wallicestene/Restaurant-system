@@ -7,7 +7,15 @@ const createToken = (_id) => {
 };
 //user LogIn
 const loginUser = (req, res) => {
-  res.json({ mssg: "login user" });
+  const { email, password } = req.body;
+  User.login(email, password)
+  .then((user) => {
+    const token = createToken(user._id);
+    res.status(200).json({ email, token });
+  })
+  .catch((error) => {
+    res.status(400).json({ error: error.message });
+  });
 };
 // user signup
 const signupUser = (req, res) => {

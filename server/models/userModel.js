@@ -14,10 +14,30 @@ const userSchema = new Schema({
     required: true,
   },
 });
-// static signup method for login
-userSchema.statics.login = async function (email, password) {};
 
-// static signup method for signup
+// static login method
+userSchema.statics.login = async function (email, password) {
+  // validation
+  if (!email || !password) {
+    throw Error("All fields must be filled");
+  }
+
+  const user = await this.findOne({ email });
+
+  if (!user) {
+    throw Error("Incorrect email");
+  }
+
+  const match = await bcrypt.compare(password, user.password);
+
+  if (!match) {
+    throw Error("Incorrect password"); // invalid login credentials
+  }
+
+  return user;
+};
+
+// static signup method
 userSchema.statics.signup = async function (email, password) {
   // validation
   if (!email || !password) {
@@ -30,7 +50,7 @@ userSchema.statics.signup = async function (email, password) {
     throw Error("Password not strong enough");
   }
 
-//   check if the email already email
+  //   check if the email already email
   const exists = await this.findOne({ email });
   if (exists) {
     throw Error("Email already in use");
@@ -42,4 +62,4 @@ userSchema.statics.signup = async function (email, password) {
 
   return user;
 };
-module.exports = mongoose.model("user", userSchema);
+module.exports = mongoose.model(" user", userSchema);
