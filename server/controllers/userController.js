@@ -1,15 +1,36 @@
-const User = require("../models/userModel")
-const mongoose = require("mongoose")
+const User = require("../models/userModel");
+const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
 
-// LogIn
-const login = (req,res) => {
-    res.json({mssg: "login user"})
-}
-const signup = (req,res) => {
-    res.json({mssg: "signup user"})
-}
+const createToken = (_id) => {
+  return jwt.sign({ _id }, process.env.JWT_SECRET, { expiresIn: "10d" });
+};
+//user LogIn
+const loginUser = (req, res) => {
+  const { email, password } = req.body;
+  User.login(email, password)
+  .then((user) => {
+    const token = createToken(user._id);
+    res.status(200).json({ email, token });
+  })
+  .catch((error) => {
+    res.status(400).json({ error: error.message });
+  });
+};
+// user signup
+const signupUser = (req, res) => {
+  const { email, password } = req.body;
+  User.signup(email, password)
+    .then((user) => {
+      const token = createToken(user._id);
+      res.status(200).json({ email, token });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
 
 module.exports = {
-    login,
-    signup
-}
+  loginUser,
+  signupUser,
+};
