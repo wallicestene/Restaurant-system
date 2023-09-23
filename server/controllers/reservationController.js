@@ -10,3 +10,6 @@ const addReservation = (req,res) => {
         console.log('Error: ', error);
     })
 }
+module.exports = {
+    addReservation
+}

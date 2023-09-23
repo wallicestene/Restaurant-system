@@ -1,7 +1,8 @@
 const AdminBro = require("admin-bro");
 const AdminBroExpress = require("@admin-bro/express");
 const AdminBroMongoose = require("@admin-bro/mongoose");
-
+const Table = require("../models/tableModel");
+const Reservation = require("../models/reservationModel");
 const mongoose = require("mongoose");
 
 AdminBro.registerAdapter(AdminBroMongoose);
@@ -9,6 +10,14 @@ AdminBro.registerAdapter(AdminBroMongoose);
 const adminBro = new AdminBro({
   databases: [mongoose],
   rootPath: "/admin",
+  resources: [
+    {
+      resource: Table,
+    },
+    {
+      resource: Reservation,
+    },
+  ],
 });
 
 const ADMIN = {

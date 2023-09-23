@@ -9,6 +9,7 @@ const userRoutes = require("./routes/UserRoutes");
 const restaurantRoutes = require("./routes/restaurantRoutes");
 const adminRoutes = require("./routes/adminRoute");
 const tableRoutes = require("./routes/tableRoute");
+const reservationRoutes = require("./routes/reservationRoute");
 
 // initialisizing the app
 const app = express();
@@ -39,6 +40,7 @@ app.use("/admin", adminRoutes);
 app.use(userRoutes);
 app.use(restaurantRoutes);
 app.use(tableRoutes);
+app.use(reservationRoutes);
 
 // fallback route for handling unknown routes
 
