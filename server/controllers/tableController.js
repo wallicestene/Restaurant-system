@@ -13,7 +13,7 @@ const addTable = (req, res) => {
 const getTablesByRestaurantId = (req, res) => {
   let {id} = req.params;
   let query = { restaurant_id: id };
-  Table.findOne(query).then((tables) => {
+  Table.find(query).then((tables) => {
     res.status(201).json(tables);
   });
 };
