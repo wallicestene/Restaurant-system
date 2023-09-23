@@ -53,7 +53,7 @@ const deleteRestaurant = (req, res) => {
     return res.status(404).json(`No restaurant with given id : ${id}`);
   }
 
-  Restaurant.findByIdAndDelete({ _id: id }) // TODO make sure this work
+  Restaurant.findByIdAndDelete(id) // TODO make sure this work
 
     .then((result) => {
       if (!result) {

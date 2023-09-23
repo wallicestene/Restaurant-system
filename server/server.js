@@ -5,9 +5,10 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 // require routes
-const userRoutes = require("./routes/UserRoutes")
-const restaurantRoutes = require("./routes/restaurantRoutes")
-const adminRoutes = require("./routes/admin.route")
+const userRoutes = require("./routes/UserRoutes");
+const restaurantRoutes = require("./routes/restaurantRoutes");
+const adminRoutes = require("./routes/adminRoute");
+const tableRoutes = require("./routes/tableRoute");
 
 // initialisizing the app
 const app = express();
@@ -33,12 +34,12 @@ mongoose
     console.error("Error while trying to connect", err.message);
   });
 
-  // Routes
+// Routes
 
-  app.use(userRoutes)
-  app.use(restaurantRoutes)
-  app.use("/admin", adminRoutes)
-
+app.use(userRoutes);
+app.use(restaurantRoutes);
+app.use(tableRoutes);
+app.use("/admin", adminRoutes);
 // fallback route for handling unknown routes
 
 app.use((req, res) => {

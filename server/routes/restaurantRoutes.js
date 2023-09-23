@@ -5,6 +5,6 @@ const router = express.Router()
 router.post("/restaurant", addRestaurant)
 router.get("/restaurant", findAllRestaurants)
 router.get("/restaurant/:id", findOneRestaurant)
-router.delete("/restaurant/id", deleteRestaurant)
+router.delete("/restaurant/:id", deleteRestaurant)
 
 module.exports = router
