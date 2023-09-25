@@ -5,7 +5,7 @@ const reservationSchema = new Schema(
   {
     user_id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: " user",
+      ref: "user",
     },
     restaurant_id: {
       type: mongoose.Schema.Types.ObjectId,
