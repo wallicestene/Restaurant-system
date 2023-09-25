@@ -14,7 +14,7 @@ const tableSchema = new Schema({
     type: Number,
     required: true,
   },
-  occuppied:{
+  occupied:{
     type : Boolean ,
     default : false,
     required: true

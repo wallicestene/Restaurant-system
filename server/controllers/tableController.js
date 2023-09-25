@@ -7,15 +7,26 @@ const addTable = (req, res) => {
   Table.create({ restaurant_id, number, capacity }).then((result) => {
     res.status(200).json(result);
   });
+  
 };
 
-// get all tablesin specific restaurant
+// get all tables in specific restaurant
+
 const getTablesByRestaurantId = (req, res) => {
-  let {id} = req.params;
+  let { id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "No table was found" });
+  }
   let query = { restaurant_id: id };
-  Table.find(query).then((tables) => {
-    res.status(201).json(tables);
-  });
+  Table.find(query)
+    .then((tables) => {
+      res.status(200).json(tables);
+    })
+    .catch(err => {
+      res.status(500).json(
+       {error: `Error occured while retrieving tables from database ${err}`}
+      )
+    });
 };
 
 module.exports = {
