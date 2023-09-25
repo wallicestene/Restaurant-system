@@ -14,7 +14,7 @@ const restaurantSchema = new Schema({
     type: String,
   },
   menu:{
-    type:[String]
+    type:[Object]
   },
   contacts: {
     type: Number

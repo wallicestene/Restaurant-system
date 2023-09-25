@@ -4,15 +4,15 @@ const Schema = mongoose.Schema;
 const reservationSchema = new Schema(
   {
     user_id: {
-      type: mongoose.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: " user",
     },
     restaurant_id: {
-      type: mongoose.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "restaurant",
     },
     table_id: {
-      type: mongoose.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "table",
     },
   },

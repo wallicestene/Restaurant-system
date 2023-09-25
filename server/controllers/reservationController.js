@@ -17,15 +17,15 @@ const addReservation = (req, res) => {
 // delete aresevation
 
 const deleteReservation = (req, res) => {
-  const { id } = req.params;
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    res.status(404).json(`No reservations found with the given ID`);
+  const { restaurant_id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(restaurant_id)) {
+    res.status(404).json(`no reservations found with the given ID`);
   }
 
-  Reservation.findByIdAndDelete(id)
+  Reservation.findByIdAndDelete(restaurant_id)
     .then((result) => {
       if (!result) {
-        res.status(404).json("no reservation found");
+        return res.status(404).json("no reservation found");
       } else {
         res.status(200).json(result);
       }

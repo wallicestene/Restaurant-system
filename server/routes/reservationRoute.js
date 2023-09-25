@@ -3,6 +3,6 @@ const { addReservation, deleteReservation } = require("../controllers/reservatio
 const router = express.Router()
 
 router.post("/restaurant/reservation", addReservation)
-router.delete("/restaurant/reservation/:id", deleteReservation)
+router.delete("/restaurant/reservation/:restaurant_id", deleteReservation)
 
 module.exports = router;
