@@ -21,18 +21,22 @@ const deleteReservation = (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     res.status(404).json(`No reservations found with the given ID`);
   }
-  Reservation.findByIdAndDelete(id).then(result => {
-    if(!result){
-        res.status(404).send('no reservation found')
-    }else{
-        res.status(200).json(result)
-    }
-  }).catch(err => {
-    res.status(500).json({
-        error: "error in deleting the reservation" ,
+
+  Reservation.findByIdAndDelete(id)
+    .then((result) => {
+      if (!result) {
+        res.status(404).json("no reservation found");
+      } else {
+        res.status(200).json(result);
+      }
     })
-  })
+    .catch((err) => {
+      res.status(500).json({
+        error: "error in deleting the reservation",
+      });
+    });
 };
 module.exports = {
   addReservation,
+  deleteReservation,
 };
