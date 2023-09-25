@@ -40,7 +40,9 @@ const findOneRestaurant = (req, res) => {
       if (!restaurant) {
         return res.status(404).json(`no restaurant found with that ${id}`);
       }
-      res.status(200).json(restaurant);
+      else{
+        res.status(200).json(restaurant);
+      }
     })
     .catch((err) => {
       res.status(500).json({ error: "failed to fetch the restaurant" });
@@ -58,8 +60,9 @@ const deleteRestaurant = (req, res) => {
     .then((result) => {
       if (!result) {
         return res.status(400).json({ error: "No such restaurant" });
+      }else{
+        res.status(200).json(result);
       }
-      res.status(200).json(result);
     })
     .catch((err) => {
       res.status(500).json({ error: "error in deleting the restaurant" });

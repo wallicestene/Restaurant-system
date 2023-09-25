@@ -29,7 +29,9 @@ const getTablesByRestaurantId = (req, res) => {
       if (!tables) {
         return res.status(404).json("no tables were found");
       }
+     else{
       res.status(200).json(tables);
+     }
     })
     .catch((err) => {
       res
