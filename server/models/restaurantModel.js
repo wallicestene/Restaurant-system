@@ -12,6 +12,7 @@ const restaurantSchema = new Schema({
   },
   image:{
     type: String,
+    required: true,
   },
   menu:{
     type:[Object]

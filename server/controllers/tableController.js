@@ -3,8 +3,8 @@ const Table = require("../models/tableModel");
 
 // add a table
 const addTable = (req, res) => {
-  const { restaurant_id, number, capacity } = req.body;
-  Table.create({ restaurant_id, number, capacity })
+  const { restaurantId, number, capacity, occupied } = req.body;
+  Table.create({ restaurantId, number, capacity, occupied })
     .then((result) => {
       res.status(200).json(result);
     })
@@ -23,7 +23,7 @@ const getTablesByRestaurantId = (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: "No table was found" });
   }
-  let query = { restaurant_id: id };
+  let query = { restaurantId: id };
   Table.find(query)
     .then((tables) => {
       if (!tables) {

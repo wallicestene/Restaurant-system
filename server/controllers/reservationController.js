@@ -3,14 +3,14 @@ const Reservation = require("../models/reservationModel");
 
 // add reservation
 const addReservation = (req, res) => {
-  const { user_id, restaurant_id, table_id } = req.body;
-  Reservation.create({ user_id, restaurant_id, table_id })
+  const { userId, restaurantId, tableId } = req.body;
+  Reservation.create({ userId, restaurantId, tableId })
     .then((result) => {
       res.status(200).json(result);
     })
     .catch((error) => {
       res.status(500).json({
-        error: `Error occured while adding reservation ${err}`,
+        error: `Error occured while adding reservation ${error}`,
       });
     });
 };

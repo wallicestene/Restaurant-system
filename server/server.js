@@ -35,7 +35,7 @@ mongoose
     console.error("Error while trying to connect", err.message);
   });
 
-// Routes
+// All Routes
 
 app.use(userRoutes);
 app.use(restaurantRoutes);
