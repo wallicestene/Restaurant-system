@@ -36,12 +36,12 @@ mongoose
   });
 
 // Routes
-app.use("/admin", adminRoutes);
+
 app.use(userRoutes);
 app.use(restaurantRoutes);
 app.use(tableRoutes);
 app.use(reservationRoutes);
-
+app.use("/admin", adminRoutes);
 // fallback route for handling unknown routes
 
 app.use((req, res) => {
