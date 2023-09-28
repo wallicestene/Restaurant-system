@@ -26,7 +26,7 @@ const findAllRestaurants = (req, res) => {
       res.status(200).json(restaurants);
     })
     .catch((error) => {
-      res.status(500).json({ error: "Failed to fetch all restaurant" });
+      res.status(500).json({ error: `Failed to fetch all restaurant` });
     });
 };
 // find a single restaurant
@@ -55,7 +55,7 @@ const deleteRestaurant = (req, res) => {
     return res.status(404).json(`No restaurant with given id : ${id}`);
   }
 
-  Restaurant.findByIdAndDelete(id) // TODO make sure this work
+  Restaurant.findByIdAndDelete(id) 
 
     .then((result) => {
       if (!result) {
