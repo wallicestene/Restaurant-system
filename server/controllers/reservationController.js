@@ -4,21 +4,33 @@ const Reservation = require("../models/reservationModel");
 // add reservation
 const addReservation = (req, res) => {
   const { userId, restaurantId, tableId } = req.body;
-  Reservation.create({ userId, restaurantId, tableId })
+  Reservation.find({ tableId })
     .then((result) => {
-      res.status(200).json(result);
+      if (!result) {
+        Reservation.create({ userId, restaurantId, tableId })
+          .then((reservation) => {
+            res.status(200).json(reservation);
+          })
+          .catch((error) => {
+            res.status(500).json({
+              error: `Error occured while adding reservation ${error}`,
+            });
+          });
+      } else {
+        res.status(400).json("Table is already reserved");
+      }
     })
     .catch((error) => {
-      res.status(500).json({
-        error: `Error occured while adding reservation ${error}`,
-      });
+      res
+        .status(500)
+        .json(`Error occurred in finding the reservations ${error}`);
     });
 };
 // delete aresevation
 
 const deleteReservation = (req, res) => {
-  const { restaurant_id } = req.params;
-  if (!mongoose.Types.ObjectId.isValid(restaurant_id)) {
+  const { restaurantId } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(restaurantId)) {
     res.status(404).json(`no reservations found with the given ID`);
   }
 
