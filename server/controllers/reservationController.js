@@ -17,13 +17,11 @@ const addReservation = (req, res) => {
             });
           });
       } else {
-        res.status(400).json("Table is already reserved");
+        throw Error("Table is already reserved");
       }
     })
     .catch((error) => {
-      res
-        .status(500)
-        .json(`Error occurred in finding the reservations ${error}`);
+      res.status(400).json({ error: error.message });
     });
 };
 // delete aresevation
