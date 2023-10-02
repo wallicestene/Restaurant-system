@@ -18,8 +18,12 @@ const reservationSchema = new Schema(
       ref: "table",
       required: true
     },
+    date:{
+      type : Date ,
+      default: Date.now(),
+      required: true
+    }
   },
-  { timestamps: true }
 );
 
 module.exports = mongoose.model("reservation", reservationSchema);

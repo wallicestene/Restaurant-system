@@ -3,11 +3,11 @@ const Reservation = require("../models/reservationModel");
 
 // add reservation
 const addReservation = (req, res) => {
-  const { userId, restaurantId, tableId } = req.body;
-  Reservation.find({ tableId })
-    .then((result) => {
-      if (!result) {
-        Reservation.create({ userId, restaurantId, tableId })
+  const { userId, restaurantId, tableId, date } = req.body;
+  Reservation.findOne({ tableId, date })
+    .then((reservationExists) => {
+      if (!reservationExists) {
+        Reservation.create({ userId, restaurantId, tableId, date })
           .then((reservation) => {
             res.status(200).json(reservation);
           })
@@ -16,8 +16,8 @@ const addReservation = (req, res) => {
               error: `Error occured while adding reservation ${error}`,
             });
           });
-      } else {
-        throw Error("Table is already reserved");
+    } else {
+        throw Error("Table is already reserved for that date.");
       }
     })
     .catch((error) => {
