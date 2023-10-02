@@ -32,7 +32,7 @@ const deleteReservation = (req, res) => {
     res.status(404).json(`no reservations found with the given ID`);
   }
 
-  Reservation.findByIdAndDelete(restaurant_id)
+  Reservation.findByIdAndDelete(restaurantId)
     .then((result) => {
       if (!result) {
         return res.status(404).json("no reservation found");
