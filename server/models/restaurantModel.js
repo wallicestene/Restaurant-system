@@ -6,20 +6,32 @@ const restaurantSchema = new Schema({
     type: String,
     required: true,
   },
-  address:{
-    type :String ,
-    required :true
-  },
-  image:{
+  address: {
     type: String,
     required: true,
   },
-  menu:{
-    type:[Object]
+  images: {
+    type: [String],
+    required: true,
+  },
+  menu: {
+    type: [
+      {
+        itemName: {
+          type: String,
+          required: true,
+        },
+        itemImage: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
+    required: true,
   },
   contacts: {
-    type: Number
-  }
+    type: [Number],
+  },
 });
 
-module.exports = mongoose.model("restaurant", restaurantSchema)
+module.exports = mongoose.model("restaurant", restaurantSchema);
