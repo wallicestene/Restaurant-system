@@ -3,11 +3,11 @@ const Reservation = require("../models/reservationModel");
 
 // add reservation
 const addReservation = (req, res) => {
-  const { userId, restaurantId, tableId, date } = req.body;
+  const { userId, restaurantId, tableId } = req.body;
   Reservation.find({ tableId })
     .then((result) => {
       if (!result) {
-        Reservation.create({ userId, restaurantId, tableId, date })
+        Reservation.create({ userId, restaurantId, tableId })
           .then((reservation) => {
             res.status(200).json(reservation);
           })
