@@ -6,17 +6,21 @@ const reservationSchema = new Schema(
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
-      required: true
+      required: true,
     },
     restaurantId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "restaurant",
-      required: true
+      required: true,
     },
     tableId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "table",
-      required: true
+      required: true,
+    },
+    date: {
+      type: Date,
+      default: Date.now(),
     },
   },
   { timestamps: true }
