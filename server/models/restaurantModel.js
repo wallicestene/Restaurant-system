@@ -10,6 +10,9 @@ const restaurantSchema = new Schema({
     type: String,
     required: true,
   },
+  description:{
+    type :String ,
+  },
   images: {
     type: [String],
     required: true,
@@ -32,6 +35,9 @@ const restaurantSchema = new Schema({
   contacts: {
     type: [Number],
   },
+  tags:{
+    type: [String],
+  }
 });
 
 module.exports = mongoose.model("restaurant", restaurantSchema);
