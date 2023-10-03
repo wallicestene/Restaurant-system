@@ -1,8 +1,11 @@
 import React from 'react'
+import HomePage from './pages/HomePage'
 
 function App() {
   return (
-    <div className=' text-center text-3xl'>We start from here (●'◡'●)</div>
+    <>
+    <HomePage/>
+    </>
   )
 }
 
