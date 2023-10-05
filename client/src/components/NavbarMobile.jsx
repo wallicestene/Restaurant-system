@@ -4,7 +4,7 @@ function NavbarMobile() {
   return (
     <div>
         <nav>
-        <ul className="flex flex-col items-center gap-10 ">
+        <ul className="flex flex-col items-center gap-10 p-3">
             <li>
               <a href="/">Home</a>
             </li>
