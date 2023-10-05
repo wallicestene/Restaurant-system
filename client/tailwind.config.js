@@ -18,6 +18,11 @@ export default {
           950: "#491301",
         },
       },
+      fontFamily:{
+        mulish: ['Mulish', "sans-serif"],
+        poppins:['Poppins','sans-serif'],
+        Montserrat: ["Montserrat", "sans-serif"]
+      }
     },
   },
   plugins: [],
