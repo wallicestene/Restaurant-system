@@ -18,7 +18,7 @@ function Filter() {
           <button className="lg:px-3 px-2 py-2 bg-totem-pole-500 rounded-lg text-orange-50 text-sm">Find Hotel</button>
         </form>
       </div>
-      <div className=" flex items-center flex-wrap lg:gap-5 md:gap-5 gap-2 font-Montserrat">
+      <div className=" flex items-center flex-wrap lg:gap-5 md:gap-5 gap-2 font-Montserrat lg:justify-normal md:justify-normal justify-center">
         <h1>Filter your search:</h1>
         <div className=" flex items-center justify-center flex-wrap lg:gap-10 md:gap-10 gap-2">
             <div className="flex items-center gap-2 border border-totem-pole-300 rounded-full lg:pr-5 md:pr-5 pr-2">
