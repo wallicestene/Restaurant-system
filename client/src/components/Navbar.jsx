@@ -31,7 +31,7 @@ function Navbar() {
           </ul>
         </nav>
       </div>
-      <div className="right flex gap-2 items-center justify-between lg:border md:border rounded-full ">
+      <div className="right flex gap-2 items-center justify-between lg:border md:border border-totem-pole-400 rounded-full ">
         <span className=" hidden lg:flex md:flex pl-3 text-totem-pole-600">Wallace</span>
         <Avatar
           sx={{ width: 32, height: 32, }}
