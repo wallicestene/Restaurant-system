@@ -22,6 +22,10 @@ export default {
         mulish: ['Mulish', "sans-serif"],
         poppins:['Poppins','sans-serif'],
         Montserrat: ["Montserrat", "sans-serif"]
+      },
+      flex:{
+        "7": 0.7,
+        "3" : 0.3
       }
     },
   },

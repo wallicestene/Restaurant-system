@@ -1,6 +1,7 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
 import Filter from '../components/Filter'
+import RestauarantContainer from '../components/RestauarantContainer'
 
 function HomePage() {
   return (
@@ -8,6 +9,7 @@ function HomePage() {
         <div>
             <Navbar/>
             <Filter/>
+            <RestauarantContainer/>
         </div>
     </section>
   )
