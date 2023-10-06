@@ -1,20 +1,20 @@
-import React from 'react'
-import Navbar from '../components/Navbar'
-import Filter from '../components/Filter'
-import RestauarantContainer from '../components/RestauarantContainer'
+import React from "react";
+import Navbar from "../components/Navbar";
+import Filter from "../components/Filter";
+import RestauarantContainer from "../components/RestauarantContainer";
 
-function HomePage() {
+const HomePage = () => {
   return (
     <section>
-        <div>
-            <Navbar/>
-            <div className=' lg:w-11/12 lg:mx-auto'>
-              <Filter/>
-            <RestauarantContainer/>
-            </div>
+      <div>
+        <Navbar />
+        <div className=" lg:w-11/12 lg:mx-auto">
+          <Filter />
+          <RestauarantContainer />
         </div>
+      </div>
     </section>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;

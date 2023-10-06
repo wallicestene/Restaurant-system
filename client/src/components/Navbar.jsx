@@ -1,9 +1,8 @@
-import { Close, Menu } from "@mui/icons-material";
-import { Avatar } from "@mui/material";
-import React, { useState } from "react";
-import NavbarMobile from "./NavbarMobile";
+import { Close, Menu } from '@mui/icons-material';
+import { Avatar } from '@mui/material';
+import React, { useState } from 'react'
 
-function Navbar() {
+const Navbar = () => {
   const [showNavMobile, setShowNavMobile] = useState(false);
   return (
     <div className=" flex items-center justify-between mt-1 py-1 font-mulish w-full shadow relative px-2">
@@ -50,4 +49,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default Navbar
