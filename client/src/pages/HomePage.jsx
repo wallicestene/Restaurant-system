@@ -8,8 +8,10 @@ function HomePage() {
     <section>
         <div>
             <Navbar/>
-            <Filter/>
+            <div className=' lg:w-11/12 lg:mx-auto'>
+              <Filter/>
             <RestauarantContainer/>
+            </div>
         </div>
     </section>
   )
