@@ -10,7 +10,7 @@ const useFetch = (url) => {
       fetch(url)
         .then((response) => {
           if (!response.ok) {
-            throw Error("Failed to fetch data");
+            throw new Error("Failed to fetch data");
           } else {
             return response.json();
           }
