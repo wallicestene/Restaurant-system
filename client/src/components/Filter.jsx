@@ -6,7 +6,7 @@ function Filter() {
     <section className="p-2">
       <div className=" my-5 font-mulish">
         <form className=" flex items-center justify-center gap-3">
-          <div className="  border border-totem-pole-500 h-10 rounded-full lg:w-96 w-9/12 flex items-center gap-1 overflow-hidden px-1">
+          <div className="  border border-totem-pole-300 h-10 rounded-full lg:w-96 w-9/12 flex items-center gap-1 overflow-hidden px-1">
             <LocationOn />
             <input
               type="text"

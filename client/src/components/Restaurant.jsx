@@ -4,7 +4,7 @@ const Restaurant = ({restaurant}) => {
   return (
     <div>
         <div className="h-fit">
-      <div className="h-fit w-full border font-Montserrat rounded-xl overflow-hidden bg-white shadow-md">
+      <div className="h-fit w-full font-Montserrat rounded-xl overflow-hidden bg-white shadow-lg shadow-totem-pole-200 text-totem-pole-600 hover:cursor-pointer">
         <img
           src={restaurant.images[0]}
           className=" h-32 w-full object-cover"
