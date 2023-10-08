@@ -4,7 +4,7 @@ import React from "react";
 function Filter() {
   return (
     <section className="p-2">
-      <div className=" my-5 font-mulish">
+      <div className=" my-5 font-mulish mt-10">
         <form className=" flex items-center justify-center gap-3">
           <div className="  border border-totem-pole-300 h-10 rounded-full lg:w-96 w-9/12 flex items-center gap-1 overflow-hidden px-1">
             <LocationOn />

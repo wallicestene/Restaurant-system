@@ -8,3 +8,9 @@
 .MuiIcon-root{
     @apply hover:cursor-pointer
 }
+.popular::-webkit-scrollbar{
+    display: none;
+}
+.restaurant::-webkit-scrollbar{
+    display: none;
+}
