@@ -23,7 +23,7 @@ const RestauarantContainer = () => {
         {
           !isLoading && (
             data.map((restaurant, index) => (
-              <Restaurant key={index} restaurant={restaurant} />
+              <Restaurant key={restaurant._id} restaurant={restaurant} />
             )
           ))
         }
