@@ -1,6 +1,6 @@
 import React from 'react'
 
-function NavbarMobile() {
+const NavbarMobile = () => {
   return (
     <div>
         <nav>

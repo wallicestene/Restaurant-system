@@ -1,6 +1,7 @@
 import { Close, Menu } from '@mui/icons-material';
 import { Avatar } from '@mui/material';
 import React, { useState } from 'react'
+import NavbarMobile from './NavbarMobile';
 
 const Navbar = () => {
   const [showNavMobile, setShowNavMobile] = useState(false);
@@ -9,7 +10,7 @@ const Navbar = () => {
       <div className="left text-lg font-bold  ">DineEasy</div>
       {showNavMobile && (
         <div className="lg:hidden md:hidden fixed z-20 bg-totem-pole-700 text-totem-pole-50 top-12 right-0 h-screen w-2/5">
-          <NavbarMobile />
+          <NavbarMobile/>
         </div>
       )}
       <div className="center hidden md:flex lg:flex lg:flex-row">
