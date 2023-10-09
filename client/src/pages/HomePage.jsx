@@ -7,7 +7,6 @@ const HomePage = () => {
   return (
     <section>
       <div>
-        <Navbar />
         <div className=" lg:w-11/12 lg:mx-auto">
           <Filter />
           <RestauarantContainer />
