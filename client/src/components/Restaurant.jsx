@@ -1,5 +1,6 @@
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Restaurant = ({ restaurant }) => {
   const [value, setValue] = useState(0);
@@ -22,7 +23,7 @@ const Restaurant = ({ restaurant }) => {
   return (
     <div>
       <div className="h-fit ">
-        <div className="h-fitw w-full font-Montserrat rounded-xl overflow-hidden bg-white shadow-lg shadow-totem-pole-200  hover:cursor-pointer">
+        <div className="h-fitw w-full font-Montserrat rounded-xl overflow-hidden bg-white shadow-lg shadow-totem-pole-200">
           <div className=" h-32 relative group">
             <img
               src={images[value]}
@@ -49,7 +50,9 @@ const Restaurant = ({ restaurant }) => {
             }
           </div>
           <div className=" p-2 text-totem-pole-600">
-            <h1 className=" font-bold ">{restaurant.name}</h1>
+            <Link to={`/restaurant/${restaurant._id}`}>
+            <h1 className=" font-bold hover:underline hover:cursor-pointer">{restaurant.name}</h1>
+            </Link>
             <div className="flex flex-col gap-5 text-sm text-gray-500">
               <p>{restaurant.address}</p>
               <p>
