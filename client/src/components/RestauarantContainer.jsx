@@ -44,7 +44,7 @@ const RestauarantContainer = () => {
         {
           !isLoading && (
             data.map((restaurant, index) => (
-              <Restaurant key={restaurant._id} restaurant={restaurant} />
+              <PopularRestaurants key={restaurant._id} restaurant={restaurant} />
             )
           ))
         }
