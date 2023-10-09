@@ -22,7 +22,7 @@ const Navbar = () => {
     <div
       className={`fixed z-10 bg-white flex items-center justify-between py-1 font-mulish w-full -2 ${
         showNavbar &&
-        "backdrop-blur-xl  bg-totem-pole-200/60 shado transition-colors duration-300 delay-150"
+        "backdrop-blur-xl  bg-totem-pole-200/70 shadow transition-colors duration-300 delay-150"
       }`}
     >
       <div className="left text-lg font-bold  ">DineEasy</div>

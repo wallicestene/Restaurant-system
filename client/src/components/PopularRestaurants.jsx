@@ -21,7 +21,7 @@ const PopularRestaurants = ({restaurant}) => {
     };
     return (
       <div>
-        <div className="h-fit ">
+        <div className="h-fit">
           <div className="h-fit flex gap-1 w-full font-Montserrat rounded-xl overflow-hidden bg-white shadow-lg shadow-totem-pole-200  hover:cursor-pointer">
             <div className=" h-32 w-32 relative group">
               <img
@@ -48,8 +48,8 @@ const PopularRestaurants = ({restaurant}) => {
                 )
               }
             </div>
-            <div className=" text-totem-pole-600">
-              <h1 className=" font-bold ">{restaurant.name}</h1>
+            <div className=" text-totem-pole-600 px-1">
+              <h1 className=" font-bold first-letter:uppercase">{restaurant.name.toLowerCase()}</h1>
               <div className="flex flex-col gap-2 text-xs text-gray-500">
                 <p>{restaurant.description}</p>
                 <p>{restaurant.address}</p>
