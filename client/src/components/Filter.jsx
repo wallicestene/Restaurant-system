@@ -1,4 +1,4 @@
-import { EditCalendar, LocationOn, Person, TableBar } from "@mui/icons-material";
+import { EditCalendar, LocationOn, Person, TableBar, TableRestaurant } from "@mui/icons-material";
 import React from "react";
 
 function Filter() {
@@ -27,7 +27,7 @@ function Filter() {
                 <p>Sat,Nov 10-fri</p>
             </div>
             <div className="flex items-center gap-2 border border-totem-pole-300 rounded-full lg:pr-5 md:pr-5 pr-2">
-                <span className=" bg-totem-pole-300 rounded-full h-10 w-10 flex items-center justify-center"><TableBar/></span>
+                <span className=" bg-totem-pole-300 rounded-full h-10 w-10 flex items-center justify-center"><TableRestaurant/></span>
                 <p>Table- 2</p>
             </div>
             <div className="flex items-center gap-2 border border-totem-pole-300 rounded-full lg:pr-5 md:pr-5 pr-2">
