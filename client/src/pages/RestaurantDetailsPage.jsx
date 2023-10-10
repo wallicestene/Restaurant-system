@@ -85,10 +85,15 @@ const RestaurantDetailsPage = () => {
               {!loading && (
                 <div className="flex font-Montserrat items-center gap-5 overflow-x-scroll px-2 ">
                   {tables.map((table, index) => (
-                    <button disabled={table.occupied && "true"}  key={index} className={` bg-green-800 flex-shrink-0  text-sm text-totem-pole-100 justify-center h-20 w-28 flex flex-col items-center px-1 rounded-md ${table.occupied && " bg-red-700 "}`}>
+                    <button disabled={table.occupied && "true"}  key={index} className={` relative bg-green-800 flex-shrink-0  text-sm text-totem-pole-100 justify-center h-20 w-28 flex flex-col items-center px-1 rounded-md ${table.occupied && " bg-red-700 "} overflow-hidden`}>
                        <span>0{table.number}</span>
                       <TableRestaurant />
                       <span>Guests: {table.capacity}</span>
+                      { table.occupied &&
+                      <div className=" absolute top-0 bottom-0 h-full w-full grid place-items-center bg-red-600 bg-opacity-50">
+                        <span className=" border border-totem-pole-100 px-2">Reserved</span>
+                      </div>
+                      }
                     </button>
                   ))}
                 </div>
