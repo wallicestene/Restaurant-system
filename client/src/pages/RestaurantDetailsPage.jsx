@@ -43,7 +43,7 @@ const RestaurantDetailsPage = () => {
       {!isLoading && (
         <div>
           <div className="">
-            <h1 className=" font-bold font-Montserrat text-lg text-totem-pole-600">
+            <h1 className=" font-bold font-Montserrat text-lg text-totem-pole-500">
               {data?.name}
             </h1>
           </div>
@@ -72,15 +72,15 @@ const RestaurantDetailsPage = () => {
                       }`}
                       alt=""
                     />
-                    <div onClick={() => setValue(index)} className={` border h-4 w-4 border-totem-pole-500 rounded-full cursor-pointer ${
+                    <div key={index} onClick={() => setValue(index)} className={` border h-4 w-4 border-totem-pole-500 rounded-full cursor-pointer ${
                         value == index && " bg-totem-pole-500"
                       }`}/>
                   </div>
                 ))}
               </div>
             </div>
-            <div className=" h-full w-full border border-totem-pole-400 px-2 font-poppins py-2">
-              <div className=" bg-totem-pole-400 inline-block p-1 rounded-md text-totem-pole-100 my-1">
+            <div className=" h-full w-full border border-totem-pole-500 px-2 font-poppins py-2">
+              <div className=" bg-totem-pole-500 inline-block p-1 rounded-md text-totem-pole-100 my-1">
                 <h1>Tables</h1>
               </div>
               {tableError && <p>{error}</p>}
