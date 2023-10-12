@@ -3,6 +3,7 @@ import useFetch from "../hooks/useFetch";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   Backspace,
+  FavoriteBorder,
   KeyboardBackspace,
   TableRestaurant,
 } from "@mui/icons-material";
@@ -50,7 +51,7 @@ const RestaurantDetailsPage = () => {
         }}
       >
         <div>
-          <KeyboardBackspace sx={{ fontSize: "1.3rem", color: "#4A4A4A" }} />
+          <KeyboardBackspace sx={{ fontSize: "1.3rem" }} />
         </div>
         <div>Back</div>
       </div>
@@ -100,14 +101,14 @@ const RestaurantDetailsPage = () => {
                 ))}
               </div>
             </div>
-            <div className=" h-full w-full border border-totem-pole-500 px-2 font-poppins py-2">
-              <div className=" bg-totem-pole-500 inline-block p-1 rounded-md text-totem-pole-100 my-1">
+            <div className=" h-full w-full  px-2 font-mulish py-2 border border-totem-pole-500 rounded-lg flex flex-col justify-between">
+              <div className=" bg-totem-pole-500 w-fit p-1 rounded-md text-totem-pole-100 my-1 ">
                 <h1>Tables</h1>
               </div>
               {tableError && <p>{error}</p>}
               {loading && <p>Loading...</p>}
               {!loading && tables.length > 0 && (
-                <div className="flex font-Montserrat items-center gap-5 overflow-x-scroll px-2 ">
+                <div className="flex font-Montserrat items-center gap-5 overflow-x-scroll snap-x snap-mandatory px-2">
                   {tables.map((table, index) => (
                     <button
                       disabled={table.occupied}
@@ -130,6 +131,25 @@ const RestaurantDetailsPage = () => {
                   ))}
                 </div>
               )}
+              <div >
+                <h1 className=" bg-totem-pole-500 p-1 rounded-md text-totem-pole-100 my-1 w-fit">Overview</h1>
+                <div className=" text-sm font-mulish">
+                <p>{data.description}</p>
+              </div>
+              </div>
+              <div className=" flex items-center justify-between gap-5 text-totem-pole-100">
+                <button className=" w-full bg-green-700 py-2 rounded-md">
+                  Book Now
+                </button>
+                <button className=" w-full bg-totem-pole-500 py-2 rounded-md flex items-center justify-center gap-1">
+                  <FavoriteBorder sx={
+                    {
+                      fontSize: "1.3em"
+                    }
+                  }/>
+                  <span >Add to Favourites</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
