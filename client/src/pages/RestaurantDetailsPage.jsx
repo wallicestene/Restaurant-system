@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
-import { useParams } from "react-router-dom";
-import { TableRestaurant } from "@mui/icons-material";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  Backspace,
+  KeyboardBackspace,
+  TableRestaurant,
+} from "@mui/icons-material";
 
 const RestaurantDetailsPage = () => {
   const [value, setValue] = useState(0);
@@ -9,6 +13,7 @@ const RestaurantDetailsPage = () => {
   const [loading, setLoading] = useState(true);
   const [tableError, setTableError] = useState(null);
   const { id } = useParams();
+  const navigate = useNavigate();
   const { data, isLoading, error } = useFetch(
     `http://localhost:3000/api/restaurant/${id}`
   );
@@ -38,6 +43,17 @@ const RestaurantDetailsPage = () => {
   }, [data]);
   return (
     <section className="h-screen w-11/12 mx-auto flex flex-col justify-center">
+      <div
+        className=" hover:cursor-pointer my-1 flex items-center font-Montserrat text-sm"
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
+        <div>
+          <KeyboardBackspace sx={{ fontSize: "1.3rem", color: "#4A4A4A" }} />
+        </div>
+        <div>Back</div>
+      </div>
       {error && <p>{error}</p>}
       {isLoading && <p>Loading....</p>}
       {!isLoading && (
@@ -61,7 +77,8 @@ const RestaurantDetailsPage = () => {
                   <div
                     key={index}
                     className={` lg:h-16 lg:w-16 md:h-16 md:w-16 lg:rounded-lg md:rounded-lg overflow-hidden ${
-                      value == index && " lg:border-2 md:border-2 border-totem-pole-500 "
+                      value == index &&
+                      " lg:border-2 md:border-2 border-totem-pole-500 "
                     }`}
                   >
                     <img
@@ -72,9 +89,13 @@ const RestaurantDetailsPage = () => {
                       }`}
                       alt=""
                     />
-                    <div key={index} onClick={() => setValue(index)} className={` border h-4 w-4 border-totem-pole-500 rounded-full cursor-pointer ${
+                    <div
+                      key={index}
+                      onClick={() => setValue(index)}
+                      className={` border h-4 w-4 border-totem-pole-500 rounded-full cursor-pointer ${
                         value == index && " bg-totem-pole-500"
-                      }`}/>
+                      }`}
+                    />
                   </div>
                 ))}
               </div>
