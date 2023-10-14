@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import { useNavigate, useParams } from "react-router-dom";
+
 import {
   Backspace,
   FavoriteBorder,
@@ -8,13 +9,18 @@ import {
   LocationOn,
   TableRestaurant,
 } from "@mui/icons-material";
-
+import Datepicker from "react-tailwindcss-datepicker";
 const RestaurantDetailsPage = () => {
   const [value, setValue] = useState(0);
+  const [date, setDate] = useState({
+    startDate: null,
+    endDate: null,
+  });
   const [tables, setTables] = useState([]);
   const [tableId, setTableId] = useState("");
   const [loading, setLoading] = useState(true);
   const [tableError, setTableError] = useState(null);
+  const [bookingError, setBookingError] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
   const { data, isLoading, error } = useFetch(
@@ -53,22 +59,25 @@ const RestaurantDetailsPage = () => {
         userId: "6512e282eef3efdb30a69235",
         restaurantId: data._id,
         tableId,
-        date: Date.now(),
+        date: date.startDate,
       }),
     })
       .then((response) => response.json())
       .then((result) => {
         if (result.error) {
-          alert(result.error);
-        }else{
-          alert('Reservation Successful');
+          setBookingError(result.error);
+          alert(bookingError);
+        } else {
+          alert("Reservation Successful");
         }
       })
       .catch((err) => {
         console.log(err.message);
       });
   };
-
+  const handleDateChange = (newDate) => {
+    setDate(newDate);
+  };
   return (
     <section className="h-screen w-11/12 mx-auto flex flex-col justify-center">
       <div
@@ -187,6 +196,16 @@ const RestaurantDetailsPage = () => {
                     <p>Starts From: 1,231</p>
                   </div>
                 </div>
+              </div>
+              <div>
+                <Datepicker
+                  useRange={false}
+                  asSingle={true}
+                  value={date}
+                  onChange={handleDateChange}
+                  popoverDirection="up"
+                  primaryColor={"orange"}
+                />
               </div>
               <div className=" flex lg:flex-row md:flex-row flex-col items-center justify-between lg:gap-5 md:gap-3 gap-2 text-totem-pole-100">
                 <button
