@@ -12,6 +12,7 @@ import {
 const RestaurantDetailsPage = () => {
   const [value, setValue] = useState(0);
   const [tables, setTables] = useState([]);
+  const [tableId, setTableId] = useState("");
   const [loading, setLoading] = useState(true);
   const [tableError, setTableError] = useState(null);
   const { id } = useParams();
@@ -19,6 +20,7 @@ const RestaurantDetailsPage = () => {
   const { data, isLoading, error } = useFetch(
     `http://localhost:3000/api/restaurant/${id}`
   );
+  console.log(tableId);
   useEffect(() => {
     const getTables = () => {
       if (data && !isLoading && !error) {
@@ -43,6 +45,26 @@ const RestaurantDetailsPage = () => {
     };
     getTables();
   }, [data]);
+  const BookTable = () => {
+    fetch("http://localhost:3000/api/restaurant/reservation", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId: "6512e282eef3efdb30a69235",
+        restaurantId: data._id,
+        tableId,
+        date: Date.now(),
+      }),
+    })
+    .then((response) => response.json())
+    .then((result) => {
+      alert('Reserved');
+    })
+    .catch(err => {
+      console.log(err.message)
+    })
+  };
+
   return (
     <section className="h-screen w-11/12 mx-auto flex flex-col justify-center">
       <div
@@ -108,17 +130,18 @@ const RestaurantDetailsPage = () => {
                 ))}
               </div>
             </div>
-            <div className=" h-full w-full  px-2 font-mulish py-2 border border-totem-pole-500 rounded-lg flex flex-col justify-between gap-3">
+            <div className=" container h-full w-full  px-2 font-mulish py-2 border border-totem-pole-500 rounded-lg flex flex-col justify-between gap-3">
               {tableError && <p>{error}</p>}
               {loading && <p>Loading...</p>}
               {!loading && tables.length > 0 && (
                 <div>
-                  <div  className=" bg-totem-pole-500 w-fit p-1 rounded-md text-totem-pole-100 my-1 ">
+                  <div className=" bg-totem-pole-500 w-fit p-1 rounded-md text-totem-pole-100 my-1 ">
                     <h1>Tables</h1>
                   </div>
                   <div className="flex font-Montserrat items-center gap-5 overflow-x-scroll snap-x snap-mandatory px-2">
                     {tables.map((table, index) => (
                       <button
+                        onClick={() => setTableId(table._id)}
                         disabled={table.occupied}
                         key={index}
                         className={` relative bg-green-800 flex-shrink-0  text-sm text-totem-pole-100 justify-center h-20 w-28 flex flex-col items-center px-1 rounded-md ${
@@ -149,7 +172,10 @@ const RestaurantDetailsPage = () => {
                 </div>
               </div>
               <div className=" flex lg:flex-row md:flex-row flex-col items-center justify-between lg:gap-5 md:gap-3 gap-2 text-totem-pole-100">
-                <button className=" w-full bg-green-700 py-2 rounded-md ">
+                <button
+                  className=" w-full bg-green-700 py-2 rounded-md "
+                  onClick={BookTable}
+                >
                   Book Now
                 </button>
                 <button className=" w-full bg-totem-pole-500 py-2 rounded-md flex items-center justify-center gap-1">
