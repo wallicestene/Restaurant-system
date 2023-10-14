@@ -4,7 +4,7 @@ const Reservation = require("../models/reservationModel");
 // add reservation
 const addReservation = (req, res) => {
   const { userId, restaurantId, tableId, date } = req.body;
-  Reservation.findOne({ tableId, date })
+  Reservation.findOne({ tableId })
     .then((reservationExists) => {
       if (!reservationExists) {
         Reservation.create({ userId, restaurantId, tableId, date })

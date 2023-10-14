@@ -58,7 +58,11 @@ const RestaurantDetailsPage = () => {
     })
       .then((response) => response.json())
       .then((result) => {
-        alert("Reserved");
+        if (result.error) {
+          alert(result.error);
+        }else{
+          alert('Reservation Successful');
+        }
       })
       .catch((err) => {
         console.log(err.message);
@@ -173,14 +177,14 @@ const RestaurantDetailsPage = () => {
               </div>
               <div>
                 <div className="flex justify-evenly py-2 ">
-                  <div className=" flex items-center outline-dotted py-1.5 px-0.5 outline-red-500 rounded-md">
+                  <div className=" flex items-center hover:outline-dotted py-1.5 px-0.5 outline-red-500 rounded-md">
                     <span>
                       <LocationOn sx={{ fontSize: "1.3em" }} />
                     </span>
                     <p>{data.address}</p>
                   </div>
                   <div className=" flex items-center py-1.5 px-0.5 rounded-md">
-                    <p>Starts From: 12312</p>
+                    <p>Starts From: 1,231</p>
                   </div>
                 </div>
               </div>
