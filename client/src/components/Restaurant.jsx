@@ -35,13 +35,13 @@ const Restaurant = ({ restaurant }) => {
                 <div className="group-hover:opacity-100 opacity-0 absolute top-1/2 px-1 w-full -translate-y-1/2 flex justify-between transition-opacity duration-500 delay-200 ease-in-out">
               <span
                 onClick={goToPreviousImage}
-                className=" h-7 w-7 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full"
+                className=" h-7 w-7 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full cursor-pointer"
               >
                 <KeyboardArrowLeft />
               </span>
               <span
                 onClick={goToNextImage}
-                className=" h-7 w-7 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full"
+                className=" h-7 w-7 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full cursor-pointer"
               >
                 <KeyboardArrowRight />
               </span>
