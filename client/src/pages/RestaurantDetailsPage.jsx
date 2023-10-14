@@ -179,19 +179,19 @@ const RestaurantDetailsPage = () => {
                     </span>
                     <p>{data.address}</p>
                   </div>
-                  <div className=" flex items-center outline-dotted py-1.5 px-0.5 rounded-md">
+                  <div className=" flex items-center py-1.5 px-0.5 rounded-md">
                     <p>Starts From: 12312</p>
                   </div>
                 </div>
               </div>
               <div className=" flex lg:flex-row md:flex-row flex-col items-center justify-between lg:gap-5 md:gap-3 gap-2 text-totem-pole-100">
                 <button
-                  className=" w-full bg-green-700 py-2 rounded-md "
+                  className=" w-full bg-green-700 py-2 rounded-md hover:opacity-80 opacity-100 transition-opacity duration-200 delay-200"
                   onClick={BookTable}
                 >
                   Book Now
                 </button>
-                <button className=" w-full bg-totem-pole-500 py-2 rounded-md flex items-center justify-center gap-1">
+                <button className=" w-full bg-totem-pole-500 py-2 rounded-md flex items-center justify-center gap-1 hover:opacity-80 opacity-100 transition-opacity duration-200 delay-200">
                   <FavoriteBorder
                     sx={{
                       fontSize: "1.3em",
