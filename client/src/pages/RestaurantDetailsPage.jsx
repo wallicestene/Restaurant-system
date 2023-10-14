@@ -56,13 +56,13 @@ const RestaurantDetailsPage = () => {
         date: Date.now(),
       }),
     })
-    .then((response) => response.json())
-    .then((result) => {
-      alert('Reserved');
-    })
-    .catch(err => {
-      console.log(err.message)
-    })
+      .then((response) => response.json())
+      .then((result) => {
+        alert("Reserved");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   };
 
   return (
@@ -169,6 +169,19 @@ const RestaurantDetailsPage = () => {
                 </h1>
                 <div className=" text-sm font-mulish">
                   <p>{data.description}</p>
+                </div>
+              </div>
+              <div>
+                <div className="flex justify-evenly py-2 ">
+                  <div className=" flex items-center outline-dotted py-1.5 px-0.5 outline-red-500 rounded-md">
+                    <span>
+                      <LocationOn sx={{ fontSize: "1.3em" }} />
+                    </span>
+                    <p>{data.address}</p>
+                  </div>
+                  <div className=" flex items-center outline-dotted py-1.5 px-0.5 rounded-md">
+                    <p>Starts From: 12312</p>
+                  </div>
                 </div>
               </div>
               <div className=" flex lg:flex-row md:flex-row flex-col items-center justify-between lg:gap-5 md:gap-3 gap-2 text-totem-pole-100">
