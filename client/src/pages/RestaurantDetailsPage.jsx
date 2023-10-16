@@ -26,7 +26,6 @@ const RestaurantDetailsPage = () => {
   const { data, isLoading, error } = useFetch(
     `http://localhost:3000/api/restaurant/${id}`
   );
-  console.log(tableId);
   useEffect(() => {
     const getTables = () => {
       if (data && !isLoading && !error) {
