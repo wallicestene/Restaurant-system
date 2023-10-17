@@ -29,7 +29,7 @@ const RestaurantDetailsPage = () => {
   useEffect(() => {
     const getTables = () => {
       if (data && !isLoading && !error) {
-        fetch(`http://localhost:3000/api/tables/restaurant/${data._id}/?date=${new Date()}`)
+        fetch(`http://localhost:3000/api/tables/restaurant/${data._id}`)
           .then((response) => {
             if (!response.ok) {
               throw new Error("Failed to fetch data");
@@ -68,6 +68,7 @@ const RestaurantDetailsPage = () => {
           alert(bookingError);
         } else {
           alert("Reservation Successful");
+          console.log(result);
         }
       })
       .catch((err) => {
@@ -154,7 +155,7 @@ const RestaurantDetailsPage = () => {
                     {tables.map((table, index) => (
                       <button
                         onClick={() => setTableId(table._id)}
-                        disabled={table.occupied}
+                        // disabled={table.occupied}
                         key={index}
                         className={` relative bg-green-800 flex-shrink-0  text-sm text-totem-pole-100 justify-center h-20 w-28 flex flex-col items-center px-1 rounded-md ${
                           table.occupied && " bg-red-700 "

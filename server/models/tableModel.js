@@ -18,6 +18,10 @@ const tableSchema = new Schema({
     type : Boolean ,
     default : false,
     required: true
+  },
+  occupiedDates:{
+    type:[Date],
+    default : []
   }
 });
 
