@@ -29,7 +29,7 @@ const RestaurantDetailsPage = () => {
   useEffect(() => {
     const getTables = () => {
       if (data && !isLoading && !error) {
-        fetch(`http://localhost:3000/api/tables/restaurant/${data._id}`)
+        fetch(`http://localhost:3000/api/tables/restaurant/${data._id}/?date=${new Date()}`)
           .then((response) => {
             if (!response.ok) {
               throw new Error("Failed to fetch data");
