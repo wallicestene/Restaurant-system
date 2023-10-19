@@ -19,10 +19,6 @@ const tableSchema = new Schema({
     default : false,
     required: true
   },
-  occupiedDates:{
-    type:[Date],
-    default : []
-  }
 });
 
 module.exports = mongoose.model("table", tableSchema);

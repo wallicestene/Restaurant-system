@@ -21,31 +21,14 @@ const addReservation = (req, res) => {
         Reservation.create({ userId, restaurantId, tableId, date })
           .then((reservation) => {
             // Updating the table's "occupied" status
-            Table.findById(tableId)
-              .then((table) => {
-                // Checking if the date is not already in the occupiedDates array
-                if (!table.occupiedDates.includes(date)) {
-                  // Marking the table as occupied for the date
-                  table.occupied = date === formattedDate ? true : false;
-                  table.occupiedDates.push(date);
-
-                  // Save the updated table
-                  table
-                    .save()
-                    .then((updatedTable) => {
-                      if (!updatedTable) {
-                        res.status(404).json({ error: "Table not found." });
-                      } else {
-                        res.status(200).json(reservation);
-                      }
-                    })
-                    .catch((error) => {
-                      res.status(500).json({
-                        error: `Error occurred while updating table occupancy: ${error}`,
-                      });
-                    });
+            Table.findByIdAndUpdate(tableId, {
+              occupied: true,
+            })
+              .then((updatedTable) => {
+                if (!updatedTable) {
+                  res.status(404).json({ error: "Table not found." });
                 } else {
-                  res.status(200).json(reservation); // Table is already marked as occupied for the date
+                  res.status(200).json(reservation);
                 }
               })
               .catch((error) => {
@@ -60,9 +43,7 @@ const addReservation = (req, res) => {
             });
           });
       } else {
-        res
-          .status(400)
-          .json({ error: "Table is already reserved for that date." });
+        throw Error("Table is already reserved for that date.")
       }
     })
     .catch((error) => {
