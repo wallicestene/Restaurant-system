@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Table = require("../models/tableModel");
-
+const Reservation = require("../models/reservationModel");
 // add a table
 const addTable = (req, res) => {
   const { restaurantId, number, capacity, occupied } = req.body;
@@ -9,11 +9,9 @@ const addTable = (req, res) => {
       res.status(200).json(result);
     })
     .catch((err) => {
-      res
-        .status(500)
-        .json({
-          error: `Error occured while adding tables to database ${err}`,
-        });
+      res.status(500).json({
+        error: `Error occured while adding tables to database ${err}`,
+      });
     });
 };
 
@@ -23,22 +21,18 @@ const getTablesByRestaurantId = (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: "No table was found" });
   }
-  let query = { restaurantId: id };
-  Table.find(query)
+  Table.find({restaurantId: id})
     .then((tables) => {
       if (!tables) {
         return res.status(404).json("no tables were found");
+      } else {
+        res.status(200).json(tables)
       }
-     else{
-      res.status(200).json(tables);
-     }
     })
     .catch((err) => {
-      res
-        .status(500)
-        .json({
-          error: `Error occured while retrieving tables from database ${err}`,
-        });
+      res.status(500).json({
+        error: `Error occured while retrieving tables from database ${err}`,
+      });
     });
 };
 

@@ -18,7 +18,7 @@ const tableSchema = new Schema({
     type : Boolean ,
     default : false,
     required: true
-  }
+  },
 });
 
 module.exports = mongoose.model("table", tableSchema);

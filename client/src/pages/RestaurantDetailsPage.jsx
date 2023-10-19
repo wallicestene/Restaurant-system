@@ -26,7 +26,6 @@ const RestaurantDetailsPage = () => {
   const { data, isLoading, error } = useFetch(
     `http://localhost:3000/api/restaurant/${id}`
   );
-  console.log(tableId);
   useEffect(() => {
     const getTables = () => {
       if (data && !isLoading && !error) {
@@ -69,6 +68,7 @@ const RestaurantDetailsPage = () => {
           alert(bookingError);
         } else {
           alert("Reservation Successful");
+          console.log(result);
         }
       })
       .catch((err) => {
@@ -155,7 +155,7 @@ const RestaurantDetailsPage = () => {
                     {tables.map((table, index) => (
                       <button
                         onClick={() => setTableId(table._id)}
-                        disabled={table.occupied}
+                        // disabled={table.occupied}
                         key={index}
                         className={` relative bg-green-800 flex-shrink-0  text-sm text-totem-pole-100 justify-center h-20 w-28 flex flex-col items-center px-1 rounded-md ${
                           table.occupied && " bg-red-700 "

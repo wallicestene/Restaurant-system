@@ -1,7 +1,16 @@
 import { EditCalendar, LocationOn, Person, TableBar, TableRestaurant } from "@mui/icons-material";
-import React from "react";
+import React, { useState } from "react";
+import Datepicker from "react-tailwindcss-datepicker";
 
 function Filter() {
+  const [date, setDate] = useState({
+    startDate: null,
+    endDate: null,
+  })
+
+  const handleDateChange = (newDate) => {
+    setDate(newDate);
+  };
   return (
     <section className="p-2">
       <div className=" my-5 font-mulish mt-10">
@@ -21,10 +30,19 @@ function Filter() {
       <div className=" flex items-center flex-wrap lg:gap-5 md:gap-5 gap-2 font-Montserrat lg:justify-normal md:justify-normal justify-center">
         <h1>Filter your search:</h1>
         <div className=" flex items-center justify-center flex-wrap lg:gap-10 md:gap-10 gap-2">
-            <div className="flex items-center gap-2 border border-totem-pole-300 rounded-full lg:pr-5 md:pr-5 pr-2">
-                <span className=" bg-totem-pole-300  rounded-full h-10 w-10 flex items-center justify-center"><EditCalendar/></span>
+            <div >
+                <Datepicker
+                containerClassName="relative border  border-totem-pole-300 rounded-full w-full h-10 "
+                toggleClassName="absolute left-0 rounded-full text-black h-full px-2 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed bg-totem-pole-300" 
+                inputClassName="bg-transparent h-full indent-10  outline-none rounded-full" 
+                  useRange={false}
+                  asSingle={true}
+                  value={date}
+                  onChange={handleDateChange}
+                  primaryColor={"orange"}
+                />
                 {/* <input type="month" /> */}
-                <p>Sat,Nov 10-fri</p>
+                
             </div>
             <div className="flex items-center gap-2 border border-totem-pole-300 rounded-full lg:pr-5 md:pr-5 pr-2">
                 <span className=" bg-totem-pole-300 rounded-full h-10 w-10 flex items-center justify-center"><TableRestaurant/></span>
