@@ -4,6 +4,7 @@ import {
   KeyboardArrowRight,
   LocationOn,
 } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 const PopularRestaurants = ({ restaurant }) => {
   const [value, setValue] = useState(0);
@@ -29,7 +30,7 @@ const PopularRestaurants = ({ restaurant }) => {
   return (
     <div>
       <div className=" h-36">
-        <div className=" h-36 grid grid-cols-2 w-full font-Montserrat rounded-xl overflow-hidden bg-white shadow-lg shadow-totem-pole-200  hover:cursor-pointer">
+        <div className=" h-36 grid grid-cols-2 w-full font-Montserrat rounded-xl overflow-hidden bg-white shadow-lg shadow-totem-pole-200">
           <div className=" h-36 w-full relative group">
             <img
               src={images[value]}
@@ -55,7 +56,11 @@ const PopularRestaurants = ({ restaurant }) => {
           </div>
           <div className="  px-1 text-xs flex flex-col justify-between ">
             <div>
-              <h2 className="text-totem-pole-600 tracking-tight text-base">{restaurant?.name}</h2>
+              <Link to={`/restaurant/${restaurant._id}`}>
+                <h2 className="text-totem-pole-600 tracking-tight text-base font-bold hover:underline">
+                  {restaurant?.name}
+                </h2>
+              </Link>
             </div>
             <div>
               <p>{truncate(restaurant?.description, 70)}</p>

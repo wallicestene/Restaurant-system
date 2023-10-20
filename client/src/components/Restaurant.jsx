@@ -23,8 +23,8 @@ const Restaurant = ({ restaurant }) => {
   return (
     <div>
       <div className="h-fit ">
-        <div className="h-fitw w-full font-Montserrat rounded-xl overflow-hidden bg-white shadow-lg shadow-totem-pole-200">
-          <div className=" h-32 relative group">
+        <div className=" h-60 w-full font-Montserrat rounded-xl overflow-hidden bg-white shadow-lg shadow-totem-pole-200">
+          <div className=" h-1/2  relative group">
             <img
               src={images[value]}
               className=" h-full w-full object-cover"
@@ -49,9 +49,9 @@ const Restaurant = ({ restaurant }) => {
               )
             }
           </div>
-          <div className=" p-2 text-totem-pole-600">
+          <div className=" lg:py-3 lg:px-4  py-1 px-3 md:py-3 md:px-4 text-totem-pole-600">
             <Link to={`/restaurant/${restaurant._id}`}>
-            <h1 className=" font-bold hover:underline hover:cursor-pointer">{restaurant.name}</h1>
+            <h1 className=" font-bold hover:underline hover:cursor-pointer lg:text-base md:text-base text-sm">{restaurant.name}</h1>
             </Link>
             <div className="flex flex-col gap-5 text-sm text-gray-500">
               <p>{restaurant.address}</p>
