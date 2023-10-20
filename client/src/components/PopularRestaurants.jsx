@@ -41,20 +41,20 @@ const PopularRestaurants = ({ restaurant }) => {
               <div className="group-hover:opacity-100 opacity-0 absolute top-1/2 px-1 w-full -translate-y-1/2 flex justify-between transition-opacity duration-500 delay-200 ease-in-out">
                 <span
                   onClick={goToPreviousImage}
-                  className=" h-6 w-6 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full"
+                  className=" h-6 w-6 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full cursor-pointer"
                 >
                   <KeyboardArrowLeft />
                 </span>
                 <span
                   onClick={goToNextImage}
-                  className=" h6 w-6 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full"
+                  className=" h6 w-6 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full cursor-pointer"
                 >
                   <KeyboardArrowRight />
                 </span>
               </div>
             )}
           </div>
-          <div className="  px-1 text-xs flex flex-col justify-between ">
+          <div className="  px-1 py-2 text-xs flex flex-col justify-between ">
             <div>
               <Link to={`/restaurant/${restaurant._id}`}>
                 <h2 className="text-totem-pole-600 tracking-tight text-base font-bold hover:underline">
@@ -65,16 +65,16 @@ const PopularRestaurants = ({ restaurant }) => {
             <div>
               <p>{truncate(restaurant?.description, 70)}</p>
             </div>
-            <div className=" flex flex-col-reverse gap-1">
-              <p>
+            <div className=" flex flex-col-reverse gap-1 text-gray-500">
+              <p className=" flex items-center gap-1">
                 <LocationOn
                   sx={{
                     fontSize: "1rem",
                   }}
                 />
-                {restaurant.address}
+                <span>{restaurant.address}</span>
               </p>
-              <p>Starts from: $2450</p>{" "}
+              <p className=" ">Starts from: <span className=" text-black font-semibold ">$2450</span></p>{" "}
             </div>
           </div>
         </div>
