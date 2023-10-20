@@ -19,15 +19,18 @@ const PopularRestaurants = ({restaurant}) => {
         setValue(images.length - 1);
       }
     };
+    const truncate = (string, n)=>{
+      return string?.length > n ? string.substr(0, n - 1) + "..." : string
+  }
     return (
       <div>
-        <div className="h-fit">
-          <div className="h-fit flex gap-1 w-full font-Montserrat rounded-xl overflow-hidden bg-white shadow-lg shadow-totem-pole-200  hover:cursor-pointer">
-            <div className=" h-32 w-32 relative group">
+        <div className="">
+          <div className=" h-36 grid grid-cols-2 gap-2 w-full font-Montserrat rounded-xl overflow-hidden bg-white shadow-lg shadow-totem-pole-200  hover:cursor-pointer">
+            <div className=" h-36 w-full relative group">
               <img
                 src={images[value]}
                 className=" h-full w-full object-cover"
-                alt={restaurant.name}
+                alt={restaurant?.name}
               />
               {
                 images.length > 1 && (
@@ -48,15 +51,22 @@ const PopularRestaurants = ({restaurant}) => {
                 )
               }
             </div>
-            <div className=" text-totem-pole-600 px-1">
-              <h1 className=" font-bold first-letter:uppercase">{restaurant.name.toLowerCase()}</h1>
-              <div className="flex flex-col gap-2 text-xs text-gray-500">
-                <p>{restaurant.description}</p>
-                <p>{restaurant.address}</p>
-                <p>
+            <div className=" h-full text-totem-pole-600">
+              <h1 className=" font-bold first-letter:uppercase text-start">{restaurant.name.toLowerCase()}</h1>
+              <div className="bg-slate-0 text-xs text-gray-500">
+               <div className=' w-full'>
+               <p>{truncate(restaurant?.description, 70)}</p>
+               </div>
+                <div>
+                <p>{restaurant?.address}</p>
+                </div>
+                <div>
+                  <p>
                   Starts from:{" "}
                   <span className=" font-bold text-black">$2450</span>
                 </p>
+                </div>
+                
               </div>
             </div>
           </div>
