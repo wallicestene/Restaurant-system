@@ -85,12 +85,12 @@ const RestaurantDetailsPage = () => {
       {loading && <CircularProgress />}
       {!loading && !error && (
         <div>
-          <div className="top grid grid-cols-2 w-9/12 mx-auto gap-3 h-72 overflow-hidden rounded-xl">
+          <div className="top grid grid-cols-2 w-9/12 mx-auto gap-2 h-72 overflow-hidden rounded-xl">
             <div className="imgLeft h-72">
               <img src={data?.images[0]} className=" h-full w-full object-cover" alt="" />
             </div>
-            <div className="imgright grid grid-cols-2 bg- gap-3 h-72 w-full overflow-hidden">
-              {data?.images.map((image) => (
+            <div className={`imgright grid grid-cols-2 bg- gap-2 h-72 w-full overflow-hidden ${data.images.slice(1).length <= 2 && " grid-cols-1" }`}>
+              {data?.images.slice(1).map((image) => (
                 <div className="overflow-hidden">
                   <img src={image} alt={data?.name} className="h-36 w-full  object-cover" />
                 </div>
