@@ -85,7 +85,7 @@ const RestaurantDetailsPage = () => {
       {loading && <CircularProgress />}
       {!loading && !error && (
         <div>
-          <div className="top grid grid-cols-2 w-9/12 mx-auto gap-2 h-72 overflow-hidden rounded-xl">
+          <div className={`top grid grid-cols-2 w-9/12 mx-auto gap-2 h-72 overflow-hidden rounded-xl ${data.images.slice(1).length == 1  &&  " w-5/12"} ${data.images.slice(1).length == 2 && "w-5/12"} ${ data.images.length === 1 && " w-4/12 grid-cols-1" }`}>
             <div className="imgLeft h-72">
               <img src={data?.images[0]} className=" h-full w-full object-cover" alt="" />
             </div>
