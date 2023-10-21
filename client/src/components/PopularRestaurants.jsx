@@ -1,68 +1,86 @@
-import React, { useState } from 'react'
-import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
+import React, { useState } from "react";
+import {
+  KeyboardArrowLeft,
+  KeyboardArrowRight,
+  LocationOn,
+} from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
-const PopularRestaurants = ({restaurant}) => {
-    const [value, setValue] = useState(0);
-    const [images, setImages] = useState(restaurant.images);
-  
-    const goToNextImage = () => {
-      if (value < images.length - 1) {
-        setValue((prevValue) => prevValue + 1);
-      } else {
-        setValue(0);
-      }
-    };
-    const goToPreviousImage = () => {
-      if (value > 0) {
-        setValue((prevValue) => prevValue - 1);
-      } else {
-        setValue(images.length - 1);
-      }
-    };
-    return (
-      <div>
-        <div className="h-fit">
-          <div className="h-fit flex gap-1 w-full font-Montserrat rounded-xl overflow-hidden bg-white shadow-lg shadow-totem-pole-200  hover:cursor-pointer">
-            <div className=" h-32 w-32 relative group">
-              <img
-                src={images[value]}
-                className=" h-full w-full object-cover"
-                alt={restaurant.name}
-              />
-              {
-                images.length > 1 && (
-                  <div className="group-hover:opacity-100 opacity-0 absolute top-1/2 px-1 w-full -translate-y-1/2 flex justify-between transition-opacity duration-500 delay-200 ease-in-out">
+const PopularRestaurants = ({ restaurant }) => {
+  const [value, setValue] = useState(0);
+  const [images, setImages] = useState(restaurant.images);
+
+  const goToNextImage = () => {
+    if (value < images.length - 1) {
+      setValue((prevValue) => prevValue + 1);
+    } else {
+      setValue(0);
+    }
+  };
+  const goToPreviousImage = () => {
+    if (value > 0) {
+      setValue((prevValue) => prevValue - 1);
+    } else {
+      setValue(images.length - 1);
+    }
+  };
+  const truncate = (string, n) => {
+    return string?.length > n ? string.substr(0, n - 1) + "..." : string;
+  };
+  return (
+    <div>
+      <div className=" h-36">
+        <div className=" h-36 grid grid-cols-2 w-full font-Montserrat rounded-xl overflow-hidden bg-white shadow-lg shadow-totem-pole-200">
+          <div className=" h-36 w-full relative group">
+            <img
+              src={images[value]}
+              className=" h-full w-full object-cover"
+              alt={restaurant?.name}
+            />
+            {images.length > 1 && (
+              <div className="group-hover:opacity-100 opacity-0 absolute top-1/2 px-1 w-full -translate-y-1/2 flex justify-between transition-opacity duration-500 delay-200 ease-in-out">
                 <span
                   onClick={goToPreviousImage}
-                  className=" h-6 w-6 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full"
+                  className=" h-6 w-6 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full cursor-pointer"
                 >
                   <KeyboardArrowLeft />
                 </span>
                 <span
                   onClick={goToNextImage}
-                  className=" h6 w-6 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full"
+                  className=" h6 w-6 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full cursor-pointer"
                 >
                   <KeyboardArrowRight />
                 </span>
               </div>
-                )
-              }
+            )}
+          </div>
+          <div className="  px-1 py-2 text-xs flex flex-col justify-between ">
+            <div>
+              <Link to={`/restaurant/${restaurant._id}`}>
+                <h2 className="text-totem-pole-600 tracking-tight text-base font-bold hover:underline">
+                  {restaurant?.name}
+                </h2>
+              </Link>
             </div>
-            <div className=" text-totem-pole-600 px-1">
-              <h1 className=" font-bold first-letter:uppercase">{restaurant.name.toLowerCase()}</h1>
-              <div className="flex flex-col gap-2 text-xs text-gray-500">
-                <p>{restaurant.description}</p>
-                <p>{restaurant.address}</p>
-                <p>
-                  Starts from:{" "}
-                  <span className=" font-bold text-black">$2450</span>
-                </p>
-              </div>
+            <div>
+              <p>{truncate(restaurant?.description, 70)}</p>
+            </div>
+            <div className=" flex flex-col-reverse gap-1 text-gray-500">
+              <p className=" flex items-center gap-1">
+                <LocationOn
+                  sx={{
+                    fontSize: "1rem",
+                  }}
+                />
+                <span>{restaurant.address}</span>
+              </p>
+              <p className=" ">Starts from: <span className=" text-black font-semibold ">$2450</span></p>{" "}
             </div>
           </div>
         </div>
       </div>
-    );
-}
+    </div>
+  );
+};
 
-export default PopularRestaurants
+export default PopularRestaurants;
