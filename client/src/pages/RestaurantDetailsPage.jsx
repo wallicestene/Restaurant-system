@@ -119,20 +119,35 @@ const RestaurantDetailsPage = () => {
               ))}
             </div>
           </div>
+          <div className=" grid grid-cols-2">
+            <div>
           <div className=" my-5">
             <p className="text-sm text-gray-800 font-semibold flex items-center">
-              <LocationOn sx={{
-                fontSize: "1.4rem"
-              }}/>
+              <LocationOn
+                sx={{
+                  fontSize: "1.4rem",
+                }}
+              />
               <span>{data.address}</span>
             </p>
           </div>
-          <div style={{
-            height: '1px',
-          }}
-          className=" bg-gray-800"
+          <div
+            style={{
+              height: "0.01rem",
+            }}
+            className=" bg-gray-800"
           />
-        </div>
+          <div>
+            <h2 className="my-5 text-lg font-bold">About this place</h2>
+            <p className="text-md text-gray-900">{data?.description}</p>
+          </div>
+          <div
+            style={{
+              height: "0.01rem",
+            }}
+            className=" bg-gray-800"
+          />
+        </div></div></div>
       )}
     </div>
   );
