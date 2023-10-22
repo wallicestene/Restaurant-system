@@ -27,6 +27,7 @@ const RestaurantDetailsPage = () => {
   const { data, isLoading, error } = useFetch(
     `http://localhost:3000/api/restaurant/${id}`
   );
+  console.log(data);
   useEffect(() => {
     const getTables = () => {
       if (data && !isLoading && !error) {
@@ -119,8 +120,10 @@ const RestaurantDetailsPage = () => {
               ))}
             </div>
           </div>
-          <div className=" grid grid-cols-2">
-            <div>
+        </div>
+      )}
+      <div className=" w-9/12 mx-auto grid grid-cols-3 ">
+        <div className=" col-span-2 p-2">
           <div className=" my-5">
             <p className="text-sm text-gray-800 font-semibold flex items-center">
               <LocationOn
@@ -137,8 +140,32 @@ const RestaurantDetailsPage = () => {
             }}
             className=" bg-gray-800"
           />
-          <div>
-            <h2 className="my-5 text-lg font-bold">About this place</h2>
+          <div className="my-5 px-2">
+            <h2 className=" my-2 text-lg font-bold">Menu</h2>
+
+            {data && !isLoading && (
+              <div className="flex gap-2 flex-wrap py-2 px-3">
+                {data.menu.map((menuItem) => (
+                  <div className=" flex items-center gap-1 w-48 border border-totem-pole-400 py-1 px-2 rounded-md">
+                    <img
+                      src={menuItem.itemImage}
+                      alt={menuItem.itemName}
+                      className=" h-16 w-16 rounded-full object-cover"
+                    />
+                    <p>{menuItem.itemName}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          <div
+            style={{
+              height: "0.01rem",
+            }}
+            className=" bg-gray-800"
+          />
+          <div className="my-5 px-2">
+            <h2 className=" my-2 text-lg font-bold">About this place</h2>
             <p className="text-md text-gray-900">{data?.description}</p>
           </div>
           <div
@@ -147,8 +174,8 @@ const RestaurantDetailsPage = () => {
             }}
             className=" bg-gray-800"
           />
-        </div></div></div>
-      )}
+        </div>
+      </div>
     </div>
   );
 };
