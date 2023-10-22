@@ -80,23 +80,58 @@ const RestaurantDetailsPage = () => {
     setDate(newDate);
   };
   return (
-    <div className=" pt-14">
+    <div className=" py-16 w-11/12 mx-auto border font-mulish">
       {error && <Alert severity="error">{error}</Alert>}
       {loading && <CircularProgress />}
       {!loading && !error && (
-        <div>
-          <div className={`top grid grid-cols-2 w-9/12 mx-auto gap-2 h-72 overflow-hidden rounded-xl ${data.images.slice(1).length == 1  &&  " w-5/12"} ${data.images.slice(1).length == 2 && "w-5/12"} ${ data.images.length === 1 && " w-4/12 grid-cols-1" }`}>
-            <div className="imgLeft h-72">
-              <img src={data?.images[0]} className=" h-full w-full object-cover" alt="" />
+        <div className="w-9/12 mx-auto">
+          <div>
+            <div className="top  text-totem-pole-500 font-semibold  mt-5 lg:text-xl md:text-lg  my-5 first-letter:uppercase">
+              <h1>{data?.name}</h1>
             </div>
-            <div className={`imgright grid grid-cols-2 bg- gap-2 h-72 w-full overflow-hidden ${data.images.slice(1).length <= 2 && " grid-cols-1" }`}>
-              {data?.images.slice(1).map((image) => (
-                <div className="overflow-hidden">
-                  <img src={image} alt={data?.name} className="h-36 w-full  object-cover" />
+          </div>
+          <div
+            className={`top grid grid-cols-2 mx-auto gap-2 h-72 overflow-hidden rounded-xl ${
+              data.images.slice(1).length == 1 ||
+              (data.images.slice(1).length == 2 && "w-5/12")
+            } ${data.images.length === 1 && " w-4/12 grid-cols-1"}`}
+          >
+            <div className="imgLeft">
+              <img
+                src={data?.images[0]}
+                className=" h-full w-full object-cover"
+                alt=""
+              />
+            </div>
+            <div
+              className={`imgright grid grid-cols-2 bg- gap-2 h-72 w-full overflow-hidden ${
+                data.images.slice(1).length <= 2 && " grid-cols-1"
+              }`}
+            >
+              {data?.images.slice(1).map((image, index) => (
+                <div key={index} className="overflow-hidden">
+                  <img
+                    src={image}
+                    alt={data?.name}
+                    className="h-36 w-full  object-cover"
+                  />
                 </div>
               ))}
             </div>
           </div>
+          <div className=" my-5">
+            <p className="text-sm text-gray-800 font-semibold flex items-center">
+              <LocationOn sx={{
+                fontSize: "1.4rem"
+              }}/>
+              <span>{data.address}</span>
+            </p>
+          </div>
+          <div style={{
+            height: '1px',
+          }}
+          className=" bg-gray-800"
+          />
         </div>
       )}
     </div>

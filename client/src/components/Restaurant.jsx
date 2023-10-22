@@ -27,7 +27,7 @@ const Restaurant = ({ restaurant }) => {
   return (
     <div>
       <div className="h-fit ">
-        <div className=" h-60 w-full font-Montserrat rounded-xl overflow-hidden bg-white shadow-lg shadow-totem-pole-200">
+        <div className=" h-60 w-full font-Montserrat rounded-xl overflow-hidden bg-white">
           <div className=" h-1/2  relative group">
             <img
               src={images[value]}
