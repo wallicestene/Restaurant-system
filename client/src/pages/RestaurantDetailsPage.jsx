@@ -247,20 +247,18 @@ const RestaurantDetailsPage = () => {
                 value={date}
                 onChange={handleDateChange}
                 primaryColor={"orange"}
-                popoverDirection="up"
+                popoverDirection="left"
               />
             </div>
-            <div className="flex flex-col border border-totem-pole-400 rounded-md p-1">
+            <div className="flex flex-col border border-totem-pole-400 rounded-md p-1 ">
               <div>
                 <h3>Select table</h3>
                 <div
-                  className=" flex items-center justify-between py-2 bg-slate-800 rounded-lg px-1 text-gray-400"
+                  className=" flex items-center justify-between py-2 bg-slate-800 rounded-lg px-1 text-gray-400 hover:cursor-pointer"
                   onClick={() => setShowTables(!showTables)}
                 >
                   <span>Choose table</span>
-                  {
-                    showTables ? <KeyboardArrowUp /> : <KeyboardArrowDown />
-                  }
+                  {showTables ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
                 </div>
               </div>
             </div>
@@ -277,18 +275,15 @@ const RestaurantDetailsPage = () => {
               </div>
             )}
             <div className=" flex gap-1 text-totem-pole-50">
-              <button className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full">Book</button>
-              <button className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full">Add to Favourite</button>
+              <button className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full">
+                Book
+              </button>
+              <button className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full">
+                Add to Favourite
+              </button>
             </div>
           </div>
         </div>
-      </div>
-      <div>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque iste
-          minima, velit aperiam autem, harum alias totam quis quidem iusto dolor
-          veniam laborum, omnis voluptate aut provident sequi. Cupiditate, quod!
-        </p>
       </div>
     </div>
   );
