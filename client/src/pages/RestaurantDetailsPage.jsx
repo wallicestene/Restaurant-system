@@ -133,7 +133,7 @@ const RestaurantDetailsPage = () => {
       <div className=" w-9/12 mx-auto grid grid-cols-3 ">
         <div className=" col-span-2 p-2">
           <div className=" my-5">
-            <p className="text-sm text-gray-800 font-semibold flex items-center">
+            <p className="text-sm  font-semibold flex items-center">
               <LocationOn
                 sx={{
                   fontSize: "1.4rem",
@@ -146,7 +146,7 @@ const RestaurantDetailsPage = () => {
             style={{
               height: "0.01rem",
             }}
-            className=" bg-gray-800"
+            className=" bg-black"
           />
           <div className="my-5 px-2">
             <h2 className=" my-2 text-lg font-bold tracking-wide">Menu</h2>
@@ -189,8 +189,32 @@ const RestaurantDetailsPage = () => {
             style={{
               height: "0.01rem",
             }}
-            className=" bg-gray-800"
-          />
+            className=" bg-black"
+          /><div className="my-5 px-2">
+          <h2 className=" my-2 text-lg font-bold tracking-wide">
+            Tags
+          </h2>
+          {
+            data && !isLoading && (
+              <div className=" flex flex-wrap items-center gap-2 py-2 px-3">
+            {
+              data?.tags.map(tag=>{
+                return(
+                  <p className=" py-2 px-3 rounded-md border border-totem-pole-400">{tag}</p>
+                )
+              })
+            }
+          </div>
+            )
+          }
+        </div>
+        <div
+          style={{
+            height: "0.01rem",
+          }}
+          className=" bg-black"
+        />
+          
         </div>
       </div>
     </div>
