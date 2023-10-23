@@ -80,7 +80,7 @@ const RestaurantDetailsPage = () => {
     setDate(newDate);
   };
   return (
-    <div className=" py-16 w-11/12 mx-auto border font-mulish">
+    <div className=" py-16 w-11/12 mx-auto border font-mulish relative">
       {error && <Alert severity="error">{error}</Alert>}
       {loading && <CircularProgress />}
       {!loading && !error && (
@@ -130,7 +130,7 @@ const RestaurantDetailsPage = () => {
           </div>
         </div>
       )}
-      <div className=" w-9/12 mx-auto grid grid-cols-3 ">
+      <div className=" w-11/12 mx-auto grid grid-cols-3 relative gap-x-2">
         <div className=" col-span-2 p-2">
           <div className=" my-5">
             <p className="text-sm  font-semibold flex items-center">
@@ -148,6 +148,7 @@ const RestaurantDetailsPage = () => {
             }}
             className=" bg-black"
           />
+          
           <div className="my-5 px-2">
             <h2 className=" my-2 text-lg font-bold tracking-wide">Menu</h2>
 
@@ -178,6 +179,29 @@ const RestaurantDetailsPage = () => {
             className=" bg-black"
           />
           <div className="my-5 px-2">
+            <h2 className=" my-2 text-lg font-bold tracking-wide">Tags</h2>
+            {data && !isLoading && (
+              <div className=" flex flex-wrap items-center gap-2 py-2 px-3">
+                {data?.tags.map((tag, index) => {
+                  return (
+                    <p
+                      key={index}
+                      className=" py-2 px-3 rounded-md border border-totem-pole-400"
+                    >
+                      {tag}
+                    </p>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+          <div
+            style={{
+              height: "0.01rem",
+            }}
+            className=" bg-black"
+          />
+          <div className="my-5 px-2">
             <h2 className=" my-2 text-lg font-bold tracking-wide">
               About this place
             </h2>
@@ -190,31 +214,30 @@ const RestaurantDetailsPage = () => {
               height: "0.01rem",
             }}
             className=" bg-black"
-          /><div className="my-5 px-2">
-          <h2 className=" my-2 text-lg font-bold tracking-wide">
-            Tags
-          </h2>
-          {
-            data && !isLoading && (
+          />
+          <div className="my-5 px-2">
+            <h2 className=" my-2 text-lg font-bold tracking-wide">Contacts</h2>
+            {data && !isLoading && (
               <div className=" flex flex-wrap items-center gap-2 py-2 px-3">
-            {
-              data?.tags.map(tag=>{
-                return(
-                  <p className=" py-2 px-3 rounded-md border border-totem-pole-400">{tag}</p>
-                )
-              })
-            }
+                {data?.contacts.map((contact, index) => {
+                  return (
+                    <p
+                      key={index}
+                      className=" py-2 px-3 rounded-md border border-totem-pole-400"
+                    >
+                      +254 {contact}
+                    </p>
+                  );
+                })}
+              </div>
+            )}
           </div>
-            )
-          }
-        </div>
-        <div
-          style={{
-            height: "0.01rem",
-          }}
-          className=" bg-black"
-        />
           
+        </div>
+        <div className="flex flex-col items-center">
+          <div className=" sticky top-1/2 -translate-y-1/2">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, nulla. Omnis laborum inventore repellat, explicabo ratione minus ut ipsum ex nostrum accusamus sit autem quasi nam. Excepturi ratione necessitatibus magni!</p>
+          </div>
         </div>
       </div>
     </div>
