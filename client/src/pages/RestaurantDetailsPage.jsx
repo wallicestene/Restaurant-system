@@ -87,7 +87,7 @@ const RestaurantDetailsPage = () => {
       {!loading && !error && (
         <div className="w-9/12 mx-auto">
           <div>
-            <div className="top  text-totem-pole-500 font-semibold  mt-5 lg:text-xl md:text-lg  my-5 first-letter:uppercase">
+            <div className="top  text-totem-pole-500 font-semibold  mt-5 lg:text-xl md:text-lg  my-5 first-letter:uppercase tracking-wide">
               <h1>{data?.name}</h1>
             </div>
           </div>
@@ -131,7 +131,7 @@ const RestaurantDetailsPage = () => {
                   fontSize: "1.4rem",
                 }}
               />
-              <span>{data.address}</span>
+              <span className=" tracking-wide">{data.address}</span>
             </p>
           </div>
           <div
@@ -141,7 +141,7 @@ const RestaurantDetailsPage = () => {
             className=" bg-gray-800"
           />
           <div className="my-5 px-2">
-            <h2 className=" my-2 text-lg font-bold">Menu</h2>
+            <h2 className=" my-2 text-lg font-bold tracking-wide">Menu</h2>
 
             {data && !isLoading && (
               <div className="flex gap-2 flex-wrap py-2 px-3">
@@ -152,7 +152,7 @@ const RestaurantDetailsPage = () => {
                       alt={menuItem.itemName}
                       className=" h-16 w-16 rounded-full object-cover"
                     />
-                    <p>{menuItem.itemName}</p>
+                    <p className=" text-sm tracking-wide">{menuItem.itemName}</p>
                   </div>
                 ))}
               </div>
@@ -162,11 +162,11 @@ const RestaurantDetailsPage = () => {
             style={{
               height: "0.01rem",
             }}
-            className=" bg-gray-800"
+            className=" bg-black"
           />
           <div className="my-5 px-2">
-            <h2 className=" my-2 text-lg font-bold">About this place</h2>
-            <p className="text-md text-gray-900">{data?.description}</p>
+            <h2 className=" my-2 text-lg font-bold tracking-wide">About this place</h2>
+            <p className="text-md text-gray-900 text-sm tracking-wide">{data?.description}</p>
           </div>
           <div
             style={{
