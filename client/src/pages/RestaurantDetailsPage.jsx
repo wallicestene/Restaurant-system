@@ -27,7 +27,6 @@ const RestaurantDetailsPage = () => {
   const { data, isLoading, error } = useFetch(
     `http://localhost:3000/api/restaurant/${id}`
   );
-  console.log(data);
   useEffect(() => {
     const getTables = () => {
       if (data && !isLoading && !error) {
@@ -85,17 +84,24 @@ const RestaurantDetailsPage = () => {
       {error && <Alert severity="error">{error}</Alert>}
       {loading && <CircularProgress />}
       {!loading && !error && (
-        <div className="w-9/12 mx-auto">
+        <div className=" w-9/12 mx-auto">
           <div>
             <div className="top  text-totem-pole-500 font-semibold  mt-5 lg:text-xl md:text-lg  my-5 first-letter:uppercase tracking-wide">
               <h1>{data?.name}</h1>
             </div>
           </div>
           <div
-            className={`top grid grid-cols-2 mx-auto gap-2 h-72 overflow-hidden rounded-xl ${
-              data.images.slice(1).length == 1 ||
-              (data.images.slice(1).length == 2 && "w-5/12")
-            } ${data.images.length === 1 && " w-4/12 grid-cols-1"}`}
+            className={`top grid gap-2 h-72 overflow-hidden rounded-xl ${
+              data?.images.length == 1 && "grid-cols-1 h-64 w-7/12 mx-auto"
+            }
+            ${
+              data?.images.slice(1).length == 2 && "grid-cols-1 w-7/12  mx-auto"
+            }
+            ${
+              data?.images.slice(1).length == 1 && "grid-cols-1 w-7/12  mx-auto"
+            }
+            ${data?.images.length > 1 && "grid-cols-2"}
+            `}
           >
             <div className="imgLeft">
               <img
@@ -105,9 +111,11 @@ const RestaurantDetailsPage = () => {
               />
             </div>
             <div
-              className={`imgright grid grid-cols-2 bg- gap-2 h-72 w-full overflow-hidden ${
+              className={`imgright grid bg- gap-2 h-72 w-full overflow-hidden ${
                 data.images.slice(1).length <= 2 && " grid-cols-1"
-              }`}
+              }
+              ${data.images.slice(1).length >= 3 && "grid-cols-2"}
+              `}
             >
               {data?.images.slice(1).map((image, index) => (
                 <div key={index} className="overflow-hidden">
@@ -145,14 +153,19 @@ const RestaurantDetailsPage = () => {
 
             {data && !isLoading && (
               <div className="flex gap-2 flex-wrap py-2 px-3">
-                {data.menu.map((menuItem) => (
-                  <div className=" flex items-center gap-1 w-48 border border-totem-pole-400 py-1 px-2 rounded-md">
+                {data.menu.map((menuItem, index) => (
+                  <div
+                    key={index}
+                    className=" flex items-center gap-1 w-48 border border-totem-pole-400 py-1 px-2 rounded-md"
+                  >
                     <img
                       src={menuItem.itemImage}
                       alt={menuItem.itemName}
                       className=" h-16 w-16 rounded-full object-cover"
                     />
-                    <p className=" text-sm tracking-wide">{menuItem.itemName}</p>
+                    <p className=" text-sm tracking-wide">
+                      {menuItem.itemName}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -165,8 +178,12 @@ const RestaurantDetailsPage = () => {
             className=" bg-black"
           />
           <div className="my-5 px-2">
-            <h2 className=" my-2 text-lg font-bold tracking-wide">About this place</h2>
-            <p className="text-md text-gray-900 text-sm tracking-wide">{data?.description}</p>
+            <h2 className=" my-2 text-lg font-bold tracking-wide">
+              About this place
+            </h2>
+            <p className="text-md text-gray-900 text-sm tracking-wide">
+              {data?.description}
+            </p>
           </div>
           <div
             style={{
