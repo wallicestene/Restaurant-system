@@ -5,6 +5,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   Backspace,
   FavoriteBorder,
+  KeyboardArrowDown,
+  KeyboardArrowUp,
   KeyboardBackspace,
   LocationOn,
   TableRestaurant,
@@ -20,6 +22,7 @@ const RestaurantDetailsPage = () => {
   const [tables, setTables] = useState([]);
   const [tableId, setTableId] = useState("");
   const [loading, setLoading] = useState(true);
+  const [showTables, setShowTables] = useState(false);
   const [tableError, setTableError] = useState(null);
   const [bookingError, setBookingError] = useState(null);
   const { id } = useParams();
@@ -41,6 +44,7 @@ const RestaurantDetailsPage = () => {
           .then((tables) => {
             setLoading(false);
             setTables(tables);
+            // console.log(tables);
             setTableError(null);
           })
           .catch((error) => {
@@ -130,7 +134,7 @@ const RestaurantDetailsPage = () => {
           </div>
         </div>
       )}
-      <div className=" w-11/12 mx-auto grid grid-cols-3 relative gap-x-2">
+      <div className=" w-11/12 mx-auto grid grid-cols-3 relative gap-x-2 py-9">
         <div className=" col-span-2 p-2">
           <div className=" my-5">
             <p className="text-sm  font-semibold flex items-center">
@@ -148,7 +152,7 @@ const RestaurantDetailsPage = () => {
             }}
             className=" bg-black"
           />
-          
+
           <div className="my-5 px-2">
             <h2 className=" my-2 text-lg font-bold tracking-wide">Menu</h2>
 
@@ -232,13 +236,59 @@ const RestaurantDetailsPage = () => {
               </div>
             )}
           </div>
-          
         </div>
         <div className="flex flex-col items-center">
-          <div className=" sticky top-1/2 -translate-y-1/2">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, nulla. Omnis laborum inventore repellat, explicabo ratione minus ut ipsum ex nostrum accusamus sit autem quasi nam. Excepturi ratione necessitatibus magni!</p>
+          <div className=" sticky top-20 w-full shadow-xl rounded-md py-1 px-2 flex flex-col gap-y-2">
+            <div className=" flex flex-col border border-totem-pole-400 rounded-md p-1">
+              <h3>Add date</h3>
+              <Datepicker
+                useRange={false}
+                asSingle={true}
+                value={date}
+                onChange={handleDateChange}
+                primaryColor={"orange"}
+                popoverDirection="up"
+              />
+            </div>
+            <div className="flex flex-col border border-totem-pole-400 rounded-md p-1">
+              <div>
+                <h3>Select table</h3>
+                <div
+                  className=" flex items-center justify-between py-2 bg-slate-800 rounded-lg px-1 text-gray-400"
+                  onClick={() => setShowTables(!showTables)}
+                >
+                  <span>Choose table</span>
+                  {
+                    showTables ? <KeyboardArrowUp /> : <KeyboardArrowDown />
+                  }
+                </div>
+              </div>
+            </div>
+            {showTables && (
+              <div className=" flex flex-col items-center gap-2 w-full py-2 h-64 overflow-y-scroll border border-totem-pole-400 rounded-md scroll-m-4">
+                {tables.map((table, index) => (
+                  <button
+                    key={index}
+                    className=" w-fit py-2 px-3 rounded-md border border-totem-pole-400"
+                  >
+                    Table: 0{table.number}
+                  </button>
+                ))}
+              </div>
+            )}
+            <div className=" flex gap-1 text-totem-pole-50">
+              <button className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full">Book</button>
+              <button className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full">Add to Favourite</button>
+            </div>
           </div>
         </div>
+      </div>
+      <div>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque iste
+          minima, velit aperiam autem, harum alias totam quis quidem iusto dolor
+          veniam laborum, omnis voluptate aut provident sequi. Cupiditate, quod!
+        </p>
       </div>
     </div>
   );
