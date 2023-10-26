@@ -150,7 +150,7 @@ const RestaurantDetailsPage = () => {
             style={{
               height: "0.01rem",
             }}
-            className=" bg-black"
+            className=" bg-black opacity-10"
           />
 
           <div className="my-5 px-2">
@@ -180,7 +180,7 @@ const RestaurantDetailsPage = () => {
             style={{
               height: "0.01rem",
             }}
-            className=" bg-black"
+            className=" bg-black opacity-10"
           />
           <div className="my-5 px-2">
             <h2 className=" my-2 text-lg font-bold tracking-wide">Tags</h2>
@@ -203,7 +203,7 @@ const RestaurantDetailsPage = () => {
             style={{
               height: "0.01rem",
             }}
-            className=" bg-black"
+            className=" bg-black opacity-10"
           />
           <div className="my-5 px-2">
             <h2 className=" my-2 text-lg font-bold tracking-wide">
@@ -217,7 +217,7 @@ const RestaurantDetailsPage = () => {
             style={{
               height: "0.01rem",
             }}
-            className=" bg-black"
+            className=" bg-black opacity-10"
           />
           <div className="my-5 px-2">
             <h2 className=" my-2 text-lg font-bold tracking-wide">Contacts</h2>
