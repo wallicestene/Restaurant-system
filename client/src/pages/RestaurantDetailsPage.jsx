@@ -85,7 +85,7 @@ const RestaurantDetailsPage = () => {
     setDate(newDate);
   };
   return (
-    <div className=" py-16 w-11/12 mx-auto border font-mulish relative px-2">
+    <div className=" py-16 w-11/12 mx-auto font-mulish relative px-2">
       <button className=" flex items-center text-sm hover:bg-totem-pole-200 w-fit py-1 px-2 rounded-md transition-colors delay-150 duration-300" onClick={() => navigate(-1)}>
         <span><KeyboardBackspace sx={{
           fontSize: "1.3rem"
