@@ -157,14 +157,22 @@ const RestaurantDetailsPage = () => {
             </div>
           </div>
           {data && !isLoading && (
-            <div className="w-11/12 mx-auto px-3">
-              <Carousel showThumbs={false} autoPlay={true} emulateTouch className=" lg:hidden rounded-lg overflow-hidden">
+            <div>
+              <Carousel
+                showThumbs={false}
+                autoPlay
+                emulateTouch
+                infiniteLoop
+                stopOnHover
+                interval={5000}
+                className=" lg:hidden rounded-lg overflow-hidden"
+              >
                 {data?.images.map((image, index) => (
-                  <div key={index} className="  overflow-hidden h-44 w-full">
+                  <div key={index} className="  overflow-hidden h-46 w-full">
                     <img
                       src={image}
                       alt={data.name}
-                      className=" w-full h-full object-cover" 
+                      className=" w-full h-full object-cover"
                     />
                   </div>
                 ))}
