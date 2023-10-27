@@ -164,26 +164,27 @@ const RestaurantDetailsPage = () => {
                 showThumbs={false}
                 autoPlay
                 emulateTouch
-                // infiniteLoop
+                infiniteLoop
                 stopOnHover
                 interval={5000}
+                showArrows={false}
                 useKeyboardArrows={true}
-                renderArrowPrev={(onClickHandler,hasPrev, label) => hasPrev && (
-                  <span
-                  onClick={onClickHandler}
-                  className=" h-7 w-7 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full cursor-pointer absolute top-1/2 left-4 -translate-y-1/2 z-10"
-                >
-                  <KeyboardArrowLeft />
-                </span>
-                )}
-                renderArrowNext={(onClickHandler, hasNext, label) => hasNext && (
-                  <span
-                  onClick={onClickHandler}
-                  className=" h-7 w-7 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full cursor-pointer absolute top-1/2 right-4 -translate-y-1/2 z-10"
-                >
-                  <KeyboardArrowRight />
-                </span>
-                ) }
+                // renderArrowPrev={(onClickHandler,hasPrev, label) => hasPrev && (
+                //   <span
+                //   onClick={onClickHandler}
+                //   className=" h-7 w-7 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full cursor-pointer absolute top-1/2 left-4 -translate-y-1/2 z-10"
+                // >
+                //   <KeyboardArrowLeft />
+                // </span>
+                // )}
+                // renderArrowNext={(onClickHandler, hasNext, label) => hasNext && (
+                //   <span
+                //   onClick={onClickHandler}
+                //   className=" h-7 w-7 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full cursor-pointer absolute top-1/2 right-4 -translate-y-1/2 z-10"
+                // >
+                //   <KeyboardArrowRight />
+                // </span>
+                // ) }
                 className=" relative lg:hidden rounded-lg overflow-hidden"
               >
                 {data?.images.map((image, index) => (
