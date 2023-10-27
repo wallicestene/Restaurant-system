@@ -201,8 +201,8 @@ const RestaurantDetailsPage = () => {
           )}
         </div>
       )}
-      <div className=" w-11/12 mx-auto grid grid-cols-3 relative gap-x-2 py-9">
-        <div className=" col-span-2 p-2">
+      <div className=" w-11/12 mx-auto grid lg:grid-cols-3 grid-cols-1 relative gap-x-2 py-9">
+        <div className=" lg:col-span-2 p-2">
           <div className=" my-5">
             <p className="text-sm  font-semibold flex items-center">
               <LocationOn
@@ -304,8 +304,11 @@ const RestaurantDetailsPage = () => {
             )}
           </div>
         </div>
-        <div className="flex flex-col items-center">
-          <div className=" sticky top-20 w-full shadow-xl rounded-md py-1 px-2 flex flex-col gap-y-2">
+        <div className=" lg:col-span-1 flex flex-col items-center">
+          <div className="lg:hidden fixed bottom-4 right-4 flex justify-end items-end w-full  ">
+          <button className=" py-1 px-3 rounded-md bg-totem-pole-400">Book</button>
+          </div>
+          <div className=" lg:sticky hidden top-20 w-full shadow-xl rounded-md py-1 px-2 lg:flex flex-col gap-y-2">
             <div className=" flex flex-col border border-totem-pole-400 rounded-md p-1">
               <h3>Add date</h3>
               <Datepicker
@@ -346,7 +349,7 @@ const RestaurantDetailsPage = () => {
                 Book
               </button>
               <button className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full">
-                Add to Favourite
+                Add to Favorites
               </button>
             </div>
           </div>
