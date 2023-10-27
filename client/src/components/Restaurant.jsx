@@ -26,7 +26,7 @@ const Restaurant = ({ restaurant }) => {
     }
   };
   return (
-    <div className=" grid grid-cols-1 grid-rows-3 lg:h-64 h-96 overflow-hidden bg-white rounded-xl shadow-md">
+    <div className=" grid grid-cols-1 grid-rows-4 lg:h-64 h-80 overflow-hidden bg-white rounded-xl shadow-md">
        
         <Carousel
          showThumbs={false}
@@ -36,12 +36,12 @@ const Restaurant = ({ restaurant }) => {
          interval={5000}
          showArrows={false}
          useKeyboardArrows={true}
-        className=" overflow-hidden row-span-2 object-cover "
+        className=" overflow-hidden row-span-3 object-cover "
         >
           {
             images.map((image, index )=> (
               <div key={index} className=" h-full w-full  overflow-hidden ">
-                <img src={image} alt={` image ${images.length -1}`} className=" lg:h-44 h-64 object-cover"/>
+                <img src={image} alt={` image ${images.length -1}`} className=" lg:h-48 h-64 object-cover"/>
               </div>
               
             ))
