@@ -26,6 +26,7 @@ const RestaurantDetailsPage = () => {
   const [tables, setTables] = useState([]);
   const [tableId, setTableId] = useState("");
   const [loading, setLoading] = useState(true);
+  const [showBookingMobile, setShowBookingMobile] = useState(false);
   const [showTables, setShowTables] = useState(false);
   const [tableError, setTableError] = useState(null);
   const [bookingError, setBookingError] = useState(null);
@@ -307,6 +308,7 @@ const RestaurantDetailsPage = () => {
         <div className=" lg:col-span-1 flex flex-col items-center">
           <div className="lg:hidden fixed bottom-4 right-4 flex justify-end items-end w-full  ">
           <button className=" py-1 px-3 rounded-md bg-totem-pole-400">Book</button>
+          
           </div>
           <div className=" lg:sticky hidden top-20 w-full shadow-xl rounded-md py-1 px-2 lg:flex flex-col gap-y-2">
             <div className=" flex flex-col border border-totem-pole-400 rounded-md p-1">
