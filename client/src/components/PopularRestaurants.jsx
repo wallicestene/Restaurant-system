@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import {
   KeyboardArrowLeft,
@@ -8,7 +10,7 @@ import { Link } from "react-router-dom";
 
 const PopularRestaurants = ({ restaurant }) => {
   const [value, setValue] = useState(0);
-  const [images, setImages] = useState(restaurant.images);
+  const [images] = useState(restaurant.images);
 
   const goToNextImage = () => {
     if (value < images.length - 1) {
@@ -30,8 +32,8 @@ const PopularRestaurants = ({ restaurant }) => {
   return (
     <div>
       <div className=" h-36">
-        <div className=" h-36 grid grid-cols-2 w-full font-Montserrat rounded-xl overflow-hidden bg-white shadow-lg shadow-totem-pole-200">
-          <div className=" h-36 w-full relative group">
+        <div className=" h-36 grid grid-cols-3 w-full font-Montserrat rounded-xl overflow-hidden bg-white shadow-lg shadow-totem-pole-200">
+          <div className=" col-span-1 h-36 w-full relative group">
             <img
               src={images[value]}
               className=" h-full w-full object-cover"
@@ -54,7 +56,7 @@ const PopularRestaurants = ({ restaurant }) => {
               </div>
             )}
           </div>
-          <div className="  px-1 py-2 text-xs flex flex-col justify-between ">
+          <div className=" col-span-2  px-1 py-2 text-xs flex flex-col justify-between ">
             <div>
               <Link to={`/restaurant/${restaurant._id}`}>
                 <h2 className="text-totem-pole-600 tracking-tight text-base font-bold hover:underline">

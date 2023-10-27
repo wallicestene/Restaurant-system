@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import { useNavigate, useParams } from "react-router-dom";
-
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import {
   Backspace,
   FavoriteBorder,
@@ -26,6 +27,8 @@ const RestaurantDetailsPage = () => {
   const [showTables, setShowTables] = useState(false);
   const [tableError, setTableError] = useState(null);
   const [bookingError, setBookingError] = useState(null);
+  const [imageIndex, setImageIndex] = useState(0);
+
   const { id } = useParams();
   const navigate = useNavigate();
   const { data, isLoading, error } = useFetch(
@@ -55,7 +58,14 @@ const RestaurantDetailsPage = () => {
       }
     };
     getTables();
-  }, [data]);
+  }, [data, error, isLoading]);
+  const goToNextImage = () => {
+    if (imageIndex < data.images.length - 1) {
+      setImageIndex((prevImageIndex) => prevImageIndex + 1);
+    } else {
+      setImageIndex(0);
+    }
+  };
   const BookTable = () => {
     fetch("http://localhost:3000/api/restaurant/reservation", {
       method: "POST",
@@ -86,10 +96,17 @@ const RestaurantDetailsPage = () => {
   };
   return (
     <div className=" py-16 w-11/12 mx-auto font-mulish relative px-2">
-      <button className=" flex items-center text-sm hover:bg-totem-pole-200 w-fit py-1 px-2 rounded-md transition-colors delay-150 duration-300" onClick={() => navigate(-1)}>
-        <span><KeyboardBackspace sx={{
-          fontSize: "1.3rem"
-        }}/></span>
+      <button
+        className=" flex items-center text-sm hover:bg-totem-pole-100 w-fit py-1 px-2 rounded-md transition-colors delay-150 duration-300"
+        onClick={() => navigate(-1)}
+      >
+        <span>
+          <KeyboardBackspace
+            sx={{
+              fontSize: "1.3rem",
+            }}
+          />
+        </span>
         <span>Back</span>
       </button>
       {error && <Alert severity="error">{error}</Alert>}
@@ -102,7 +119,7 @@ const RestaurantDetailsPage = () => {
             </div>
           </div>
           <div
-            className={`top grid gap-2 h-72 overflow-hidden rounded-xl ${
+            className={`top hidden lg:grid gap-2 h-72 overflow-hidden rounded-xl ${
               data?.images.length == 1 && "grid-cols-1 h-64 w-7/12 mx-auto"
             }
             ${
@@ -139,6 +156,21 @@ const RestaurantDetailsPage = () => {
               ))}
             </div>
           </div>
+          {data && !isLoading && (
+            <div className="w-11/12 mx-auto px-3">
+              <Carousel showThumbs={false} autoPlay={true} emulateTouch className=" lg:hidden rounded-lg overflow-hidden">
+                {data?.images.map((image, index) => (
+                  <div key={index} className="  overflow-hidden h-44 w-full">
+                    <img
+                      src={image}
+                      alt={data.name}
+                      className=" w-full h-full object-cover" 
+                    />
+                  </div>
+                ))}
+              </Carousel>
+            </div>
+          )}
         </div>
       )}
       <div className=" w-11/12 mx-auto grid grid-cols-3 relative gap-x-2 py-9">
