@@ -1,10 +1,16 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import { useNavigate, useParams } from "react-router-dom";
-
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import {
   Backspace,
   FavoriteBorder,
+  KeyboardArrowDown,
+  KeyboardArrowLeft,
+  KeyboardArrowRight,
+  KeyboardArrowUp,
   KeyboardBackspace,
   LocationOn,
   TableRestaurant,
@@ -20,14 +26,17 @@ const RestaurantDetailsPage = () => {
   const [tables, setTables] = useState([]);
   const [tableId, setTableId] = useState("");
   const [loading, setLoading] = useState(true);
+  const [showBookingMobile, setShowBookingMobile] = useState(false);
+  const [showTables, setShowTables] = useState(false);
   const [tableError, setTableError] = useState(null);
   const [bookingError, setBookingError] = useState(null);
+  const [imageIndex, setImageIndex] = useState(0);
+
   const { id } = useParams();
   const navigate = useNavigate();
   const { data, isLoading, error } = useFetch(
     `http://localhost:3000/api/restaurant/${id}`
   );
-  console.log(data);
   useEffect(() => {
     const getTables = () => {
       if (data && !isLoading && !error) {
@@ -42,6 +51,7 @@ const RestaurantDetailsPage = () => {
           .then((tables) => {
             setLoading(false);
             setTables(tables);
+            // console.log(tables);
             setTableError(null);
           })
           .catch((error) => {
@@ -51,7 +61,14 @@ const RestaurantDetailsPage = () => {
       }
     };
     getTables();
-  }, [data]);
+  }, [data, error, isLoading]);
+  const goToNextImage = () => {
+    if (imageIndex < data.images.length - 1) {
+      setImageIndex((prevImageIndex) => prevImageIndex + 1);
+    } else {
+      setImageIndex(0);
+    }
+  };
   const BookTable = () => {
     fetch("http://localhost:3000/api/restaurant/reservation", {
       method: "POST",
@@ -81,21 +98,41 @@ const RestaurantDetailsPage = () => {
     setDate(newDate);
   };
   return (
-    <div className=" py-16 w-11/12 mx-auto border font-mulish">
+    <div className=" py-16 w-11/12 mx-auto font-mulish relative px-2">
+      <button
+        className=" flex items-center text-sm hover:bg-totem-pole-100 w-fit py-1 px-2 rounded-md transition-colors delay-150 duration-300"
+        onClick={() => navigate(-1)}
+      >
+        <span>
+          <KeyboardBackspace
+            sx={{
+              fontSize: "1.3rem",
+            }}
+          />
+        </span>
+        <span>Back</span>
+      </button>
       {error && <Alert severity="error">{error}</Alert>}
       {loading && <CircularProgress />}
       {!loading && !error && (
-        <div className="w-9/12 mx-auto">
+        <div className=" w-11/12 mx-auto px-3">
           <div>
-            <div className="top  text-totem-pole-500 font-semibold  mt-5 lg:text-xl md:text-lg  my-5 first-letter:uppercase">
+            <div className="top  text-totem-pole-500 font-semibold  mt-5 lg:text-xl md:text-lg  my-5 first-letter:uppercase tracking-wide">
               <h1>{data?.name}</h1>
             </div>
           </div>
           <div
-            className={`top grid grid-cols-2 mx-auto gap-2 h-72 overflow-hidden rounded-xl ${
-              data.images.slice(1).length == 1 ||
-              (data.images.slice(1).length == 2 && "w-5/12")
-            } ${data.images.length === 1 && " w-4/12 grid-cols-1"}`}
+            className={`top hidden lg:grid gap-2 h-72 overflow-hidden rounded-xl ${
+              data?.images.length == 1 && "grid-cols-1 h-64 w-7/12 mx-auto"
+            }
+            ${
+              data?.images.slice(1).length == 2 && "grid-cols-1 w-7/12  mx-auto"
+            }
+            ${
+              data?.images.slice(1).length == 1 && "grid-cols-1 w-7/12  mx-auto"
+            }
+            ${data?.images.length > 1 && "grid-cols-2"}
+            `}
           >
             <div className="imgLeft">
               <img
@@ -105,9 +142,11 @@ const RestaurantDetailsPage = () => {
               />
             </div>
             <div
-              className={`imgright grid grid-cols-2 bg- gap-2 h-72 w-full overflow-hidden ${
+              className={`imgright grid bg- gap-2 h-72 w-full overflow-hidden ${
                 data.images.slice(1).length <= 2 && " grid-cols-1"
-              }`}
+              }
+              ${data.images.slice(1).length >= 3 && "grid-cols-2"}
+              `}
             >
               {data?.images.slice(1).map((image, index) => (
                 <div key={index} className="overflow-hidden">
@@ -120,39 +159,86 @@ const RestaurantDetailsPage = () => {
               ))}
             </div>
           </div>
+          {data && !isLoading && (
+            <div>
+              <Carousel
+                showThumbs={false}
+                autoPlay
+                emulateTouch
+                infiniteLoop
+                stopOnHover
+                interval={5000}
+                showArrows={false}
+                useKeyboardArrows={true}
+                // renderArrowPrev={(onClickHandler,hasPrev, label) => hasPrev && (
+                //   <span
+                //   onClick={onClickHandler}
+                //   className=" h-7 w-7 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full cursor-pointer absolute top-1/2 left-4 -translate-y-1/2 z-10"
+                // >
+                //   <KeyboardArrowLeft />
+                // </span>
+                // )}
+                // renderArrowNext={(onClickHandler, hasNext, label) => hasNext && (
+                //   <span
+                //   onClick={onClickHandler}
+                //   className=" h-7 w-7 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full cursor-pointer absolute top-1/2 right-4 -translate-y-1/2 z-10"
+                // >
+                //   <KeyboardArrowRight />
+                // </span>
+                // ) }
+                className=" relative lg:hidden rounded-lg overflow-hidden"
+              >
+                {data?.images.map((image, index) => (
+                  <div key={index} className="  overflow-hidden h-46 w-full">
+                    <img
+                      src={image}
+                      alt={data.name}
+                      className=" w-full h-full object-cover"
+                    />
+                  </div>
+                ))}
+              </Carousel>
+            </div>
+          )}
         </div>
       )}
-      <div className=" w-9/12 mx-auto grid grid-cols-3 ">
-        <div className=" col-span-2 p-2">
+      <div className=" w-11/12 mx-auto grid lg:grid-cols-3 grid-cols-1 relative gap-x-2 py-9">
+        <div className=" lg:col-span-2 p-2">
           <div className=" my-5">
-            <p className="text-sm text-gray-800 font-semibold flex items-center">
+            <p className="text-sm  font-semibold flex items-center">
               <LocationOn
                 sx={{
                   fontSize: "1.4rem",
                 }}
               />
-              <span>{data.address}</span>
+              <span className=" tracking-wide">{data.address}</span>
             </p>
           </div>
           <div
             style={{
               height: "0.01rem",
             }}
-            className=" bg-gray-800"
+            className=" bg-black opacity-10"
           />
+
           <div className="my-5 px-2">
-            <h2 className=" my-2 text-lg font-bold">Menu</h2>
+            <h2 className=" my-2 text-lg font-bold tracking-wide">Menu</h2>
 
             {data && !isLoading && (
               <div className="flex gap-2 flex-wrap py-2 px-3">
-                {data.menu.map((menuItem) => (
-                  <div className=" flex items-center gap-1 w-48 border border-totem-pole-400 py-1 px-2 rounded-md">
+                {data.menu.map((menuItem, index) => (
+                  <div
+                    key={index}
+                    className=" flex items-center gap-1 w-48 border border-totem-pole-400 py-1 px-2 rounded-md"
+                  >
                     <img
                       src={menuItem.itemImage}
                       alt={menuItem.itemName}
                       className=" h-16 w-16 rounded-full object-cover"
                     />
-                    <p>{menuItem.itemName}</p>
+                    <p className=" text-sm tracking-wide">
+                      {menuItem.itemName}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -162,18 +248,113 @@ const RestaurantDetailsPage = () => {
             style={{
               height: "0.01rem",
             }}
-            className=" bg-gray-800"
+            className=" bg-black opacity-10"
           />
           <div className="my-5 px-2">
-            <h2 className=" my-2 text-lg font-bold">About this place</h2>
-            <p className="text-md text-gray-900">{data?.description}</p>
+            <h2 className=" my-2 text-lg font-bold tracking-wide">Tags</h2>
+            {data && !isLoading && (
+              <div className=" flex flex-wrap items-center gap-2 py-2 px-3">
+                {data?.tags.map((tag, index) => {
+                  return (
+                    <p
+                      key={index}
+                      className=" py-2 px-3 rounded-md border border-totem-pole-400"
+                    >
+                      {tag}
+                    </p>
+                  );
+                })}
+              </div>
+            )}
           </div>
           <div
             style={{
               height: "0.01rem",
             }}
-            className=" bg-gray-800"
+            className=" bg-black opacity-10"
           />
+          <div className="my-5 px-2">
+            <h2 className=" my-2 text-lg font-bold tracking-wide">
+              About this place
+            </h2>
+            <p className="text-md text-gray-900 text-sm tracking-wide">
+              {data?.description}
+            </p>
+          </div>
+          <div
+            style={{
+              height: "0.01rem",
+            }}
+            className=" bg-black opacity-10"
+          />
+          <div className="my-5 px-2">
+            <h2 className=" my-2 text-lg font-bold tracking-wide">Contacts</h2>
+            {data && !isLoading && (
+              <div className=" flex flex-wrap items-center gap-2 py-2 px-3">
+                {data?.contacts.map((contact, index) => {
+                  return (
+                    <p
+                      key={index}
+                      className=" py-2 px-3 rounded-md border border-totem-pole-400"
+                    >
+                      +254 {contact}
+                    </p>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </div>
+        <div className=" lg:col-span-1 flex flex-col items-center">
+          <div className="lg:hidden fixed bottom-4 right-4 flex justify-end items-end w-full  ">
+          <button className=" py-1 px-3 rounded-md bg-totem-pole-400">Book</button>
+          
+          </div>
+          <div className=" lg:sticky hidden top-20 w-full shadow-xl rounded-md py-1 px-2 lg:flex flex-col gap-y-2">
+            <div className=" flex flex-col border border-totem-pole-400 rounded-md p-1">
+              <h3>Add date</h3>
+              <Datepicker
+                useRange={false}
+                asSingle={true}
+                value={date}
+                onChange={handleDateChange}
+                primaryColor={"orange"}
+                popoverDirection="left"
+              />
+            </div>
+            <div className="flex flex-col border border-totem-pole-400 rounded-md p-1 ">
+              <div>
+                <h3>Select table</h3>
+                <div
+                  className=" flex items-center justify-between py-2 bg-slate-800 rounded-lg px-1 text-gray-400 hover:cursor-pointer"
+                  onClick={() => setShowTables(!showTables)}
+                >
+                  <span>Choose table</span>
+                  {showTables ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+                </div>
+              </div>
+            </div>
+            {showTables && (
+              <div className=" flex flex-col items-center gap-2 w-full py-2 h-64 overflow-y-scroll border border-totem-pole-400 rounded-md scroll-m-4">
+                {tables.map((table, index) => (
+                  <button
+                    key={index}
+                    className=" w-fit py-2 px-3 rounded-md border border-totem-pole-400"
+                  >
+                    Table: 0{table.number}
+                  </button>
+                ))}
+              </div>
+            )}
+            <div className=" flex gap-1 text-totem-pole-50">
+              <button className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full">
+                Book
+              </button>
+              <button className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full">
+                Add to Favorites
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

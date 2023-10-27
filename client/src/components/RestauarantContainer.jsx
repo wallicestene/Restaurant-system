@@ -11,7 +11,7 @@ const RestauarantContainer = () => {
   );
   return (
     <section className="lg:flex md:flex gap-5 ">
-      <div className=" h-screen overflow-y-scroll lg:flex-7 md:flex-7 grid lg:grid-cols-3  md:grid-cols-2  grid-cols-2 lg:gap-x-5 gap-x-5 gap-y-10 bg-slate-300 lg:py-7 lg:px-5 py-5 px-2  rounded-lg">
+      <div className=" h-screen overflow-y-scroll lg:flex-7 md:flex-7 grid lg:grid-cols-3  md:grid-cols-2  grid-cols-1 lg:gap-x-5 gap-x-5 gap-y-10 bg-slate-300 lg:py-7 lg:px-5 py-5 px-2  rounded-lg">
         {isLoading &&
           skeleton.map((skeleton, index) => (
             <div key={index}>

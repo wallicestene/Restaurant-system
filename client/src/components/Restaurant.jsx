@@ -4,6 +4,7 @@ import {
   LocationOn,
 } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
+import { Carousel } from "react-responsive-carousel";
 import { Link } from "react-router-dom";
 
 const Restaurant = ({ restaurant }) => {
@@ -25,55 +26,36 @@ const Restaurant = ({ restaurant }) => {
     }
   };
   return (
-    <div>
-      <div className="h-fit ">
-        <div className=" h-60 w-full font-Montserrat rounded-xl overflow-hidden bg-white">
-          <div className=" h-1/2  relative group">
-            <img
-              src={images[value]}
-              className=" h-full w-full object-cover"
-              alt={restaurant.name}
-            />
-            {images.length > 1 && (
-              <div className="group-hover:opacity-100 opacity-0 absolute top-1/2 px-1 w-full -translate-y-1/2 flex justify-between transition-opacity duration-500 delay-200 ease-in-out">
-                <span
-                  onClick={goToPreviousImage}
-                  className=" h-7 w-7 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full cursor-pointer"
-                >
-                  <KeyboardArrowLeft />
-                </span>
-                <span
-                  onClick={goToNextImage}
-                  className=" h-7 w-7 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full cursor-pointer"
-                >
-                  <KeyboardArrowRight />
-                </span>
+    <div className=" grid grid-cols-1 grid-rows-4 lg:h-64 h-80 overflow-hidden bg-white rounded-xl shadow-md">
+       
+        <Carousel
+         showThumbs={false}
+         autoPlay
+         emulateTouch
+         stopOnHover
+         interval={5000}
+         showArrows={false}
+         useKeyboardArrows={true}
+        className=" overflow-hidden row-span-3 object-cover "
+        >
+          {
+            images.map((image, index )=> (
+              <div key={index} className=" h-full w-full  overflow-hidden ">
+                <img src={image} alt={` image ${images.length -1}`} className=" lg:h-48 h-64 object-cover"/>
               </div>
-            )}
-          </div>
-          <div className=" lg:py-3 lg:px-4  py-1 px-3 md:py-3 md:px-4 text-totem-pole-600">
-            <Link to={`/restaurant/${restaurant._id}`}>
-              <h1 className=" font-bold hover:underline hover:cursor-pointer lg:text-base md:text-base text-sm">
-                {restaurant.name}
-              </h1>
-            </Link>
-            <div className="flex flex-col gap-5 text-sm text-gray-500">
-              <p className=" flex items-center gap-x-1">
-                <LocationOn
-                  sx={{
-                    fontSize: "1rem",
-                  }}
-                />
-                <span>{restaurant.address}</span>
-              </p>
-              <p>
-                Starts from:{" "}
-                <span className=" font-bold text-black">$2450</span>
-              </p>
-            </div>
-          </div>
+              
+            ))
+          }
+        </Carousel>
+  
+       <div className="lowerdiv row-span-1 flex flex-col justify-end py-2 px-3">
+        <div>
+        <h2>{restaurant.name}</h2>
         </div>
-      </div>
+        <div>
+          <p><LocationOn />{restaurant.address}</p>
+        </div>
+       </div>
     </div>
   );
 };
