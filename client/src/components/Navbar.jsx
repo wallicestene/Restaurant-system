@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Close, Menu } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
 import React, { useEffect, useState } from "react";
@@ -20,9 +21,9 @@ const Navbar = () => {
   }, []);
   return (
     <div
-      className={`fixed z-10 bg-white flex items-center justify-between py-1 font-mulish w-full -2 ${
+      className={`fixed z-20 bg-white flex items-center justify-between py-3 font-mulish w-full px-2 ${
         showNavbar &&
-        "backdrop-blur-xl  bg-totem-pole-200/50 shadow transition-colors duration-300 delay-150"
+        "backdrop-blur-xl  bg-white/60 shadow transition-colors duration-300 delay-150"
       }`}
     >
       <div className="left text-lg font-bold  ">DineEasy</div>
