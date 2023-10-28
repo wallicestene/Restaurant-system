@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import {
   KeyboardArrowLeft,
   KeyboardArrowRight,
@@ -13,27 +15,26 @@ const Restaurant = ({ restaurant }) => {
     <div className=" grid grid-cols-1 grid-rows-4 lg:h-64 h-80 overflow-hidden bg-white rounded-xl shadow-md">
       <Carousel
         showThumbs={false}
-        autoPlay
         emulateTouch
         stopOnHover
         interval={5000}
         useKeyboardArrows={true}
         className=" overflow-hidden row-span-3 object-cover group "
-        renderArrowPrev={(onClickHandler, hasPrev, label) =>
+        renderArrowPrev={(onClickHandler, hasPrev) =>
           hasPrev && (
             <span
               onClick={onClickHandler}
-              className=" h-7 w-7 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full cursor-pointer absolute top-1/2 left-4 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity delay-150 duration-200 ease-linear"
+              className=" h-7 w-7 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full cursor-pointer absolute top-1/2 left-4 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity delay-150 duration-300 ease-linear"
             >
               <KeyboardArrowLeft />
             </span>
           )
         }
-        renderArrowNext={(onClickHandler, hasNext, label) =>
+        renderArrowNext={(onClickHandler, hasNext) =>
           hasNext && (
             <span
               onClick={onClickHandler}
-              className=" h-7 w-7 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full cursor-pointer absolute top-1/2 right-4 -translate-y-1/2 z-10"
+              className=" h-7 w-7 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full cursor-pointer absolute top-1/2 right-4 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity delay-150 duration-300 ease-linear"
             >
               <KeyboardArrowRight />
             </span>
@@ -51,14 +52,20 @@ const Restaurant = ({ restaurant }) => {
         ))}
       </Carousel>
 
-      <div className="lowerdiv row-span-1 flex flex-col justify-end py-2 px-3">
-        <div>
-          <h2>{restaurant.name}</h2>
+      <div className=" row-span-1 flex flex-col justify-end py-1 px-3 font-mulish">
+        <div className=" text-totem-pole-500 font-bold tracking-wide lowercase first-letter:uppercase hover:underline ">
+          <Link to={`/restaurant/${restaurant._id}`}>
+            <h2>{restaurant.name}</h2>
+          </Link>
         </div>
-        <div>
+        <div className=" text-sm text-gray-600">
           <p>
-            <LocationOn />
-            {restaurant.address}
+            <LocationOn
+              sx={{
+                fontSize: "1.2rem",
+              }}
+            />
+            <span>{restaurant.address}</span>
           </p>
         </div>
       </div>

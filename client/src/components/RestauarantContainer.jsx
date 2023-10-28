@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import Restaurant from "./Restaurant";
 import useFetch from "../hooks/useFetch";
-import { Box, Skeleton } from "@mui/material";
+import { Skeleton } from "@mui/material";
 import PopularRestaurants from "./PopularRestaurants";
 
 const RestauarantContainer = () => {
@@ -22,7 +23,7 @@ const RestauarantContainer = () => {
           ))}
         {error && <p>{error}</p>}
         {!isLoading &&
-          data.map((restaurant, index) => (
+          data.map((restaurant) => (
             <Restaurant key={restaurant._id} restaurant={restaurant} />
           ))}
       </div>
