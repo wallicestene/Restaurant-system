@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import {
   KeyboardArrowLeft,
   KeyboardArrowRight,
@@ -8,54 +10,65 @@ import { Carousel } from "react-responsive-carousel";
 import { Link } from "react-router-dom";
 
 const Restaurant = ({ restaurant }) => {
-  const [value, setValue] = useState(0);
   const [images, setImages] = useState(restaurant.images);
-
-  const goToNextImage = () => {
-    if (value < images.length - 1) {
-      setValue((prevValue) => prevValue + 1);
-    } else {
-      setValue(0);
-    }
-  };
-  const goToPreviousImage = () => {
-    if (value > 0) {
-      setValue((prevValue) => prevValue - 1);
-    } else {
-      setValue(images.length - 1);
-    }
-  };
   return (
-    <div className=" grid grid-cols-1 grid-rows-4 lg:h-64 h-80 overflow-hidden bg-white rounded-xl shadow-md">
-       
-        <Carousel
-         showThumbs={false}
-         autoPlay
-         emulateTouch
-         stopOnHover
-         interval={5000}
-         showArrows={false}
-         useKeyboardArrows={true}
-        className=" overflow-hidden row-span-3 object-cover "
-        >
-          {
-            images.map((image, index )=> (
-              <div key={index} className=" h-full w-full  overflow-hidden ">
-                <img src={image} alt={` image ${images.length -1}`} className=" lg:h-48 h-64 object-cover"/>
-              </div>
-              
-            ))
-          }
-        </Carousel>
-  
-       <div className="lowerdiv row-span-1 flex flex-col justify-end py-2 px-3">
-        <div>
-        <h2>{restaurant.name}</h2>
+    <div className=" grid grid-cols-1 grid-rows-4 lg:h-64 h-80 overflow-hidden bg-white rounded-xl shadow-lg">
+      <Carousel
+        showThumbs={false}
+        emulateTouch
+        stopOnHover
+        interval={5000}
+        useKeyboardArrows={true}
+        className=" overflow-hidden row-span-3 object-cover group "
+        renderArrowPrev={(onClickHandler, hasPrev) =>
+          hasPrev && (
+            <span
+              onClick={onClickHandler}
+              className=" h-8 w-8 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full cursor-pointer absolute top-1/2 left-4 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity delay-150 duration-300 ease-linear bg-opacity-80"
+            >
+              <KeyboardArrowLeft />
+            </span>
+          )
+        }
+        renderArrowNext={(onClickHandler, hasNext) =>
+          hasNext && (
+            <span
+              onClick={onClickHandler}
+              className=" h-8 w-8 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full cursor-pointer absolute top-1/2 right-4 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity delay-150 duration-300 ease-linear bg-opacity-80"
+            >
+              <KeyboardArrowRight />
+            </span>
+          )
+        }
+      >
+        {images.map((image, index) => (
+          <div key={index} className=" h-full w-full  overflow-hidden ">
+            <img
+              src={image}
+              alt={` image ${images.length - 1}`}
+              className=" lg:h-48 h-64 object-cover"
+            />
+          </div>
+        ))}
+      </Carousel>
+
+      <div className=" row-span-1 flex flex-col justify-end py-1 px-3 font-mulish">
+        <div className=" text-totem-pole-500 font-bold tracking-wide lowercase first-letter:uppercase hover:underline ">
+          <Link to={`/restaurant/${restaurant._id}`}>
+            <h2>{restaurant.name}</h2>
+          </Link>
         </div>
-        <div>
-          <p><LocationOn />{restaurant.address}</p>
+        <div className=" text-sm text-gray-600">
+          <p>
+            <LocationOn
+              sx={{
+                fontSize: "1.2rem",
+              }}
+            />
+            <span>{restaurant.address}</span>
+          </p>
         </div>
-       </div>
+      </div>
     </div>
   );
 };
