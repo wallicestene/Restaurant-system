@@ -26,7 +26,6 @@ const RestauarantContainer = () => {
             <Restaurant key={restaurant._id} restaurant={restaurant} />
           ))}
       </div>
-      
     </section>
   );
 };
