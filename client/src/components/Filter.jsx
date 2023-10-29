@@ -36,7 +36,7 @@ function Filter() {
           </button>
         </form>
       </div>
-      <div className=" flex items-center flex-wrap lg:gap-5 md:gap-5 gap-2 font-Montserrat lg:justify-normal md:justify-normal justify-center">
+      <div className=" flex items-center flex-wrap lg:gap-5 md:gap-5 gap-2 font-Montserrat justify-center">
         <h1>Filter your search:</h1>
         <div className=" flex items-center justify-center flex-wrap lg:gap-10 md:gap-10 gap-2">
           <div>
