@@ -62,13 +62,6 @@ const RestaurantDetailsPage = () => {
     };
     getTables();
   }, [data, error, isLoading]);
-  const goToNextImage = () => {
-    if (imageIndex < data.images.length - 1) {
-      setImageIndex((prevImageIndex) => prevImageIndex + 1);
-    } else {
-      setImageIndex(0);
-    }
-  };
   const BookTable = () => {
     fetch("http://localhost:3000/api/restaurant/reservation", {
       method: "POST",
@@ -98,7 +91,7 @@ const RestaurantDetailsPage = () => {
     setDate(newDate);
   };
   return (
-    <div className=" py-16 w-11/12 mx-auto font-mulish relative px-2">
+    <div className=" py-16 lg:w-11/12 md:w-11/12 mx-auto font-mulish relative px-2">
       <button
         className=" flex items-center text-sm hover:bg-totem-pole-100 w-fit py-1 px-2 rounded-md transition-colors delay-150 duration-300"
         onClick={() => navigate(-1)}
@@ -115,7 +108,7 @@ const RestaurantDetailsPage = () => {
       {error && <Alert severity="error">{error}</Alert>}
       {loading && <CircularProgress />}
       {!loading && !error && (
-        <div className=" w-11/12 mx-auto px-3">
+        <div className=" lg:w-11/12 md:w-11/12 mx-auto px-3">
           <div>
             <div className="top  text-totem-pole-500 font-semibold  mt-5 lg:text-xl md:text-lg  my-5 first-letter:uppercase tracking-wide">
               <h1>{data?.name}</h1>
@@ -170,22 +163,6 @@ const RestaurantDetailsPage = () => {
                 interval={5000}
                 showArrows={false}
                 useKeyboardArrows={true}
-                // renderArrowPrev={(onClickHandler,hasPrev, label) => hasPrev && (
-                //   <span
-                //   onClick={onClickHandler}
-                //   className=" h-7 w-7 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full cursor-pointer absolute top-1/2 left-4 -translate-y-1/2 z-10"
-                // >
-                //   <KeyboardArrowLeft />
-                // </span>
-                // )}
-                // renderArrowNext={(onClickHandler, hasNext, label) => hasNext && (
-                //   <span
-                //   onClick={onClickHandler}
-                //   className=" h-7 w-7 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full cursor-pointer absolute top-1/2 right-4 -translate-y-1/2 z-10"
-                // >
-                //   <KeyboardArrowRight />
-                // </span>
-                // ) }
                 className=" relative lg:hidden rounded-lg overflow-hidden"
               >
                 {data?.images.map((image, index) => (
@@ -202,7 +179,7 @@ const RestaurantDetailsPage = () => {
           )}
         </div>
       )}
-      <div className=" w-11/12 mx-auto grid lg:grid-cols-3 grid-cols-1 relative gap-x-2 py-9">
+      <div className=" lg:w-11/12 md:w-11/12 mx-auto grid lg:grid-cols-3 grid-cols-1 relative gap-x-2 py-9">
         <div className=" lg:col-span-2 p-2">
           <div className=" my-5">
             <p className="text-sm  font-semibold flex items-center">
