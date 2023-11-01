@@ -195,7 +195,7 @@ const RestaurantDetailsPage = () => {
                 style={{
                   height: "0.01rem",
                 }}
-                className=" bg-black opacity-10 my-5"
+                className=" bg-black opacity-20 my-5"
               />
             </div>
           )}
@@ -203,28 +203,28 @@ const RestaurantDetailsPage = () => {
           {data && !isLoading && (
             <div className=" px-2">
               <h2 className=" my-2 text-lg font-bold tracking-wide">Menu</h2>
-              <div className="flex gap-2 flex-wrap py-2 px-3">
+              <ul className="flex gap-2 flex-wrap py-2 px-3">
                 {data.menu.map((menuItem, index) => (
-                  <div
+                  <li
                     key={index}
-                    className=" flex items-center gap-1 w-48 border border-totem-pole-400 py-1 px-2 rounded-md"
+                    className=" flex items-center gap-1 border border-totem-pole-400 py-1 px-2 rounded-md"
                   >
                     <img
                       src={menuItem.itemImage}
                       alt={menuItem.itemName}
-                      className=" h-16 w-16 rounded-full object-cover"
+                      className=" lg:h-16 lg:w-16 md:h-14 md:w-14 h-10 w-10 rounded-full object-cover"
                     />
                     <p className=" text-sm tracking-wide">
                       {menuItem.itemName}
                     </p>
-                  </div>
+                  </li>
                 ))}
-              </div>
+              </ul>
               <div
                 style={{
                   height: "0.01rem",
                 }}
-                className=" bg-black opacity-10 my-5"
+                className=" bg-black opacity-20 my-5"
               />{" "}
             </div>
           )}
@@ -232,23 +232,22 @@ const RestaurantDetailsPage = () => {
           {data && !isLoading && (
             <div className=" px-2">
               <h2 className=" my-2 text-lg font-bold tracking-wide">Tags</h2>
-              <div className=" flex flex-wrap items-center gap-2 py-2 px-3">
+              <ul className=" flex flex-wrap items-center gap-2 py-2 px-3">
                 {data?.tags.map((tag, index) => {
                   return (
-                    <p
-                      key={index}
-                      className=" py-2 px-3 rounded-md border border-totem-pole-400"
-                    >
-                      {tag}
-                    </p>
+                    <li key={index}>
+                      <p className=" py-2 px-3 rounded-md border border-totem-pole-400">
+                        {tag}
+                      </p>
+                    </li>
                   );
                 })}
-              </div>
+              </ul>
               <div
                 style={{
                   height: "0.01rem",
                 }}
-                className=" bg-black opacity-10 my-5"
+                className=" bg-black opacity-20 my-5"
               />{" "}
             </div>
           )}
@@ -265,7 +264,7 @@ const RestaurantDetailsPage = () => {
                 style={{
                   height: "0.01rem",
                 }}
-                className=" bg-black opacity-10 my-5"
+                className=" bg-black opacity-20 my-5"
               />
             </div>
           )}
@@ -276,70 +275,83 @@ const RestaurantDetailsPage = () => {
                 Contacts
               </h2>
 
-              <div className=" flex flex-wrap items-center gap-2 py-2 px-3">
+              <ul className=" flex flex-wrap items-center gap-2 py-2 px-3">
                 {data?.contacts.map((contact, index) => {
                   return (
-                    <p
-                      key={index}
-                      className=" py-2 px-3 rounded-md border border-totem-pole-400"
-                    >
-                      +254 {contact}
-                    </p>
+                    <li key={index}>
+                      <p className=" py-2 px-3 rounded-md border border-totem-pole-400">
+                        +254 {contact}
+                      </p>
+                    </li>
                   );
                 })}
-              </div>
+              </ul>
             </div>
           )}
         </div>
         <div className=" lg:col-span-1 flex flex-col items-center">
           <div className="lg:hidden fixed bottom-4 right-4 flex justify-end items-end w-full  ">
-            <button className=" py-1 px-3 rounded-md bg-totem-pole-400">
+            <button
+              className=" py-1 px-3 rounded-md bg-totem-pole-400"
+              onClick={() => setShowBookingMobile(!showBookingMobile)}
+            >
               Book
             </button>
           </div>
-          <div className=" lg:sticky hidden top-20 w-full shadow-xl rounded-md py-1 px-2 lg:flex flex-col gap-y-2">
-            <div className=" flex flex-col border border-totem-pole-400 rounded-md p-1">
-              <h3>Add date</h3>
-              <Datepicker
-                useRange={false}
-                asSingle={true}
-                value={date}
-                onChange={handleDateChange}
-                primaryColor={"orange"}
-                popoverDirection="left"
-              />
-            </div>
-            <div className="flex flex-col border border-totem-pole-400 rounded-md p-1 ">
-              <div>
-                <h3>Select table</h3>
-                <div
-                  className=" flex items-center justify-between py-2 bg-slate-800 rounded-lg px-1 text-gray-400 hover:cursor-pointer"
-                  onClick={() => setShowTables(!showTables)}
-                >
-                  <span>Choose table</span>
-                  {showTables ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+          {/* {
+            showBookingMobile && ()
+          } */}
+          <div
+            className={`  shadow-xl rounded-md px-2 lg:flex flex-col gap-y-2 py-2 ${
+              showBookingMobile
+                ? "lg:sticky  lg:top-20 w-full lg:h-fit fixed top-0 backdrop-blur-md z-10 h-screen flex flex-col justify-center"
+                : "hidden"
+            }`}
+          >
+            <div className=" bg-white flex flex-col gap-4 p-2 rounded-md">
+              <div className="p-1 rounded-md border border-totem-pole-400">
+                <h3>Add date</h3>
+                <Datepicker
+                  useRange={false}
+                  asSingle={true}
+                  value={date}
+                  onChange={handleDateChange}
+                  primaryColor={"orange"}
+                  popoverDirection="left"
+                />
+              </div>
+              <div className="flex flex-col border border-totem-pole-400 rounded-md p-1 ">
+                <div>
+                  <h3>Select table</h3>
+                  <div
+                    className=" flex items-center justify-between py-2 bg-slate-800 rounded-lg px-1 text-gray-400 hover:cursor-pointer"
+                    onClick={() => setShowTables(!showTables)}
+                  >
+                    <span>Choose table</span>
+                    {showTables ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+                  </div>
                 </div>
               </div>
-            </div>
-            {showTables && (
-              <div className=" flex flex-col items-center gap-2 w-full py-2 h-64 overflow-y-scroll border border-totem-pole-400 rounded-md scroll-m-4">
-                {tables.map((table, index) => (
-                  <button
-                    key={index}
-                    className=" w-fit py-2 px-3 rounded-md border border-totem-pole-400"
-                  >
-                    Table: 0{table.number}
-                  </button>
-                ))}
+              {showTables && (
+                <div className=" flex flex-col items-center gap-2 w-full py-2 h-64 overflow-y-scroll border border-totem-pole-400 rounded-md scroll-m-4">
+                  {tables.map((table, index) => (
+                    <button
+                      key={index}
+                      className=" w-fit py-2 px-3 rounded-md border border-totem-pole-400"
+                    >
+                      Table: 0{table.number}
+                    </button>
+                  ))}
+                </div>
+              )}
+              <div className=" flex gap-1 text-totem-pole-50">
+                <button className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full">
+                  Book
+                </button>
+                <button className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full">
+                  Add to Favorites
+                </button>
               </div>
-            )}
-            <div className=" flex gap-1 text-totem-pole-50">
-              <button className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full">
-                Book
-              </button>
-              <button className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full">
-                Add to Favorites
-              </button>
             </div>
           </div>
         </div>
