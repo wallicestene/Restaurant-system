@@ -181,27 +181,28 @@ const RestaurantDetailsPage = () => {
       )}
       <div className=" lg:w-11/12 md:w-11/12 mx-auto grid lg:grid-cols-3 grid-cols-1 relative gap-x-2 py-9">
         <div className=" lg:col-span-2 p-2">
-          <div className=" my-5">
-            <p className="text-sm  font-semibold flex items-center">
-              <LocationOn
-                sx={{
-                  fontSize: "1.4rem",
+          {data && !isLoading && (
+            <div className=" ">
+              <p className="text-sm  font-semibold flex items-center">
+                <LocationOn
+                  sx={{
+                    fontSize: "1.4rem",
+                  }}
+                />
+                <span className=" tracking-wide">{data.address}</span>
+              </p>
+              <div
+                style={{
+                  height: "0.01rem",
                 }}
+                className=" bg-black opacity-10 my-5"
               />
-              <span className=" tracking-wide">{data.address}</span>
-            </p>
-          </div>
-          <div
-            style={{
-              height: "0.01rem",
-            }}
-            className=" bg-black opacity-10"
-          />
+            </div>
+          )}
 
-          <div className="my-5 px-2">
-            <h2 className=" my-2 text-lg font-bold tracking-wide">Menu</h2>
-
-            {data && !isLoading && (
+          {data && !isLoading && (
+            <div className=" px-2">
+              <h2 className=" my-2 text-lg font-bold tracking-wide">Menu</h2>
               <div className="flex gap-2 flex-wrap py-2 px-3">
                 {data.menu.map((menuItem, index) => (
                   <div
@@ -219,17 +220,18 @@ const RestaurantDetailsPage = () => {
                   </div>
                 ))}
               </div>
-            )}
-          </div>
-          <div
-            style={{
-              height: "0.01rem",
-            }}
-            className=" bg-black opacity-10"
-          />
-          <div className="my-5 px-2">
-            <h2 className=" my-2 text-lg font-bold tracking-wide">Tags</h2>
-            {data && !isLoading && (
+              <div
+                style={{
+                  height: "0.01rem",
+                }}
+                className=" bg-black opacity-10 my-5"
+              />{" "}
+            </div>
+          )}
+
+          {data && !isLoading && (
+            <div className=" px-2">
+              <h2 className=" my-2 text-lg font-bold tracking-wide">Tags</h2>
               <div className=" flex flex-wrap items-center gap-2 py-2 px-3">
                 {data?.tags.map((tag, index) => {
                   return (
@@ -242,31 +244,38 @@ const RestaurantDetailsPage = () => {
                   );
                 })}
               </div>
-            )}
-          </div>
-          <div
-            style={{
-              height: "0.01rem",
-            }}
-            className=" bg-black opacity-10"
-          />
-          <div className="my-5 px-2">
-            <h2 className=" my-2 text-lg font-bold tracking-wide">
-              About this place
-            </h2>
-            <p className="text-md text-gray-900 text-sm tracking-wide">
-              {data?.description}
-            </p>
-          </div>
-          <div
-            style={{
-              height: "0.01rem",
-            }}
-            className=" bg-black opacity-10"
-          />
-          <div className="my-5 px-2">
-            <h2 className=" my-2 text-lg font-bold tracking-wide">Contacts</h2>
-            {data && !isLoading && (
+              <div
+                style={{
+                  height: "0.01rem",
+                }}
+                className=" bg-black opacity-10 my-5"
+              />{" "}
+            </div>
+          )}
+
+          {data && !isLoading && (
+            <div className=" px-2">
+              <h2 className=" my-2 text-lg font-bold tracking-wide">
+                About this place
+              </h2>
+              <p className="text-md text-gray-900 text-sm tracking-wide">
+                {data?.description}
+              </p>
+              <div
+                style={{
+                  height: "0.01rem",
+                }}
+                className=" bg-black opacity-10 my-5"
+              />
+            </div>
+          )}
+
+          {data && !isLoading && (
+            <div className="my-5 px-2">
+              <h2 className=" my-2 text-lg font-bold tracking-wide">
+                Contacts
+              </h2>
+
               <div className=" flex flex-wrap items-center gap-2 py-2 px-3">
                 {data?.contacts.map((contact, index) => {
                   return (
@@ -279,13 +288,14 @@ const RestaurantDetailsPage = () => {
                   );
                 })}
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
         <div className=" lg:col-span-1 flex flex-col items-center">
           <div className="lg:hidden fixed bottom-4 right-4 flex justify-end items-end w-full  ">
-          <button className=" py-1 px-3 rounded-md bg-totem-pole-400">Book</button>
-          
+            <button className=" py-1 px-3 rounded-md bg-totem-pole-400">
+              Book
+            </button>
           </div>
           <div className=" lg:sticky hidden top-20 w-full shadow-xl rounded-md py-1 px-2 lg:flex flex-col gap-y-2">
             <div className=" flex flex-col border border-totem-pole-400 rounded-md p-1">
