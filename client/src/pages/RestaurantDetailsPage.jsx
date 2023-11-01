@@ -6,6 +6,7 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import {
   Backspace,
+  Close,
   FavoriteBorder,
   KeyboardArrowDown,
   KeyboardArrowLeft,
@@ -292,23 +293,23 @@ const RestaurantDetailsPage = () => {
         <div className=" lg:col-span-1 flex flex-col items-center">
           <div className="lg:hidden fixed bottom-4 right-4 flex justify-end items-end w-full  ">
             <button
-              className=" py-1 px-3 rounded-md bg-totem-pole-400"
-              onClick={() => setShowBookingMobile(!showBookingMobile)}
+              className=" py-2 px-10 text-totem-pole-100 rounded-md bg-totem-pole-400"
+              onClick={() => setShowBookingMobile(true)}
             >
               Book
             </button>
           </div>
-          {/* {
-            showBookingMobile && ()
-          } */}
           <div
-            className={`  shadow-xl rounded-md px-2 lg:flex flex-col gap-y-2 py-2 ${
+            className={` shadow-xl rounded-md px-2 lg:flex flex-col gap-y-2 py-2 ${
               showBookingMobile
-                ? "lg:sticky  lg:top-20 w-full lg:h-fit fixed top-0 backdrop-blur-md z-10 h-screen flex flex-col justify-center"
+                ? "lg:sticky  lg:top-20 w-full lg:h-fit fixed top-0 backdrop-blur-md bg-white/70 z-10 h-screen flex flex-col justify-center"
                 : "hidden"
             }`}
           >
             <div className=" bg-white flex flex-col gap-4 p-2 rounded-md">
+            <div className="lg:hidden flex items-center justify-end cursor-pointer" onClick={() => setShowBookingMobile(false)}>
+              <Close/>
+            </div>
               <div className="p-1 rounded-md border border-totem-pole-400">
                 <h3>Add date</h3>
                 <Datepicker
