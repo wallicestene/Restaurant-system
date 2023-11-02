@@ -9,12 +9,9 @@ import {
   Close,
   FavoriteBorder,
   KeyboardArrowDown,
-  KeyboardArrowLeft,
-  KeyboardArrowRight,
   KeyboardArrowUp,
   KeyboardBackspace,
   LocationOn,
-  TableRestaurant,
 } from "@mui/icons-material";
 import Datepicker from "react-tailwindcss-datepicker";
 import { Alert, CircularProgress } from "@mui/material";
@@ -31,7 +28,7 @@ const RestaurantDetailsPage = () => {
   const [showTables, setShowTables] = useState(false);
   const [tableError, setTableError] = useState(null);
   const [bookingError, setBookingError] = useState(null);
-  const [imageIndex, setImageIndex] = useState(0);
+  const [selectedTable, setSelectedTable] = useState("");
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -63,6 +60,9 @@ const RestaurantDetailsPage = () => {
     };
     getTables();
   }, [data, error, isLoading]);
+  const getSelectedTable = (id) => {
+    setSelectedTable(tables.find((table) => table._id === id));
+  };
   const BookTable = () => {
     fetch("http://localhost:3000/api/restaurant/reservation", {
       method: "POST",
@@ -107,8 +107,8 @@ const RestaurantDetailsPage = () => {
         <span>Back</span>
       </button>
       {error && <Alert severity="error">{error}</Alert>}
-      {loading && <CircularProgress />}
-      {!loading && !error && (
+      {isLoading && <CircularProgress />}
+      {!isLoading && !error && (
         <div className=" lg:w-11/12 md:w-11/12 mx-auto px-3">
           <div>
             <div className="top  text-totem-pole-500 font-semibold  mt-5 lg:text-xl md:text-lg  my-5 first-letter:uppercase tracking-wide">
@@ -291,7 +291,7 @@ const RestaurantDetailsPage = () => {
           )}
         </div>
         <div className=" lg:col-span-1 flex flex-col items-center">
-          <div className="lg:hidden fixed bottom-0 right-0 flex justify-end items-end w-full px-3 py-2 backdrop-blur-md bg-totem-pole-100">
+          <div className="lg:hidden fixed bottom-2 right-4 flex justify-end items-end w-full">
             <button
               className=" py-2 px-10 text-totem-pole-100 rounded-md bg-totem-pole-400"
               onClick={() => setShowBookingMobile(true)}
@@ -300,16 +300,19 @@ const RestaurantDetailsPage = () => {
             </button>
           </div>
           <div
-            className={`lg:sticky lg:top-20 lg:left-0  w-full  shadow-xl rounded-md  lg:flex flex-col gap-y-2 py-2 ${
+            className={`lg:sticky lg:top-20 lg:left-0 lg:bottom-0  w-full  shadow-xl rounded-md  lg:flex flex-col gap-y-2 py-2 ${
               showBookingMobile
                 ? "  lg:h-fit fixed top-0 backdrop-blur-md bg-white/70 z-10 h-screen flex flex-col justify-center"
                 : "hidden"
             }`}
           >
             <div className=" bg-white flex flex-col gap-4 p-2 rounded-md">
-            <div className="lg:hidden flex items-center justify-end cursor-pointer" onClick={() => setShowBookingMobile(false)}>
-              <Close/>
-            </div>
+              <div
+                className="lg:hidden flex items-center justify-end cursor-pointer"
+                onClick={() => setShowBookingMobile(false)}
+              >
+                <Close />
+              </div>
               <div className="p-1 rounded-md border border-totem-pole-400">
                 <h3>Add date</h3>
                 <Datepicker
@@ -321,30 +324,42 @@ const RestaurantDetailsPage = () => {
                   popoverDirection="left"
                 />
               </div>
-              <div className="flex flex-col border border-totem-pole-400 rounded-md p-1 ">
+              <div className="relative flex flex-col border border-totem-pole-400 rounded-md p-1 ">
                 <div>
                   <h3>Select table</h3>
                   <div
                     className=" flex items-center justify-between py-2 bg-slate-800 rounded-lg px-1 text-gray-400 hover:cursor-pointer"
                     onClick={() => setShowTables(!showTables)}
                   >
-                    <span>Choose table</span>
+                    <span>
+                      {tableId ? `Table 0${selectedTable.number}` : "Choose table"}
+                    </span>
                     {showTables ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
                   </div>
                 </div>
+                {showTables && (
+                  <ul className="absolute top-16 grid grid-cols-2 gap-4 w-full py-2 h-60 overflow-y-scroll rounded-md scroll-m-4 px-3 bg-slate-800 text-white mt-2">
+                    {tables.map((table, index) => (
+                      <li
+                        key={index}
+                        className=" w-full"
+                      >
+                        <button
+                          className=" w-full py-2 px-3 rounded-md bg-totem-pole-400"
+                          onClick={() => {
+                            setTableId(table._id);
+                            getSelectedTable(table._id);
+                            setShowTables(false)
+                          }}
+                        >
+                          Table: 0{table.number}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
-              {showTables && (
-                <div className=" flex flex-col items-center gap-2 w-full py-2 h-64 overflow-y-scroll border border-totem-pole-400 rounded-md scroll-m-4">
-                  {tables.map((table, index) => (
-                    <button
-                      key={index}
-                      className=" w-fit py-2 px-3 rounded-md border border-totem-pole-400"
-                    >
-                      Table: 0{table.number}
-                    </button>
-                  ))}
-                </div>
-              )}
+
               <div className=" flex gap-1 text-totem-pole-50">
                 <button className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full">
                   Book
