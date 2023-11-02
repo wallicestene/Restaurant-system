@@ -87,6 +87,7 @@ const RestaurantDetailsPage = () => {
       .catch((err) => {
         console.log(err.message);
       });
+      setSelectedTable("")
   };
   const handleDateChange = (newDate) => {
     setDate(newDate);
@@ -332,7 +333,7 @@ const RestaurantDetailsPage = () => {
                     onClick={() => setShowTables(!showTables)}
                   >
                     <span>
-                      {tableId ? `Table 0${selectedTable.number}` : "Choose table"}
+                      {selectedTable ? `Table 0${selectedTable.number}` : "Choose table"}
                     </span>
                     {showTables ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
                   </div>
