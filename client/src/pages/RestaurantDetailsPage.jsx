@@ -167,7 +167,7 @@ const RestaurantDetailsPage = () => {
                 className=" relative lg:hidden rounded-lg overflow-hidden"
               >
                 {data?.images.map((image, index) => (
-                  <div key={index} className="  overflow-hidden h-46 w-full">
+                  <div key={index} className="  overflow-hidden h-64 w-full">
                     <img
                       src={image}
                       alt={data.name}
@@ -291,7 +291,7 @@ const RestaurantDetailsPage = () => {
           )}
         </div>
         <div className=" lg:col-span-1 flex flex-col items-center">
-          <div className="lg:hidden fixed bottom-4 right-4 flex justify-end items-end w-full  ">
+          <div className="lg:hidden fixed bottom-0 right-0 flex justify-end items-end w-full px-3 py-2 backdrop-blur-md bg-totem-pole-100">
             <button
               className=" py-2 px-10 text-totem-pole-100 rounded-md bg-totem-pole-400"
               onClick={() => setShowBookingMobile(true)}
@@ -300,9 +300,9 @@ const RestaurantDetailsPage = () => {
             </button>
           </div>
           <div
-            className={` shadow-xl rounded-md px-2 lg:flex flex-col gap-y-2 py-2 ${
+            className={`lg:sticky lg:top-20 lg:left-0  w-full  shadow-xl rounded-md  lg:flex flex-col gap-y-2 py-2 ${
               showBookingMobile
-                ? "lg:sticky  lg:top-20 w-full lg:h-fit fixed top-0 backdrop-blur-md bg-white/70 z-10 h-screen flex flex-col justify-center"
+                ? "  lg:h-fit fixed top-0 backdrop-blur-md bg-white/70 z-10 h-screen flex flex-col justify-center"
                 : "hidden"
             }`}
           >
