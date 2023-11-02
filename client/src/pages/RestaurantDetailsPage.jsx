@@ -87,7 +87,7 @@ const RestaurantDetailsPage = () => {
       .catch((err) => {
         console.log(err.message);
       });
-      setSelectedTable("")
+    setSelectedTable("");
   };
   const handleDateChange = (newDate) => {
     setDate(newDate);
@@ -333,7 +333,9 @@ const RestaurantDetailsPage = () => {
                     onClick={() => setShowTables(!showTables)}
                   >
                     <span>
-                      {selectedTable ? `Table 0${selectedTable.number}` : "Choose table"}
+                      {selectedTable
+                        ? `Table 0${selectedTable.number}`
+                        : "Choose table"}
                     </span>
                     {showTables ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
                   </div>
@@ -341,16 +343,13 @@ const RestaurantDetailsPage = () => {
                 {showTables && (
                   <ul className="absolute top-16 grid grid-cols-2 gap-4 w-full py-2 h-60 overflow-y-scroll rounded-md scroll-m-4 px-3 bg-slate-800 text-white mt-2">
                     {tables.map((table, index) => (
-                      <li
-                        key={index}
-                        className=" w-full"
-                      >
+                      <li key={index} className=" w-full">
                         <button
                           className=" w-full py-2 px-3 rounded-md bg-totem-pole-400"
                           onClick={() => {
                             setTableId(table._id);
                             getSelectedTable(table._id);
-                            setShowTables(false)
+                            setShowTables(false);
                           }}
                         >
                           Table: 0{table.number}
@@ -362,7 +361,10 @@ const RestaurantDetailsPage = () => {
               </div>
 
               <div className=" flex gap-1 text-totem-pole-50">
-                <button className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full" onClick={BookTable}>
+                <button
+                  className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full"
+                  onClick={BookTable}
+                >
                   Book
                 </button>
                 <button className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full">
