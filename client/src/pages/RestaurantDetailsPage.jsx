@@ -6,14 +6,12 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import {
   Backspace,
+  Close,
   FavoriteBorder,
   KeyboardArrowDown,
-  KeyboardArrowLeft,
-  KeyboardArrowRight,
   KeyboardArrowUp,
   KeyboardBackspace,
   LocationOn,
-  TableRestaurant,
 } from "@mui/icons-material";
 import Datepicker from "react-tailwindcss-datepicker";
 import { Alert, CircularProgress } from "@mui/material";
@@ -30,7 +28,7 @@ const RestaurantDetailsPage = () => {
   const [showTables, setShowTables] = useState(false);
   const [tableError, setTableError] = useState(null);
   const [bookingError, setBookingError] = useState(null);
-  const [imageIndex, setImageIndex] = useState(0);
+  const [selectedTable, setSelectedTable] = useState("");
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -62,12 +60,8 @@ const RestaurantDetailsPage = () => {
     };
     getTables();
   }, [data, error, isLoading]);
-  const goToNextImage = () => {
-    if (imageIndex < data.images.length - 1) {
-      setImageIndex((prevImageIndex) => prevImageIndex + 1);
-    } else {
-      setImageIndex(0);
-    }
+  const getSelectedTable = (id) => {
+    setSelectedTable(tables.find((table) => table._id === id));
   };
   const BookTable = () => {
     fetch("http://localhost:3000/api/restaurant/reservation", {
@@ -93,12 +87,13 @@ const RestaurantDetailsPage = () => {
       .catch((err) => {
         console.log(err.message);
       });
+    setSelectedTable("");
   };
   const handleDateChange = (newDate) => {
     setDate(newDate);
   };
   return (
-    <div className=" py-16 w-11/12 mx-auto font-mulish relative px-2">
+    <div className=" py-16 lg:w-11/12 md:w-11/12 mx-auto font-mulish relative px-2">
       <button
         className=" flex items-center text-sm hover:bg-totem-pole-100 w-fit py-1 px-2 rounded-md transition-colors delay-150 duration-300"
         onClick={() => navigate(-1)}
@@ -113,9 +108,9 @@ const RestaurantDetailsPage = () => {
         <span>Back</span>
       </button>
       {error && <Alert severity="error">{error}</Alert>}
-      {loading && <CircularProgress />}
-      {!loading && !error && (
-        <div className=" w-11/12 mx-auto px-3">
+      {isLoading && <CircularProgress />}
+      {!isLoading && !error && (
+        <div className=" lg:w-11/12 md:w-11/12 mx-auto px-3">
           <div>
             <div className="top  text-totem-pole-500 font-semibold  mt-5 lg:text-xl md:text-lg  my-5 first-letter:uppercase tracking-wide">
               <h1>{data?.name}</h1>
@@ -170,26 +165,10 @@ const RestaurantDetailsPage = () => {
                 interval={5000}
                 showArrows={false}
                 useKeyboardArrows={true}
-                // renderArrowPrev={(onClickHandler,hasPrev, label) => hasPrev && (
-                //   <span
-                //   onClick={onClickHandler}
-                //   className=" h-7 w-7 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full cursor-pointer absolute top-1/2 left-4 -translate-y-1/2 z-10"
-                // >
-                //   <KeyboardArrowLeft />
-                // </span>
-                // )}
-                // renderArrowNext={(onClickHandler, hasNext, label) => hasNext && (
-                //   <span
-                //   onClick={onClickHandler}
-                //   className=" h-7 w-7 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full cursor-pointer absolute top-1/2 right-4 -translate-y-1/2 z-10"
-                // >
-                //   <KeyboardArrowRight />
-                // </span>
-                // ) }
                 className=" relative lg:hidden rounded-lg overflow-hidden"
               >
                 {data?.images.map((image, index) => (
-                  <div key={index} className="  overflow-hidden h-46 w-full">
+                  <div key={index} className="  overflow-hidden h-64 w-full">
                     <img
                       src={image}
                       alt={data.name}
@@ -202,157 +181,196 @@ const RestaurantDetailsPage = () => {
           )}
         </div>
       )}
-      <div className=" w-11/12 mx-auto grid lg:grid-cols-3 grid-cols-1 relative gap-x-2 py-9">
+      <div className=" lg:w-11/12 md:w-11/12 mx-auto grid lg:grid-cols-3 grid-cols-1 relative gap-x-2 py-9">
         <div className=" lg:col-span-2 p-2">
-          <div className=" my-5">
-            <p className="text-sm  font-semibold flex items-center">
-              <LocationOn
-                sx={{
-                  fontSize: "1.4rem",
+          {data && !isLoading && (
+            <div className=" ">
+              <p className="text-sm  font-semibold flex items-center">
+                <LocationOn
+                  sx={{
+                    fontSize: "1.4rem",
+                  }}
+                />
+                <span className=" tracking-wide">{data.address}</span>
+              </p>
+              <div
+                style={{
+                  height: "0.01rem",
                 }}
+                className=" bg-black opacity-20 my-5"
               />
-              <span className=" tracking-wide">{data.address}</span>
-            </p>
-          </div>
-          <div
-            style={{
-              height: "0.01rem",
-            }}
-            className=" bg-black opacity-10"
-          />
+            </div>
+          )}
 
-          <div className="my-5 px-2">
-            <h2 className=" my-2 text-lg font-bold tracking-wide">Menu</h2>
-
-            {data && !isLoading && (
-              <div className="flex gap-2 flex-wrap py-2 px-3">
+          {data && !isLoading && (
+            <div className=" px-2">
+              <h2 className=" my-2 text-lg font-bold tracking-wide">Menu</h2>
+              <ul className="flex gap-2 flex-wrap py-2 px-3">
                 {data.menu.map((menuItem, index) => (
-                  <div
+                  <li
                     key={index}
-                    className=" flex items-center gap-1 w-48 border border-totem-pole-400 py-1 px-2 rounded-md"
+                    className=" flex items-center gap-1 border border-totem-pole-400 py-1 px-2 rounded-md"
                   >
                     <img
                       src={menuItem.itemImage}
                       alt={menuItem.itemName}
-                      className=" h-16 w-16 rounded-full object-cover"
+                      className=" lg:h-16 lg:w-16 md:h-14 md:w-14 h-10 w-10 rounded-full object-cover"
                     />
                     <p className=" text-sm tracking-wide">
                       {menuItem.itemName}
                     </p>
-                  </div>
+                  </li>
                 ))}
-              </div>
-            )}
-          </div>
-          <div
-            style={{
-              height: "0.01rem",
-            }}
-            className=" bg-black opacity-10"
-          />
-          <div className="my-5 px-2">
-            <h2 className=" my-2 text-lg font-bold tracking-wide">Tags</h2>
-            {data && !isLoading && (
-              <div className=" flex flex-wrap items-center gap-2 py-2 px-3">
+              </ul>
+              <div
+                style={{
+                  height: "0.01rem",
+                }}
+                className=" bg-black opacity-20 my-5"
+              />{" "}
+            </div>
+          )}
+
+          {data && !isLoading && (
+            <div className=" px-2">
+              <h2 className=" my-2 text-lg font-bold tracking-wide">Tags</h2>
+              <ul className=" flex flex-wrap items-center gap-2 py-2 px-3">
                 {data?.tags.map((tag, index) => {
                   return (
-                    <p
-                      key={index}
-                      className=" py-2 px-3 rounded-md border border-totem-pole-400"
-                    >
-                      {tag}
-                    </p>
+                    <li key={index}>
+                      <p className=" py-2 px-3 rounded-md border border-totem-pole-400">
+                        {tag}
+                      </p>
+                    </li>
                   );
                 })}
-              </div>
-            )}
-          </div>
-          <div
-            style={{
-              height: "0.01rem",
-            }}
-            className=" bg-black opacity-10"
-          />
-          <div className="my-5 px-2">
-            <h2 className=" my-2 text-lg font-bold tracking-wide">
-              About this place
-            </h2>
-            <p className="text-md text-gray-900 text-sm tracking-wide">
-              {data?.description}
-            </p>
-          </div>
-          <div
-            style={{
-              height: "0.01rem",
-            }}
-            className=" bg-black opacity-10"
-          />
-          <div className="my-5 px-2">
-            <h2 className=" my-2 text-lg font-bold tracking-wide">Contacts</h2>
-            {data && !isLoading && (
-              <div className=" flex flex-wrap items-center gap-2 py-2 px-3">
-                {data?.contacts.map((contact, index) => {
-                  return (
-                    <p
-                      key={index}
-                      className=" py-2 px-3 rounded-md border border-totem-pole-400"
-                    >
-                      +254 {contact}
-                    </p>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        </div>
-        <div className=" lg:col-span-1 flex flex-col items-center">
-          <div className="lg:hidden fixed bottom-4 right-4 flex justify-end items-end w-full  ">
-          <button className=" py-1 px-3 rounded-md bg-totem-pole-400">Book</button>
-          
-          </div>
-          <div className=" lg:sticky hidden top-20 w-full shadow-xl rounded-md py-1 px-2 lg:flex flex-col gap-y-2">
-            <div className=" flex flex-col border border-totem-pole-400 rounded-md p-1">
-              <h3>Add date</h3>
-              <Datepicker
-                useRange={false}
-                asSingle={true}
-                value={date}
-                onChange={handleDateChange}
-                primaryColor={"orange"}
-                popoverDirection="left"
+              </ul>
+              <div
+                style={{
+                  height: "0.01rem",
+                }}
+                className=" bg-black opacity-20 my-5"
+              />{" "}
+            </div>
+          )}
+
+          {data && !isLoading && (
+            <div className=" px-2">
+              <h2 className=" my-2 text-lg font-bold tracking-wide">
+                About this place
+              </h2>
+              <p className="text-md text-gray-900 text-sm tracking-wide">
+                {data?.description}
+              </p>
+              <div
+                style={{
+                  height: "0.01rem",
+                }}
+                className=" bg-black opacity-20 my-5"
               />
             </div>
-            <div className="flex flex-col border border-totem-pole-400 rounded-md p-1 ">
-              <div>
-                <h3>Select table</h3>
-                <div
-                  className=" flex items-center justify-between py-2 bg-slate-800 rounded-lg px-1 text-gray-400 hover:cursor-pointer"
-                  onClick={() => setShowTables(!showTables)}
-                >
-                  <span>Choose table</span>
-                  {showTables ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
-                </div>
-              </div>
+          )}
+
+          {data && !isLoading && (
+            <div className="my-5 px-2">
+              <h2 className=" my-2 text-lg font-bold tracking-wide">
+                Contacts
+              </h2>
+
+              <ul className=" flex flex-wrap items-center gap-2 py-2 px-3">
+                {data?.contacts.map((contact, index) => {
+                  return (
+                    <li key={index}>
+                      <p className=" py-2 px-3 rounded-md border border-totem-pole-400">
+                        +254 {contact}
+                      </p>
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
-            {showTables && (
-              <div className=" flex flex-col items-center gap-2 w-full py-2 h-64 overflow-y-scroll border border-totem-pole-400 rounded-md scroll-m-4">
-                {tables.map((table, index) => (
-                  <button
-                    key={index}
-                    className=" w-fit py-2 px-3 rounded-md border border-totem-pole-400"
-                  >
-                    Table: 0{table.number}
-                  </button>
-                ))}
+          )}
+        </div>
+        <div className=" lg:col-span-1 flex flex-col items-center">
+          <div className="lg:hidden fixed bottom-2 right-4 flex justify-end items-end w-full">
+            <button
+              className=" py-2 px-10 text-totem-pole-100 rounded-md bg-totem-pole-400"
+              onClick={() => setShowBookingMobile(true)}
+            >
+              Book
+            </button>
+          </div>
+          <div
+            className={`lg:sticky lg:top-20 lg:left-0 lg:bottom-0  w-full  shadow-xl rounded-md  lg:flex flex-col gap-y-2 py-2 ${
+              showBookingMobile
+                ? "  lg:h-fit fixed top-0 backdrop-blur-md bg-white/70 z-10 h-screen flex flex-col justify-center"
+                : "hidden"
+            }`}
+          >
+            <div className=" bg-white flex flex-col gap-4 p-2 rounded-md">
+              <div
+                className="lg:hidden flex items-center justify-end cursor-pointer"
+                onClick={() => setShowBookingMobile(false)}
+              >
+                <Close />
               </div>
-            )}
-            <div className=" flex gap-1 text-totem-pole-50">
-              <button className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full">
-                Book
-              </button>
-              <button className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full">
-                Add to Favorites
-              </button>
+              <div className="p-1 rounded-md border border-totem-pole-400">
+                <h3>Add date</h3>
+                <Datepicker
+                  useRange={false}
+                  asSingle={true}
+                  value={date}
+                  onChange={handleDateChange}
+                  primaryColor={"orange"}
+                  popoverDirection="left"
+                />
+              </div>
+              <div className="relative flex flex-col border border-totem-pole-400 rounded-md p-1 ">
+                <div>
+                  <h3>Select table</h3>
+                  <div
+                    className=" flex items-center justify-between py-2 bg-slate-800 rounded-lg px-1 text-gray-400 hover:cursor-pointer"
+                    onClick={() => setShowTables(!showTables)}
+                  >
+                    <span>
+                      {selectedTable
+                        ? `Table 0${selectedTable.number}`
+                        : "Choose table"}
+                    </span>
+                    {showTables ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+                  </div>
+                </div>
+                {showTables && (
+                  <ul className="absolute top-16 grid grid-cols-2 gap-4 w-full py-2 h-60 overflow-y-scroll rounded-md scroll-m-4 px-3 bg-slate-800 text-white mt-2">
+                    {tables.map((table, index) => (
+                      <li key={index} className=" w-full">
+                        <button
+                          className=" w-full py-2 px-3 rounded-md bg-totem-pole-400"
+                          onClick={() => {
+                            setTableId(table._id);
+                            getSelectedTable(table._id);
+                            setShowTables(false);
+                          }}
+                        >
+                          Table: 0{table.number}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+
+              <div className=" flex gap-1 text-totem-pole-50">
+                <button
+                  className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full"
+                  onClick={BookTable}
+                >
+                  Book
+                </button>
+                <button className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full">
+                  Add to Favorites
+                </button>
+              </div>
             </div>
           </div>
         </div>
