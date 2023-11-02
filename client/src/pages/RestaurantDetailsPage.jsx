@@ -361,7 +361,7 @@ const RestaurantDetailsPage = () => {
               </div>
 
               <div className=" flex gap-1 text-totem-pole-50">
-                <button className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full">
+                <button className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full" onClick={BookTable}>
                   Book
                 </button>
                 <button className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full">
