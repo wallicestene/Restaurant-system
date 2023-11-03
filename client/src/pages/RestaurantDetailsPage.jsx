@@ -300,7 +300,9 @@ const RestaurantDetailsPage = () => {
               Book
             </button>
           </div>
-          <div
+          {
+            data && !isLoading &&(
+              <div
             className={`lg:sticky lg:top-20 lg:left-0 lg:bottom-0  w-full  shadow-xl rounded-md  lg:flex flex-col gap-y-2 py-2 ${
               showBookingMobile
                 ? "  lg:h-fit fixed top-0 backdrop-blur-md bg-white/70 z-10 h-screen flex flex-col justify-center"
@@ -367,12 +369,11 @@ const RestaurantDetailsPage = () => {
                 >
                   Book
                 </button>
-                <button className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full">
-                  Add to Favorites
-                </button>
               </div>
             </div>
           </div>
+            )
+          }
         </div>
       </div>
     </div>

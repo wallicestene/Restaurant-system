@@ -4,6 +4,14 @@ const validator = require("validator");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
+  first_name: {
+    type: String,
+    required: true,
+  },
+  last_name: {
+    type: String,
+    required: true,
+  },
   email: {
     type: String,
     required: true,
@@ -38,9 +46,14 @@ userSchema.statics.login = async function (email, password) {
 };
 
 // static signup method
-userSchema.statics.signup = async function (email, password) {
+userSchema.statics.signup = async function (
+  email,
+  password,
+  first_name,
+  last_name
+) {
   // validation
-  if (!email || !password) {
+  if (!email || !password || first_name || last_name) {
     throw Error("All fields must be filled");
   }
   if (!validator.isEmail(email)) {

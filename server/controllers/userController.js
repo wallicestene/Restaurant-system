@@ -21,8 +21,8 @@ const loginUser = (req, res) => {
 
 // user signup
 const signupUser = (req, res) => {
-  const { email, password } = req.body;
-  User.signup(email, password)
+  const { email, password, first_name, last_name } = req.body;
+  User.signup(email, password, first_name, last_name)
     .then((user) => {
       const token = createToken(user._id);
       res.status(200).json({ email, token });
