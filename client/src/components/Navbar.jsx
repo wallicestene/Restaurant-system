@@ -4,10 +4,13 @@ import { Avatar } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import NavbarMobile from "./NavbarMobile";
 import { Link } from "react-router-dom";
+import { useUserContext } from "../hooks/Usercontext";
 
 const Navbar = () => {
   const [showNavMobile, setShowNavMobile] = useState(false);
   const [showNavbar, setShowNavbar] = useState(false);
+  const [{user}, dispatch] = useUserContext()
+console.log(user);
   useEffect(() => {
     const navShow = () => {
       if (window.scrollY > 100) {
@@ -51,9 +54,9 @@ const Navbar = () => {
           </ul>
         </nav>
       </div>
-      <Link to="/account/we" className="right flex gap-2 items-center justify-between lg:border md:border border-totem-pole-400 rounded-full ">
+      <Link to={user ? "/account/we" : "/login"} className="right flex gap-2 items-center justify-between lg:border md:border border-totem-pole-400 rounded-full ">
         <span className=" hidden lg:flex md:flex pl-3 text-totem-pole-600">
-          Wallace
+          {user?.first_name}
         </span>
         <Avatar
           sx={{ width: 32, height: 32 }}
