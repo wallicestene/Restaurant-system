@@ -3,6 +3,7 @@ import { Close, Menu } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import NavbarMobile from "./NavbarMobile";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [showNavMobile, setShowNavMobile] = useState(false);
@@ -50,7 +51,7 @@ const Navbar = () => {
           </ul>
         </nav>
       </div>
-      <div className="right flex gap-2 items-center justify-between lg:border md:border border-totem-pole-400 rounded-full ">
+      <Link to="/account/we" className="right flex gap-2 items-center justify-between lg:border md:border border-totem-pole-400 rounded-full ">
         <span className=" hidden lg:flex md:flex pl-3 text-totem-pole-600">
           Wallace
         </span>
@@ -68,7 +69,7 @@ const Navbar = () => {
             <Menu fontSize="large" />
           )}
         </div>
-      </div>
+      </Link>
     </div>
   );
 };

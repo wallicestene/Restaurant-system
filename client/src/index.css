@@ -14,3 +14,6 @@
 .restaurant::-webkit-scrollbar{
     display: none;
 }
+input[type="text"],[ type="password"], [ type="email"]{
+    @apply border border-totem-pole-300 w-full py-2  indent-2 outline-none rounded-md
+}
