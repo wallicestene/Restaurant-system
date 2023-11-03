@@ -12,6 +12,7 @@ import {
   KeyboardArrowUp,
   KeyboardBackspace,
   LocationOn,
+  TableBar,
 } from "@mui/icons-material";
 import Datepicker from "react-tailwindcss-datepicker";
 import { Alert, CircularProgress } from "@mui/material";
@@ -347,14 +348,22 @@ const RestaurantDetailsPage = () => {
                     {tables.map((table, index) => (
                       <li key={index} className=" w-full">
                         <button
-                          className=" w-full py-2 px-3 rounded-md bg-totem-pole-400"
+                          className={`relative w-full py-2 px-3 rounded-md bg-totem-pole-400 flex items-center justify-center gap-x-1 overflow-hidden ${table.occupied && " bg-red-600" }`}
+                          disabled = {table.occupied ? true : false}
                           onClick={() => {
                             setTableId(table._id);
                             getSelectedTable(table._id);
                             setShowTables(false);
                           }}
-                        >
-                          Table: 0{table.number}
+                        ><TableBar/>
+                          <span>Table: 0{table.number}</span>
+                          {
+                            table.occupied && (
+                              <span className=" absolute top-0 left-0 w-full h-full text-white flex items-center justify-center backdrop-blur-sm bg-white/20">
+                            Occupied
+                          </span>
+                            )
+                          }
                         </button>
                       </li>
                     ))}
