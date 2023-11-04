@@ -1,15 +1,15 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useUserContext } from "../hooks/Usercontext";
 
 const LoginPage = () => {
+  const [{ user }, dispatch] = useUserContext();
   const [userDetails, setUserDetails] = useState({
     email: "",
     password: "",
   });
   const [logInError, setLogInError] = useState(null);
-  const [{user}, dispatch] = useUserContext()
 
   const handlesubmit = (e) => {
     e.preventDefault();
@@ -25,10 +25,11 @@ const LoginPage = () => {
         if (data.error) {
           throw Error(data.error);
         } else {
-            dispatch({
-                type: "SIGNUP_USER",
-                user: data
-              })
+          // saving user to local storage
+          localStorage.setItem("user", JSON.stringify(data));
+          // updating the user context
+          dispatch({ type: "SET_USER", payload: data });
+          setLogInError(null);
         }
       })
       .catch((error) => {
@@ -37,7 +38,12 @@ const LoginPage = () => {
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setUserDetails({ ...userDetails, [name]: value });
+    setUserDetails((prevDetails) => {
+      return {
+        ...prevDetails,
+        [name]: value,
+      };
+    });
   };
   return (
     <div className=" grid place-items-center h-screen ">

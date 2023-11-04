@@ -12,8 +12,8 @@ const SignupPage = () => {
     password: "",
   });
   const [signUpError, setSignUpError] = useState(null);
-  const [{user}, dispatch] = useUserContext()
-  const handlesubmit = (e) => {
+  const [{ user }, dispatch] = useUserContext();
+  const handleSubmit = (e) => {
     e.preventDefault();
     fetch("http://localhost:3000/user/signup", {
       method: "POST",
@@ -27,10 +27,11 @@ const SignupPage = () => {
         if (data.error) {
           throw Error(data.error);
         } else {
-          dispatch({
-            type: "SIGNUP_USER",
-            user: data
-          })
+          // saving user to local storage
+          localStorage.setItem("user", JSON.stringify(data));
+          // updating the user context
+          dispatch({ type: "SET_USER", payload: data });
+          setSignUpError(null);
         }
       })
       .catch((error) => {
@@ -39,13 +40,18 @@ const SignupPage = () => {
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setUserDetails({ ...userDetails, [name]: value });
+    setUserDetails((prevDetails) => {
+      return {
+        ...prevDetails,
+        [name]: value,
+      };
+    });
   };
   return (
     <div className=" grid place-items-center h-screen ">
       <div className=" mb-24 lg:w-1/3 md:w-1/2 w-full lg:px-1 md:px-1 px-10 py-3">
         <h2 className=" text-center mb-2">Sign Up</h2>
-        <form className=" flex flex-col gap-y-2" onSubmit={handlesubmit}>
+        <form className=" flex flex-col gap-y-2" onSubmit={handleSubmit}>
           <label htmlFor="first_name">
             First Name: <br />
             <input

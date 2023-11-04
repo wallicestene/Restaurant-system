@@ -10,7 +10,7 @@ const Navbar = () => {
   const [showNavMobile, setShowNavMobile] = useState(false);
   const [showNavbar, setShowNavbar] = useState(false);
   const [{user}, dispatch] = useUserContext()
-console.log(user);
+// console.log(user);
   useEffect(() => {
     const navShow = () => {
       if (window.scrollY > 100) {
@@ -40,16 +40,7 @@ console.log(user);
         <nav>
           <ul className="flex justify-between gap-10 ">
             <li>
-              <a href="/">Home</a>
-            </li>
-            <li>
-              <a href="/">Hotels</a>
-            </li>
-            <li>
-              <a href="/">Hotels</a>
-            </li>
-            <li>
-              <a href="/">Hotels</a>
+              <Link to="/">Home</Link>
             </li>
           </ul>
         </nav>
