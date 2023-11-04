@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useUserContext } from "../hooks/Usercontext";
 
 const LoginPage = () => {
@@ -10,6 +10,7 @@ const LoginPage = () => {
     password: "",
   });
   const [logInError, setLogInError] = useState(null);
+  const navigate = useNavigate();
 
   const handlesubmit = (e) => {
     e.preventDefault();
@@ -45,6 +46,9 @@ const LoginPage = () => {
       };
     });
   };
+  if (user) {
+    return <Navigate to="/" />;
+  }
   return (
     <div className=" grid place-items-center h-screen ">
       <div className=" mb-24 lg:w-1/3 md:w-1/2 w-full lg:px-1 md:px-1 px-10 py-3">
