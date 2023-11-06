@@ -46,7 +46,7 @@ const Navbar = () => {
         </nav>
       </div>
       <Link
-        to={user ? "/account/we" : "/login"}
+        to={user ? "/account" : "/login"}
         className="right flex gap-2 items-center justify-between lg:border md:border border-slate-900 border-r-0 rounded-full overflow-hidden "
       >
         {user && (

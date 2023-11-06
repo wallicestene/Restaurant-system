@@ -10,7 +10,6 @@ const LoginPage = () => {
     password: "",
   });
   const [logInError, setLogInError] = useState(null);
-  const navigate = useNavigate();
 
   const handlesubmit = (e) => {
     e.preventDefault();
