@@ -320,6 +320,7 @@ const RestaurantDetailsPage = () => {
               <div className="p-1 rounded-md border border-totem-pole-400">
                 <h3>Add date</h3>
                 <Datepicker
+                inputClassName={"placeholder:text-sm bg-slate-800 border-none outline-none"}
                   useRange={false}
                   asSingle={true}
                   value={date}
