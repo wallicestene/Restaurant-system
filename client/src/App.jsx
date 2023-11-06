@@ -6,16 +6,31 @@ import Layout from "./layouts/Layout";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import AccountPage from "./pages/AccountPage";
+import { useUserContext } from "./hooks/Usercontext";
+import { useEffect } from "react";
 const App = () => {
+  const [{ user }, dispatch] = useUserContext();
+  // updating the auth state
+  useEffect(() => {
+    const updateAuthState = () => {
+      const loggedUser = JSON.parse(localStorage.getItem("user"));
+      if (loggedUser) {
+        dispatch({ type: "SET_USER", payload: loggedUser });
+      } else {
+        dispatch({ type: "LOGOUT_USER" });
+      }
+    };
+    updateAuthState();
+  }, [dispatch, user]);
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index path="/" element={<HomePage />} />
           <Route path="/restaurant/:id" element={<RestaurantDetailsPage />} />
-          <Route path="/login" element={<LoginPage/>}/>
-          <Route path="/signup" element={<SignupPage/>}/>
-          <Route path="account/:subPage?" element={<AccountPage/>}/>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="account/:subPage?" element={<AccountPage />} />
         </Route>
       </Routes>
     </Router>
