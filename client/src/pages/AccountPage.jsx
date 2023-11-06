@@ -69,7 +69,7 @@ const LogOutUser = () => {
                   </p>
                 </div>
 
-                <button className=" bg-red-600 my-2 rounded-md py-2 w-full text-white">
+                <button className=" bg-red-600 my-2 rounded-md py-2 w-full text-white" onClick={LogOutUser}>
                   Log Out
                 </button>
               </div>
