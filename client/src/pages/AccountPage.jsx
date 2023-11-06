@@ -12,7 +12,12 @@ const AccountPage = () => {
     }
     return styles
   }
-
+const LogOutUser = () => {
+  localStorage.removeItem("user");
+  dispatch({
+    type: "LOGOUT_USER"
+  })
+}
   return (
     <div className=" pt-16 font-mulish">
       {
