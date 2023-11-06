@@ -12,6 +12,7 @@ import {
   KeyboardArrowUp,
   KeyboardBackspace,
   LocationOn,
+  TableBar,
 } from "@mui/icons-material";
 import Datepicker from "react-tailwindcss-datepicker";
 import { Alert, CircularProgress } from "@mui/material";
@@ -300,7 +301,9 @@ const RestaurantDetailsPage = () => {
               Book
             </button>
           </div>
-          <div
+          {
+            data && !isLoading &&(
+              <div
             className={`lg:sticky lg:top-20 lg:left-0 lg:bottom-0  w-full  shadow-xl rounded-md  lg:flex flex-col gap-y-2 py-2 ${
               showBookingMobile
                 ? "  lg:h-fit fixed top-0 backdrop-blur-md bg-white/70 z-10 h-screen flex flex-col justify-center"
@@ -343,16 +346,24 @@ const RestaurantDetailsPage = () => {
                 {showTables && (
                   <ul className="absolute top-16 grid grid-cols-2 gap-4 w-full py-2 h-60 overflow-y-scroll rounded-md scroll-m-4 px-3 bg-slate-800 text-white mt-2">
                     {tables.map((table, index) => (
-                      <li key={index} className=" w-full">
+                      <li key={index} className=" w-full h-fit">
                         <button
-                          className=" w-full py-2 px-3 rounded-md bg-totem-pole-400"
+                          className={`relative w-full py-2 px-3 rounded-md bg-totem-pole-400 flex items-center justify-center gap-x-1 overflow-hidden ${table.occupied && " bg-red-600" }`}
+                          disabled = {table.occupied ? true : false}
                           onClick={() => {
                             setTableId(table._id);
                             getSelectedTable(table._id);
                             setShowTables(false);
                           }}
-                        >
-                          Table: 0{table.number}
+                        ><TableBar/>
+                          <span>Table: 0{table.number}</span>
+                          {
+                            table.occupied && (
+                              <span className=" absolute top-0 left-0 w-full h-full text-white flex items-center justify-center backdrop-blur-sm bg-white/20">
+                            Occupied
+                          </span>
+                            )
+                          }
                         </button>
                       </li>
                     ))}
@@ -367,12 +378,11 @@ const RestaurantDetailsPage = () => {
                 >
                   Book
                 </button>
-                <button className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full">
-                  Add to Favorites
-                </button>
               </div>
             </div>
           </div>
+            )
+          }
         </div>
       </div>
     </div>
