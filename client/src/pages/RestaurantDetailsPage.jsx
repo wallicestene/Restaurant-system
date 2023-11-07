@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import {
@@ -16,6 +16,7 @@ import {
 } from "@mui/icons-material";
 import Datepicker from "react-tailwindcss-datepicker";
 import { Alert, CircularProgress } from "@mui/material";
+import { useUserContext } from "../hooks/Usercontext";
 const RestaurantDetailsPage = () => {
   const [value, setValue] = useState(0);
   const [date, setDate] = useState({
@@ -30,6 +31,8 @@ const RestaurantDetailsPage = () => {
   const [tableError, setTableError] = useState(null);
   const [bookingError, setBookingError] = useState(null);
   const [selectedTable, setSelectedTable] = useState("");
+
+  const [{ user }] = useUserContext();
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -65,9 +68,13 @@ const RestaurantDetailsPage = () => {
     setSelectedTable(tables.find((table) => table._id === id));
   };
   const BookTable = () => {
-    fetch("http://localhost:3000/api/restaurant/reservation", {
+    if (user) {
+      fetch("http://localhost:3000/api/restaurant/reservation", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${user?.token}`
+      },
       body: JSON.stringify({
         userId: "6512e282eef3efdb30a69235",
         restaurantId: data._id,
@@ -89,6 +96,7 @@ const RestaurantDetailsPage = () => {
         console.log(err.message);
       });
     setSelectedTable("");
+    }
   };
   const handleDateChange = (newDate) => {
     setDate(newDate);
@@ -301,89 +309,90 @@ const RestaurantDetailsPage = () => {
               Book
             </button>
           </div>
-          {
-            data && !isLoading &&(
-              <div
-            className={`lg:sticky lg:top-20 lg:left-0 lg:bottom-0  w-full  shadow-xl rounded-md  lg:flex flex-col gap-y-2 py-2 ${
-              showBookingMobile
-                ? "  lg:h-fit fixed top-0 backdrop-blur-md bg-white/70 z-10 h-screen flex flex-col justify-center"
-                : "hidden"
-            }`}
-          >
-            <div className=" bg-white flex flex-col gap-4 p-2 rounded-md">
-              <div
-                className="lg:hidden flex items-center justify-end cursor-pointer"
-                onClick={() => setShowBookingMobile(false)}
-              >
-                <Close />
-              </div>
-              <div className="p-1 rounded-md border border-totem-pole-400">
-                <h3>Add date</h3>
-                <Datepicker
-                inputClassName={"placeholder:text-sm bg-slate-800 border-none outline-none"}
-                  useRange={false}
-                  asSingle={true}
-                  value={date}
-                  onChange={handleDateChange}
-                  primaryColor={"orange"}
-                  popoverDirection="left"
-                />
-              </div>
-              <div className="relative flex flex-col border border-totem-pole-400 rounded-md p-1 ">
-                <div>
-                  <h3>Select table</h3>
-                  <div
-                    className=" flex items-center justify-between py-2 bg-slate-800 rounded-lg px-1 text-gray-400 hover:cursor-pointer"
-                    onClick={() => setShowTables(!showTables)}
-                  >
-                    <span>
-                      {selectedTable
-                        ? `Table 0${selectedTable.number}`
-                        : "Choose table"}
-                    </span>
-                    {showTables ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
-                  </div>
-                </div>
-                {showTables && (
-                  <ul className="absolute top-16 grid grid-cols-2 gap-4 w-full py-2 h-60 overflow-y-scroll rounded-md scroll-m-4 px-3 bg-slate-800 text-white mt-2">
-                    {tables.map((table, index) => (
-                      <li key={index} className=" w-full h-fit">
-                        <button
-                          className={`relative w-full py-2 px-3 rounded-md bg-totem-pole-400 flex items-center justify-center gap-x-1 overflow-hidden ${table.occupied && " bg-red-600" }`}
-                          disabled = {table.occupied ? true : false}
-                          onClick={() => {
-                            setTableId(table._id);
-                            getSelectedTable(table._id);
-                            setShowTables(false);
-                          }}
-                        ><TableBar/>
-                          <span>Table: 0{table.number}</span>
-                          {
-                            table.occupied && (
-                              <span className=" absolute top-0 left-0 w-full h-full text-white flex items-center justify-center backdrop-blur-sm bg-white/20">
-                            Occupied
-                          </span>
-                            )
-                          }
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-
-              <div className=" flex gap-1 text-totem-pole-50">
-                <button
-                  className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full"
-                  onClick={BookTable}
+          {data && !isLoading && (
+            <div
+              className={`lg:sticky lg:top-20 lg:left-0 lg:bottom-0  w-full  shadow-xl rounded-md  lg:flex flex-col gap-y-2 py-2 ${
+                showBookingMobile
+                  ? "  lg:h-fit fixed top-0 backdrop-blur-md bg-white/70 z-10 h-screen flex flex-col justify-center"
+                  : "hidden"
+              }`}
+            >
+              <div className=" bg-white flex flex-col gap-4 p-2 rounded-md">
+                <div
+                  className="lg:hidden flex items-center justify-end cursor-pointer"
+                  onClick={() => setShowBookingMobile(false)}
                 >
-                  Book
-                </button>
+                  <Close />
+                </div>
+                <div className="p-1 rounded-md border border-totem-pole-400">
+                  <h3>Add date</h3>
+                  <Datepicker
+                    inputClassName={
+                      "placeholder:text-sm bg-slate-800 border-none outline-none"
+                    }
+                    useRange={false}
+                    asSingle={true}
+                    value={date}
+                    onChange={handleDateChange}
+                    primaryColor={"orange"}
+                    popoverDirection="left"
+                  />
+                </div>
+                <div className="relative flex flex-col border border-totem-pole-400 rounded-md p-1 ">
+                  <div>
+                    <h3>Select table</h3>
+                    <div
+                      className=" flex items-center justify-between py-2 bg-slate-800 rounded-lg px-1 text-gray-400 hover:cursor-pointer"
+                      onClick={() => setShowTables(!showTables)}
+                    >
+                      <span>
+                        {selectedTable
+                          ? `Table 0${selectedTable.number}`
+                          : "Choose table"}
+                      </span>
+                      {showTables ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+                    </div>
+                  </div>
+                  {showTables && (
+                    <ul className="absolute top-16 grid grid-cols-2 gap-4 w-full py-2 h-60 overflow-y-scroll rounded-md scroll-m-4 px-3 bg-slate-800 text-white mt-2">
+                      {tables.map((table, index) => (
+                        <li key={index} className=" w-full h-fit">
+                          <button
+                            className={`relative w-full py-2 px-3 rounded-md bg-totem-pole-400 flex items-center justify-center gap-x-1 overflow-hidden ${
+                              table.occupied && " bg-red-600"
+                            }`}
+                            disabled={table.occupied ? true : false}
+                            onClick={() => {
+                              setTableId(table._id);
+                              getSelectedTable(table._id);
+                              setShowTables(false);
+                            }}
+                          >
+                            <TableBar />
+                            <span>Table: 0{table.number}</span>
+                            {table.occupied && (
+                              <span className=" absolute top-0 left-0 w-full h-full text-white flex items-center justify-center backdrop-blur-sm bg-white/20">
+                                Occupied
+                              </span>
+                            )}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+
+                <div className=" flex gap-1 text-totem-pole-50">
+                  <button
+                    className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full"
+                    onClick={user ? BookTable : () => navigate("/login")}
+                  >
+                    Book
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-            )
-          }
+          )}
         </div>
       </div>
     </div>
