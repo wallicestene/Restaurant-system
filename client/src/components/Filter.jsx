@@ -41,9 +41,9 @@ function Filter() {
         <div className=" flex items-center justify-center flex-wrap lg:gap-10 md:gap-10 gap-2">
           <div>
             <Datepicker
-              containerClassName="relative border  border-totem-pole-300 rounded-full w-full h-10"
+              containerClassName="relative border border-totem-pole-300 overflow-hidden rounded-full w-full h-10"
               toggleClassName="absolute left-0 rounded-full text-black h-full px-2 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed bg-totem-pole-300"
-              inputClassName="bg-transparent h-full indent-10  outline-none rounded-full"
+              inputClassName="bg-transparent h-full indent-10 pl-8 placeholder:text-sm border-none outline-none"
               useRange={false}
               asSingle={true}
               value={date}
@@ -51,7 +51,7 @@ function Filter() {
               primaryColor={"orange"}
             />
           </div>
-          <div className="flex items-center gap-2 border border-totem-pole-300 rounded-full lg:pr-5 md:pr-5 pr-2">
+          <div className="flex items-center gap-2 border border-totem-pole-300  rounded-full lg:pr-5 md:pr-5 pr-2">
             <span className=" bg-totem-pole-300 rounded-full h-10 w-10 flex items-center justify-center">
               <TableRestaurant />
             </span>

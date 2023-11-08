@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useUserContext } from "../hooks/Usercontext";
+import { ErrorOutline } from "@mui/icons-material";
 
 const LoginPage = () => {
   const [{ user }, dispatch] = useUserContext();
@@ -10,7 +11,6 @@ const LoginPage = () => {
     password: "",
   });
   const [logInError, setLogInError] = useState(null);
-  const navigate = useNavigate();
 
   const handlesubmit = (e) => {
     e.preventDefault();
@@ -50,10 +50,10 @@ const LoginPage = () => {
     return <Navigate to="/" />;
   }
   return (
-    <div className=" grid place-items-center h-screen ">
-      <div className=" mb-24 lg:w-1/3 md:w-1/2 w-full lg:px-1 md:px-1 px-10 py-3">
-        <h2 className=" text-center mb-2">Log In</h2>
-        <form className=" flex flex-col gap-y-2" onSubmit={handlesubmit}>
+    <div className=" grid place-items-center h-screen font-mulish bg-gradient-to-tr from-red-600 via-orange-500 to-orange-300 text-sm">
+      <div className=" flex flex-col gap-y-3 lg:w-5/12 md:w-1/2 w-full lg:p-5 md:px-1 px-3 py-5 rounded-md bg-slate-100 shadow-lg ">
+        <h2 className=" text-center text-base">Log In</h2>
+        <form className=" flex flex-col gap-y-3" onSubmit={handlesubmit}>
           <label htmlFor="email">
             Email: <br />
             <input
@@ -63,6 +63,7 @@ const LoginPage = () => {
               placeholder="Enter email"
               value={userDetails.email}
               onChange={handleChange}
+              className=" border-none outline-none text-slate-950 shadow-lg"
             />
           </label>
           <label htmlFor="password">
@@ -71,26 +72,27 @@ const LoginPage = () => {
               type="password"
               name="password"
               id="password"
-              placeholder="Enter Password"
+              placeholder="Enter password"
               value={userDetails.password}
               onChange={handleChange}
+              className=" border-none outline-non text-slate-950 shadow-lg"
             />
           </label>
-          <button className="bg-blue-500 hover:bg-blue-700 text-white rounded-md py-2">
-            log In
+          <button className="bg-blue-500 hover:bg-blue-700 text-white rounded-md py-2 shadow-lg">
+            Log In
           </button>
         </form>
         {logInError && (
           <div className=" text-center border border-red-500 text-red-500 my-2 rounded-md bg-red-300 py-1">
-            <div className=" flex items-center justify-center">
-              {/* <Error /> */}
-              <p>{logInError}</p>
+            <div className=" flex items-center justify-center gap-x-1">
+              <ErrorOutline/>
+              <p>{logInError}!</p>
             </div>
           </div>
         )}
-        <div className=" text-center text-sm">
+        <div className=" text-center text-xs">
+          <span>Not Registered? </span>
           <Link to="/signup" className=" text-center">
-            Not Registered?{" "}
             <span className=" underline text-blue-800">Sign Up</span>
           </Link>
         </div>
