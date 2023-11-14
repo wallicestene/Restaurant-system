@@ -49,8 +49,8 @@ const SignupPage = () => {
     });
   };
   return (
-    <div className=" grid place-items-center h-screen font-mulish bg-gradient-to-tr from-red-600 via-orange-500 to-orange-300">
-      <div className=" flex flex-col gap-y-3 lg:w-5/12 md:w-1/2 w-full lg:p-5 md:px-1 px-3 py-5 rounded-md bg-slate-100 shadow-lg text-sm">
+    <div className=" bg-login bg-cover bg-center grid place-items-center h-screen font-mulish text-sm">
+      <div className=" backdrop-blur-md border border-totem-pole-200  flex flex-col gap-y-3 lg:w-5/12 md:w-1/2 w-full lg:p-5 md:px-1 px-3 py-5 rounded-md shadow-lg text-sm">
         <h2 className=" text-center text-base">Sign Up</h2>
         <form className=" flex flex-col gap-y-3" onSubmit={handleSubmit}>
           <div className=" flex w-full gap-3 items-center justify-between">
@@ -117,7 +117,7 @@ const SignupPage = () => {
           </div>
         )}
         <div className=" text-center text-xs">
-          <span>Already Registered?</span>{" "}
+          <span className=" text-white ">Already Registered?</span>{" "}
           <Link to="/login" className=" text-center">
             <span className=" text-blue-800">Log In</span>
           </Link>
