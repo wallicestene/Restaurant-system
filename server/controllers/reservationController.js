@@ -57,7 +57,7 @@ const getUserReservations = (req, res) => {
     res.status(404).json(`no user found with the given Id`);
   }
 
-  Reservation.find({ userId }).then((reservations) => {
+  Reservation.find({ userId }).populate("restaurantId").populate("tableId").then((reservations) => {
     if (!reservations) {
       return res.status(404).json("No reservations found!");
     }
