@@ -76,7 +76,7 @@ const RestaurantDetailsPage = () => {
         "Authorization": `Bearer ${user?.token}`
       },
       body: JSON.stringify({
-        userId: "6512e282eef3efdb30a69235",
+        userId: user?.userId,
         restaurantId: data._id,
         tableId,
         date: date.startDate,

@@ -1,9 +1,15 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unescaped-entities */
 import { Link, Navigate, useParams } from "react-router-dom";
 import { useUserContext } from "../hooks/Usercontext";
+import useFetch from "../hooks/useFetch";
+import { useEffect, useState } from "react";
 
 const AccountPage = () => {
   const [{ user }, dispatch] = useUserContext();
+  const [myBookings, setMyBookings] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
   const { subPage } = useParams();
   const addStyles = (pageTitle=null) => {
     let styles = " py-2 px-3 cursor-pointer "
@@ -18,6 +24,30 @@ const LogOutUser = () => {
     type: "LOGOUT_USER"
   })
 }
+useEffect(() => {
+  const getMyBookings = () => {
+    fetch(`http://localhost:3000/api/reservations/?userId=${user?.userId}`,{
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${user?.token}`
+      },
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      setMyBookings(data)
+      setLoading(false)
+    })
+    .catch((err) => {
+      setError(err)
+      setLoading(false)
+    })
+  }
+if (user) {
+  getMyBookings()
+}
+},[user, user?.token, user?.userId])
+console.log(myBookings);
   return (
     <div className=" pt-16 font-mulish">
       {
