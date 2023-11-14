@@ -4,6 +4,8 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { useUserContext } from "../hooks/Usercontext";
 import useFetch from "../hooks/useFetch";
 import { useEffect, useState } from "react";
+import Restaurant from "../components/Restaurant";
+import Bookings from "../components/Bookings";
 
 const AccountPage = () => {
   const [{ user }, dispatch] = useUserContext();
@@ -57,9 +59,9 @@ const AccountPage = () => {
       getMyBookings();
     }
   }, [subPage, user, user?.token, user?.userId]);
-  console.log(myBookings);
+
   return (
-    <div className=" pt-16 font-mulish">
+    <div className=" pt-16 font-mulish bg-[url('.\assets\loginFormImages\restaurant2.png')]  bg-cover bg-center h-screen">
       {
         // if the user is not logged in redirect to login page
         !user ? (
@@ -131,18 +133,19 @@ const AccountPage = () => {
                 </div>
               )}
               {subPage === "myBookings" && (
-                <div>
-                 {loading && (
-                  <p>Loading...</p>
-                 )}
-                 {
-                  error && (
-                    <p>{error}</p>
-                  )
-                 }
-                 {!loading && myBookings.length > 0 && (
-                  <p>Lets gooo!</p>
-                 )}
+                <div className="">
+                  {loading && <p>Loading...</p>}
+                  {error && <p>{error}</p>}
+                  {!loading && myBookings.length > 0 && (
+                    <div className=" grid lg:grid-cols-3 grid-cols-2 gap-3">
+                      {myBookings.map((booking) => (
+                        <Bookings
+                          key={booking._id}
+                          booking={booking}
+                        />
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
               {subPage === "myFavorites" && (
