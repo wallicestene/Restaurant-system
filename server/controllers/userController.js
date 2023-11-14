@@ -14,7 +14,7 @@ const loginUser = (req, res) => {
       const token = createToken(user._id);
       const first_name = user.first_name;
       const last_name = user.first_name;
-      res.status(200).json({ first_name, last_name, email, token });
+      res.status(200).json({ first_name, last_name, email, token, userId: user._id  });
     })
     .catch((error) => {
       res.status(400).json({ error: error.message });
@@ -27,7 +27,7 @@ const signupUser = (req, res) => {
   User.signup(first_name, last_name, email, password)
     .then((user) => {
       const token = createToken(user._id);
-      res.status(200).json({ first_name, last_name, email, token });
+      res.status(200).json({ first_name, last_name, email, token, userId: user._id });
     })
     .catch((error) => {
       res.status(400).json({ error: error.message });

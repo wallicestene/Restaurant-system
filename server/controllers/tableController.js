@@ -21,12 +21,12 @@ const getTablesByRestaurantId = (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: "No table was found" });
   }
-  Table.find({restaurantId: id})
+  Table.find({ restaurantId: id })
     .then((tables) => {
       if (!tables) {
         return res.status(404).json("no tables were found");
       } else {
-        res.status(200).json(tables)
+        res.status(200).json(tables);
       }
     })
     .catch((err) => {

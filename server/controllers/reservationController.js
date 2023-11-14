@@ -43,15 +43,33 @@ const addReservation = (req, res) => {
             });
           });
       } else {
-        throw Error("Table is already reserved for that date.")
+        throw Error("Table is already reserved for that date.");
       }
     })
     .catch((error) => {
       res.status(400).json({ error: error.message });
     });
 };
+// get Reservation by userId
+const getUserReservations = (req, res) => {
+  const { userId } = req.query;
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    res.status(404).json(`no user found with the given Id`);
+  }
 
-// delete aresevation
+  Reservation.find({ userId }).populate("restaurantId").populate("tableId").then((reservations) => {
+    if (!reservations) {
+      return res.status(404).json("No reservations found!");
+    }
+    res.status(200).json(reservations);
+  })
+  .catch(() => {
+    res.status(500).json({
+      error: "error while finding the reservations",
+    });
+  })
+};
+// delete a reservation
 
 const deleteReservation = (req, res) => {
   const { restaurantId } = req.params;
@@ -87,5 +105,6 @@ const deleteReservation = (req, res) => {
 };
 module.exports = {
   addReservation,
-  deleteReservation,
+  getUserReservations,
+  deleteReservation
 };

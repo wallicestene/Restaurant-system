@@ -76,7 +76,7 @@ const RestaurantDetailsPage = () => {
         "Authorization": `Bearer ${user?.token}`
       },
       body: JSON.stringify({
-        userId: "6512e282eef3efdb30a69235",
+        userId: user?.userId,
         restaurantId: data._id,
         tableId,
         date: date.startDate,
@@ -353,7 +353,7 @@ const RestaurantDetailsPage = () => {
                       {showTables ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
                     </div>
                   </div>
-                  {showTables && (
+                  {showTables && tables.length > 0 && (
                     <ul className="absolute top-16 grid grid-cols-2 gap-4 w-full py-2 h-60 overflow-y-scroll rounded-md scroll-m-4 px-3 bg-slate-800 text-white mt-2">
                       {tables.map((table, index) => (
                         <li key={index} className=" w-full h-fit">

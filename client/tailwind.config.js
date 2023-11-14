@@ -28,6 +28,10 @@ export default {
       flex:{
         "7": 0.7,
         "3" : 0.3
+      },
+      backgroundImage: {
+        'login': "url('./src/assets/loginFormImages/restaurant1.png')",
+        'signup': "url('./src/assets/loginFormImages/restaurant2.png')",
       }
     },
   },
