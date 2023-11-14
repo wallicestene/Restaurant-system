@@ -6,6 +6,7 @@ import { ErrorOutline } from "@mui/icons-material";
 
 const LoginPage = () => {
   const [{ user }, dispatch] = useUserContext();
+  console.log(user);
   const [userDetails, setUserDetails] = useState({
     email: "",
     password: "",

@@ -40,8 +40,10 @@ const LogOutUser = () => {
               </ul>
             </nav>
             <div className=" flex flex-col gap-y-1 items-center text-sm w-11/12 mx-auto">
-              <h3>You're Logged in as:</h3>
-              <div>
+              {
+                subPage === undefined && (
+                  <div>
+                <h3 className=" text-center">You're Logged in as:</h3>
                 <div
                   style={{
                     height: "0.01rem",
@@ -73,6 +75,22 @@ const LogOutUser = () => {
                   Log Out
                 </button>
               </div>
+                )
+              }
+              {
+                subPage === "myBookings" && (
+                  <div>
+                    <h4 className="text-center font-bold">My Bookings</h4>
+                  </div>
+                )
+              }
+              {
+                subPage === "myFavorites" && (
+                  <div>
+                    <h4 className="text-center font-bold">My Favorites</h4>
+                  </div>
+                )
+              }
             </div>
           </>
         )

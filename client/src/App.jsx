@@ -9,7 +9,7 @@ import AccountPage from "./pages/AccountPage";
 import { useUserContext } from "./hooks/Usercontext";
 import { useEffect } from "react";
 const App = () => {
-  const [{ user }, dispatch] = useUserContext();
+  const [, dispatch] = useUserContext();
   // updating the auth state
   useEffect(() => {
     const updateAuthState = () => {
@@ -21,7 +21,7 @@ const App = () => {
       }
     };
     updateAuthState();
-  }, [dispatch, user]);
+  }, [dispatch]);
   return (
     <Router>
       <Routes>
