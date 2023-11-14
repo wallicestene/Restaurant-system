@@ -68,8 +68,8 @@ const AccountPage = () => {
           <Navigate replace to="/login" />
         ) : (
           <>
-            <nav>
-              <ul className=" flex items-center justify-center gap-10 my-5">
+            <nav className=" flex flex-col items-center my-5 ">
+              <ul className="bg-gray-200/90 px-1 h-10 rounded flex items-center justify-center gap-10 w-fit">
                 <li>
                   <Link className={addStyles("myProfile")} to="/account">
                     My Profile
@@ -95,7 +95,7 @@ const AccountPage = () => {
             </nav>
             <div className=" flex flex-col gap-y-1 items-center text-sm w-11/12 mx-auto">
               {subPage === undefined && (
-                <div>
+                <div className=" bg-gray-200 bg-opacity-90 py-2 px-4 rounded">
                   <h3 className=" text-center">You're Logged in as:</h3>
                   <div
                     style={{
