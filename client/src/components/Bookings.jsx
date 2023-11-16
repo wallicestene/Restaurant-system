@@ -1,9 +1,14 @@
 /* eslint-disable react/prop-types */
-import { LocationOn } from "@mui/icons-material";
+import {
+  DateRange,
+  LocationOn,
+  Numbers,
+  TableBarOutlined,
+} from "@mui/icons-material";
 import moment from "moment";
 const Bookings = ({ booking }) => {
   return (
-    <div className=" flex gap-x-2 bg-white w-full rounded-md overflow-hidden  ">
+    <div className=" flex gap-x-2 bg-gray-200/90 w-full rounded-md overflow-hidden shadow-lg text-slate-900">
       <div className="leftDiv h-28 w-1/2  overflow-hidden ">
         <img
           src={booking?.restaurantId.images[0]}
@@ -12,13 +17,29 @@ const Bookings = ({ booking }) => {
         />
       </div>
       <div className="rightDiv flex flex-col justify-between py-3 w-full">
-        <h1>{booking?.restaurantId.name}</h1>
+        <h1 className=" text-base">{booking?.restaurantId.name}</h1>
         <div className=" flex gap-x-2 justify-around ">
-        <p>Table 0{booking?.tableId.number}</p>
-        <p>Table for {booking?.tableId.capacity}</p>
-        <p>{moment(booking?.date).format("YYYY-MM-DD")}</p>
+          <p className=" flex items-center gap-x-1 bg-slate-900 px-2 py-1 text-totem-pole-50 rounded">
+            <TableBarOutlined fontSize="small" />{" "}
+            <span> Table 0{booking?.tableId.number}</span>
+          </p>
+          <p className=" flex items-center gap-x-1 bg-slate-900 px-2 py-1 text-totem-pole-50 rounded">
+            <Numbers fontSize="small" /> Table for {booking?.tableId.capacity}
+          </p>
+          <p className=" flex items-center gap-x-1 bg-slate-900 px-2 py-1 text-totem-pole-50 rounded">
+            {" "}
+            <DateRange fontSize="small" />{" "}
+            {moment(booking?.date).format("YYYY-MM-DD")}
+          </p>
         </div>
-        <p>{booking?.restaurantId.address}</p>
+        <p className=" flex items-center text-xs">
+          <LocationOn
+            sx={{
+              fontSize: "1.0rem",
+            }}
+          />
+          {booking?.restaurantId.address}
+        </p>
       </div>
     </div>
   );

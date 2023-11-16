@@ -8,6 +8,7 @@ import Restaurant from "../components/Restaurant";
 import Bookings from "../components/Bookings";
 import {
   FavoriteBorder,
+  FormatListBulleted,
   ListOutlined,
   PersonOutline,
 } from "@mui/icons-material";
@@ -24,7 +25,7 @@ const AccountPage = () => {
       pageTitle === subPage ||
       (subPage === undefined && pageTitle === "myProfile")
     ) {
-      styles += " bg-totem-pole-500 rounded-full text-white";
+      styles += " bg-totem-pole-500 rounded-full text-totem-pole-50";
     }
     return styles;
   };
@@ -86,7 +87,7 @@ const AccountPage = () => {
                     className={addStyles("myBookings")}
                     to="/account/myBookings"
                   >
-                    <ListOutlined fontSize="small" />
+                    <FormatListBulleted fontSize="small" />
                     <span>My Bookings</span>
                   </Link>
                 </li>
