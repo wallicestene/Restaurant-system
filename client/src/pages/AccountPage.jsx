@@ -6,6 +6,7 @@ import useFetch from "../hooks/useFetch";
 import { useEffect, useState } from "react";
 import Restaurant from "../components/Restaurant";
 import Bookings from "../components/Bookings";
+import { FavoriteBorder, ListOutlined, PersonOutline } from "@mui/icons-material";
 
 const AccountPage = () => {
   const [{ user }, dispatch] = useUserContext();
@@ -14,7 +15,7 @@ const AccountPage = () => {
   const [error, setError] = useState(null);
   const { subPage } = useParams();
   const addStyles = (pageTitle = null) => {
-    let styles = " py-2 px-3 cursor-pointer ";
+    let styles = " py-1 px-2 cursor-pointer flex item-center gap-x-1";
     if (
       pageTitle === subPage ||
       (subPage === undefined && pageTitle === "myProfile")
@@ -68,11 +69,12 @@ const AccountPage = () => {
           <Navigate replace to="/login" />
         ) : (
           <>
-            <nav className=" flex flex-col items-center my-5 ">
-              <ul className="bg-gray-200/90 px-1 h-10 rounded flex items-center justify-center gap-10 w-fit">
+            <nav className=" flex flex-col items-center my-5">
+              <ul className="bg-gray-200/90 px-1 h-10 rounded flex items-center justify-center gap-10 w-fit text-sm">
                 <li>
                   <Link className={addStyles("myProfile")} to="/account">
-                    My Profile
+                    <PersonOutline fontSize="small"/>
+                    <span>My Profile</span>
                   </Link>
                 </li>
                 <li>
@@ -80,7 +82,8 @@ const AccountPage = () => {
                     className={addStyles("myBookings")}
                     to="/account/myBookings"
                   >
-                    My Bookings
+                    <ListOutlined fontSize="small"/>
+                    <span>My Bookings</span>
                   </Link>
                 </li>
                 <li>
@@ -88,14 +91,15 @@ const AccountPage = () => {
                     className={addStyles("myFavorites")}
                     to="/account/myFavorites"
                   >
-                    My Favorites
+                    <FavoriteBorder fontSize="small"/>
+                    <span>My Favorites</span>
                   </Link>
                 </li>
               </ul>
             </nav>
-            <div className=" flex flex-col gap-y-1 items-center text-sm w-11/12 mx-auto">
+            <div className=" grid place-items-center gap-y-1 items-center text-sm py-2 px-4">
               {subPage === undefined && (
-                <div className=" bg-gray-200 bg-opacity-90 py-2 px-4 rounded">
+                <div className=" bg-gray-200 bg-opacity-90 py-2 px-4 rounded w-1/2">
                   <h3 className=" text-center">You're Logged in as:</h3>
                   <div
                     style={{
@@ -133,16 +137,13 @@ const AccountPage = () => {
                 </div>
               )}
               {subPage === "myBookings" && (
-                <div className="">
+                <div className=" lg:w-1/2 w-full">
                   {loading && <p>Loading...</p>}
                   {error && <p>{error}</p>}
                   {!loading && myBookings.length > 0 && (
-                    <div className=" grid lg:grid-cols-3 grid-cols-2 gap-3">
+                    <div className=" flex flex-col gap-y-2 ">
                       {myBookings.map((booking) => (
-                        <Bookings
-                          key={booking._id}
-                          booking={booking}
-                        />
+                        <Bookings key={booking._id} booking={booking} />
                       ))}
                     </div>
                   )}
