@@ -4,16 +4,16 @@ import moment from "moment";
 const Bookings = ({ booking }) => {
   return (
     <div className=" flex gap-x-2 bg-white w-full rounded-md overflow-hidden  ">
-      <div className="leftDiv h-28 w-40  overflow-hidden ">
+      <div className="leftDiv h-28 w-1/2  overflow-hidden ">
         <img
           src={booking?.restaurantId.images[0]}
           alt={booking?.restaurantId.name}
           className=" h-full w-full object-cover"
         />
       </div>
-      <div className="rightDiv flex flex-col justify-between py-3">
+      <div className="rightDiv flex flex-col justify-between py-3 w-full">
         <h1>{booking?.restaurantId.name}</h1>
-        <div className=" flex gap-x-2">
+        <div className=" flex gap-x-2 justify-around ">
         <p>Table 0{booking?.tableId.number}</p>
         <p>Table for {booking?.tableId.capacity}</p>
         <p>{moment(booking?.date).format("YYYY-MM-DD")}</p>

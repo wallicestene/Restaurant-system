@@ -6,7 +6,11 @@ import useFetch from "../hooks/useFetch";
 import { useEffect, useState } from "react";
 import Restaurant from "../components/Restaurant";
 import Bookings from "../components/Bookings";
-import { FavoriteBorder, ListOutlined, PersonOutline } from "@mui/icons-material";
+import {
+  FavoriteBorder,
+  ListOutlined,
+  PersonOutline,
+} from "@mui/icons-material";
 
 const AccountPage = () => {
   const [{ user }, dispatch] = useUserContext();
@@ -73,7 +77,7 @@ const AccountPage = () => {
               <ul className="bg-gray-200/90 px-1 h-10 rounded flex items-center justify-center gap-10 w-fit text-sm">
                 <li>
                   <Link className={addStyles("myProfile")} to="/account">
-                    <PersonOutline fontSize="small"/>
+                    <PersonOutline fontSize="small" />
                     <span>My Profile</span>
                   </Link>
                 </li>
@@ -82,7 +86,7 @@ const AccountPage = () => {
                     className={addStyles("myBookings")}
                     to="/account/myBookings"
                   >
-                    <ListOutlined fontSize="small"/>
+                    <ListOutlined fontSize="small" />
                     <span>My Bookings</span>
                   </Link>
                 </li>
@@ -91,7 +95,7 @@ const AccountPage = () => {
                     className={addStyles("myFavorites")}
                     to="/account/myFavorites"
                   >
-                    <FavoriteBorder fontSize="small"/>
+                    <FavoriteBorder fontSize="small" />
                     <span>My Favorites</span>
                   </Link>
                 </li>
@@ -99,7 +103,7 @@ const AccountPage = () => {
             </nav>
             <div className=" grid place-items-center gap-y-1 items-center text-sm py-2 px-4">
               {subPage === undefined && (
-                <div className=" bg-gray-200 bg-opacity-90 py-2 px-4 rounded w-1/2">
+                <div className=" bg-gray-200 bg-opacity-90 py-2 px-4 rounded lg:w-1/2 w-full">
                   <h3 className=" text-center">You're Logged in as:</h3>
                   <div
                     style={{
@@ -126,14 +130,13 @@ const AccountPage = () => {
                         {user?.email}
                       </span>
                     </p>
+                    <button
+                      className=" bg-red-600 rounded-md py-2 w-full text-white"
+                      onClick={LogOutUser}
+                    >
+                      Log Out
+                    </button>
                   </div>
-
-                  <button
-                    className=" bg-red-600 my-2 rounded-md py-2 w-full text-white"
-                    onClick={LogOutUser}
-                  >
-                    Log Out
-                  </button>
                 </div>
               )}
               {subPage === "myBookings" && (
