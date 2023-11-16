@@ -67,11 +67,11 @@ const AccountPage = () => {
   }, [subPage, user, user?.token, user?.userId]);
 
   return (
-    <div className=" pt-16 font-mulish bg-[url('.\assets\loginFormImages\restaurant2.png')]  bg-cover bg-center h-screen">
+    <div className=" pt-16 font-mulish bg-[url('.\assets\loginFormImages\restaurant2.png')]  bg-cover bg-center h-screen overflow-y-scroll">
       {
         // if the user is not logged in redirect to login page
         !user ? (
-          <Navigate replace to="/login" />
+          <Navigate replace to="/" />
         ) : (
           <>
             <nav className=" flex flex-col items-center my-5">
