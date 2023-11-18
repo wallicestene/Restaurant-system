@@ -109,7 +109,7 @@ const MyRestaurants = () => {
                 Add Image
               </button>
             </div>
-            <div className=" grid grid-cols-3 gap-2 mt-2">
+            <div className=" grid grid-cols-3 gap-3 mt-2">
               {images.length > 0 &&
                 images.map((image, index) => (
                   <div
@@ -118,13 +118,13 @@ const MyRestaurants = () => {
                     <img
                       src={`http://localhost:3000/uploads/${image}`}
                       alt=""
-                      className=" h-28 w-full rounded-md object-cover"
+                      className=" h-24 w-full rounded-md object-cover"
                     />
                   </div>
                 ))}
               <label
                 htmlFor="images"
-                className=" flex items-center justify-center gap-x-2 p-5 rounded-md bg-slate-300 cursor-pointer h-28"
+                className=" flex items-center justify-center gap-x-2 p-5 rounded-md bg-slate-300 cursor-pointer h-24"
               >
                 <CloudUploadOutlined />
                 <input
