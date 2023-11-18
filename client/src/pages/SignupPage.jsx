@@ -49,7 +49,7 @@ const SignupPage = () => {
     });
   };
   return (
-    <div className=" bg-login bg-cover bg-center grid place-items-center h-screen font-mulish text-sm">
+    <div className=" bg-[url('.\assets\loginFormImages\restaurant1.png')] bg-cover bg-center grid place-items-center h-screen font-mulish text-sm">
       <div className=" backdrop-blur-md border border-totem-pole-200  flex flex-col gap-y-3 lg:w-5/12 md:w-1/2 w-full lg:p-5 md:px-1 px-3 py-5 rounded-md shadow-lg text-sm">
         <h2 className=" text-center text-base">Sign Up</h2>
         <form className=" flex flex-col gap-y-3" onSubmit={handleSubmit}>

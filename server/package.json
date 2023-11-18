@@ -20,6 +20,7 @@
     "express": "^4.18.2",
     "express-formidable": "^1.2.0",
     "express-session": "^1.17.3",
+    "image-downloader": "^4.3.0",
     "jsonwebtoken": "^9.0.2",
     "moment-timezone": "^0.5.43",
     "mongoose": "^7.5.2",

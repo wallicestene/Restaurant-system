@@ -1,14 +1,15 @@
 const mongoose = require("mongoose");
 const Restaurant = require("../models/restaurantModel");
-
+const multer = require("multer");
+const imageDownloader = require("image-downloader");
 // add a restaurant
 
 const addRestaurant = (req, res) => {
-  const { name, address, image, menu, contacts } = req.body;
+  const { name, address, images, menu, contacts } = req.body;
   Restaurant.create({
     name,
     address,
-    image,
+    images,
     menu,
     contacts,
   })
@@ -19,7 +20,36 @@ const addRestaurant = (req, res) => {
       res.status(400).json({ error: err.message });
     });
 };
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "uploads/");
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, file.fieldname + "_" + Date.now() + ".jpg");
+//   },
+// });
+// const uploadMiddleware = multer({
+//   storage,
+// });
+
+// const uploadImages = (req, res) => {
+//   return res.json(req.file.path)
+// };
 // find all restaurants
+const uploadImageByLink = (req, res) => {
+  const { link } = req.body;
+  const newName = "photo" + Date.now() + ".jpg";
+  imageDownloader
+    .image({
+      url: link,
+      dest: __dirname + "/uploads/" + newName,
+    })
+    .then((image) => {
+      // console.log(`File saved as ${image.filename}`);
+      res.json(newName)
+    })
+    .catch((err) => console.log(err));
+};
 const findAllRestaurants = (req, res) => {
   Restaurant.find()
     .then((restaurants) => {
@@ -39,8 +69,7 @@ const findOneRestaurant = (req, res) => {
     .then((restaurant) => {
       if (!restaurant) {
         return res.status(404).json(`no restaurant found with that ${id}`);
-      }
-      else{
+      } else {
         res.status(200).json(restaurant);
       }
     })
@@ -55,12 +84,12 @@ const deleteRestaurant = (req, res) => {
     return res.status(404).json(`No restaurant with given id : ${id}`);
   }
 
-  Restaurant.findByIdAndDelete(id) 
+  Restaurant.findByIdAndDelete(id)
 
     .then((result) => {
       if (!result) {
         return res.status(400).json({ error: "No such restaurant" });
-      }else{
+      } else {
         res.status(200).json(result);
       }
     })
@@ -72,5 +101,7 @@ module.exports = {
   addRestaurant,
   findAllRestaurants,
   findOneRestaurant,
-  deleteRestaurant
+  deleteRestaurant,
+  // uploadImages,
+  uploadImageByLink,
 };
