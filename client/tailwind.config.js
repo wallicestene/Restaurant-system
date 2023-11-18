@@ -26,8 +26,8 @@ export default {
         Montserrat: ["Montserrat", "sans-serif"]
       },
       flex:{
-        "7": 0.7,
-        "3" : 0.3
+        "8": 0.8,
+        "2" : 0.2
       },
       backgroundImage: {
         'login': "url('./src/assets/loginFormImages/restaurant1.png')",

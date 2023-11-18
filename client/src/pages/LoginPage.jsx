@@ -11,8 +11,9 @@ const LoginPage = () => {
     password: "",
   });
   const [logInError, setLogInError] = useState(null);
+  const [redirect, setRedirect] = useState(false);
 
-  const handlesubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     fetch("http://localhost:3000/user/login", {
       method: "POST",
@@ -31,6 +32,7 @@ const LoginPage = () => {
           // updating the user context
           dispatch({ type: "SET_USER", payload: data });
           setLogInError(null);
+          setRedirect(true)
         }
       })
       .catch((error) => {
@@ -46,14 +48,14 @@ const LoginPage = () => {
       };
     });
   };
-  if (user) {
-    return <Navigate to="/" />;
-  }
+  // if (redirect) {
+  //   return <Navigate to="/" />;
+  // }
   return (
-    <div className=" grid bg-login bg-cover bg-center place-items-center h-screen font-mulish text-sm">
+    <div className=" grid bg-[url('.\assets\loginFormImages\restaurant1.png')] bg-cover bg-center place-items-center h-screen font-mulish text-sm">
       <div className=" backdrop-blur-md border border-totem-pole-200  flex flex-col gap-y-3 lg:w-5/12 md:w-1/2 w-full lg:p-5 md:px-1 px-3 py-5 rounded-md shadow-lg ">
         <h2 className=" text-center text-base">Log In</h2>
-        <form className=" flex flex-col gap-y-3" onSubmit={handlesubmit}>
+        <form className=" flex flex-col gap-y-3" onSubmit={handleSubmit}>
           <label htmlFor="email">
             Email: <br />
             <input
