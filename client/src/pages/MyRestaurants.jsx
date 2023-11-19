@@ -21,6 +21,7 @@ const MyRestaurants = () => {
     },
   ]);
   const [contacts, setContacts] = useState([]);
+  const [contactsInput, setContactsInput] = useState("");
   const [tags, setTags] = useState([]);
 
   const { action } = useParams();
@@ -73,6 +74,14 @@ const MyRestaurants = () => {
         });
       });
   };
+  const handleAddContacts = (e) => {
+    e.preventDefault();
+    setContacts((prevContacts) => {
+      return [...prevContacts, contactsInput];
+    });
+    setContactsInput("");
+  };
+  console.log(contacts);
   return (
     <div className=" w-full grid place-items-center lg:w-1/2 ">
       {action !== "new" && (
@@ -148,7 +157,6 @@ const MyRestaurants = () => {
                   id="images"
                   className=" hidden"
                   multiple
-                  accept=".jpg,.png,.jpeg"
                   onChange={uploadImage}
                 />
                 <span>Upload</span>
@@ -207,14 +215,29 @@ const MyRestaurants = () => {
             )}
             <Tags selectedTags={tags} setSelectedTags={setTags} />
             {inputTitle("Contacts", "Contacts to your restaurant")}
-            <input
-              type="text"
-              className=""
-              placeholder="+254797...."
-              name="contacts"
-              value={contacts}
-              onChange={(e) => setContacts(e.target.value)}
-            />
+            {contacts.length > 0 && (
+              <div className="flex flex-wrap gap-4 my-2 ">
+                {contacts?.map((item, index) => (
+                  <div  className=" py-2 text-center rounded-md px-2  bg-totem-pole-400 text-totem-pole-50" key={index}>{item}</div>
+                ))}
+              </div>
+            )}
+            <div className=" flex justify-between gap-x-2">
+              <input
+                type="text"
+                className=""
+                placeholder="+254797...."
+                name="contacts"
+                value={contactsInput}
+                onChange={(e) => setContactsInput(e.target.value)}
+              />
+              <button
+                onClick={handleAddContacts}
+                className=" bg-slate-300 rounded-md w-28 text-center "
+              >
+                Add Contacts
+              </button>
+            </div>
             <div className=" my-4">
               <button className=" w-full bg-totem-pole-400 text-totem-pole-50 py-2 text-center rounded-md">
                 Save
