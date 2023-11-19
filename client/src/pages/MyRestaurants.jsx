@@ -81,7 +81,25 @@ const MyRestaurants = () => {
     });
     setContactsInput("");
   };
-  console.log(contacts);
+  const addRestaurant = (e) => {
+    e.preventDefault();
+    fetch("http://localhost:3000/api/restaurant", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        address,
+        description,
+        images,
+        contacts,
+        tags,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+  };
   return (
     <div className=" w-full grid place-items-center lg:w-1/2 ">
       {action !== "new" && (
@@ -218,7 +236,12 @@ const MyRestaurants = () => {
             {contacts.length > 0 && (
               <div className="flex flex-wrap gap-4 my-2 ">
                 {contacts?.map((item, index) => (
-                  <div  className=" py-2 text-center rounded-md px-2  bg-totem-pole-400 text-totem-pole-50" key={index}>{item}</div>
+                  <div
+                    className=" py-2 text-center rounded-md px-2  bg-totem-pole-400 text-totem-pole-50"
+                    key={index}
+                  >
+                    {item}
+                  </div>
                 ))}
               </div>
             )}
@@ -239,7 +262,10 @@ const MyRestaurants = () => {
               </button>
             </div>
             <div className=" my-4">
-              <button className=" w-full bg-totem-pole-400 text-totem-pole-50 py-2 text-center rounded-md">
+              <button
+                onClick={addRestaurant}
+                className=" w-full bg-totem-pole-400 text-totem-pole-50 py-2 text-center rounded-md"
+              >
                 Save
               </button>
             </div>

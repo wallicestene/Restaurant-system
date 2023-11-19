@@ -140,7 +140,7 @@ const RestaurantDetailsPage = () => {
           >
             <div className="imgLeft">
               <img
-                src={data?.images[0]}
+                src={`http://localhost:3000/uploads/${data?.images[0]}`}
                 className=" h-full w-full object-cover"
                 alt=""
               />
@@ -155,7 +155,7 @@ const RestaurantDetailsPage = () => {
               {data?.images.slice(1).map((image, index) => (
                 <div key={index} className="overflow-hidden">
                   <img
-                    src={image}
+                    src={`http://localhost:3000/uploads/${image}`}
                     alt={data?.name}
                     className="h-36 w-full  object-cover"
                   />
@@ -179,7 +179,7 @@ const RestaurantDetailsPage = () => {
                 {data?.images.map((image, index) => (
                   <div key={index} className="  overflow-hidden h-64 w-full">
                     <img
-                      src={image}
+                      src={`http://localhost:3000/uploads/${image}`}
                       alt={data.name}
                       className=" w-full h-full object-cover"
                     />

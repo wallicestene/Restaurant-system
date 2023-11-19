@@ -44,7 +44,7 @@ const Restaurant = ({ restaurant }) => {
         {images.map((image, index) => (
           <div key={index} className=" h-full w-full  overflow-hidden ">
             <img
-              src={image}
+              src={`http://localhost:3000/uploads/${image}`}
               alt={` image ${images.length - 1}`}
               className=" lg:h-48 h-64 object-cover"
             />

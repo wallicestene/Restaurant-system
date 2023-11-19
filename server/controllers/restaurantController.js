@@ -9,13 +9,15 @@ const { extname } = require("path");
 // add a restaurant
 
 const addRestaurant = (req, res) => {
-  const { name, address, images, menu, contacts } = req.body;
+  const { name, address, description, images, menu, contacts, tags } = req.body;
   Restaurant.create({
     name,
     address,
+    description,
     images,
     menu,
     contacts,
+    tags
   })
     .then((result) => {
       res.status(200).json(result);
@@ -40,7 +42,6 @@ const uploadImages = (req, res) => {
   const uploadedImages = [];
   for (let i = 0; i < req.files.length; i++) {
     const { filename } = req.files[i];
-    console.log(filename);
     uploadedImages.push(filename);
   }
   res.json(uploadedImages);
