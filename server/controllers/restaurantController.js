@@ -46,6 +46,10 @@ const uploadImages = (req, res) => {
   }
   res.json(uploadedImages);
 };
+const uploadMenuImage = (req,res) => {
+  const { filename } = req.file;
+  return res.json(filename)
+}
 // find all restaurants
 const uploadImageByLink = (req, res) => {
   const { link } = req.body;
@@ -115,4 +119,5 @@ module.exports = {
   uploadImages,
   uploadMiddleware,
   uploadImageByLink,
+  uploadMenuImage
 };

@@ -14,12 +14,15 @@ const MyRestaurants = () => {
   const [description, setDescription] = useState("");
   const [images, setImages] = useState([]);
   const [imageLink, setImageLink] = useState("");
+  const [itemName, setItemName] = useState("");
+  const [itemImage, setItemImage] = useState("");
   const [menu, setMenu] = useState([
     {
       itemName: "",
       itemImage: "",
     },
   ]);
+
   const [contacts, setContacts] = useState([]);
   const [contactsInput, setContactsInput] = useState("");
   const [tags, setTags] = useState([]);
@@ -93,6 +96,7 @@ const MyRestaurants = () => {
         address,
         description,
         images,
+        menu,
         contacts,
         tags,
       }),
@@ -100,6 +104,26 @@ const MyRestaurants = () => {
       .then((response) => response.json())
       .then((data) => console.log(data));
   };
+  const addMenuItem = (e) => {
+    e.preventDefault();
+    setMenu((prevValue) => {
+      return [...prevValue, { itemName, itemImage }];
+    });
+  };
+  const uploadMenuImage = (e) => {
+    const { files } = e.target;
+    let formData = new FormData();
+    formData.append("itemImage", files[0]);
+    fetch("http://localhost:3000/api/upload-menu-image", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((image) => {
+        setItemImage(image);
+      });
+  };
+
   return (
     <div className=" w-full grid place-items-center lg:w-1/2 ">
       {action !== "new" && (
@@ -191,42 +215,47 @@ const MyRestaurants = () => {
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
             {inputTitle("Menu", "The menu items for your restaurant")}
+            {menu.length > 2 && (
+              <ul className="flex gap-2 flex-wrap py-2 px-3">
+              {menu.slice(1, menu.length).map((menuItem, index) => (
+                <li
+                  key={index}
+                  className=" flex items-center gap-1 border border-totem-pole-400 py-1 px-2 rounded-md"
+                >
+                  <img
+                    src={`http://localhost:3000/uploads/${menuItem.itemImage}`}
+                    alt={menuItem.itemName}
+                    className=" lg:h-16 lg:w-16 md:h-14 md:w-14 h-10 w-10 rounded-full object-cover"
+                  />
+                  <p className=" text-sm tracking-wide">
+                    {menuItem.itemName}
+                  </p>
+                </li>
+              ))}
+            </ul>
+            )}
+            <div className=" flex flex-row gap-x-2">
             <input
               type="text"
               className=""
               placeholder="menu"
               name="menu"
-              onChange={(e) =>
-                setMenu((prevValue) => {
-                  return [
-                    {
-                      ...prevValue,
-                      itemName: e.target.value,
-                    },
-                  ];
-                })
-              }
+              onChange={(e) => setItemName(e.target.value)}
             />
-            <label className="flex items-center gap-x-1 p-5 rounded-md bg-slate-300 w-fit cursor-pointer mt-4">
+            <label className="flex items-center gap-x-2 rounded-md px-1 bg-slate-300 w-fit cursor-pointer">
               <CloudUploadOutlined />
               <input
                 type="file"
                 name="menuItemImage"
                 placeholder="menu item image"
                 className=" hidden"
-                onChange={(e) =>
-                  setMenu((prevValue) => {
-                    return [
-                      {
-                        ...prevValue,
-                        itemImage: e.target.files[0],
-                      },
-                    ];
-                  })
-                }
+                onChange={uploadMenuImage}
+                multiple
               />
               <span>Upload Item image</span>
             </label>
+            </div>
+            <button className="  bg-slate-300 rounded-md text-center w-full mt-2 py-2" onClick={addMenuItem}>Add Menu Item</button>
             {inputTitle(
               "Tags",
               "Tags, for example dates, fast-food, five-star..."
@@ -235,12 +264,12 @@ const MyRestaurants = () => {
             {inputTitle("Contacts", "Contacts to your restaurant")}
             {contacts.length > 0 && (
               <div className="flex flex-wrap gap-4 my-2 ">
-                {contacts?.map((item, index) => (
+                {contacts?.map((contact, index) => (
                   <div
                     className=" py-2 text-center rounded-md px-2  bg-totem-pole-400 text-totem-pole-50"
                     key={index}
                   >
-                    {item}
+                    {contact}
                   </div>
                 ))}
               </div>
