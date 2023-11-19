@@ -54,7 +54,24 @@ const MyRestaurants = () => {
         });
       })
       .catch((err) => console.log(err));
-      setImageLink("")
+    setImageLink("");
+  };
+  const uploadImage = (e) => {
+    const { files } = e.target;
+    let formData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      formData.append("images", files[i]);
+    }
+    fetch("http://localhost:3000/api/upload-images", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((images) => {
+        setImages((prevImages) => {
+          return [...prevImages, ...images];
+        });
+      });
   };
   return (
     <div className=" w-full grid place-items-center lg:w-1/2 ">
@@ -112,9 +129,7 @@ const MyRestaurants = () => {
             <div className=" grid grid-cols-3 gap-3 mt-2">
               {images.length > 0 &&
                 images.map((image, index) => (
-                  <div
-                    key={index}
-                  >
+                  <div key={index}>
                     <img
                       src={`http://localhost:3000/uploads/${image}`}
                       alt=""
@@ -133,6 +148,8 @@ const MyRestaurants = () => {
                   id="images"
                   className=" hidden"
                   multiple
+                  accept=".jpg,.png,.jpeg"
+                  onChange={uploadImage}
                 />
                 <span>Upload</span>
               </label>

@@ -16,29 +16,8 @@ const adminBro = new AdminBro({
     {
       resource: User,
     },
-    // {
-    //   resource: Restaurant,
-    // },
     {
       resource: Restaurant,
-      options: {
-        actions: {
-          uploadRestaurantImage: {
-            actionType: 'record',
-            handler: async (request, response, data) => {
-              // Assuming you've sent the file as a `restaurantImage` field
-              const { record } = data;
-              const restaurant = await Restaurant.findById(record.id);
-              restaurant.images.push(record.params.restaurantImage);
-              await restaurant.save();
-              return {
-                ...record,
-                params: { ...record.params, restaurantImage: restaurant.images },
-              };
-            },
-          },
-        },
-      },
     },
     {
       resource: Table,
