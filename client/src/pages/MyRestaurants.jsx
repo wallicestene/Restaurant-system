@@ -1,13 +1,13 @@
-/* eslint-disable no-unused-vars */
+
 import {
   Add,
-  CheckBoxOutlineBlank,
   Close,
-  CloudUploadOutlined,
 } from "@mui/icons-material";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Tags from "../components/Tags";
+import ImagesUploader from "../components/ImagesUploader";
+import MenuItems from "../components/MenuItems";
 
 const MyRestaurants = () => {
   const [name, setName] = useState("");
@@ -17,12 +17,7 @@ const MyRestaurants = () => {
   const [imageLink, setImageLink] = useState("");
   const [itemName, setItemName] = useState("");
   const [itemImage, setItemImage] = useState("");
-  const [menu, setMenu] = useState([
-    {
-      itemName: "",
-      itemImage: "",
-    },
-  ]);
+  const [menu, setMenu] = useState([]);
 
   const [contacts, setContacts] = useState([]);
   const [contactsInput, setContactsInput] = useState("");
@@ -42,41 +37,6 @@ const MyRestaurants = () => {
         {inputDescription(description)}
       </>
     );
-  };
-  const uploadByLink = (e) => {
-    e.preventDefault();
-    fetch("http://localhost:3000/api/upload-by-link", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ link: imageLink }),
-    })
-      .then((res) => res.json())
-      .then((image) => {
-        setImages((prevImages) => {
-          return [...prevImages, image];
-        });
-      })
-      .catch((err) => console.log(err));
-    setImageLink("");
-  };
-  const uploadImage = (e) => {
-    const { files } = e.target;
-    let formData = new FormData();
-    for (let i = 0; i < files.length; i++) {
-      formData.append("images", files[i]);
-    }
-    fetch("http://localhost:3000/api/upload-images", {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((images) => {
-        setImages((prevImages) => {
-          return [...prevImages, ...images];
-        });
-      });
   };
   const handleAddContacts = (e) => {
     e.preventDefault();
@@ -105,26 +65,6 @@ const MyRestaurants = () => {
       .then((response) => response.json())
       .then((data) => console.log(data));
   };
-  const addMenuItem = (e) => {
-    e.preventDefault();
-    setMenu((prevValue) => {
-      return [...prevValue, { itemName, itemImage }];
-    });
-  };
-  const uploadMenuImage = (e) => {
-    const { files } = e.target;
-    let formData = new FormData();
-    formData.append("itemImage", files[0]);
-    fetch("http://localhost:3000/api/upload-menu-image", {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((image) => {
-        setItemImage(image);
-      });
-  };
-
   return (
     <div className=" w-full grid place-items-center lg:w-1/2 ">
       {action !== "new" && (
@@ -163,48 +103,12 @@ const MyRestaurants = () => {
               onChange={(e) => setAddress(e.target.value)}
             />
             {inputTitle("Images", "The more the images the better")}
-            <div className=" flex flex-row gap-2">
-              <input
-                type="text"
-                placeholder="Add image using a link"
-                name="imageLink"
-                value={imageLink}
-                onChange={(e) => setImageLink(e.target.value)}
-              />
-              <button
-                className=" bg-slate-300 rounded-md w-28 text-center"
-                onClick={uploadByLink}
-              >
-                Add Image
-              </button>
-            </div>
-            <div className=" grid grid-cols-3 gap-3 mt-2">
-              {images.length > 0 &&
-                images.map((image, index) => (
-                  <div key={index}>
-                    <img
-                      src={`http://localhost:3000/uploads/${image}`}
-                      alt=""
-                      className=" h-24 w-full rounded-md object-cover"
-                    />
-                  </div>
-                ))}
-              <label
-                htmlFor="images"
-                className=" flex items-center justify-center gap-x-2 p-5 rounded-md bg-slate-300 cursor-pointer h-24"
-              >
-                <CloudUploadOutlined />
-                <input
-                  type="file"
-                  name="images"
-                  id="images"
-                  className=" hidden"
-                  multiple
-                  onChange={uploadImage}
-                />
-                <span>Upload</span>
-              </label>
-            </div>
+            <ImagesUploader
+              images={images}
+              setImages={setImages}
+              imageLink={imageLink}
+              setImageLink={setImageLink}
+            />
             {inputTitle("Description", "The description of your place")}
             <textarea
               className=" border border-totem-pole-300 w-full py-2 indent-2 outline-none rounded-md"
@@ -216,51 +120,14 @@ const MyRestaurants = () => {
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
             {inputTitle("Menu", "The menu items for your restaurant")}
-            {menu.length > 2 && (
-              <ul className="flex gap-2 flex-wrap py-2 px-3">
-                {menu.map((menuItem, index) => (
-                  <li
-                    key={index}
-                    className=" flex items-center gap-1 border border-totem-pole-400 py-1 px-2 rounded-md"
-                  >
-                    <img
-                      src={`http://localhost:3000/uploads/${menuItem.itemImage}`}
-                      alt={menuItem.itemName}
-                      className=" lg:h-16 lg:w-16 md:h-14 md:w-14 h-10 w-10 rounded-full object-cover"
-                    />
-                    <p className=" text-sm tracking-wide">
-                      {menuItem.itemName}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            )}
-            <div className=" flex flex-row gap-x-2">
-              <input
-                type="text"
-                className=""
-                placeholder="menu"
-                name="menu"
-                onChange={(e) => setItemName(e.target.value)}
-              />
-              <label className="flex items-center gap-x-2 rounded-md px-1 bg-slate-300 w-fit cursor-pointer">
-                <CloudUploadOutlined />
-                <input
-                  type="file"
-                  name="menuItemImage"
-                  placeholder="menu item image"
-                  className=" hidden"
-                  onChange={uploadMenuImage}
-                />
-                <span>Upload Item image</span>
-              </label>
-            </div>
-            <button
-              className="  bg-slate-300 rounded-md text-center w-full mt-2 py-2"
-              onClick={addMenuItem}
-            >
-              Add Menu Item
-            </button>
+            <MenuItems
+              itemName={itemName}
+              setItemName={setItemName}
+              itemImage={itemImage}
+              setItemImage={setItemImage}
+              menu={menu}
+              setMenu={setMenu}
+            />
             {inputTitle(
               "Tags",
               "Tags, for example dates, fast-food, five-star..."
@@ -271,19 +138,19 @@ const MyRestaurants = () => {
               <div className="flex flex-wrap gap-4 my-2 ">
                 {contacts?.map((contact, index) => (
                   <div
-                    className=" relative py-2 text-center rounded-md px-2  bg-totem-pole-400 text-totem-pole-50"
+                    className=" relative py-2 text-center rounded-md px-2 border border-totem-pole-400 "
                     key={index}
                   >
                     {contact}
                     <span
                       onClick={() =>
-                        setContacts(prevContacts => {
+                        setContacts((prevContacts) => {
                           return [
-                            ...prevContacts.filter(con => con !== contact)
-                          ]
+                            ...prevContacts.filter((con) => con !== contact),
+                          ];
                         })
                       }
-                      className=" absolute top-0 right-0 bg-totem-pole-50 flex items-center justify-center rounded-full text-slate-900 cursor-pointer"
+                      className=" absolute -top-1 -right-1 z-10 border border-totem-pole-400 bg-white flex items-center justify-center rounded-full text-slate-900 cursor-pointer"
                     >
                       <Close
                         sx={{
@@ -300,7 +167,7 @@ const MyRestaurants = () => {
               <input
                 type="text"
                 className=""
-                placeholder="+254797...."
+                placeholder="+254797.. ,email..."
                 name="contacts"
                 value={contactsInput}
                 onChange={(e) => setContactsInput(e.target.value)}
