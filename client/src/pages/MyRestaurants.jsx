@@ -2,6 +2,7 @@
 import {
   Add,
   CheckBoxOutlineBlank,
+  Close,
   CloudUploadOutlined,
 } from "@mui/icons-material";
 import { useState } from "react";
@@ -217,45 +218,49 @@ const MyRestaurants = () => {
             {inputTitle("Menu", "The menu items for your restaurant")}
             {menu.length > 2 && (
               <ul className="flex gap-2 flex-wrap py-2 px-3">
-              {menu.slice(1, menu.length).map((menuItem, index) => (
-                <li
-                  key={index}
-                  className=" flex items-center gap-1 border border-totem-pole-400 py-1 px-2 rounded-md"
-                >
-                  <img
-                    src={`http://localhost:3000/uploads/${menuItem.itemImage}`}
-                    alt={menuItem.itemName}
-                    className=" lg:h-16 lg:w-16 md:h-14 md:w-14 h-10 w-10 rounded-full object-cover"
-                  />
-                  <p className=" text-sm tracking-wide">
-                    {menuItem.itemName}
-                  </p>
-                </li>
-              ))}
-            </ul>
+                {menu.map((menuItem, index) => (
+                  <li
+                    key={index}
+                    className=" flex items-center gap-1 border border-totem-pole-400 py-1 px-2 rounded-md"
+                  >
+                    <img
+                      src={`http://localhost:3000/uploads/${menuItem.itemImage}`}
+                      alt={menuItem.itemName}
+                      className=" lg:h-16 lg:w-16 md:h-14 md:w-14 h-10 w-10 rounded-full object-cover"
+                    />
+                    <p className=" text-sm tracking-wide">
+                      {menuItem.itemName}
+                    </p>
+                  </li>
+                ))}
+              </ul>
             )}
             <div className=" flex flex-row gap-x-2">
-            <input
-              type="text"
-              className=""
-              placeholder="menu"
-              name="menu"
-              onChange={(e) => setItemName(e.target.value)}
-            />
-            <label className="flex items-center gap-x-2 rounded-md px-1 bg-slate-300 w-fit cursor-pointer">
-              <CloudUploadOutlined />
               <input
-                type="file"
-                name="menuItemImage"
-                placeholder="menu item image"
-                className=" hidden"
-                onChange={uploadMenuImage}
-                multiple
+                type="text"
+                className=""
+                placeholder="menu"
+                name="menu"
+                onChange={(e) => setItemName(e.target.value)}
               />
-              <span>Upload Item image</span>
-            </label>
+              <label className="flex items-center gap-x-2 rounded-md px-1 bg-slate-300 w-fit cursor-pointer">
+                <CloudUploadOutlined />
+                <input
+                  type="file"
+                  name="menuItemImage"
+                  placeholder="menu item image"
+                  className=" hidden"
+                  onChange={uploadMenuImage}
+                />
+                <span>Upload Item image</span>
+              </label>
             </div>
-            <button className="  bg-slate-300 rounded-md text-center w-full mt-2 py-2" onClick={addMenuItem}>Add Menu Item</button>
+            <button
+              className="  bg-slate-300 rounded-md text-center w-full mt-2 py-2"
+              onClick={addMenuItem}
+            >
+              Add Menu Item
+            </button>
             {inputTitle(
               "Tags",
               "Tags, for example dates, fast-food, five-star..."
@@ -266,10 +271,27 @@ const MyRestaurants = () => {
               <div className="flex flex-wrap gap-4 my-2 ">
                 {contacts?.map((contact, index) => (
                   <div
-                    className=" py-2 text-center rounded-md px-2  bg-totem-pole-400 text-totem-pole-50"
+                    className=" relative py-2 text-center rounded-md px-2  bg-totem-pole-400 text-totem-pole-50"
                     key={index}
                   >
                     {contact}
+                    <span
+                      onClick={() =>
+                        setContacts(prevContacts => {
+                          return [
+                            ...prevContacts.filter(con => con !== contact)
+                          ]
+                        })
+                      }
+                      className=" absolute top-0 right-0 bg-totem-pole-50 flex items-center justify-center rounded-full text-slate-900 cursor-pointer"
+                    >
+                      <Close
+                        sx={{
+                          height: "1rem",
+                          width: "1rem",
+                        }}
+                      />
+                    </span>
                   </div>
                 ))}
               </div>
