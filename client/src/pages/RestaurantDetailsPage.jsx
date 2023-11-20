@@ -140,7 +140,7 @@ const RestaurantDetailsPage = () => {
           >
             <div className="imgLeft">
               <img
-                src={data?.images[0]}
+                src={`http://localhost:3000/uploads/${data?.images[0]}`}
                 className=" h-full w-full object-cover"
                 alt=""
               />
@@ -155,7 +155,7 @@ const RestaurantDetailsPage = () => {
               {data?.images.slice(1).map((image, index) => (
                 <div key={index} className="overflow-hidden">
                   <img
-                    src={image}
+                    src={`http://localhost:3000/uploads/${image}`}
                     alt={data?.name}
                     className="h-36 w-full  object-cover"
                   />
@@ -179,7 +179,7 @@ const RestaurantDetailsPage = () => {
                 {data?.images.map((image, index) => (
                   <div key={index} className="  overflow-hidden h-64 w-full">
                     <img
-                      src={image}
+                      src={`http://localhost:3000/uploads/${image}`}
                       alt={data.name}
                       className=" w-full h-full object-cover"
                     />
@@ -221,7 +221,7 @@ const RestaurantDetailsPage = () => {
                     className=" flex items-center gap-1 border border-totem-pole-400 py-1 px-2 rounded-md"
                   >
                     <img
-                      src={menuItem.itemImage}
+                      src={`http://localhost:3000/uploads/${menuItem.itemImage}`}
                       alt={menuItem.itemName}
                       className=" lg:h-16 lg:w-16 md:h-14 md:w-14 h-10 w-10 rounded-full object-cover"
                     />

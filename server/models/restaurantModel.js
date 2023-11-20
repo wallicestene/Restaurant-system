@@ -22,18 +22,18 @@ const restaurantSchema = new Schema({
       {
         itemName: {
           type: String,
-          required: true,
+          // required: true,
         },
         itemImage: {
           type: String,
-          required: true,
+          // required: true,
         },
       },
     ],
-    required: true,
+    // required: true,
   },
   contacts: {
-    type: [Number],
+    type: [String],
   },
   tags:{
     type: [String],

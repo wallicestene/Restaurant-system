@@ -2,16 +2,22 @@ const mongoose = require("mongoose");
 const Restaurant = require("../models/restaurantModel");
 const multer = require("multer");
 const imageDownloader = require("image-downloader");
+const { request } = require("express");
+const path = require("path");
+const { extname } = require("path");
+// const path = req
 // add a restaurant
 
 const addRestaurant = (req, res) => {
-  const { name, address, images, menu, contacts } = req.body;
+  const { name, address, description, images, menu, contacts, tags } = req.body;
   Restaurant.create({
     name,
     address,
+    description,
     images,
     menu,
     contacts,
+    tags
   })
     .then((result) => {
       res.status(200).json(result);
@@ -20,21 +26,30 @@ const addRestaurant = (req, res) => {
       res.status(400).json({ error: err.message });
     });
 };
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, "uploads/");
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, file.fieldname + "_" + Date.now() + ".jpg");
-//   },
-// });
-// const uploadMiddleware = multer({
-//   storage,
-// });
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, __dirname + "/uploads");
+  },
+  filename: (req, file, cb) => {
+    cb(null, "photo" + Date.now() + path.extname(file.originalname));
+  },
+});
+const uploadMiddleware = multer({
+  storage,
+});
 
-// const uploadImages = (req, res) => {
-//   return res.json(req.file.path)
-// };
+const uploadImages = (req, res) => {
+  const uploadedImages = [];
+  for (let i = 0; i < req.files.length; i++) {
+    const { filename } = req.files[i];
+    uploadedImages.push(filename);
+  }
+  res.json(uploadedImages);
+};
+const uploadMenuImage = (req,res) => {
+  const { filename } = req.file;
+  return res.json(filename)
+}
 // find all restaurants
 const uploadImageByLink = (req, res) => {
   const { link } = req.body;
@@ -45,8 +60,7 @@ const uploadImageByLink = (req, res) => {
       dest: __dirname + "/uploads/" + newName,
     })
     .then((image) => {
-      // console.log(`File saved as ${image.filename}`);
-      res.json(newName)
+      res.json(newName);
     })
     .catch((err) => console.log(err));
 };
@@ -102,6 +116,8 @@ module.exports = {
   findAllRestaurants,
   findOneRestaurant,
   deleteRestaurant,
-  // uploadImages,
+  uploadImages,
+  uploadMiddleware,
   uploadImageByLink,
+  uploadMenuImage
 };
