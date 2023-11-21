@@ -6,8 +6,8 @@ import ImagesUploader from "../components/ImagesUploader";
 import MenuItems from "../components/MenuItems";
 import { useUserContext } from "../hooks/Usercontext";
 import useFetch from "../hooks/useFetch";
-import { Alert, Card, CircularProgress } from "@mui/material";
-import Bookings from "../components/Bookings";
+import { Alert, CircularProgress } from "@mui/material";
+import AddedRestaurants from "../components/AddedRestaurants";
 
 const MyRestaurants = () => {
   const [name, setName] = useState("");
@@ -87,11 +87,10 @@ const MyRestaurants = () => {
             <CircularProgress color="secondary" size={50} thickness={4} />
           )}
           {error && <Alert severity="error">{error}</Alert>}
-          {!isLoading && !error && (
+          {!isLoading && data.length > 0 && (
             <div className=" mt-4">
               {data?.map((restaurant) => (
-                // <Bookings  restaurant={restaurant} />
-                <h1 key={restaurant._id}>{restaurant.name}</h1>
+                <AddedRestaurants key={restaurant._id}  restaurant={restaurant} />
               ))}
             </div>
           )}

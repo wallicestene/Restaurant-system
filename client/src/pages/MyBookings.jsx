@@ -11,7 +11,7 @@ const MyBookings = ({ subPage }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [{ user }] = useUserContext();
-  const skeleton = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const skeleton = [1, 2, 3, 4,];
   const navigate = useNavigate();
   useEffect(() => {
     const getMyBookings = () => {
@@ -124,7 +124,7 @@ const MyBookings = ({ subPage }) => {
           <div className=" flex flex-col gap-y-1">
             <h1 className=" lg:text-2xl md:text-xl text-lg">No Bookings...Yet</h1>
             <p>
-              You don't have bookings yet. Click the button below to make a new
+              You {"don't"} have bookings yet. Click the button below to make a new
               one.
             </p>
             <button onClick={() => {
