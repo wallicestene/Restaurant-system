@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useUserContext } from "../hooks/Usercontext";
 import Bookings from "../components/Bookings";
 import { Skeleton } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
 const MyBookings = ({ subPage }) => {
@@ -11,6 +12,7 @@ const MyBookings = ({ subPage }) => {
   const [error, setError] = useState(null);
   const [{ user }] = useUserContext();
   const skeleton = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const navigate = useNavigate();
   useEffect(() => {
     const getMyBookings = () => {
       fetch(`http://localhost:3000/api/reservations/?userId=${user?.userId}`, {
@@ -112,11 +114,22 @@ const MyBookings = ({ subPage }) => {
             ))}
         </div>
         {error && <p>{error}</p>}
-        {!loading && myBookings.length > 0 && (
+        {!loading && myBookings.length > 0 ? (
           <div className=" flex flex-col gap-y-2 ">
             {myBookings.map((booking) => (
-              <Bookings key={booking._id} booking={booking} />
+              <Bookings key={booking?._id} booking={booking} />
             ))}
+          </div>
+        ) : (
+          <div className=" flex flex-col gap-y-1">
+            <h1 className=" lg:text-2xl md:text-xl text-lg">No Bookings...Yet</h1>
+            <p>
+              You don't have bookings yet. Click the button below to make a new
+              one.
+            </p>
+            <button onClick={() => {
+              navigate("/")
+            }} className=" py-2 px-3 border border-totem-pole-400 rounded w-fit">Start searching</button>
           </div>
         )}
       </div>
