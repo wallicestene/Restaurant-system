@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const restaurantSchema = new Schema({
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: "user",
+    required: true,
+  },
   name: {
     type: String,
     required: true,
@@ -22,11 +27,11 @@ const restaurantSchema = new Schema({
       {
         itemName: {
           type: String,
-          // required: true,
+          required: true,
         },
         itemImage: {
           type: String,
-          // required: true,
+          required: true,
         },
       },
     ],

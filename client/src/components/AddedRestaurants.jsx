@@ -1,0 +1,48 @@
+/* eslint-disable react/prop-types */
+
+import { Image, LocationOn, RestaurantMenu, TableBarOutlined } from "@mui/icons-material";
+import useFetch from "../hooks/useFetch";
+
+const AddedRestaurants = ({restaurant}) => {
+    const { data } = useFetch(
+        `http://localhost:3000/api/tables/restaurant/${restaurant._id}`
+      );
+    return (
+        <div className=" flex gap-x-2 bg-gray-200/90 w-full rounded-md overflow-hidden shadow-lg text-slate-900">
+          <div className="leftDiv h-28 w-1/2  overflow-hidden ">
+            <img
+              src={`http://localhost:3000/uploads/${restaurant?.images[0]}`}
+              alt={restaurant?.name}
+              className=" h-full w-full object-cover"
+            />
+          </div>
+          <div className="rightDiv flex flex-col justify-between py-3 w-full">
+            <h1 className=" text-base">{restaurant?.name}</h1>
+            <div className=" flex gap-x-2 justify-around ">
+              <p className=" flex items-center gap-x-1 bg-slate-900 px-2 py-1 text-totem-pole-50 rounded">
+                <TableBarOutlined fontSize="small" />{" "}
+                <span> Tables {data?.length}</span>
+              </p>
+              <p className=" flex items-center gap-x-1 bg-slate-900 px-2 py-1 text-totem-pole-50 rounded">
+                <Image fontSize="small" />
+                <span>Images  {restaurant?.images.length}</span>
+              </p>
+              <p className=" flex items-center gap-x-1 bg-slate-900 px-2 py-1 text-totem-pole-50 rounded">
+                <RestaurantMenu/>
+                <span>{restaurant?.menu.length} Menu Item{restaurant?.menu.length > 1 ? "s" : ""}</span>
+              </p>
+            </div>
+            <p className=" flex items-center text-xs">
+              <LocationOn
+                sx={{
+                  fontSize: "1.0rem",
+                }}
+              />
+              {restaurant?.address}
+            </p>
+          </div>
+        </div>
+      );
+}
+
+export default AddedRestaurants

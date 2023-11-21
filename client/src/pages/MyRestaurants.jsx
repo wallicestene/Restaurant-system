@@ -1,13 +1,13 @@
-
-import {
-  Add,
-  Close,
-} from "@mui/icons-material";
+import { Add, Close } from "@mui/icons-material";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Tags from "../components/Tags";
 import ImagesUploader from "../components/ImagesUploader";
 import MenuItems from "../components/MenuItems";
+import { useUserContext } from "../hooks/Usercontext";
+import useFetch from "../hooks/useFetch";
+import { Alert, CircularProgress } from "@mui/material";
+import AddedRestaurants from "../components/AddedRestaurants";
 
 const MyRestaurants = () => {
   const [name, setName] = useState("");
@@ -22,7 +22,7 @@ const MyRestaurants = () => {
   const [contacts, setContacts] = useState([]);
   const [contactsInput, setContactsInput] = useState("");
   const [tags, setTags] = useState([]);
-
+  const [{ user }] = useUserContext();
   const { action } = useParams();
   const inputHeader = (header) => {
     return <h2 className=" text-xl mt-4">{header}</h2>;
@@ -53,6 +53,7 @@ const MyRestaurants = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        owner: user?.userId,
         name,
         address,
         description,
@@ -65,17 +66,33 @@ const MyRestaurants = () => {
       .then((response) => response.json())
       .then((data) => console.log(data));
   };
+  const { data, isLoading, error } = useFetch(
+    `http://localhost:3000/api/restaurants/owner/${user?.userId}`
+  );
   return (
-    <div className=" w-full grid place-items-center lg:w-1/2 ">
+    <div className=" w-full grid place-items-center lg:w-1/2 font-mulish ">
       {action !== "new" && (
-        <div className=" text-center">
-          <Link
-            className=" py-1 px-2 cursor-pointer flex item-center gap-x-1 bg-totem-pole-500 rounded-full text-totem-pole-50"
-            to="/account/myFavorites/new"
-          >
-            <Add fontSize="small" />
-            <span>Add new Restaurant</span>
-          </Link>
+        <div className=" w-full">
+          <div className=" flex justify-center">
+            <Link
+              className=" py-1 px-2 cursor-pointer flex item-center gap-x-1 bg-totem-pole-500 rounded-full text-totem-pole-50 w-fit"
+              to="/account/myFavorites/new"
+            >
+              <Add fontSize="small" />
+              <span>Add new Restaurant</span>
+            </Link>
+          </div>
+          {isLoading && (
+            <CircularProgress color="secondary" size={50} thickness={4} />
+          )}
+          {error && <Alert severity="error">{error}</Alert>}
+          {!isLoading && data.length > 0 && (
+            <div className=" mt-4">
+              {data?.map((restaurant) => (
+                <AddedRestaurants key={restaurant._id}  restaurant={restaurant} />
+              ))}
+            </div>
+          )}
         </div>
       )}
       {action === "new" && (
@@ -97,7 +114,7 @@ const MyRestaurants = () => {
             <input
               type="text"
               className=""
-              placeholder="address"
+              placeholder="Address e.g Nairobi,Kenya"
               name="address"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
@@ -168,7 +185,7 @@ const MyRestaurants = () => {
                 type="text"
                 className=""
                 placeholder="+254797.. ,email..."
-                name="contacts"
+                name="contactInput"
                 value={contactsInput}
                 onChange={(e) => setContactsInput(e.target.value)}
               />

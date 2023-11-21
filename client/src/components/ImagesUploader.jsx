@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { CloudUploadOutlined } from "@mui/icons-material";
+import { CloudUploadOutlined, DeleteOutlineRounded } from "@mui/icons-material";
 const ImagesUploader = ({ images, setImages, imageLink, setImageLink }) => {
   const uploadByLink = (e) => {
     e.preventDefault();
@@ -36,12 +36,17 @@ const ImagesUploader = ({ images, setImages, imageLink, setImageLink }) => {
         });
       });
   };
+  const removeImage = (image) => {
+    setImages(prevImages => {
+      return [ ...prevImages.filter(img => img !== image)]
+    })
+  }
   return (
     <>
       <div className=" flex flex-row gap-2">
         <input
           type="text"
-          placeholder="Add image using a link"
+          placeholder="Add image by link"
           name="imageLink"
           value={imageLink}
           onChange={(e) => setImageLink(e.target.value)}
@@ -56,12 +61,15 @@ const ImagesUploader = ({ images, setImages, imageLink, setImageLink }) => {
       <div className=" grid grid-cols-3 gap-3 mt-2">
         {images.length > 0 &&
           images.map((image, index) => (
-            <div key={index}>
+            <div key={index} className=" relative">
               <img
                 src={`http://localhost:3000/uploads/${image}`}
                 alt=""
                 className=" h-24 w-full rounded-md object-cover"
               />
+              <div className=" absolute bottom-2 right-2 z-10 bg-totem-pole-100 flex items-center justify-center rounded-full p-1" onClick={() => removeImage(image)}>
+                <DeleteOutlineRounded/>
+              </div>
             </div>
           ))}
         <label

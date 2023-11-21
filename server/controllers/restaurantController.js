@@ -9,15 +9,16 @@ const { extname } = require("path");
 // add a restaurant
 
 const addRestaurant = (req, res) => {
-  const { name, address, description, images, menu, contacts, tags } = req.body;
+  const { owner, name, address, description, images, menu, contacts, tags } = req.body;
   Restaurant.create({
+    owner,
     name,
     address,
     description,
     images,
     menu,
     contacts,
-    tags
+    tags,
   })
     .then((result) => {
       res.status(200).json(result);
@@ -26,6 +27,24 @@ const addRestaurant = (req, res) => {
       res.status(400).json({ error: err.message });
     });
 };
+// get all restaurants by the owner
+const getRestaurantByOwner = (req, res) => {
+  const { owner } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(owner)) {
+    return res.status(400).json("No user with that Id");
+  }
+  Restaurant.find({ owner })
+    .then((restaurants) => {
+      if (!restaurants) {
+        return res.status(404).send("no restaurants found");
+      }
+      res.status(200).json(restaurants);
+    })
+    .catch((error) => {
+      res.status(500).json({ error: "failed to fetch the restaurants" });
+    });
+};
+// custom filename and destination
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, __dirname + "/uploads");
@@ -37,7 +56,7 @@ const storage = multer.diskStorage({
 const uploadMiddleware = multer({
   storage,
 });
-
+// uploading images
 const uploadImages = (req, res) => {
   const uploadedImages = [];
   for (let i = 0; i < req.files.length; i++) {
@@ -46,10 +65,11 @@ const uploadImages = (req, res) => {
   }
   res.json(uploadedImages);
 };
-const uploadMenuImage = (req,res) => {
+// uploading menu item image
+const uploadMenuImage = (req, res) => {
   const { filename } = req.file;
-  return res.json(filename)
-}
+  return res.json(filename);
+};
 // find all restaurants
 const uploadImageByLink = (req, res) => {
   const { link } = req.body;
@@ -119,5 +139,6 @@ module.exports = {
   uploadImages,
   uploadMiddleware,
   uploadImageByLink,
-  uploadMenuImage
+  uploadMenuImage,
+  getRestaurantByOwner
 };
