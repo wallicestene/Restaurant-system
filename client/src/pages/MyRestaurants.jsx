@@ -69,9 +69,8 @@ const MyRestaurants = () => {
   const { data, isLoading, error } = useFetch(
     `http://localhost:3000/api/restaurants/owner/${user?.userId}`
   );
-  console.log(data);
   return (
-    <div className=" w-full grid place-items-center lg:w-1/2 ">
+    <div className=" w-full grid place-items-center lg:w-1/2 font-mulish ">
       {action !== "new" && (
         <div className=" w-full">
           <div className=" flex justify-center">
@@ -115,7 +114,7 @@ const MyRestaurants = () => {
             <input
               type="text"
               className=""
-              placeholder="address"
+              placeholder="Address e.g Nairobi,Kenya"
               name="address"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
