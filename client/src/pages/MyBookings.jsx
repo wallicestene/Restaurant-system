@@ -44,7 +44,7 @@ const MyBookings = () => {
   }, [user?.token, user?.userId]);
   return (
     <>
-      <div className="lg:w-1/2 mx-auto w-full py-20">
+      <div className="w-1/2 mx-auto py-20 font-mulish">
         <AccountNav/>
         <div className=" flex flex-col gap-y-3">
           {loading &&
@@ -114,15 +114,15 @@ const MyBookings = () => {
             ))}
         </div>
         {error && <p>{error}</p>}
-        {!loading && myBookings.length > 0 ? (
-          <div className=" flex flex-col gap-y-3 ">
+        {!loading &&!error && myBookings.length > 0 ? (
+          <div className=" flex flex-col gap-y-3">
             {myBookings.map((booking) => (
               <Bookings key={booking?._id} booking={booking} />
             ))}
           </div>
         ) : (
           <div className=" flex flex-col gap-y-1">
-            <h1 className=" lg:text-2xl md:text-xl text-lg">No Bookings...Yet</h1>
+            <h1 className=" lg:text-2xl md:text-xl text-lg font-bold">No Bookings...Yet</h1>
             <p>
               You {"don't"} have bookings yet. Click the button below to make a new
               one.

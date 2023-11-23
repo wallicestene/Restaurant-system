@@ -39,6 +39,7 @@ const App = () => {
           <Route path="/account/myRestaurants" element={<RestaurantsPage/>} />
           <Route path="/account/myBookings" element={<MyBookings/>} />
           <Route path="/account/myRestaurants/new" element={<PlacesForm />} />
+          <Route path="/account/myRestaurants/:id" element={<PlacesForm />} />
           {/* <Route path="/account/:subPage/:action" element={<AccountPage />} /> */}
         </Route>
       </Routes>
