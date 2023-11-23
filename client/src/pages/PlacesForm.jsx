@@ -4,7 +4,7 @@ import ImagesUploader from "../components/ImagesUploader";
 import MenuItems from "../components/MenuItems";
 import Tags from "../components/Tags";
 import { Close } from "@mui/icons-material";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 
 const PlacesForm = () => {
   const [name, setName] = useState("");
@@ -19,6 +19,7 @@ const PlacesForm = () => {
   const [contacts, setContacts] = useState([]);
   const [contactsInput, setContactsInput] = useState("");
   const [tags, setTags] = useState([]);
+    const [redirect, setRedirect] = useState(null);
 
   const { id } = useParams();
   const [{ user }] = useUserContext();
@@ -81,6 +82,7 @@ const PlacesForm = () => {
         .then((response) => response.json())
         .then((data) => console.log(data));
     }
+    setRedirect("/account/myRestaurants")
   };
   useEffect(() => {
     const getRestaurant = () => {
@@ -101,6 +103,10 @@ const PlacesForm = () => {
     }
     getRestaurant();
   }, [id]);
+    if (redirect) {
+    return <Navigate to={redirect} />;
+  }
+
   return (
     <div className="w-full grid place-items-center lg:w-1/2 mx-auto font-mulish pt-20 text-sm">
       <div className="w-full px-2">

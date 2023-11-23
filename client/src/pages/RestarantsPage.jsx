@@ -15,10 +15,10 @@ const RestarantsPage = () => {
       <AccountNav />
       <div className=" flex justify-center">
         <Link
-          className=" py-1 px-2 cursor-pointer flex item-center gap-x-1 bg-totem-pole-500 rounded-full text-totem-pole-50 w-fit"
+          className=" py-1 px-2 cursor-pointer flex item-center justify-center gap-x-1 bg-totem-pole-500 rounded-full text-totem-pole-50 w-fit"
           to="/account/myRestaurants/new"
         >
-          <Add fontSize="small" />
+          <Add  />
           <span>Add new Restaurant</span>
         </Link>
       </div>

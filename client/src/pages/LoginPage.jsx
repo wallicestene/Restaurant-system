@@ -48,9 +48,9 @@ const LoginPage = () => {
       };
     });
   };
-  // if (redirect) {
-  //   return <Navigate to="/" />;
-  // }
+  if (redirect) {
+    return <Navigate to="/" />;
+  }
   return (
     <div className=" grid bg-[url('.\assets\loginFormImages\restaurant1.png')] bg-cover bg-center place-items-center h-screen font-mulish text-sm">
       <div className=" backdrop-blur-md border border-totem-pole-200  flex flex-col gap-y-3 lg:w-5/12 md:w-1/2 w-full lg:p-5 md:px-1 px-3 py-5 rounded-md shadow-lg ">

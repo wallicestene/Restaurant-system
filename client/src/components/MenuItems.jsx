@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Close, CloudUploadOutlined, Upload, UploadRounded } from "@mui/icons-material";
+import { Close, UploadRounded } from "@mui/icons-material";
 
 const MenuItems = ({
   itemName,
