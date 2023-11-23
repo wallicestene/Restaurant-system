@@ -67,8 +67,12 @@ const ImagesUploader = ({ images, setImages, imageLink, setImageLink }) => {
                 alt=""
                 className=" h-24 w-full rounded-md object-cover"
               />
-              <div className=" absolute bottom-2 right-2 z-10 bg-totem-pole-100 flex items-center justify-center rounded-full p-1" onClick={() => removeImage(image)}>
-                <DeleteOutlineRounded/>
+              <div className=" absolute bottom-2 right-2 z-10 bg-totem-pole-100 flex items-center justify-center rounded-full p-1">
+                <DeleteOutlineRounded sx={
+                  {
+                    cursor: "pointer"
+                  }
+                } onClick={() => removeImage(image)}/>
               </div>
             </div>
           ))}

@@ -5,9 +5,14 @@ import RestaurantDetailsPage from "./pages/RestaurantDetailsPage";
 import Layout from "./layouts/Layout";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
-import AccountPage from "./pages/AccountPage";
+// import AccountPage from "./pages/AccountPage";
+import Profile from "./pages/Profile";
+
 import { useUserContext } from "./hooks/Usercontext";
 import { useEffect } from "react";
+import RestaurantsPage from "./pages/RestarantsPage";
+import PlacesForm from "./pages/PlacesForm";
+import MyBookings from "./pages/MyBookings";
 const App = () => {
   const [, dispatch] = useUserContext();
   // updating the auth state
@@ -30,8 +35,11 @@ const App = () => {
           <Route path="/restaurant/:id" element={<RestaurantDetailsPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-          <Route path="/account/:subPage?" element={<AccountPage />} />
-          <Route path="/account/:subPage/:action" element={<AccountPage />} />
+          <Route path="/account" element={<Profile/>} />
+          <Route path="/account/myRestaurants" element={<RestaurantsPage/>} />
+          <Route path="/account/myBookings" element={<MyBookings/>} />
+          <Route path="/account/myRestaurants/new" element={<PlacesForm />} />
+          {/* <Route path="/account/:subPage/:action" element={<AccountPage />} /> */}
         </Route>
       </Routes>
     </Router>

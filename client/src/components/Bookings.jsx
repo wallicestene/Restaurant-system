@@ -11,7 +11,7 @@ const Bookings = ({ booking }) => {
     <div className=" flex gap-x-2 bg-gray-200/90 w-full rounded-md overflow-hidden shadow-lg text-slate-900">
       <div className="leftDiv h-28 w-1/2  overflow-hidden ">
         <img
-          src={booking?.restaurantId.images[0]}
+          src={`http://localhost:3000/uploads/${booking?.restaurantId.images[0]}`}
           alt={booking?.restaurantId.name}
           className=" h-full w-full object-cover"
         />
