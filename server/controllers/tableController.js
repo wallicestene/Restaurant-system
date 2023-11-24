@@ -10,7 +10,7 @@ const addTable = (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({
-        error: `Error occured while adding tables to database ${err}`,
+        error: `Error occurred while adding tables to database ${err}`,
       });
     });
 };
@@ -31,7 +31,7 @@ const getTablesByRestaurantId = (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({
-        error: `Error occured while retrieving tables from database ${err}`,
+        error: `Error occurred while retrieving tables from database ${err}`,
       });
     });
 };

@@ -5,6 +5,7 @@ import MenuItems from "../components/MenuItems";
 import Tags from "../components/Tags";
 import { Close } from "@mui/icons-material";
 import { Navigate, useParams } from "react-router-dom";
+import TablesForm from "./TablesForm";
 
 const PlacesForm = () => {
   const [name, setName] = useState("");
@@ -215,6 +216,7 @@ const PlacesForm = () => {
             </button>
           </div>
         </form>
+        <TablesForm restaurantId={id}/>
       </div>
     </div>
   );
