@@ -1,5 +1,5 @@
 const express = require("express")
-const { addRestaurant, findAllRestaurants, findOneRestaurant, deleteRestaurant, uploadImageByLink, uploadMiddleware, uploadImages, uploadMenuImage, getRestaurantByOwner, } = require("../controllers/restaurantController")
+const { addRestaurant, findAllRestaurants, findOneRestaurant, deleteRestaurant, uploadImageByLink, uploadMiddleware, uploadImages, uploadMenuImage, getRestaurantByOwner, updateRestaurant, } = require("../controllers/restaurantController")
 const router = express.Router()
 
 router.post("/api/restaurant", addRestaurant)
@@ -10,4 +10,5 @@ router.delete("/api/restaurant/:id", deleteRestaurant)
 router.post("/api/upload-images", uploadMiddleware.array("images", 100), uploadImages)
 router.post("/api/upload-by-link", uploadImageByLink)
 router.post("/api/upload-menu-image", uploadMiddleware.single("itemImage"), uploadMenuImage)
+router.put("/api/restaurant/:id", updateRestaurant)
 module.exports = router

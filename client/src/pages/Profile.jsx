@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useUserContext } from "../hooks/Usercontext";
 import { Navigate } from "react-router-dom";
-
+import AccountNav from "../components/AccountNav";
 const Profile = () => {
   const [redirect, setRedirect] = useState(null);
   const [{ user }, dispatch] = useUserContext();
@@ -13,14 +13,15 @@ const Profile = () => {
     });
     setRedirect("/");
   };
-  // if (!user && !redirect) {
-  //   return <Navigate to={"/login"} />;
-  // }
-  // if (redirect) {
-  //   return <Navigate to={redirect} />;
-  // }
+  if (!user && !redirect) {
+    return <Navigate to={"/login"} />;
+  }
+  if (redirect) {
+    return <Navigate to={redirect} />;
+  }
   return (
-    <>
+    <div className=" flex flex-col items-center h-screen pt-20 text-sm lg:w-11/12 mx-auto w-full">
+    <AccountNav/>
       <div className=" bg-gray-200 bg-opacity-90 py-2 px-4 rounded lg:w-1/2 w-full">
         <h3 className=" text-center">You're Logged in as:</h3>
         <div
@@ -50,7 +51,7 @@ const Profile = () => {
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

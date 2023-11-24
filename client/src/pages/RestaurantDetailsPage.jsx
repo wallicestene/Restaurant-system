@@ -4,6 +4,7 @@ import useFetch from "../hooks/useFetch";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import GroupIcon from '@mui/icons-material/Group';
 import {
   Backspace,
   Close,
@@ -328,7 +329,7 @@ const RestaurantDetailsPage = () => {
                   <h3>Add date</h3>
                   <Datepicker
                     inputClassName={
-                      "placeholder:text-sm bg-slate-800 border-none outline-none"
+                      "placeholder:text-sm bg-slate-800 border-none outline-none text-gray-400"
                     }
                     useRange={false}
                     asSingle={true}
@@ -354,11 +355,11 @@ const RestaurantDetailsPage = () => {
                     </div>
                   </div>
                   {showTables && tables.length > 0 && (
-                    <ul className="absolute top-16 grid grid-cols-2 gap-4 w-full py-2 h-60 overflow-y-scroll rounded-md scroll-m-4 px-3 bg-slate-800 text-white mt-2">
+                    <ul className="absolute top-16 grid grid-cols-2 gap-3 w-full h-fit overflow-y-scroll rounded-md scroll-m-4 p-2 bg-slate-800 text-white mt-2">
                       {tables.map((table, index) => (
                         <li key={index} className=" w-full h-fit">
                           <button
-                            className={`relative w-full py-2 px-3 rounded-md bg-totem-pole-400 flex items-center justify-center gap-x-1 overflow-hidden ${
+                            className={`relative w-full py-2  rounded-md bg-totem-pole-400 flex items-center justify-center gap-x-1 overflow-hidden ${
                               table.occupied && " bg-red-600"
                             }`}
                             disabled={table.occupied ? true : false}
@@ -368,8 +369,16 @@ const RestaurantDetailsPage = () => {
                               setShowTables(false);
                             }}
                           >
-                            <TableBar />
-                            <span>Table: 0{table.number}</span>
+                            <div className=" flex lg:gap-3 md:gap-2 gap-1">
+                              <div className=" flex flex-col gap-2 items-start justify-center">
+                              <TableBar/>
+                              <GroupIcon/>
+                              </div>
+                              <div className=" flex flex-col items-start justify-center gap-2">
+                                <span>Table 0{table.number}</span>
+                                <span>Table for {table.capacity}</span>
+                              </div>
+                            </div>
                             {table.occupied && (
                               <span className=" absolute top-0 left-0 w-full h-full text-white flex items-center justify-center backdrop-blur-sm bg-white/20">
                                 Occupied

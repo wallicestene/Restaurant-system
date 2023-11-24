@@ -30,21 +30,14 @@ const Navbar = () => {
         "backdrop-blur-xl  bg-white/60 shadow transition-colors duration-300 delay-150"
       }`}
     >
-      <div className="left text-lg font-bold  ">DineEasy</div>
+      <div className="left text-lg font-bold  ">
+        <Link to="/">RestoReserve</Link>
+      </div>
       {showNavMobile && (
         <div className="lg:hidden md:hidden fixed z-20 bg-totem-pole-700 text-totem-pole-50 top-12 right-0 h-screen w-2/5">
           <NavbarMobile />
         </div>
       )}
-      <div className="center hidden md:flex lg:flex lg:flex-row">
-        <nav>
-          <ul className="flex justify-between gap-10 ">
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-          </ul>
-        </nav>
-      </div>
       <Link
         to={user ? "/account" : "/login"}
         className="right flex gap-2 items-center justify-between lg:border md:border border-slate-900 border-r-0 rounded-full overflow-hidden "
@@ -57,16 +50,6 @@ const Navbar = () => {
         <Avatar sx={{ width: 33, height: 33, backgroundColor: "#0F172A" }}>
           {user?.first_name[0]}
         </Avatar>
-        <div
-          className="lg:hidden md:hidden pr-1 hover:cursor-pointer"
-          onClick={() => setShowNavMobile(!showNavMobile)}
-        >
-          {showNavMobile ? (
-            <Close fontSize="large" />
-          ) : (
-            <Menu fontSize="large" />
-          )}
-        </div>
       </Link>
     </div>
   );

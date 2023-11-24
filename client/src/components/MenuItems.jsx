@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Close, CloudUploadOutlined } from "@mui/icons-material";
+import { Close, UploadRounded } from "@mui/icons-material";
 
 const MenuItems = ({
   itemName,
@@ -81,8 +81,8 @@ const MenuItems = ({
           value={itemName}
           onChange={(e) => setItemName(e.target.value)}
         />
-        <label className="flex items-center gap-x-2 rounded-md px-1 bg-slate-300 w-fit cursor-pointer">
-          <CloudUploadOutlined />
+        <label className="flex items-center gap-x-1 rounded-md  bg-slate-300 w-40 cursor-pointer">
+          <UploadRounded fontSize="small" />
           <input
             type="file"
             name="menuItemImage"
@@ -90,7 +90,7 @@ const MenuItems = ({
             className=" hidden"
             onChange={uploadMenuImage}
           />
-          <span>Upload Item image</span>
+          <span>Upload image</span>
         </label>
       </div>
       <button

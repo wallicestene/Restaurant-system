@@ -9,7 +9,8 @@ const { extname } = require("path");
 // add a restaurant
 
 const addRestaurant = (req, res) => {
-  const { owner, name, address, description, images, menu, contacts, tags } = req.body;
+  const { owner, name, address, description, images, menu, contacts, tags } =
+    req.body;
   Restaurant.create({
     owner,
     name,
@@ -93,6 +94,32 @@ const findAllRestaurants = (req, res) => {
       res.status(500).json({ error: `Failed to fetch all restaurant` });
     });
 };
+// update restaurant details
+const updateRestaurant = (req, res) => {
+  const { name, address, description, images, menu, contacts, tags } = req.body;
+  const { id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json("No restaurant with that id");
+  }
+  Restaurant.findByIdAndUpdate(id, {
+    name,
+    address,
+    description,
+    images,
+    menu,
+    contacts,
+    tags,
+  })
+    .then((restaurant) => {
+      if (!restaurant) {
+        res.json(`no restaurant found with that ${id}`);
+      }
+      res.status(200).json(restaurant);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: "failed to fetch the restaurant" });
+    });
+};
 // find a single restaurant
 const findOneRestaurant = (req, res) => {
   const { id } = req.params;
@@ -140,5 +167,6 @@ module.exports = {
   uploadMiddleware,
   uploadImageByLink,
   uploadMenuImage,
-  getRestaurantByOwner
+  getRestaurantByOwner,
+  updateRestaurant,
 };
