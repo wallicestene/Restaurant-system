@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import GroupIcon from "@mui/icons-material/Group";
@@ -13,6 +13,7 @@ import {
   KeyboardArrowUp,
   KeyboardBackspace,
   LocationOn,
+  PhotoRounded,
   TableBar,
 } from "@mui/icons-material";
 import Datepicker from "react-tailwindcss-datepicker";
@@ -32,7 +33,6 @@ const RestaurantDetailsPage = () => {
   const [tableError, setTableError] = useState(null);
   const [bookingError, setBookingError] = useState(null);
   const [selectedTable, setSelectedTable] = useState("");
-
   const [{ user }] = useUserContext();
 
   const { id } = useParams();
@@ -120,7 +120,7 @@ const RestaurantDetailsPage = () => {
       {error && <Alert severity="error">{error}</Alert>}
       {isLoading && <CircularProgress />}
       {!isLoading && !error && (
-        <div className=" lg:w-11/12 md:w-11/12 mx-auto px-3">
+        <div className=" relative lg:w-11/12 md:w-11/12 mx-auto px-3">
           <div>
             <div className="top  text-totem-pole-500 font-semibold  mt-5 lg:text-xl md:text-lg  my-5 first-letter:uppercase tracking-wide">
               <h1>{data?.name}</h1>
@@ -147,13 +147,13 @@ const RestaurantDetailsPage = () => {
               />
             </div>
             <div
-              className={`imgright grid bg- gap-2 h-72 w-full overflow-hidden ${
+              className={`imgright grid gap-2 h-72 w-full overflow-hidden ${
                 data.images.slice(1).length <= 2 && " grid-cols-1"
               }
               ${data.images.slice(1).length >= 3 && "grid-cols-2"}
               `}
             >
-              {data?.images.slice(1).map((image, index) => (
+              {data?.images.slice(1,5).map((image, index) => (
                 <div key={index} className="overflow-hidden">
                   <img
                     src={`http://localhost:3000/uploads/${image}`}
@@ -163,6 +163,12 @@ const RestaurantDetailsPage = () => {
                 </div>
               ))}
             </div>
+          </div>
+          <div>
+            <Link to={`/imageGallery/${id}`} className=" hidden absolute bottom-2 right-3 z-10 bg-slate-200 text-sm lg:flex items-center gap-1 py-1 px-2 rounded-md font-bold hover:cursor-pointer">
+              <PhotoRounded fontSize="small"/>
+              <span>Show all photos</span>
+            </Link>
           </div>
           {data && !isLoading && (
             <div>
