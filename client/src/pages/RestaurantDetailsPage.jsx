@@ -4,7 +4,7 @@ import useFetch from "../hooks/useFetch";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import GroupIcon from '@mui/icons-material/Group';
+import GroupIcon from "@mui/icons-material/Group";
 import {
   Backspace,
   Close,
@@ -71,32 +71,32 @@ const RestaurantDetailsPage = () => {
   const BookTable = () => {
     if (user) {
       fetch("http://localhost:3000/api/restaurant/reservation", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${user?.token}`
-      },
-      body: JSON.stringify({
-        userId: user?.userId,
-        restaurantId: data._id,
-        tableId,
-        date: date.startDate,
-      }),
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.error) {
-          setBookingError(result.error);
-          alert(bookingError);
-        } else {
-          alert("Reservation Successful");
-          console.log(result);
-        }
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user?.token}`,
+        },
+        body: JSON.stringify({
+          userId: user?.userId,
+          restaurantId: data._id,
+          tableId,
+          date: date.startDate,
+        }),
       })
-      .catch((err) => {
-        console.log(err.message);
-      });
-    setSelectedTable("");
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.error) {
+            setBookingError(result.error);
+            alert(bookingError);
+          } else {
+            alert("Reservation Successful");
+            console.log(result);
+          }
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+      setSelectedTable("");
     }
   };
   const handleDateChange = (newDate) => {
@@ -334,6 +334,7 @@ const RestaurantDetailsPage = () => {
                     useRange={false}
                     asSingle={true}
                     value={date}
+                    minDate={new Date()}
                     onChange={handleDateChange}
                     primaryColor={"orange"}
                     popoverDirection="left"
@@ -371,8 +372,8 @@ const RestaurantDetailsPage = () => {
                           >
                             <div className=" flex lg:gap-3 md:gap-2 gap-1">
                               <div className=" flex flex-col gap-2 items-start justify-center">
-                              <TableBar/>
-                              <GroupIcon/>
+                                <TableBar />
+                                <GroupIcon />
                               </div>
                               <div className=" flex flex-col items-start justify-center gap-2">
                                 <span>Table 0{table.number}</span>
