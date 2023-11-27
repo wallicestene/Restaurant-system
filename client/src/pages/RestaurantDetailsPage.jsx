@@ -32,7 +32,7 @@ const RestaurantDetailsPage = () => {
   const [showTables, setShowTables] = useState(false);
   const [tableError, setTableError] = useState(null);
   const [bookingError, setBookingError] = useState(null);
-  const [selectedTable, setSelectedTable] = useState(null);
+  const [selectedTable, setSelectedTable] = useState("");
   const [{ user }] = useUserContext();
 
   const { id } = useParams();
@@ -89,14 +89,12 @@ const RestaurantDetailsPage = () => {
             alert(bookingError);
           } else {
             alert("Reservation Successful");
-            console.log(result);
-            setSelectedTable(null);
           }
         })
         .catch((err) => {
           console.log(err.message);
         });
-      
+      setSelectedTable("");
     }
   };
   const handleDateChange = (newDate) => {
