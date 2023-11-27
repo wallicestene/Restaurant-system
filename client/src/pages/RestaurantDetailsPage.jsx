@@ -153,7 +153,7 @@ const RestaurantDetailsPage = () => {
               ${data.images.slice(1).length >= 3 && "grid-cols-2"}
               `}
             >
-              {data?.images.slice(1,5).map((image, index) => (
+              {data?.images.slice(1, 5).map((image, index) => (
                 <div key={index} className="overflow-hidden">
                   <img
                     src={`http://localhost:3000/uploads/${image}`}
@@ -164,12 +164,18 @@ const RestaurantDetailsPage = () => {
               ))}
             </div>
           </div>
-          <div>
-            <Link to={`/imageGallery/${id}`} className=" hidden absolute bottom-2 right-3 z-10 bg-slate-200 text-sm lg:flex items-center gap-1 py-1 px-2 rounded-md font-bold hover:cursor-pointer">
-              <PhotoRounded fontSize="small"/>
-              <span>Show all photos</span>
-            </Link>
-          </div>
+          {data?.images.length > 5
+            && (
+              <div>
+                <Link
+                  to={`/imageGallery/${id}`}
+                  className=" hidden absolute bottom-2 right-3 bg-white/40 backdrop-blur-md text-xs tracking-wide lg:flex items-center font-semibold gap-1 py-1 px-2 rounded-md hover:cursor-pointer"
+                >
+                  <PhotoRounded fontSize="small" />
+                  <span>Show all photos</span>
+                </Link>
+              </div>
+            )}
           {data && !isLoading && (
             <div>
               <Carousel
