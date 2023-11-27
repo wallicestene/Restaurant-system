@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import GroupIcon from '@mui/icons-material/Group';
+import GroupIcon from "@mui/icons-material/Group";
 import {
   Backspace,
   Close,
@@ -13,6 +13,7 @@ import {
   KeyboardArrowUp,
   KeyboardBackspace,
   LocationOn,
+  PhotoRounded,
   TableBar,
 } from "@mui/icons-material";
 import Datepicker from "react-tailwindcss-datepicker";
@@ -32,7 +33,6 @@ const RestaurantDetailsPage = () => {
   const [tableError, setTableError] = useState(null);
   const [bookingError, setBookingError] = useState(null);
   const [selectedTable, setSelectedTable] = useState("");
-
   const [{ user }] = useUserContext();
 
   const { id } = useParams();
@@ -54,7 +54,6 @@ const RestaurantDetailsPage = () => {
           .then((tables) => {
             setLoading(false);
             setTables(tables);
-            // console.log(tables);
             setTableError(null);
           })
           .catch((error) => {
@@ -71,32 +70,31 @@ const RestaurantDetailsPage = () => {
   const BookTable = () => {
     if (user) {
       fetch("http://localhost:3000/api/restaurant/reservation", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${user?.token}`
-      },
-      body: JSON.stringify({
-        userId: user?.userId,
-        restaurantId: data._id,
-        tableId,
-        date: date.startDate,
-      }),
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.error) {
-          setBookingError(result.error);
-          alert(bookingError);
-        } else {
-          alert("Reservation Successful");
-          console.log(result);
-        }
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user?.token}`,
+        },
+        body: JSON.stringify({
+          userId: user?.userId,
+          restaurantId: data._id,
+          tableId,
+          date: date.startDate,
+        }),
       })
-      .catch((err) => {
-        console.log(err.message);
-      });
-    setSelectedTable("");
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.error) {
+            setBookingError(result.error);
+            alert(bookingError);
+          } else {
+            alert("Reservation Successful");
+          }
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+      setSelectedTable("");
     }
   };
   const handleDateChange = (newDate) => {
@@ -120,7 +118,7 @@ const RestaurantDetailsPage = () => {
       {error && <Alert severity="error">{error}</Alert>}
       {isLoading && <CircularProgress />}
       {!isLoading && !error && (
-        <div className=" lg:w-11/12 md:w-11/12 mx-auto px-3">
+        <div className=" relative lg:w-11/12 md:w-11/12 mx-auto px-3">
           <div>
             <div className="top  text-totem-pole-500 font-semibold  mt-5 lg:text-xl md:text-lg  my-5 first-letter:uppercase tracking-wide">
               <h1>{data?.name}</h1>
@@ -147,13 +145,13 @@ const RestaurantDetailsPage = () => {
               />
             </div>
             <div
-              className={`imgright grid bg- gap-2 h-72 w-full overflow-hidden ${
+              className={`imgright grid gap-2 h-72 w-full overflow-hidden ${
                 data.images.slice(1).length <= 2 && " grid-cols-1"
               }
               ${data.images.slice(1).length >= 3 && "grid-cols-2"}
               `}
             >
-              {data?.images.slice(1).map((image, index) => (
+              {data?.images.slice(1, 5).map((image, index) => (
                 <div key={index} className="overflow-hidden">
                   <img
                     src={`http://localhost:3000/uploads/${image}`}
@@ -164,6 +162,18 @@ const RestaurantDetailsPage = () => {
               ))}
             </div>
           </div>
+          {data?.images.length > 5
+            && (
+              <div>
+                <Link
+                  to={`/imageGallery/${id}`}
+                  className=" hidden absolute bottom-2 right-3 bg-white/40 backdrop-blur-md text-xs tracking-wide lg:flex items-center font-semibold gap-1 py-1 px-2 rounded-md hover:cursor-pointer"
+                >
+                  <PhotoRounded fontSize="small" />
+                  <span>Show all photos</span>
+                </Link>
+              </div>
+            )}
           {data && !isLoading && (
             <div>
               <Carousel
@@ -334,6 +344,7 @@ const RestaurantDetailsPage = () => {
                     useRange={false}
                     asSingle={true}
                     value={date}
+                    minDate={new Date()}
                     onChange={handleDateChange}
                     primaryColor={"orange"}
                     popoverDirection="left"
@@ -371,8 +382,8 @@ const RestaurantDetailsPage = () => {
                           >
                             <div className=" flex lg:gap-3 md:gap-2 gap-1">
                               <div className=" flex flex-col gap-2 items-start justify-center">
-                              <TableBar/>
-                              <GroupIcon/>
+                                <TableBar />
+                                <GroupIcon />
                               </div>
                               <div className=" flex flex-col items-start justify-center gap-2">
                                 <span>Table 0{table.number}</span>

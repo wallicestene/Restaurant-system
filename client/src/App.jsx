@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import RestaurantsPage from "./pages/RestarantsPage";
 import PlacesForm from "./pages/PlacesForm";
 import MyBookings from "./pages/MyBookings";
+import ImageGallery from "./components/ImageGallery";
 const App = () => {
   const [, dispatch] = useUserContext();
   // updating the auth state
@@ -40,7 +41,7 @@ const App = () => {
           <Route path="/account/myBookings" element={<MyBookings/>} />
           <Route path="/account/myRestaurants/new" element={<PlacesForm />} />
           <Route path="/account/myRestaurants/:id" element={<PlacesForm />} />
-          {/* <Route path="/account/:subPage/:action" element={<AccountPage />} /> */}
+          <Route path="/imageGallery/:id" element={<ImageGallery />} />
         </Route>
       </Routes>
     </Router>

@@ -1,18 +1,13 @@
 const mongoose = require("mongoose");
 const Reservation = require("../models/reservationModel");
 const Table = require("../models/tableModel");
+const moment = require("moment");
 
 // Add a reservation and update the table occupancy
 const addReservation = (req, res) => {
   const { userId, restaurantId, tableId, date } = req.body;
   const today = new Date();
-  const year = today.getFullYear();
-  const month = today.getMonth() + 1;
-  const day = today.getDate();
-  const formattedDate = `${year}-${month}-${day}`;
-  console.log(date);
-  console.log(formattedDate);
-
+  const formattedToday = moment(today).format("YYYY-MM-DD");
   // Checking if the table is already reserved for the given date
   Reservation.findOne({ tableId, date })
     .then((reservationExists) => {
@@ -21,21 +16,25 @@ const addReservation = (req, res) => {
         Reservation.create({ userId, restaurantId, tableId, date })
           .then((reservation) => {
             // Updating the table's "occupied" status
-            Table.findByIdAndUpdate(tableId, {
-              occupied: true,
-            })
-              .then((updatedTable) => {
-                if (!updatedTable) {
-                  res.status(404).json({ error: "Table not found." });
-                } else {
-                  res.status(200).json(reservation);
-                }
+            if (
+              formattedToday === moment(reservation.date).format("YYYY-MM-DD")
+            ) {
+              Table.findByIdAndUpdate(tableId, {
+                occupied: true,
               })
-              .catch((error) => {
-                res.status(500).json({
-                  error: `Error occurred while updating table occupancy: ${error}`,
+                .then((updatedTable) => {
+                  if (!updatedTable) {
+                    res.status(404).json({ error: "Table not found." });
+                  } else {
+                    res.status(200).json(reservation);
+                  }
+                })
+                .catch((error) => {
+                  res.status(500).json({
+                    error: `Error occurred while updating table occupancy: ${error}`,
+                  });
                 });
-              });
+            }
           })
           .catch((error) => {
             res.status(500).json({
@@ -57,17 +56,20 @@ const getUserReservations = (req, res) => {
     res.status(404).json(`no user found with the given Id`);
   }
 
-  Reservation.find({ userId }).populate("restaurantId").populate("tableId").then((reservations) => {
-    if (!reservations) {
-      return res.status(404).json("No reservations found!");
-    }
-    res.status(200).json(reservations);
-  })
-  .catch(() => {
-    res.status(500).json({
-      error: "error while finding the reservations",
+  Reservation.find({ userId })
+    .populate("restaurantId")
+    .populate("tableId")
+    .then((reservations) => {
+      if (!reservations) {
+        return res.status(404).json("No reservations found!");
+      }
+      res.status(200).json(reservations);
+    })
+    .catch(() => {
+      res.status(500).json({
+        error: "error while finding the reservations",
+      });
     });
-  })
 };
 // delete a reservation
 
@@ -106,5 +108,5 @@ const deleteReservation = (req, res) => {
 module.exports = {
   addReservation,
   getUserReservations,
-  deleteReservation
+  deleteReservation,
 };
