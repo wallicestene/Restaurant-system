@@ -2,12 +2,37 @@ const mongoose = require("mongoose");
 const Reservation = require("../models/reservationModel");
 const Table = require("../models/tableModel");
 const moment = require("moment");
+const schedule = require("node-schedule");
 
+const updateTableOccupancy = () => {
+  const today = new Date();
+  const formattedToday = moment(today).format("YYYY-MM-DD");
+  // find upcoming reservations
+  Reservation.find({date:{ $gte: formattedToday}})
+  .then(upcomingReservations => {
+    // find expired reservation
+    return Reservation.find({date: {$lt: formattedToday}})
+    .then(expiredReservations => {
+      // update tables for upcomming reservations
+      const updateUpcomingTables = upcomingReservations.map(reservation => Table.findByIdAndUpdate(reservation.tableId, {occupied: true}))
+      // update tables for expired reservations
+      const updateExpiredTables = expiredReservations.map(reservation => Table.findOneAndUpdate(reservation.tableId, {occupied: false}))
+      return Promise.all([...updateUpcomingTables, ...updateExpiredTables])
+    })
+  })
+  .catch(error => {
+    console.log(`Error in updating table occupancy ${error}`);
+  })
+}
+// schedule the job to run every hour
+const job = schedule.scheduleJob("0 * * * *", () => {
+  console.log("Running scheduled job to update occupancy....");
+  updateTableOccupancy()
+})
 // Add a reservation and update the table occupancy
 const addReservation = (req, res) => {
   const { userId, restaurantId, tableId, date } = req.body;
-  const today = new Date();
-  const formattedToday = moment(today).format("YYYY-MM-DD");
+
   // Checking if the table is already reserved for the given date
   Reservation.findOne({ tableId, date })
     .then((reservationExists) => {
@@ -15,21 +40,10 @@ const addReservation = (req, res) => {
         // Create a new reservation
         Reservation.create({ userId, restaurantId, tableId, date })
           .then((reservation) => {
-              Table.findByIdAndUpdate(tableId, {
-                occupied: true,
-              })
-                .then((updatedTable) => {
-                  if (!updatedTable) {
-                    res.status(404).json({ error: "Table not found." });
-                  } else {
-                    res.status(200).json(reservation);
-                  }
-                })
-                .catch((error) => {
-                  res.status(500).json({
-                    error: `Error occurred while updating table occupancy: ${error}`,
-                  });
-                });
+            // Update the table occupancy
+            updateTableOccupancy();
+            // Return the created reservation
+            res.status(200).json(reservation);
           })
           .catch((error) => {
             res.status(500).json({
