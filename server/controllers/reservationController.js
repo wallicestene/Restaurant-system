@@ -15,10 +15,6 @@ const addReservation = (req, res) => {
         // Create a new reservation
         Reservation.create({ userId, restaurantId, tableId, date })
           .then((reservation) => {
-            // Updating the table's "occupied" status
-            if (
-              formattedToday === moment(reservation.date).format("YYYY-MM-DD")
-            ) {
               Table.findByIdAndUpdate(tableId, {
                 occupied: true,
               })
@@ -34,7 +30,6 @@ const addReservation = (req, res) => {
                     error: `Error occurred while updating table occupancy: ${error}`,
                   });
                 });
-            }
           })
           .catch((error) => {
             res.status(500).json({

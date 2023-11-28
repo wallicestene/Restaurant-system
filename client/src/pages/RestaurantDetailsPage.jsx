@@ -94,7 +94,7 @@ const RestaurantDetailsPage = () => {
         .catch((err) => {
           console.log(err.message);
         });
-      setSelectedTable("");
+      setSelectedTable("");   
     }
   };
   const handleDateChange = (newDate) => {
@@ -354,7 +354,7 @@ const RestaurantDetailsPage = () => {
                   <div>
                     <h3>Select table</h3>
                     <div
-                      className=" flex items-center justify-between py-2 bg-slate-800 rounded-lg px-1 text-gray-400 hover:cursor-pointer"
+                      className=" flex items-center justify-between py-2 bg-slate-800 rounded-lg px-2 text-gray-400 hover:cursor-pointer"
                       onClick={() => setShowTables(!showTables)}
                     >
                       <span>
@@ -366,7 +366,7 @@ const RestaurantDetailsPage = () => {
                     </div>
                   </div>
                   {showTables && tables.length > 0 && (
-                    <ul className="absolute top-16 grid grid-cols-2 gap-3 w-full h-fit overflow-y-scroll rounded-md scroll-m-4 p-2 bg-slate-800 text-white mt-2">
+                    <ul className="absolute top-16 grid grid-cols-2 gap-3 w-full h-50 overflow-y-scroll rounded-md scroll-m-4 p-2 bg-slate-800 text-white mt-2">
                       {tables.map((table, index) => (
                         <li key={index} className=" w-full h-fit">
                           <button
