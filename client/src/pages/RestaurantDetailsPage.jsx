@@ -19,6 +19,7 @@ import {
 import Datepicker from "react-tailwindcss-datepicker";
 import { Alert, CircularProgress } from "@mui/material";
 import { useUserContext } from "../hooks/Usercontext";
+import { toast } from "sonner";
 const RestaurantDetailsPage = () => {
   const [value, setValue] = useState(0);
   const [date, setDate] = useState({
@@ -86,9 +87,9 @@ const RestaurantDetailsPage = () => {
         .then((result) => {
           if (result.error) {
             setBookingError(result.error);
-            alert(bookingError);
+            toast.error(result.error)
           } else {
-            alert("Reservation Successful");
+            toast.success('Reservation Successful')
           }
         })
         .catch((err) => {
@@ -96,7 +97,7 @@ const RestaurantDetailsPage = () => {
         });
       setSelectedTable("");
     } else {
-      alert("Please select a Table and Date to book!");
+      toast.error("Please select a Table and Date to book!")
     }
   };
   const handleDateChange = (newDate) => {
