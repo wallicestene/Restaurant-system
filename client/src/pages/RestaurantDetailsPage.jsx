@@ -68,7 +68,7 @@ const RestaurantDetailsPage = () => {
     setSelectedTable(tables.find((table) => table._id === id));
   };
   const BookTable = () => {
-    if (user) {
+    if (user && date.startDate && tableId ) {
       fetch("http://localhost:3000/api/restaurant/reservation", {
         method: "POST",
         headers: {
@@ -94,7 +94,9 @@ const RestaurantDetailsPage = () => {
         .catch((err) => {
           console.log(err.message);
         });
-      setSelectedTable("");   
+      setSelectedTable("");
+    } else {
+      alert("Please select a Table and Date to book!");
     }
   };
   const handleDateChange = (newDate) => {
@@ -162,18 +164,17 @@ const RestaurantDetailsPage = () => {
               ))}
             </div>
           </div>
-          {data?.images.length > 5
-            && (
-              <div>
-                <Link
-                  to={`/imageGallery/${id}`}
-                  className=" hidden absolute bottom-2 right-3 bg-white/40 backdrop-blur-md text-xs tracking-wide lg:flex items-center font-semibold gap-1 py-1 px-2 rounded-md hover:cursor-pointer"
-                >
-                  <PhotoRounded fontSize="small" />
-                  <span>Show all photos</span>
-                </Link>
-              </div>
-            )}
+          {data?.images.length > 5 && (
+            <div>
+              <Link
+                to={`/imageGallery/${id}`}
+                className=" hidden absolute bottom-2 right-3 bg-white/40 backdrop-blur-md text-xs tracking-wide lg:flex items-center font-semibold gap-1 py-1 px-2 rounded-md hover:cursor-pointer"
+              >
+                <PhotoRounded fontSize="small" />
+                <span>Show all photos</span>
+              </Link>
+            </div>
+          )}
           {data && !isLoading && (
             <div>
               <Carousel
@@ -302,7 +303,7 @@ const RestaurantDetailsPage = () => {
                   return (
                     <li key={index}>
                       <p className=" py-2 px-3 rounded-md border border-totem-pole-400">
-                        +254 {contact}
+                        {contact}
                       </p>
                     </li>
                   );

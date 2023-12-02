@@ -3,8 +3,8 @@ import { useUserContext } from "../hooks/Usercontext";
 import ImagesUploader from "../components/ImagesUploader";
 import MenuItems from "../components/MenuItems";
 import Tags from "../components/Tags";
-import { Close } from "@mui/icons-material";
-import { Navigate, useParams } from "react-router-dom";
+import { Close, KeyboardBackspace } from "@mui/icons-material";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import TablesForm from "./TablesForm";
 
 const PlacesForm = () => {
@@ -24,6 +24,8 @@ const PlacesForm = () => {
 
   const { id } = useParams();
   const [{ user }] = useUserContext();
+  const navigate = useNavigate();
+
   const inputHeader = (header) => {
     return <h2 className=" text-xl mt-4">{header}</h2>;
   };
@@ -109,7 +111,20 @@ const PlacesForm = () => {
   }
 
   return (
-    <div className="w-full grid place-items-center lg:w-1/2 mx-auto font-mulish pt-20 text-sm">
+    <div className="w-full lg:w-11/12 mx-auto font-mulish py-20 px-2 text-">
+      <button
+        className=" flex items-center text-sm hover:bg-totem-pole-100 w-fit py-1 px-2 rounded-md transition-colors delay-150 duration-300"
+        onClick={() => navigate(-1)}
+      >
+        <span>
+          <KeyboardBackspace
+            sx={{
+              fontSize: "1.3rem",
+            }}
+          />
+        </span>
+        <span>Back</span>
+      </button>
       <div className="w-full px-2">
         <form>
           {inputTitle(
@@ -207,16 +222,20 @@ const PlacesForm = () => {
               Add Contact
             </button>
           </div>
-          <div className=" my-4">
+          <div className=" my-4 flex items-center justify-center border p-2 rounded">
             <button
               onClick={saveRestaurant}
-              className=" w-full bg-totem-pole-400 text-totem-pole-50 py-2 text-center rounded-md"
+              className=" lg:w-1/2 w-full bg-green-700 text-totem-pole-50 py-2 text-center rounded-md"
             >
               Save
             </button>
           </div>
         </form>
-        <TablesForm restaurantId={id}/>
+        {
+          id && (
+            <TablesForm restaurantId={id}/>
+          )
+        }
       </div>
     </div>
   );
