@@ -9,7 +9,8 @@ import {
 import React, { useState } from "react";
 import Datepicker from "react-tailwindcss-datepicker";
 
-function Filter() {
+// eslint-disable-next-line react/prop-types
+const Filter = ({searchInput, setSearchInput, searchRestaurant}) => {
   const [date, setDate] = useState({
     startDate: null,
     endDate: null,
@@ -27,16 +28,18 @@ function Filter() {
             <input
               type="text"
               placeholder="Search by location"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
               className="indent-1 h-full w-full outline-none border-none"
             />
           </div>
 
-          <button className="lg:px-3 px-2 py-2 bg-totem-pole-500 rounded-lg text-orange-50 text-sm">
+          <button className="lg:px-3 px-2 py-2 bg-totem-pole-500 rounded-lg text-orange-50 text-sm" onClick={searchRestaurant}>
             Find Hotel
           </button>
         </form>
       </div>
-      <div className=" flex items-center flex-wrap lg:gap-5 md:gap-5 gap-2 font-Montserrat justify-center">
+      {/* <div className=" flex items-center flex-wrap lg:gap-5 md:gap-5 gap-2 font-Montserrat justify-center">
         <h1>Filter your search:</h1>
         <div className=" flex items-center justify-center flex-wrap lg:gap-10 md:gap-10 gap-2">
           <div>
@@ -64,7 +67,7 @@ function Filter() {
             <p>Guests</p>
           </div>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }
