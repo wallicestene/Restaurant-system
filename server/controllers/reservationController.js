@@ -7,28 +7,40 @@ const schedule = require("node-schedule");
 const updateTableOccupancy = () => {
   const today = new Date();
   const formattedToday = moment(today).format("YYYY-MM-DD");
-  // find upcoming reservations
-  Reservation.find({date:{ $gte: formattedToday}})
-  .then(upcomingReservations => {
-    // find expired reservation
-    return Reservation.find({date: {$lt: formattedToday}})
-    .then(expiredReservations => {
-      // update tables for upcomming reservations
-      const updateUpcomingTables = upcomingReservations.map(reservation => Table.findByIdAndUpdate(reservation.tableId, {occupied: true}))
-      // update tables for expired reservations
-      const updateExpiredTables = expiredReservations.map(reservation => Table.findOneAndUpdate(reservation.tableId, {occupied: false}))
-      return Promise.all([...updateUpcomingTables, ...updateExpiredTables])
+
+  // Find upcoming reservations
+  Reservation.find({ date: { $gte: formattedToday } })
+    .then((upcomingReservations) => {
+      // Update tables for upcoming reservations where the reservation date has arrived
+      const updateUpcomingTables = upcomingReservations.map((reservation) => {
+        if (formattedToday === moment(reservation.date).format("YYYY-MM-DD")) {
+          return Table.findByIdAndUpdate(reservation.tableId, { occupied: true });
+        }
+        return Promise.resolve(); // Skip updating for future dates
+      });
+
+      // Find expired reservations
+      return Reservation.find({ date: { $lt: formattedToday } })
+        .then((expiredReservations) => {
+          // Update tables for expired reservations
+          const updateExpiredTables = expiredReservations.map((reservation) =>
+            Table.findByIdAndUpdate(reservation.tableId, { occupied: false })
+          );
+
+          return Promise.all([...updateUpcomingTables, ...updateExpiredTables]);
+        });
     })
-  })
-  .catch(error => {
-    console.log(`Error in updating table occupancy ${error}`);
-  })
-}
+    .catch((error) => {
+      console.log(`Error in updating table occupancy ${error}`);
+    });
+};
+
 // schedule the job to run every hour
-const job = schedule.scheduleJob("0 * * * *", () => {
+const job = schedule.scheduleJob("*/1 * * * *", () => {
   console.log("Running scheduled job to update occupancy....");
   updateTableOccupancy()
 })
+
 // Add a reservation and update the table occupancy
 const addReservation = (req, res) => {
   const { userId, restaurantId, tableId, date } = req.body;
