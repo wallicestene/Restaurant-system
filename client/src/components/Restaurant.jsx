@@ -42,32 +42,32 @@ const Restaurant = ({ restaurant }) => {
         }
       >
         {images.map((image, index) => (
-          <div key={index} className=" h-full w-full  overflow-hidden ">
-            <img
-              src={`http://localhost:3000/uploads/${image}`}
-              alt={` image ${images.length - 1}`}
-              className=" lg:h-48 h-64 object-cover"
-            />
-          </div>
+          <Link key={index} to={`/restaurant/${restaurant._id}`}>
+            <div className=" h-full w-full  overflow-hidden ">
+              <img
+                src={`http://localhost:3000/uploads/${image}`}
+                alt={` image ${images.length - 1}`}
+                className=" lg:h-48 h-64 object-cover"
+              />
+            </div>
+          </Link>
         ))}
       </Carousel>
-      <Link to={`/restaurant/${restaurant._id}`}>
-        <div className=" row-span-1 flex flex-col justify-end py-1 px-3 font-mulish">
-          <div className=" text-totem-pole-500 font-bold tracking-wide lowercase first-letter:uppercase ">
-            <h2>{restaurant.name}</h2>
-          </div>
-          <div className=" text-sm text-gray-600">
-            <p>
-              <LocationOn
-                sx={{
-                  fontSize: "1.2rem",
-                }}
-              />
-              <span>{restaurant.address}</span>
-            </p>
-          </div>
+      <div className=" row-span-1 flex flex-col justify-end py-1 px-3 font-mulish">
+        <div className=" text-totem-pole-500 font-bold tracking-wide lowercase first-letter:uppercase ">
+          <h2>{restaurant.name}</h2>
         </div>
-      </Link>
+        <div className=" text-sm text-gray-600">
+          <p>
+            <LocationOn
+              sx={{
+                fontSize: "1.2rem",
+              }}
+            />
+            <span>{restaurant.address}</span>
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
