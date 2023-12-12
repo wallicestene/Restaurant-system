@@ -12,14 +12,14 @@ import { Link } from "react-router-dom";
 const Restaurant = ({ restaurant }) => {
   const [images, setImages] = useState(restaurant.images);
   return (
-    <div className=" grid grid-cols-1 grid-rows-4 lg:h-64 h-80 overflow-hidden bg-white rounded-xl shadow-lg">
+    <div className=" grid grid-cols-1  lg:h-64 h-80 overflow-hidden bg-white rounded-xl shadow-lg">
       <Carousel
         showThumbs={false}
         emulateTouch
         stopOnHover
         interval={5000}
         useKeyboardArrows={true}
-        className=" overflow-hidden row-span-3 object-cover group "
+        className=" overflow-hidden object-cover group "
         renderArrowPrev={(onClickHandler, hasPrev) =>
           hasPrev && (
             <span
