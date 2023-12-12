@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
-import Filter from "../components/Filter";
+
 import RestauarantContainer from "../components/RestauarantContainer";
 
 const HomePage = () => {
@@ -8,7 +6,6 @@ const HomePage = () => {
     <section>
       <div>
         <div >
-          <Filter />
           <RestauarantContainer />
         </div>
       </div>

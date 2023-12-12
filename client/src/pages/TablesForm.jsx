@@ -78,9 +78,11 @@ const TablesForm = ({ restaurantId }) => {
           onChange={handleChange}
           name="occupied"
         />
-        <button onClick={addTable} className=" bg-slate-400 w-full py-2 my-2 rounded-md ">
+        <div className=" my-4 flex items-center justify-center border p-2 rounded">
+        <button onClick={addTable} className=" lg:w-1/2 w-full bg-totem-pole-400 text-totem-pole-50 py-2 text-center rounded-md">
           Add Table
         </button>
+        </div>
       </form>
     </div>
   );

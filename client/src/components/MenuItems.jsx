@@ -93,12 +93,14 @@ const MenuItems = ({
           <span>Upload image</span>
         </label>
       </div>
+      <div className=" my-4 flex items-center justify-center border p-2 rounded">
       <button
-        className="  bg-slate-300 rounded-md text-center w-full mt-2 py-2"
+        className=" lg:w-1/2 w-full bg-totem-pole-400 text-totem-pole-50 py-2 text-center rounded-md"
         onClick={addMenuItem}
       >
         Add Menu Item
       </button>
+      </div>
     </>
   );
 };

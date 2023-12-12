@@ -11,15 +11,16 @@ import { Link } from "react-router-dom";
 
 const Restaurant = ({ restaurant }) => {
   const [images, setImages] = useState(restaurant.images);
+
   return (
-    <div className=" grid grid-cols-1 grid-rows-4 lg:h-64 h-80 overflow-hidden bg-white rounded-xl shadow-lg">
+    <div className=" flex flex-col gap-y-1 h-full overflow-hidden bg-white rounded-xl shadow-lg">
       <Carousel
         showThumbs={false}
         emulateTouch
         stopOnHover
         interval={5000}
         useKeyboardArrows={true}
-        className=" overflow-hidden row-span-3 object-cover group "
+        className=" overflow-hidden object-cover group "
         renderArrowPrev={(onClickHandler, hasPrev) =>
           hasPrev && (
             <span
@@ -42,32 +43,44 @@ const Restaurant = ({ restaurant }) => {
         }
       >
         {images.map((image, index) => (
-          <div key={index} className=" h-full w-full  overflow-hidden ">
-            <img
-              src={`http://localhost:3000/uploads/${image}`}
-              alt={` image ${images.length - 1}`}
-              className=" lg:h-48 h-64 object-cover"
-            />
-          </div>
+          <Link key={index} to={`/restaurant/${restaurant._id}`}>
+            <div className=" h-full w-full  overflow-hidden ">
+              <img
+                src={`http://localhost:3000/uploads/${image}`}
+                alt={` image ${images.length - 1}`}
+                className=" lg:h-48 h-64 object-cover"
+              />
+            </div>
+          </Link>
         ))}
       </Carousel>
-      <Link to={`/restaurant/${restaurant._id}`}>
-        <div className=" row-span-1 flex flex-col justify-end py-1 px-3 font-mulish">
-          <div className=" text-totem-pole-500 font-bold tracking-wide lowercase first-letter:uppercase ">
+      <div className="flex flex-col justify-between text-start py-1 px-3 font-mulish">
+        <Link to={`/restaurant/${restaurant._id}`}>
+          <div className=" text-totem-pole-500 font-bold tracking-wide first-letter:uppercase ">
             <h2>{restaurant.name}</h2>
           </div>
-          <div className=" text-sm text-gray-600">
-            <p>
-              <LocationOn
-                sx={{
-                  fontSize: "1.2rem",
-                }}
-              />
-              <span>{restaurant.address}</span>
-            </p>
+        </Link>
+        <div className=" flex  flex-col justify-between h-full text-sm text-gray-600">
+          <div className=" flex flex-row gap-x-2 gap-y-1 flex-wrap">
+            {restaurant.tags.slice(0, 5).map((tag, index) => (
+              <div
+                key={index}
+                className=" border border-totem-pole-500 py-1 px-2 rounded"
+              >
+                {tag}
+              </div>
+            ))}
           </div>
+          <p>
+            <LocationOn
+              sx={{
+                fontSize: "1.2rem",
+              }}
+            />
+            <span>{restaurant.address}</span>
+          </p>
         </div>
-      </Link>
+      </div>
     </div>
   );
 };

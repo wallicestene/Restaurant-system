@@ -37,10 +37,10 @@ const ImagesUploader = ({ images, setImages, imageLink, setImageLink }) => {
       });
   };
   const removeImage = (image) => {
-    setImages(prevImages => {
-      return [ ...prevImages.filter(img => img !== image)]
-    })
-  }
+    setImages((prevImages) => {
+      return [...prevImages.filter((img) => img !== image)];
+    });
+  };
   return (
     <>
       <div className=" flex flex-row gap-2">
@@ -65,20 +65,21 @@ const ImagesUploader = ({ images, setImages, imageLink, setImageLink }) => {
               <img
                 src={`http://localhost:3000/uploads/${image}`}
                 alt=""
-                className=" h-24 w-full rounded-md object-cover"
+                className=" h-28 lg:h-32 w-full rounded-md object-cover"
               />
               <div className=" absolute bottom-2 right-2 z-10 bg-totem-pole-100 flex items-center justify-center rounded-full p-1">
-                <DeleteOutlineRounded sx={
-                  {
-                    cursor: "pointer"
-                  }
-                } onClick={() => removeImage(image)}/>
+                <DeleteOutlineRounded
+                  sx={{
+                    cursor: "pointer",
+                  }}
+                  onClick={() => removeImage(image)}
+                />
               </div>
             </div>
           ))}
         <label
           htmlFor="images"
-          className=" flex items-center justify-center gap-x-2 p-5 rounded-md bg-slate-300 cursor-pointer h-24"
+          className=" flex items-center justify-center gap-x-2 p-5 rounded-md bg-slate-300 cursor-pointer h-28 lg:h-32"
         >
           <CloudUploadOutlined />
           <input

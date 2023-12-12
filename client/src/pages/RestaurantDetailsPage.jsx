@@ -19,6 +19,7 @@ import {
 import Datepicker from "react-tailwindcss-datepicker";
 import { Alert, CircularProgress } from "@mui/material";
 import { useUserContext } from "../hooks/Usercontext";
+import { toast } from "sonner";
 const RestaurantDetailsPage = () => {
   const [value, setValue] = useState(0);
   const [date, setDate] = useState({
@@ -68,7 +69,7 @@ const RestaurantDetailsPage = () => {
     setSelectedTable(tables.find((table) => table._id === id));
   };
   const BookTable = () => {
-    if (user) {
+    if (user && date.startDate && tableId ) {
       fetch("http://localhost:3000/api/restaurant/reservation", {
         method: "POST",
         headers: {
@@ -86,15 +87,17 @@ const RestaurantDetailsPage = () => {
         .then((result) => {
           if (result.error) {
             setBookingError(result.error);
-            alert(bookingError);
+            toast.error(result.error)
           } else {
-            alert("Reservation Successful");
+            toast.success('Reservation Successful')
           }
         })
         .catch((err) => {
           console.log(err.message);
         });
       setSelectedTable("");
+    } else {
+      toast.error("Please select a Table and Date to book!")
     }
   };
   const handleDateChange = (newDate) => {
@@ -162,18 +165,17 @@ const RestaurantDetailsPage = () => {
               ))}
             </div>
           </div>
-          {data?.images.length > 5
-            && (
-              <div>
-                <Link
-                  to={`/imageGallery/${id}`}
-                  className=" hidden absolute bottom-2 right-3 bg-white/40 backdrop-blur-md text-xs tracking-wide lg:flex items-center font-semibold gap-1 py-1 px-2 rounded-md hover:cursor-pointer"
-                >
-                  <PhotoRounded fontSize="small" />
-                  <span>Show all photos</span>
-                </Link>
-              </div>
-            )}
+          {data?.images.length > 5 && (
+            <div>
+              <Link
+                to={`/imageGallery/${id}`}
+                className=" hidden absolute bottom-2 right-3 bg-white/40 backdrop-blur-md text-xs tracking-wide lg:flex items-center font-semibold gap-1 py-1 px-2 rounded-md hover:cursor-pointer"
+              >
+                <PhotoRounded fontSize="small" />
+                <span>Show all photos</span>
+              </Link>
+            </div>
+          )}
           {data && !isLoading && (
             <div>
               <Carousel
@@ -302,7 +304,7 @@ const RestaurantDetailsPage = () => {
                   return (
                     <li key={index}>
                       <p className=" py-2 px-3 rounded-md border border-totem-pole-400">
-                        +254 {contact}
+                        {contact}
                       </p>
                     </li>
                   );
@@ -354,7 +356,7 @@ const RestaurantDetailsPage = () => {
                   <div>
                     <h3>Select table</h3>
                     <div
-                      className=" flex items-center justify-between py-2 bg-slate-800 rounded-lg px-1 text-gray-400 hover:cursor-pointer"
+                      className=" flex items-center justify-between py-2 bg-slate-800 rounded-lg px-2 text-gray-400 hover:cursor-pointer"
                       onClick={() => setShowTables(!showTables)}
                     >
                       <span>
@@ -366,7 +368,7 @@ const RestaurantDetailsPage = () => {
                     </div>
                   </div>
                   {showTables && tables.length > 0 && (
-                    <ul className="absolute top-16 grid grid-cols-2 gap-3 w-full h-fit overflow-y-scroll rounded-md scroll-m-4 p-2 bg-slate-800 text-white mt-2">
+                    <ul className="absolute top-16 grid grid-cols-2 gap-3 w-full h-50 overflow-y-scroll rounded-md scroll-m-4 p-2 bg-slate-800 text-white mt-2">
                       {tables.map((table, index) => (
                         <li key={index} className=" w-full h-fit">
                           <button

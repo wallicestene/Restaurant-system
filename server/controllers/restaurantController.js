@@ -138,7 +138,30 @@ const findOneRestaurant = (req, res) => {
       res.status(500).json({ error: "failed to fetch the restaurant" });
     });
 };
-// delete a reestaurant
+// find/search a restaurant by name or address
+const searchRestaurant = (req, res) => {
+  const { query } = req.query;
+  const searchRegex = new RegExp(query, "i");
+  Restaurant.find({
+    $or: [
+      {
+        name: searchRegex,
+      },
+      {
+        address: searchRegex,
+      },
+    ],
+  }).then(restaurants => {
+    if(!restaurants){
+      res.status(404).json({error: "No matching restaurants found!"})
+    }
+    res.status(200).json(restaurants)
+  })
+  .catch(error => {
+    res.status(500).json({ error: "error in while searching for restaurant" });
+  })
+};
+// delete a restaurant
 const deleteRestaurant = (req, res) => {
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -169,4 +192,5 @@ module.exports = {
   uploadMenuImage,
   getRestaurantByOwner,
   updateRestaurant,
+  searchRestaurant
 };

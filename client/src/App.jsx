@@ -7,7 +7,7 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 // import AccountPage from "./pages/AccountPage";
 import Profile from "./pages/Profile";
-
+import { Toaster, toast } from 'sonner'
 import { useUserContext } from "./hooks/Usercontext";
 import { useEffect } from "react";
 import RestaurantsPage from "./pages/RestarantsPage";
@@ -30,6 +30,7 @@ const App = () => {
   }, [dispatch]);
   return (
     <Router>
+       <Toaster  position="top-left"  />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index path="/" element={<HomePage />} />
