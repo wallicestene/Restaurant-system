@@ -11,9 +11,9 @@ import { Link } from "react-router-dom";
 
 const Restaurant = ({ restaurant }) => {
   const [images, setImages] = useState(restaurant.images);
-  
+
   return (
-    <div className=" grid grid-cols-1 overflow-hidden bg-white rounded-xl shadow-lg">
+    <div className=" flex flex-col gap-y-1 h-full overflow-hidden bg-white rounded-xl shadow-lg">
       <Carousel
         showThumbs={false}
         emulateTouch
@@ -54,16 +54,21 @@ const Restaurant = ({ restaurant }) => {
           </Link>
         ))}
       </Carousel>
-      <div className="flex flex-col py-1 px-3 font-mulish">
+      <div className="flex flex-col justify-between text-start py-1 px-3 font-mulish">
         <Link to={`/restaurant/${restaurant._id}`}>
           <div className=" text-totem-pole-500 font-bold tracking-wide first-letter:uppercase ">
             <h2>{restaurant.name}</h2>
           </div>
         </Link>
-        <div className=" text-sm text-gray-600">
-          <div className=" flex flex-row gap-2 flex-wrap">
-            {restaurant.tags.map((tag,index) => (
-              <div key={index} className=" border border-totem-pole-500 py-1 px-2 rounded" >{tag}</div>
+        <div className=" flex  flex-col justify-between h-full text-sm text-gray-600">
+          <div className=" flex flex-row gap-x-2 gap-y-1 flex-wrap">
+            {restaurant.tags.slice(0, 5).map((tag, index) => (
+              <div
+                key={index}
+                className=" border border-totem-pole-500 py-1 px-2 rounded"
+              >
+                {tag}
+              </div>
             ))}
           </div>
           <p>
