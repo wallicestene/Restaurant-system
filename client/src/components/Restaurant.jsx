@@ -54,9 +54,11 @@ const Restaurant = ({ restaurant }) => {
         ))}
       </Carousel>
       <div className=" row-span-1 flex flex-col justify-end py-1 px-3 font-mulish">
-        <div className=" text-totem-pole-500 font-bold tracking-wide lowercase first-letter:uppercase ">
-          <h2>{restaurant.name}</h2>
-        </div>
+        <Link to={`/restaurant/${restaurant._id}`}>
+          <div className=" text-totem-pole-500 font-bold tracking-wide lowercase first-letter:uppercase ">
+            <h2>{restaurant.name}</h2>
+          </div>
+        </Link>
         <div className=" text-sm text-gray-600">
           <p>
             <LocationOn
