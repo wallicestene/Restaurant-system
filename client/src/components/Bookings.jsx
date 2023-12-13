@@ -6,6 +6,7 @@ import {
   TableBarOutlined,
 } from "@mui/icons-material";
 import moment from "moment";
+import { Link } from "react-router-dom";
 const Bookings = ({ booking }) => {
   return (
     <div className=" flex gap-x-2 bg-gray-200/90 w-full rounded-md overflow-hidden shadow-lg text-slate-900">
@@ -17,7 +18,8 @@ const Bookings = ({ booking }) => {
         />
       </div>
       <div className="rightDiv flex flex-col justify-between py-3 w-full">
-        <h1 className=" text-base">{booking?.restaurantId.name}</h1>
+      <Link to={`/restaurant/${booking?.restaurantId._id}`}>
+        <h1 className=" text-base">{booking?.restaurantId.name}</h1></Link>
         <div className=" flex gap-x-2 justify-around ">
           <p className=" flex items-center gap-x-1 bg-slate-900 px-2 py-1 text-totem-pole-50 rounded">
             <TableBarOutlined fontSize="small" />{" "}

@@ -27,7 +27,7 @@ const Filter = ({searchInput, setSearchInput, searchRestaurant}) => {
             <LocationOn />
             <input
               type="text"
-              placeholder="Search by location"
+              placeholder="Search restaurant by name or location"
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               className="indent-1 h-full w-full outline-none border-none"

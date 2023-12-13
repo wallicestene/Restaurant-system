@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "sonner";
 
 // eslint-disable-next-line react/prop-types
 const TablesForm = ({ restaurantId }) => {
@@ -44,13 +45,24 @@ const TablesForm = ({ restaurantId }) => {
         ...tableData,
       }),
     })
-    .then(res => res.json())
-    .then(data => console.log(data))
-    .catch(err => console.log(err.message))
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          toast.success("Table Added Successfully");
+        }else{
+          toast.error("Error Adding Table");
+        }
+      })
+      .catch((err) => console.log(err.message));
+    setTableData({
+      number: "",
+      capacity: "",
+      occupied: false,
+    });
   };
   return (
     <div>
-      <form className=" " >
+      <form className=" ">
         {inputTitle("Table Number", "Here is the table number")}
         <input
           type="number"
@@ -79,9 +91,12 @@ const TablesForm = ({ restaurantId }) => {
           name="occupied"
         />
         <div className=" my-4 flex items-center justify-center border p-2 rounded">
-        <button onClick={addTable} className=" lg:w-1/2 w-full bg-totem-pole-400 text-totem-pole-50 py-2 text-center rounded-md">
-          Add Table
-        </button>
+          <button
+            onClick={addTable}
+            className=" lg:w-1/2 w-full bg-totem-pole-400 text-totem-pole-50 py-2 text-center rounded-md"
+          >
+            Add Table
+          </button>
         </div>
       </form>
     </div>

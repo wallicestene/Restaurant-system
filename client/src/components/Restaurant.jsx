@@ -13,7 +13,7 @@ const Restaurant = ({ restaurant }) => {
   const [images, setImages] = useState(restaurant.images);
 
   return (
-    <div className=" flex flex-col gap-y-1 h-full overflow-hidden bg-white rounded-xl shadow-lg">
+    <div className=" flex flex-col gap-y-1 h-full overflow-hidden bg-white rounded-xl shadow-md shadow-gray-500">
       <Carousel
         showThumbs={false}
         emulateTouch

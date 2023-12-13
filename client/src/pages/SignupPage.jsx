@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Alert } from "@mui/material";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useUserContext } from "../hooks/Usercontext";
 import { ErrorOutline } from "@mui/icons-material";
 
@@ -13,6 +13,7 @@ const SignupPage = () => {
     password: "",
   });
   const [signUpError, setSignUpError] = useState(null);
+  const [redirect, setRedirect] = useState(false);
   const [{ user }, dispatch] = useUserContext();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,6 +34,7 @@ const SignupPage = () => {
           // updating the user context
           dispatch({ type: "SET_USER", payload: data });
           setSignUpError(null);
+          setRedirect(true)
         }
       })
       .catch((error) => {
@@ -48,6 +50,9 @@ const SignupPage = () => {
       };
     });
   };
+  if (redirect) {
+    return <Navigate to="/" />;
+  }
   return (
     <div className=" bg-[url('.\assets\loginFormImages\restaurant1.png')] bg-cover bg-center grid place-items-center h-screen font-mulish text-sm">
       <div className=" backdrop-blur-md border border-totem-pole-200  flex flex-col gap-y-3 lg:w-5/12 md:w-1/2 w-full lg:p-5 md:px-1 px-3 py-5 rounded-md shadow-lg text-sm">

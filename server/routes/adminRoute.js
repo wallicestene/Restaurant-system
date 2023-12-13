@@ -15,6 +15,9 @@ const adminBro = new AdminBro({
   resources: [
     {
       resource: User,
+      options: {
+        isVisible: false,
+      },
     },
     {
       resource: Restaurant,
@@ -31,7 +34,7 @@ const adminBro = new AdminBro({
     },
     {
       resource: Reservation,
-      options:{
+      options: {
         properties: {
           userId: {
             reference: "user",
@@ -43,7 +46,7 @@ const adminBro = new AdminBro({
             reference: "restaurant",
           },
         },
-      }
+      },
     },
   ],
 });

@@ -368,7 +368,7 @@ const RestaurantDetailsPage = () => {
                     </div>
                   </div>
                   {showTables && tables.length > 0 && (
-                    <ul className="absolute top-16 grid grid-cols-2 gap-3 w-full h-50 overflow-y-scroll rounded-md scroll-m-4 p-2 bg-slate-800 text-white mt-2">
+                    <ul className="absolute top-16 grid grid-cols-2 gap-3 w-full h-50 overflow-y-scroll rounded-md scroll-m-4 p-2 bg-slate-800 text-white mt-2 h-60">
                       {tables.map((table, index) => (
                         <li key={index} className=" w-full h-fit">
                           <button
