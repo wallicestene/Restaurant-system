@@ -47,18 +47,18 @@ const TablesForm = ({ restaurantId }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data) {
-          toast.success("Table Added Successfully");
-        }else{
-          toast.error("Error Adding Table");
+        if (data.error) {
+          toast.error(data.error);
+        } else {
+          toast.success("Table has been added successfully!");
+          setTableData({
+            number: "",
+            capacity: "",
+            occupied: false,
+          });
         }
       })
       .catch((err) => console.log(err.message));
-    setTableData({
-      number: "",
-      capacity: "",
-      occupied: false,
-    });
   };
   return (
     <div>

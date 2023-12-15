@@ -4,15 +4,21 @@ const Reservation = require("../models/reservationModel");
 // add a table
 const addTable = (req, res) => {
   const { restaurantId, number, capacity, occupied } = req.body;
-  Table.create({ restaurantId, number, capacity, occupied })
-    .then((result) => {
-      res.status(200).json(result);
-    })
-    .catch((err) => {
-      res.status(500).json({
-        error: `Error occurred while adding tables to database ${err}`,
-      });
-    });
+  Table.findOne({ restaurantId, number }).then((isExist) => {
+    if (isExist) {
+      return res.status(404).json({ error:  `Table ${number} for this restaurant has already been added!`});
+    } else {
+      Table.create({ restaurantId, number, capacity, occupied })
+        .then((result) => {
+          res.status(200).json(result);
+        })
+        .catch((err) => {
+          res.status(500).json({
+            error: `Error occurred while adding tables to database ${err}`,
+          });
+        });
+    }
+  });
 };
 
 // get all tables in specific restaurant

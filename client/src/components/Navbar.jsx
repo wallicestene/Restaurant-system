@@ -42,11 +42,9 @@ const Navbar = () => {
         to={user ? "/account" : "/login"}
         className="right flex gap-2 items-center justify-between lg:border md:border border-slate-900 border-r-0 rounded-full overflow-hidden "
       >
-        {user && (
-          <span className=" hidden lg:flex md:flex pl-3 text-slate-900 text-sm first-letter:uppercase">
-            {user?.first_name}
-          </span>
-        )}
+        <span className=" hidden lg:flex md:flex pl-2 text-slate-900 text-sm first-letter:uppercase">
+          {user ? user?.first_name : "Log In"}
+        </span>
         <Avatar sx={{ width: 33, height: 33, backgroundColor: "#0F172A" }}>
           {user?.first_name[0]}
         </Avatar>

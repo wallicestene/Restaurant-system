@@ -13,7 +13,7 @@ const Restaurant = ({ restaurant }) => {
   const [images, setImages] = useState(restaurant.images);
 
   return (
-    <div className=" flex flex-col gap-y-1 h-full overflow-hidden bg-white rounded-xl shadow-md shadow-gray-500">
+    <div className=" flex flex-col gap-y-1 h-full overflow-hidden bg-white rounded-xl shadow-md shadow-gray-300 hover:shadow-gray-400 transition-shadow duration-200 delay-100">
       <Carousel
         showThumbs={false}
         emulateTouch
@@ -71,14 +71,16 @@ const Restaurant = ({ restaurant }) => {
               </div>
             ))}
           </div>
-          <p>
+          <div className=" my-2 flex items-center justify-start gap-1">
             <LocationOn
               sx={{
-                fontSize: "1.2rem",
+                fontSize: "1.1rem",
               }}
             />
-            <span>{restaurant.address}</span>
-          </p>
+            <p>
+              <span>{restaurant.address}</span>
+            </p>
+          </div>
         </div>
       </div>
     </div>
