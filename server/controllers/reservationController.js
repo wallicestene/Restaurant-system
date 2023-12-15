@@ -63,7 +63,7 @@ const addReservation = (req, res) => {
             });
           });
       } else {
-        throw Error("Table is already reserved for that date.");
+        throw Error("Table is already reserved for that date!");
       }
     })
     .catch((error) => {
