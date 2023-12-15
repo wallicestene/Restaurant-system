@@ -69,7 +69,7 @@ const RestaurantDetailsPage = () => {
     setSelectedTable(tables.find((table) => table._id === id));
   };
   const BookTable = () => {
-    if (user && date.startDate && tableId ) {
+    if (user && date.startDate && tableId) {
       fetch("http://localhost:3000/api/restaurant/reservation", {
         method: "POST",
         headers: {
@@ -87,9 +87,15 @@ const RestaurantDetailsPage = () => {
         .then((result) => {
           if (result.error) {
             setBookingError(result.error);
-            toast.error(result.error)
+            toast.error(result.error);
           } else {
-            toast.success('Reservation Successful')
+            const promise = () =>
+              new Promise((resolve) => setTimeout(resolve, 2000));
+            toast.promise(promise, {
+              loading: "Loading...",
+              success: "Reservation Successful!",
+              error: "Error",
+            });
           }
         })
         .catch((err) => {
@@ -97,7 +103,7 @@ const RestaurantDetailsPage = () => {
         });
       setSelectedTable("");
     } else {
-      toast.error("Please select a Table and Date to book!")
+      toast.error("Please select a Table and Date to book!");
     }
   };
   const handleDateChange = (newDate) => {
@@ -169,9 +175,13 @@ const RestaurantDetailsPage = () => {
             <div>
               <Link
                 to={`/imageGallery/${id}`}
-                className=" hidden absolute bottom-2 right-3 bg-white/40 backdrop-blur-md text-xs tracking-wide lg:flex items-center font-semibold gap-1 py-1 px-2 rounded-md hover:cursor-pointer"
+                className=" hidden absolute bottom-2 right-3 bg-white/70 backdrop-blur-md text-xs tracking-wide lg:flex items-center font-semibold gap-1 py-1 px-2 rounded-md hover:cursor-pointer"
               >
-                <PhotoRounded fontSize="small" />
+                {/* <PhotoRounded fontSize="small" /> */}
+                <img
+                  className=" h-4 w-4"
+                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAQ0lEQVR4nO2TwQkAIAzEMp7S/RdQ91AKnUA4ELlAXznoK/ATASxgAl3gSbHrhsAjf9BrlLIJvHmAcAe4AxPuAHfABQd26G3wlQ9gxwAAAABJRU5ErkJggg=="
+                ></img>
                 <span>Show all photos</span>
               </Link>
             </div>
