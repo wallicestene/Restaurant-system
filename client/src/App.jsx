@@ -30,7 +30,7 @@ const App = () => {
   }, [dispatch]);
   return (
     <Router>
-       <Toaster  position="top-left"  />
+       <Toaster  position="top-left" richColors  />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index path="/" element={<HomePage />} />
