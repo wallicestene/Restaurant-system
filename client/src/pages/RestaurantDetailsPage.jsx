@@ -175,7 +175,7 @@ const RestaurantDetailsPage = () => {
             <div>
               <Link
                 to={`/imageGallery/${id}`}
-                className=" hidden absolute bottom-2 right-3 bg-white/70 backdrop-blur-md text-xs tracking-wide lg:flex items-center font-semibold gap-1 py-1 px-2 rounded-md hover:cursor-pointer"
+                className=" hidden absolute bottom-2 right-4 bg-white/70 backdrop-blur-md text-xs tracking-wide lg:flex items-center font-semibold gap-1 py-1 px-2 rounded-md hover:cursor-pointer"
               >
                 {/* <PhotoRounded fontSize="small" /> */}
                 <img
