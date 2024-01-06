@@ -9,17 +9,27 @@ const { extname } = require("path");
 // add a restaurant
 
 const addRestaurant = (req, res) => {
-  const { owner, name, address, description, images, menu, contacts, tags } =
-    req.body;
+  const {
+    owner,
+    name,
+    address,
+    description,
+    images,
+    whereToSleep,
+    price,
+    amenities,
+    tags
+  } = req.body;
   Restaurant.create({
     owner,
     name,
     address,
     description,
     images,
-    menu,
-    contacts,
-    tags,
+    whereToSleep,
+    price,
+    amenities,
+    tags
   })
     .then((result) => {
       res.status(200).json(result);
@@ -96,7 +106,16 @@ const findAllRestaurants = (req, res) => {
 };
 // update restaurant details
 const updateRestaurant = (req, res) => {
-  const { name, address, description, images, menu, contacts, tags } = req.body;
+  const {
+    name,
+    address,
+    description,
+    images,
+    whereToSleep,
+    price,
+    amenities,
+    tags
+  } = req.body;
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json("No restaurant with that id");
@@ -106,8 +125,9 @@ const updateRestaurant = (req, res) => {
     address,
     description,
     images,
-    menu,
-    contacts,
+    whereToSleep,
+    price,
+    amenities,
     tags,
   })
     .then((restaurant) => {
@@ -151,15 +171,18 @@ const searchRestaurant = (req, res) => {
         address: searchRegex,
       },
     ],
-  }).then(restaurants => {
-    if(!restaurants){
-      res.status(404).json({error: "No matching restaurants found!"})
-    }
-    res.status(200).json(restaurants)
   })
-  .catch(error => {
-    res.status(500).json({ error: "error in while searching for restaurant" });
-  })
+    .then((restaurants) => {
+      if (!restaurants) {
+        res.status(404).json({ error: "No matching restaurants found!" });
+      }
+      res.status(200).json(restaurants);
+    })
+    .catch((error) => {
+      res
+        .status(500)
+        .json({ error: "error in while searching for restaurant" });
+    });
 };
 // delete a restaurant
 const deleteRestaurant = (req, res) => {
@@ -192,5 +215,5 @@ module.exports = {
   uploadMenuImage,
   getRestaurantByOwner,
   updateRestaurant,
-  searchRestaurant
+  searchRestaurant,
 };

@@ -1,60 +1,59 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { Close, UploadRounded } from "@mui/icons-material";
 
-const MenuItems = ({
-  itemName,
-  setItemName,
-  itemImage,
-  setItemImage,
-  menu,
-  setMenu,
+const whereToSleepItems = ({
+  bedroom,
+  setBedroom,
+  sleepingPosition,
+  setSleepingPosition,
+  whereToSleep,
+  setWhereToSleep
 }) => {
-  const addMenuItem = (e) => {
+  const addwhereToSleep = (e) => {
     e.preventDefault();
-    if (itemName && itemImage) {
-      setMenu((prevValue) => {
-        return [...prevValue, { itemName, itemImage }];
+    if (bedroom && sleepingPosition) {
+      setWhereToSleep((prevValue) => {
+        return [...prevValue, { bedroom, sleepingPosition }];
       });
-      setItemName("");
-      setItemImage("");
+      setBedroom("");
+      setSleepingPosition("");
     } else {
       alert("You need to add the item name & image");
     }
   };
-  const uploadMenuImage = (e) => {
-    const { files } = e.target;
-    let formData = new FormData();
-    formData.append("itemImage", files[0]);
-    fetch("http://localhost:3000/api/upload-menu-image", {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((image) => {
-        setItemImage(image);
-      });
-  };
+  // const uploadwhereToSleepImage = (e) => {
+  //   const { files } = e.target;
+  //   let formData = new FormData();
+  //   formData.append("sleepingPosition", files[0]);
+  //   fetch("http://localhost:3000/api/upload-whereToSleep-image", {
+  //     method: "POST",
+  //     body: formData,
+  //   })
+  //     .then((response) => response.json())
+  //     .then((image) => {
+  //       setSleepingPosition(image);
+  //     });
+  // };
   return (
     <>
-      {menu.length > 0 && (
+      {whereToSleep.length > 0 && (
         <ul className="flex gap-2 flex-wrap py-2 px-3">
-          {menu.map((menuItem, index) => (
+          {whereToSleep.map((whereToSleepItem, index) => (
             <li
               key={index}
               className=" relative flex items-center gap-1 border border-totem-pole-400 py-1 px-2 rounded-md"
             >
-              <img
-                src={`http://localhost:3000/uploads/${menuItem.itemImage}`}
-                alt={menuItem.itemName}
-                className=" lg:h-16 lg:w-16 md:h-14 md:w-14 h-10 w-10 rounded-full object-cover"
-              />
-              <p className=" text-sm tracking-wide">{menuItem.itemName}</p>
+              
+              <p className=" text-sm tracking-wide">Bedroom {whereToSleepItem.bedroom}</p>
+              <p className=" text-sm tracking-wide"> {whereToSleepItem.sleepingPosition}</p>
+              
               <span
                 onClick={() => {
-                  setMenu((prevItems) => {
+                  setWhereToSleep((prevItems) => {
                     return [
                       ...prevItems.filter(
-                        (item) => item.itemName !== menuItem.itemName
+                        (item) => item.bedroom !== whereToSleepItem.bedroom
                       ),
                     ];
                   });
@@ -74,35 +73,44 @@ const MenuItems = ({
       )}
       <div className=" flex flex-row gap-x-2">
         <input
+          type="number"
+          className=""
+          placeholder="bedroom"
+          name="bedroom"
+          value={bedroom}
+          min={1}
+          onChange={(e) => setBedroom(e.target.value)}
+        />
+        <input
           type="text"
           className=""
-          placeholder="menu"
-          name="menu"
-          value={itemName}
-          onChange={(e) => setItemName(e.target.value)}
+          placeholder="Sleeping position"
+          name="sleepingPosition"
+          value={sleepingPosition}
+          onChange={(e) => setSleepingPosition(e.target.value)}
         />
-        <label className="flex items-center gap-x-1 rounded-md  bg-slate-300 w-40 cursor-pointer">
+        {/* <label className="flex items-center gap-x-1 rounded-md  bg-slate-300 w-40 cursor-pointer">
           <UploadRounded fontSize="small" />
           <input
             type="file"
-            name="menuItemImage"
-            placeholder="menu item image"
+            name="whereToSleepItemImage"
+            placeholder="whereToSleep item image"
             className=" hidden"
-            onChange={uploadMenuImage}
+            onChange={uploadwhereToSleepImage}
           />
           <span>Upload image</span>
-        </label>
+        </label> */}
       </div>
       <div className=" my-4 flex items-center justify-center border p-2 rounded">
       <button
         className=" lg:w-1/2 w-full bg-totem-pole-400 text-totem-pole-50 py-2 text-center rounded-md"
-        onClick={addMenuItem}
+        onClick={addwhereToSleep}
       >
-        Add Menu Item
+        Add a place to sleep
       </button>
       </div>
     </>
   );
 };
 
-export default MenuItems;
+export default whereToSleepItems;

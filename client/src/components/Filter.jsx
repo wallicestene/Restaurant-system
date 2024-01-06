@@ -3,6 +3,7 @@ import {
   EditCalendar,
   LocationOn,
   Person,
+  Search,
   TableBar,
   TableRestaurant,
 } from "@mui/icons-material";
@@ -21,21 +22,21 @@ const Filter = ({searchInput, setSearchInput, searchRestaurant}) => {
   };
   return (
     <section className="p-2">
-      <div className=" my-5 font-mulish mt-14">
+      <div className=" font-mulish mt-14">
         <form className=" flex items-center justify-center gap-3">
-          <div className="  border border-totem-pole-300 h-10 rounded-full lg:w-96 w-9/12 flex items-center gap-1 overflow-hidden px-1">
-            <LocationOn />
+          <div className="  border border-totem-pole-500 h-10 rounded-full lg:w-96 w-9/12 flex items-center gap-1 overflow-hidden px-1 ">
+            {/* <LocationOn /> */}
             <input
               type="text"
-              placeholder="Search by location"
+              placeholder="Search restaurant by name or location"
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
-              className="indent-1 h-full w-full outline-none border-none"
+              className="h-full w-full outline-none border-none bg-none placeholder:text-gray-500"
             />
           </div>
 
-          <button className="lg:px-3 px-2 py-2 bg-totem-pole-500 rounded-lg text-orange-50 text-sm" onClick={searchRestaurant}>
-            Find Hotel
+          <button className=" p-2 bg-totem-pole-500 rounded-full text-orange-50 text-sm hover:bg-totem-pole-600 transition-all delay-100 duration-150 hover:transform hover:scale-105" onClick={searchRestaurant}>
+            <Search/>
           </button>
         </form>
       </div>

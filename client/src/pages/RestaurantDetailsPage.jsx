@@ -41,65 +41,71 @@ const RestaurantDetailsPage = () => {
   const { data, isLoading, error } = useFetch(
     `http://localhost:3000/api/restaurant/${id}`
   );
-  useEffect(() => {
-    const getTables = () => {
-      if (data && !isLoading && !error) {
-        fetch(`http://localhost:3000/api/tables/restaurant/${data._id}`)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Failed to fetch data");
-            } else {
-              return response.json();
-            }
-          })
-          .then((tables) => {
-            setLoading(false);
-            setTables(tables);
-            setTableError(null);
-          })
-          .catch((error) => {
-            setTableError(error.message);
-            setLoading(false);
-          });
-      }
-    };
-    getTables();
-  }, [data, error, isLoading]);
+  // useEffect(() => {
+  //   const getTables = () => {
+  //     if (data && !isLoading && !error) {
+  //       fetch(`http://localhost:3000/api/tables/restaurant/${data._id}`)
+  //         .then((response) => {
+  //           if (!response.ok) {
+  //             throw new Error("Failed to fetch data");
+  //           } else {
+  //             return response.json();
+  //           }
+  //         })
+  //         .then((tables) => {
+  //           setLoading(false);
+  //           // setTables(tables);
+  //           setTableError(null);
+  //         })
+  //         .catch((error) => {
+  //           setTableError(error.message);
+  //           setLoading(false);
+  //         });
+  //     }
+  //   };
+  //   getTables();
+  // }, [data, error, isLoading]);
   const getSelectedTable = (id) => {
     setSelectedTable(tables.find((table) => table._id === id));
   };
-  const BookTable = () => {
-    if (user && date.startDate && tableId ) {
-      fetch("http://localhost:3000/api/restaurant/reservation", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user?.token}`,
-        },
-        body: JSON.stringify({
-          userId: user?.userId,
-          restaurantId: data._id,
-          tableId,
-          date: date.startDate,
-        }),
-      })
-        .then((response) => response.json())
-        .then((result) => {
-          if (result.error) {
-            setBookingError(result.error);
-            toast.error(result.error)
-          } else {
-            toast.success('Reservation Successful')
-          }
-        })
-        .catch((err) => {
-          console.log(err.message);
-        });
-      setSelectedTable("");
-    } else {
-      toast.error("Please select a Table and Date to book!")
-    }
-  };
+  // const BookTable = () => {
+  //   if (user && date.startDate && tableId) {
+  //     fetch("http://localhost:3000/api/restaurant/reservation", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${user?.token}`,
+  //       },
+  //       body: JSON.stringify({
+  //         userId: user?.userId,
+  //         restaurantId: data._id,
+  //         tableId,
+  //         date: date.startDate,
+  //       }),
+  //     })
+  //       .then((response) => response.json())
+  //       .then((result) => {
+  //         if (result.error) {
+  //           setBookingError(result.error);
+  //           toast.error(result.error);
+  //         } else {
+  //           const promise = () =>
+  //             new Promise((resolve) => setTimeout(resolve, 2000));
+  //           toast.promise(promise, {
+  //             loading: "Loading...",
+  //             success: "Reservation Successful!",
+  //             error: "Error",
+  //           });
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.log(err.message);
+  //       });
+  //     setSelectedTable("");
+  //   } else {
+  //     toast.error("Please select a Table and Date to book!");
+  //   }
+  // };
   const handleDateChange = (newDate) => {
     setDate(newDate);
   };
@@ -169,9 +175,13 @@ const RestaurantDetailsPage = () => {
             <div>
               <Link
                 to={`/imageGallery/${id}`}
-                className=" hidden absolute bottom-2 right-3 bg-white/40 backdrop-blur-md text-xs tracking-wide lg:flex items-center font-semibold gap-1 py-1 px-2 rounded-md hover:cursor-pointer"
+                className=" hidden absolute bottom-2 right-4 bg-white/70 backdrop-blur-md text-xs tracking-wide lg:flex items-center font-semibold gap-1 py-1 px-2 rounded-md hover:cursor-pointer"
               >
-                <PhotoRounded fontSize="small" />
+                {/* <PhotoRounded fontSize="small" /> */}
+                <img
+                  className=" h-4 w-4"
+                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAQ0lEQVR4nO2TwQkAIAzEMp7S/RdQ91AKnUA4ELlAXznoK/ATASxgAl3gSbHrhsAjf9BrlLIJvHmAcAe4AxPuAHfABQd26G3wlQ9gxwAAAABJRU5ErkJggg=="
+                ></img>
                 <span>Show all photos</span>
               </Link>
             </div>
@@ -227,7 +237,7 @@ const RestaurantDetailsPage = () => {
           {data && !isLoading && (
             <div className=" px-2">
               <h2 className=" my-2 text-lg font-bold tracking-wide">Menu</h2>
-              <ul className="flex gap-2 flex-wrap py-2 px-3">
+              {/* <ul className="flex gap-2 flex-wrap py-2 px-3">
                 {data.menu.map((menuItem, index) => (
                   <li
                     key={index}
@@ -243,7 +253,7 @@ const RestaurantDetailsPage = () => {
                     </p>
                   </li>
                 ))}
-              </ul>
+              </ul> */}
               <div
                 style={{
                   height: "0.01rem",
@@ -293,7 +303,7 @@ const RestaurantDetailsPage = () => {
             </div>
           )}
 
-          {data && !isLoading && (
+          {/* {data && !isLoading && (
             <div className="my-5 px-2">
               <h2 className=" my-2 text-lg font-bold tracking-wide">
                 Contacts
@@ -311,7 +321,7 @@ const RestaurantDetailsPage = () => {
                 })}
               </ul>
             </div>
-          )}
+          )} */}
         </div>
         <div className=" lg:col-span-1 flex flex-col items-center">
           <div className="lg:hidden fixed bottom-2 right-4 flex justify-end items-end w-full">
@@ -367,8 +377,8 @@ const RestaurantDetailsPage = () => {
                       {showTables ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
                     </div>
                   </div>
-                  {showTables && tables.length > 0 && (
-                    <ul className="absolute top-16 grid grid-cols-2 gap-3 w-full h-50 overflow-y-scroll rounded-md scroll-m-4 p-2 bg-slate-800 text-white mt-2">
+                  {/* {showTables && tables.length > 0 && (
+                    <ul className="absolute top-16 grid grid-cols-2 gap-3 w-full h-50 overflow-y-scroll rounded-md scroll-m-4 p-2 bg-slate-800 text-white mt-2 h-60">
                       {tables.map((table, index) => (
                         <li key={index} className=" w-full h-fit">
                           <button
@@ -382,7 +392,7 @@ const RestaurantDetailsPage = () => {
                               setShowTables(false);
                             }}
                           >
-                            <div className=" flex lg:gap-3 md:gap-2 gap-1">
+                            {/* <div className=" flex lg:gap-3 md:gap-2 gap-1">
                               <div className=" flex flex-col gap-2 items-start justify-center">
                                 <TableBar />
                                 <GroupIcon />
@@ -391,23 +401,23 @@ const RestaurantDetailsPage = () => {
                                 <span>Table 0{table.number}</span>
                                 <span>Table for {table.capacity}</span>
                               </div>
-                            </div>
-                            {table.occupied && (
+                            </div> */}
+                            {/* {table.occupied && (
                               <span className=" absolute top-0 left-0 w-full h-full text-white flex items-center justify-center backdrop-blur-sm bg-white/20">
                                 Occupied
                               </span>
-                            )}
-                          </button>
+                            )} */}
+                          {/* </button>
                         </li>
                       ))}
                     </ul>
-                  )}
+                  )} */}
                 </div>
 
                 <div className=" flex gap-1 text-totem-pole-50">
                   <button
                     className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full"
-                    onClick={user ? BookTable : () => navigate("/login")}
+                    onClick={() => navigate("/login")}
                   >
                     Book
                   </button>
