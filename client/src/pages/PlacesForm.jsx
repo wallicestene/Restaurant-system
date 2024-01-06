@@ -3,9 +3,10 @@ import { useUserContext } from "../hooks/Usercontext";
 import ImagesUploader from "../components/ImagesUploader";
 import MenuItems from "../components/MenuItems";
 import Tags from "../components/Tags";
-import { Close, KeyboardBackspace } from "@mui/icons-material";
+import { KeyboardBackspace } from "@mui/icons-material";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import TablesForm from "./TablesForm";
+import Amenities from "../components/Amenities";
 
 const PlacesForm = () => {
   const [name, setName] = useState("");
@@ -13,14 +14,14 @@ const PlacesForm = () => {
   const [description, setDescription] = useState("");
   const [images, setImages] = useState([]);
   const [imageLink, setImageLink] = useState("");
-  const [itemName, setItemName] = useState("");
-  const [itemImage, setItemImage] = useState("");
-  const [menu, setMenu] = useState([]);
+  const [bedroom, setBedroom] = useState("");
+  const [sleepingPosition, setSleepingPosition] = useState("");
+  const [whereToSleep, setWhereToSleep] = useState([]);
+  const [price, setPrice] = useState("");
 
-  const [contacts, setContacts] = useState([]);
-  const [contactsInput, setContactsInput] = useState("");
+  const [amenities, setAmenities] = useState([]);
   const [tags, setTags] = useState([]);
-    const [redirect, setRedirect] = useState(null);
+  const [redirect, setRedirect] = useState(null);
 
   const { id } = useParams();
   const [{ user }] = useUserContext();
@@ -40,13 +41,6 @@ const PlacesForm = () => {
       </>
     );
   };
-  const handleAddContacts = (e) => {
-    e.preventDefault();
-    setContacts((prevContacts) => {
-      return [...prevContacts, contactsInput];
-    });
-    setContactsInput("");
-  };
   const saveRestaurant = (e) => {
     e.preventDefault();
     if (id) {
@@ -60,8 +54,9 @@ const PlacesForm = () => {
           address,
           description,
           images,
-          menu,
-          contacts,
+          whereToSleep,
+          price,
+          amenities,
           tags,
         }),
       });
@@ -77,15 +72,16 @@ const PlacesForm = () => {
           address,
           description,
           images,
-          menu,
-          contacts,
+          whereToSleep,
+          price,
+          amenities,
           tags,
         }),
       })
         .then((response) => response.json())
         .then((data) => console.log(data));
     }
-    setRedirect("/account/myRestaurants")
+    setRedirect("/account/myRestaurants");
   };
   useEffect(() => {
     const getRestaurant = () => {
@@ -96,8 +92,8 @@ const PlacesForm = () => {
           setAddress(data.address);
           setDescription(data.description);
           setImages(data.images);
-          setMenu(data.menu);
-          setContacts(data.contacts);
+          setWhereToSleep(data.whereToSleep);
+          setAmenities(data.amenities);
           setTags(data.tags);
         });
     };
@@ -106,10 +102,19 @@ const PlacesForm = () => {
     }
     getRestaurant();
   }, [id]);
-    if (redirect) {
+  if (redirect) {
     return <Navigate to={redirect} />;
   }
-
+  // console.log({
+  //   name,
+  //   address,
+  //   description,
+  //   images,
+  //   whereToSleep,
+  //   price,
+  //   amenities,
+  //   tags,
+  // });
   return (
     <div className="w-full lg:w-11/12 mx-auto font-mulish py-20 px-2 text-">
       <button
@@ -162,66 +167,38 @@ const PlacesForm = () => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
-          {inputTitle("Menu", "The menu items for your restaurant")}
+          {inputTitle(
+            "Place to sleep",
+            "The place to sleep i.e - bedrooms and the sleeping position"
+          )}
           <MenuItems
-            itemName={itemName}
-            setItemName={setItemName}
-            itemImage={itemImage}
-            setItemImage={setItemImage}
-            menu={menu}
-            setMenu={setMenu}
+            bedroom={bedroom}
+            setBedroom={setBedroom}
+            sleepingPosition={sleepingPosition}
+            setSleepingPosition={setSleepingPosition}
+            whereToSleep={whereToSleep}
+            setWhereToSleep={setWhereToSleep}
+          />
+          {inputTitle("Price", "The price of your place i.e $ 54")}
+          <input
+            type="number"
+            className=""
+            placeholder="Price eg $ 54"
+            name="price"
+            value={price}
+            min={1}
+            onChange={(e) => setPrice(e.target.value)}
           />
           {inputTitle(
             "Tags",
             "Tags, for example dates, fast-food, five-star..."
           )}
           <Tags selectedTags={tags} setSelectedTags={setTags} />
-          {inputTitle("Contacts", "Contacts to your restaurant")}
-          {contacts.length > 0 && (
-            <div className="flex flex-wrap gap-4 my-2 ">
-              {contacts?.map((contact, index) => (
-                <div
-                  className=" relative py-2 text-center rounded-md px-2 border border-totem-pole-400 "
-                  key={index}
-                >
-                  {contact}
-                  <span
-                    onClick={() =>
-                      setContacts((prevContacts) => {
-                        return [
-                          ...prevContacts.filter((con) => con !== contact),
-                        ];
-                      })
-                    }
-                    className=" absolute -top-1 -right-1 z-10 border border-totem-pole-400 bg-white flex items-center justify-center rounded-full text-slate-900 cursor-pointer"
-                  >
-                    <Close
-                      sx={{
-                        height: "1rem",
-                        width: "1rem",
-                      }}
-                    />
-                  </span>
-                </div>
-              ))}
-            </div>
-          )}
-          <div className=" flex justify-between gap-x-2">
-            <input
-              type="text"
-              className=""
-              placeholder="+254797.. ,email..."
-              name="contactInput"
-              value={contactsInput}
-              onChange={(e) => setContactsInput(e.target.value)}
-            />
-            <button
-              onClick={handleAddContacts}
-              className=" bg-slate-300 rounded-md w-32 text-center  "
-            >
-              Add Contact
-            </button>
-          </div>
+          {inputTitle("Amenities", "Amenities in your place")}
+          <Amenities
+            selectedAmenities={amenities}
+            setSelectedAmenities={setAmenities}
+          />
           <div className=" my-4 flex items-center justify-center border p-2 rounded">
             <button
               onClick={saveRestaurant}
@@ -231,11 +208,7 @@ const PlacesForm = () => {
             </button>
           </div>
         </form>
-        {
-          id && (
-            <TablesForm restaurantId={id}/>
-          )
-        }
+        {id && <TablesForm restaurantId={id} />}
       </div>
     </div>
   );

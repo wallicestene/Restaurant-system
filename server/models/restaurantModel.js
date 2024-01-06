@@ -22,22 +22,24 @@ const restaurantSchema = new Schema({
     type: [String],
     required: true,
   },
-  menu: {
+  whereToSleep: {
     type: [
       {
-        itemName: {
-          type: String,
+        bedroom: {
+          type: Number,
           required: true,
         },
-        itemImage: {
+        sleepingPosition: {
           type: String,
           required: true,
         },
       },
     ],
-    // required: true,
   },
-  contacts: {
+  price: {
+    type: Number,
+  },
+  amenities:{
     type: [String],
   },
   tags:{
