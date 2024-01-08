@@ -353,7 +353,7 @@ const RestaurantDetailsPage = () => {
           </div>
           {data && !isLoading && (
             <div
-              className={`lg:sticky lg:top-20 lg:left-0 lg:bottom-0  w-full  shadow-xl rounded-md  lg:flex flex-col gap-y-2 border font-mulish${
+              className={`lg:sticky lg:top-20 lg:left-0 lg:bottom-0  w-full  shadow-xl rounded-md  lg:flex flex-col gap-y-2 border font-mulish ${
                 showBookingMobile
                   ? "  lg:h-fit fixed top-0 backdrop-blur-md bg-white/70 z-10 h-screen flex flex-col justify-center"
                   : "hidden"
@@ -384,13 +384,17 @@ const RestaurantDetailsPage = () => {
                   </div>
                 </div>
                 <div className="p-1 rounded-md border border-totem-pole-400">
-                  <h3 >Add <strong>check in</strong> and <strong>check out</strong></h3>
+                  <h3>
+                    Add <strong>check in</strong> and <strong>check out</strong>
+                  </h3>
                   <Datepicker
                     inputClassName={
-                      "placeholder:text-sm bg-slate-800 border-none outline-none text-gray-400"
+                      "placeholder:text-sm bg-slate-800 border-none outline-none text-gray-300"
                     }
                     useRange={true}
                     value={date}
+                    readOnly={true}
+                    separator={"to"}
                     minDate={new Date()}
                     onChange={handleDateChange}
                     primaryColor={"orange"}
