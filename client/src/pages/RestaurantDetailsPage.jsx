@@ -274,7 +274,7 @@ const RestaurantDetailsPage = () => {
               {data.amenities.length > 3 && (
                 <button
                   onClick={() => showAllAmenities(data.amenities)}
-                  className=" py-2 px-3 border border-black rounded-md"
+                  className=" py-2 px-3 border border-black rounded-md hover:bg-gray-100 hover:transition-colors duration-150 delay-75"
                 >
                   {allAmenities === data.amenities.length
                     ? "Show less"
@@ -312,11 +312,11 @@ const RestaurantDetailsPage = () => {
               </div>
             )}
             <div
-                style={{
-                  height: "0.01rem",
-                }}
-                className=" bg-black opacity-20 my-5"
-              />
+              style={{
+                height: "0.01rem",
+              }}
+              className=" bg-black opacity-20 my-5"
+            />
           </div>
 
           {data && !isLoading && (
@@ -353,18 +353,35 @@ const RestaurantDetailsPage = () => {
           </div>
           {data && !isLoading && (
             <div
-              className={`lg:sticky lg:top-20 lg:left-0 lg:bottom-0  w-full  shadow-xl rounded-md  lg:flex flex-col gap-y-2 py-2 ${
+              className={`lg:sticky lg:top-20 lg:left-0 lg:bottom-0  w-full  shadow-xl rounded-md  lg:flex flex-col gap-y-2 border font-mulish${
                 showBookingMobile
                   ? "  lg:h-fit fixed top-0 backdrop-blur-md bg-white/70 z-10 h-screen flex flex-col justify-center"
                   : "hidden"
               }`}
             >
               <div className=" bg-white flex flex-col gap-4 p-2 rounded-md">
-                <div
-                  className="lg:hidden flex items-center justify-end cursor-pointer"
-                  onClick={() => setShowBookingMobile(false)}
-                >
-                  <Close />
+                <div className=" flex w-full justify-between">
+                  <div>
+                    <p className=" ">
+                      <span className="text-[1.2em] font-semibold tracking-wide">
+                        {data.price.toLocaleString("en-US", {
+                          style: "currency",
+                          currency: "USD",
+                        })}
+                      </span>{" "}
+                      <span>per night</span>
+                    </p>
+                  </div>
+                  <div className="lg:hidden flex items-center justify-end">
+                    <Close
+                      onClick={() => setShowBookingMobile(false)}
+                      sx={{
+                        ":hover": {
+                          cursor: "pointer",
+                        },
+                      }}
+                    />
+                  </div>
                 </div>
                 <div className="p-1 rounded-md border border-totem-pole-400">
                   <h3>Add date</h3>
