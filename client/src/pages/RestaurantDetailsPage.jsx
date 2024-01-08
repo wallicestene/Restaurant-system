@@ -7,6 +7,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import GroupIcon from "@mui/icons-material/Group";
 import {
   Backspace,
+  BedOutlined,
   Close,
   FavoriteBorder,
   KeyboardArrowDown,
@@ -295,14 +296,29 @@ const RestaurantDetailsPage = () => {
             {data && !isLoading && data?.whereToSleep && (
               <div className=" grid grid-cols-3 ">
                 {data.whereToSleep.map((place, index) => (
-                  <div key={index} className=" border border-black py-4 px-3 rounded-md">
-                    <p>Bedroom {place?.bedroom}</p>
-                    <p>{place?.sleepingPosition}</p>
+                  <div
+                    key={index}
+                    className=" border border-black py-4 px-3 rounded-md flex flex-col gap-y-2"
+                  >
+                    <BedOutlined />
+                    <div>
+                      <p>Bedroom {place?.bedroom}</p>
+                      <p className=" mt-[1.7px] text-[0.8em] text-gray-600">
+                        {place?.sleepingPosition}
+                      </p>
+                    </div>
                   </div>
                 ))}
               </div>
             )}
+            <div
+                style={{
+                  height: "0.01rem",
+                }}
+                className=" bg-black opacity-20 my-5"
+              />
           </div>
+
           {data && !isLoading && (
             <div className=" px-2">
               <h2 className=" my-2 text-lg font-bold tracking-wide">Tags</h2>
