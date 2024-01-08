@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import { Image, LocationOn, RestaurantMenu, TableBarOutlined } from "@mui/icons-material";
+import { Image, LocationOn} from "@mui/icons-material";
 
 const AddedRestaurants = ({restaurant}) => {
     return (
@@ -14,20 +14,12 @@ const AddedRestaurants = ({restaurant}) => {
           </div>
           <div className="rightDiv flex flex-col justify-between py-3 w-full">
             <h1 className=" text-base">{restaurant?.name}</h1>
-            {/* <div className=" flex gap-x-2 justify-around ">
-              <p className=" flex items-center gap-x-1 bg-slate-900 px-2 py-1 text-totem-pole-50 rounded">
-                <TableBarOutlined fontSize="small" />{" "}
-                <span> Tables {data?.length}</span>
-              </p>
+            <div className=" flex gap-x-2 justify-around ">
               <p className=" flex items-center gap-x-1 bg-slate-900 px-2 py-1 text-totem-pole-50 rounded">
                 <Image fontSize="small" />
                 <span>Images  {restaurant?.images.length}</span>
               </p>
-              <p className=" flex items-center gap-x-1 bg-slate-900 px-2 py-1 text-totem-pole-50 rounded">
-                <RestaurantMenu/>
-                <span>{restaurant?.menu.length} Menu Item{restaurant?.menu.length > 1 ? "s" : ""}</span>
-              </p>
-            </div> */}
+            </div>
             <p className=" flex items-center text-xs">
               <LocationOn
                 sx={{
