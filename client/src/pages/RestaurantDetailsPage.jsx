@@ -33,7 +33,7 @@ const RestaurantDetailsPage = () => {
   const [showTables, setShowTables] = useState(false);
   const [tableError, setTableError] = useState(null);
   const [bookingError, setBookingError] = useState(null);
-  const [allAmenities, setAllAmenities] = useState(2);
+  const [allAmenities, setAllAmenities] = useState(3);
   const [selectedTable, setSelectedTable] = useState("");
   const [{ user }] = useUserContext();
 
@@ -112,7 +112,7 @@ const RestaurantDetailsPage = () => {
   };
   const showAllAmenities = (amenitiesArray) => {
     setAllAmenities((preAmenities) => {
-      return preAmenities == amenitiesArray.length ? 2 : amenitiesArray.length;
+      return preAmenities == amenitiesArray.length ? 3 : amenitiesArray.length;
     });
   };
   return (
@@ -241,7 +241,7 @@ const RestaurantDetailsPage = () => {
           )}
           {data && !isLoading && (
             <div className=" px-2">
-              <h2 className=" my-2  text-lg font-bold tracking-wide">
+              <h2 className=" my-2 text-lg font-bold tracking-wide">
                 About this place
               </h2>
               <p className="text-md text-gray-900 text-sm tracking-wide line-clamp-[4]">
@@ -258,9 +258,9 @@ const RestaurantDetailsPage = () => {
           {data && !isLoading && data?.amenities && (
             <div className=" px-2">
               <h2 className=" my-2 text-lg font-bold tracking-wide">
-                Amenities
+                Amenities in this place
               </h2>
-              <ul className=" grid grid-cols-3 gap-3">
+              <ul className=" grid grid-cols-3 gap-x-3">
                 {data.amenities.slice(0, allAmenities).map((amenity, index) => (
                   <li
                     className=" border border-black inline border-opacity-20 my-2 first-letter:uppercase py-1 px-2 rounded-sm"
@@ -270,15 +270,14 @@ const RestaurantDetailsPage = () => {
                   </li>
                 ))}{" "}
               </ul>
-              {data.amenities.length > 2 && (
+              {data.amenities.length > 3 && (
                 <button
                   onClick={() => showAllAmenities(data.amenities)}
-                  className=" py-1 px-3"
+                  className=" py-2 px-3 border border-black rounded-md"
                 >
-                  {" "}
-                  {
-                    allAmenities === data.amenities.length ? "Show less" : `Show all (${data.amenities.length})`
-                  }
+                  {allAmenities === data.amenities.length
+                    ? "Show less"
+                    : `Show all (${data.amenities.length})`}
                 </button>
               )}
               <div
@@ -289,7 +288,21 @@ const RestaurantDetailsPage = () => {
               />{" "}
             </div>
           )}
-
+          <div className=" px-2">
+            <h2 className=" my-2 text-lg font-bold tracking-wide">
+              Where to sleep
+            </h2>
+            {data && !isLoading && data?.whereToSleep && (
+              <div className=" grid grid-cols-3 ">
+                {data.whereToSleep.map((place, index) => (
+                  <div key={index} className=" border border-black py-4 px-3 rounded-md">
+                    <p>Bedroom {place?.bedroom}</p>
+                    <p>{place?.sleepingPosition}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
           {data && !isLoading && (
             <div className=" px-2">
               <h2 className=" my-2 text-lg font-bold tracking-wide">Tags</h2>
