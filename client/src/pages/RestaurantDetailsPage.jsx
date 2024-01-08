@@ -384,7 +384,7 @@ const RestaurantDetailsPage = () => {
                   </div>
                 </div>
                 <div className="p-1 rounded-md border border-totem-pole-400">
-                  <h3>Add <strong>check in</strong> and <strong>check out</strong></h3>
+                  <h3 >Add <strong>check in</strong> and <strong>check out</strong></h3>
                   <Datepicker
                     inputClassName={
                       "placeholder:text-sm bg-slate-800 border-none outline-none text-gray-400"
