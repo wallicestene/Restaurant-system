@@ -17,7 +17,8 @@ const PlacesForm = () => {
   const [bedroom, setBedroom] = useState("");
   const [sleepingPosition, setSleepingPosition] = useState("");
   const [whereToSleep, setWhereToSleep] = useState([]);
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(10);
+  const [guests, setGuests] = useState(10);
 
   const [amenities, setAmenities] = useState([]);
   const [tags, setTags] = useState([]);
@@ -55,6 +56,7 @@ const PlacesForm = () => {
           description,
           images,
           whereToSleep,
+          guests,
           price,
           amenities,
           tags,
@@ -73,6 +75,7 @@ const PlacesForm = () => {
           description,
           images,
           whereToSleep,
+          guests,
           price,
           amenities,
           tags,
@@ -95,6 +98,8 @@ const PlacesForm = () => {
           setWhereToSleep(data.whereToSleep);
           setAmenities(data.amenities);
           setTags(data.tags);
+          setPrice(data.price)
+          setGuests(data.guests)
         });
     };
     if (!id) {
@@ -105,16 +110,7 @@ const PlacesForm = () => {
   if (redirect) {
     return <Navigate to={redirect} />;
   }
-  // console.log({
-  //   name,
-  //   address,
-  //   description,
-  //   images,
-  //   whereToSleep,
-  //   price,
-  //   amenities,
-  //   tags,
-  // });
+
   return (
     <div className="w-full lg:w-11/12 mx-auto font-mulish py-20 px-2 text-">
       <button
@@ -179,6 +175,19 @@ const PlacesForm = () => {
             whereToSleep={whereToSleep}
             setWhereToSleep={setWhereToSleep}
           />
+          {inputTitle(
+            "Guests",
+            "The number of guests this place needs e.g 2 adults, 1 child, 1 infant..."
+          )}
+          <input
+            type="number"
+            className=""
+            placeholder="Nymber of Guests"
+            name="guests"
+            value={guests}
+            min={1}
+            onChange={(e) => setGuests(e.target.value)}
+          />
           {inputTitle("Price", "The price of your place i.e $ 54")}
           <input
             type="number"
@@ -186,7 +195,7 @@ const PlacesForm = () => {
             placeholder="Price eg $ 54"
             name="price"
             value={price}
-            min={1}
+            min={10}
             onChange={(e) => setPrice(e.target.value)}
           />
           {inputTitle(

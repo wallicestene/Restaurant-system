@@ -16,6 +16,7 @@ const addRestaurant = (req, res) => {
     description,
     images,
     whereToSleep,
+    guests,
     price,
     amenities,
     tags
@@ -27,6 +28,7 @@ const addRestaurant = (req, res) => {
     description,
     images,
     whereToSleep,
+    guests,
     price,
     amenities,
     tags
@@ -112,6 +114,7 @@ const updateRestaurant = (req, res) => {
     description,
     images,
     whereToSleep,
+    guests,
     price,
     amenities,
     tags
@@ -126,6 +129,7 @@ const updateRestaurant = (req, res) => {
     description,
     images,
     whereToSleep,
+    guests,
     price,
     amenities,
     tags,

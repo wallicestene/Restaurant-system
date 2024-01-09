@@ -6,7 +6,9 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import GroupIcon from "@mui/icons-material/Group";
 import {
+  Add,
   Backspace,
+  BedOutlined,
   Close,
   FavoriteBorder,
   KeyboardArrowDown,
@@ -14,26 +16,33 @@ import {
   KeyboardBackspace,
   LocationOn,
   PhotoRounded,
+  Remove,
   TableBar,
 } from "@mui/icons-material";
 import Datepicker from "react-tailwindcss-datepicker";
 import { Alert, CircularProgress } from "@mui/material";
 import { useUserContext } from "../hooks/Usercontext";
 import { toast } from "sonner";
+import { getUnit } from "@mui/material/styles/cssUtils";
 const RestaurantDetailsPage = () => {
   const [value, setValue] = useState(0);
   const [date, setDate] = useState({
     startDate: null,
     endDate: null,
   });
-  const [tables, setTables] = useState([]);
-  const [tableId, setTableId] = useState("");
   const [loading, setLoading] = useState(true);
   const [showBookingMobile, setShowBookingMobile] = useState(false);
-  const [showTables, setShowTables] = useState(false);
+  const [showGuests, setShowGuests] = useState(false);
   const [tableError, setTableError] = useState(null);
   const [bookingError, setBookingError] = useState(null);
+  const [allAmenities, setAllAmenities] = useState(3);
   const [selectedTable, setSelectedTable] = useState("");
+
+  const [adults, setAdults] = useState(1);
+  const [children, setChildren] = useState(0);
+  const [infants, setInfants] = useState(0);
+  const [allGuests, setAllGuests] = useState(adults);
+
   const [{ user }] = useUserContext();
 
   const { id } = useParams();
@@ -41,6 +50,13 @@ const RestaurantDetailsPage = () => {
   const { data, isLoading, error } = useFetch(
     `http://localhost:3000/api/restaurant/${id}`
   );
+  useEffect(() => {
+    const numberOfGuests = () => {
+      const guestsNumber = adults + children
+      setAllGuests(guestsNumber >= data.guests ? data?.guests : guestsNumber);
+    };
+    numberOfGuests();
+  }, [adults, allGuests, children, data.guests]);
   // useEffect(() => {
   //   const getTables = () => {
   //     if (data && !isLoading && !error) {
@@ -65,9 +81,6 @@ const RestaurantDetailsPage = () => {
   //   };
   //   getTables();
   // }, [data, error, isLoading]);
-  const getSelectedTable = (id) => {
-    setSelectedTable(tables.find((table) => table._id === id));
-  };
   // const BookTable = () => {
   //   if (user && date.startDate && tableId) {
   //     fetch("http://localhost:3000/api/restaurant/reservation", {
@@ -108,6 +121,11 @@ const RestaurantDetailsPage = () => {
   // };
   const handleDateChange = (newDate) => {
     setDate(newDate);
+  };
+  const showAllAmenities = (amenitiesArray) => {
+    setAllAmenities((preAmenities) => {
+      return preAmenities == amenitiesArray.length ? 3 : amenitiesArray.length;
+    });
   };
   return (
     <div className=" py-16 lg:w-11/12 md:w-11/12 mx-auto font-mulish relative px-2">
@@ -233,27 +251,47 @@ const RestaurantDetailsPage = () => {
               />
             </div>
           )}
-
           {data && !isLoading && (
             <div className=" px-2">
-              <h2 className=" my-2 text-lg font-bold tracking-wide">Menu</h2>
-              {/* <ul className="flex gap-2 flex-wrap py-2 px-3">
-                {data.menu.map((menuItem, index) => (
+              <h2 className=" my-2 text-lg font-bold tracking-wide">
+                About this place
+              </h2>
+              <p className="text-md text-gray-900 text-sm tracking-wide line-clamp-[4]">
+                {data?.description}
+              </p>
+              <div
+                style={{
+                  height: "0.01rem",
+                }}
+                className=" bg-black opacity-20 my-5"
+              />
+            </div>
+          )}
+          {data && !isLoading && data?.amenities && (
+            <div className=" px-2">
+              <h2 className=" my-2 text-lg font-bold tracking-wide">
+                Amenities in this place
+              </h2>
+              <ul className=" grid grid-cols-3 gap-x-3">
+                {data.amenities.slice(0, allAmenities).map((amenity, index) => (
                   <li
+                    className=" border border-black inline border-opacity-20 my-2 first-letter:uppercase py-1 px-2 rounded-sm"
                     key={index}
-                    className=" flex items-center gap-1 border border-totem-pole-400 py-1 px-2 rounded-md"
                   >
-                    <img
-                      src={`http://localhost:3000/uploads/${menuItem.itemImage}`}
-                      alt={menuItem.itemName}
-                      className=" lg:h-16 lg:w-16 md:h-14 md:w-14 h-10 w-10 rounded-full object-cover"
-                    />
-                    <p className=" text-sm tracking-wide">
-                      {menuItem.itemName}
-                    </p>
+                    {amenity}
                   </li>
-                ))}
-              </ul> */}
+                ))}{" "}
+              </ul>
+              {data.amenities.length > 3 && (
+                <button
+                  onClick={() => showAllAmenities(data.amenities)}
+                  className=" py-2 px-3 border border-black rounded-md hover:bg-gray-100 hover:transition-colors duration-150 delay-75"
+                >
+                  {allAmenities === data.amenities.length
+                    ? "Show less"
+                    : `Show all (${data.amenities.length})`}
+                </button>
+              )}
               <div
                 style={{
                   height: "0.01rem",
@@ -262,6 +300,35 @@ const RestaurantDetailsPage = () => {
               />{" "}
             </div>
           )}
+          <div className=" px-2">
+            <h2 className=" my-2 text-lg font-bold tracking-wide">
+              Where to sleep
+            </h2>
+            {data && !isLoading && data?.whereToSleep && (
+              <div className=" grid grid-cols-3 ">
+                {data.whereToSleep.map((place, index) => (
+                  <div
+                    key={index}
+                    className=" border border-black py-4 px-3 rounded-md flex flex-col gap-y-2"
+                  >
+                    <BedOutlined />
+                    <div>
+                      <p>Bedroom {place?.bedroom}</p>
+                      <p className=" mt-[1.7px] text-[0.8em] text-gray-600">
+                        {place?.sleepingPosition}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+            <div
+              style={{
+                height: "0.01rem",
+              }}
+              className=" bg-black opacity-20 my-5"
+            />
+          </div>
 
           {data && !isLoading && (
             <div className=" px-2">
@@ -285,43 +352,6 @@ const RestaurantDetailsPage = () => {
               />{" "}
             </div>
           )}
-
-          {data && !isLoading && (
-            <div className=" px-2">
-              <h2 className=" my-2 text-lg font-bold tracking-wide">
-                About this place
-              </h2>
-              <p className="text-md text-gray-900 text-sm tracking-wide">
-                {data?.description}
-              </p>
-              <div
-                style={{
-                  height: "0.01rem",
-                }}
-                className=" bg-black opacity-20 my-5"
-              />
-            </div>
-          )}
-
-          {/* {data && !isLoading && (
-            <div className="my-5 px-2">
-              <h2 className=" my-2 text-lg font-bold tracking-wide">
-                Contacts
-              </h2>
-
-              <ul className=" flex flex-wrap items-center gap-2 py-2 px-3">
-                {data?.contacts.map((contact, index) => {
-                  return (
-                    <li key={index}>
-                      <p className=" py-2 px-3 rounded-md border border-totem-pole-400">
-                        {contact}
-                      </p>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          )} */}
         </div>
         <div className=" lg:col-span-1 flex flex-col items-center">
           <div className="lg:hidden fixed bottom-2 right-4 flex justify-end items-end w-full">
@@ -334,86 +364,187 @@ const RestaurantDetailsPage = () => {
           </div>
           {data && !isLoading && (
             <div
-              className={`lg:sticky lg:top-20 lg:left-0 lg:bottom-0  w-full  shadow-xl rounded-md  lg:flex flex-col gap-y-2 py-2 ${
+              className={`lg:sticky lg:top-20 lg:left-0 lg:bottom-0  w-full  shadow-xl rounded-md  lg:flex flex-col gap-y-2 border font-mulish ${
                 showBookingMobile
                   ? "  lg:h-fit fixed top-0 backdrop-blur-md bg-white/70 z-10 h-screen flex flex-col justify-center"
                   : "hidden"
               }`}
             >
-              <div className=" bg-white flex flex-col gap-4 p-2 rounded-md">
-                <div
-                  className="lg:hidden flex items-center justify-end cursor-pointer"
-                  onClick={() => setShowBookingMobile(false)}
-                >
-                  <Close />
-                </div>
-                <div className="p-1 rounded-md border border-totem-pole-400">
-                  <h3>Add date</h3>
-                  <Datepicker
-                    inputClassName={
-                      "placeholder:text-sm bg-slate-800 border-none outline-none text-gray-400"
-                    }
-                    useRange={false}
-                    asSingle={true}
-                    value={date}
-                    minDate={new Date()}
-                    onChange={handleDateChange}
-                    primaryColor={"orange"}
-                    popoverDirection="left"
-                  />
-                </div>
-                <div className="relative flex flex-col border border-totem-pole-400 rounded-md p-1 ">
+              <div className=" bg-white flex flex-col gap-4 p-3 rounded-md border">
+                <div className=" flex w-full justify-between">
                   <div>
-                    <h3>Select table</h3>
-                    <div
-                      className=" flex items-center justify-between py-2 bg-slate-800 rounded-lg px-2 text-gray-400 hover:cursor-pointer"
-                      onClick={() => setShowTables(!showTables)}
-                    >
-                      <span>
-                        {selectedTable
-                          ? `Table 0${selectedTable.number}`
-                          : "Choose table"}
-                      </span>
-                      {showTables ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
-                    </div>
+                    <p className=" ">
+                      <span className="text-[1.2em] font-semibold tracking-wide">
+                        {data.price.toLocaleString("en-US", {
+                          style: "currency",
+                          currency: "USD",
+                        })}
+                      </span>{" "}
+                      <span>per night</span>
+                    </p>
                   </div>
-                  {/* {showTables && tables.length > 0 && (
-                    <ul className="absolute top-16 grid grid-cols-2 gap-3 w-full h-50 overflow-y-scroll rounded-md scroll-m-4 p-2 bg-slate-800 text-white mt-2 h-60">
-                      {tables.map((table, index) => (
-                        <li key={index} className=" w-full h-fit">
-                          <button
-                            className={`relative w-full py-2  rounded-md bg-totem-pole-400 flex items-center justify-center gap-x-1 overflow-hidden ${
-                              table.occupied && " bg-red-600"
-                            }`}
-                            disabled={table.occupied ? true : false}
-                            onClick={() => {
-                              setTableId(table._id);
-                              getSelectedTable(table._id);
-                              setShowTables(false);
-                            }}
-                          >
-                            {/* <div className=" flex lg:gap-3 md:gap-2 gap-1">
-                              <div className=" flex flex-col gap-2 items-start justify-center">
-                                <TableBar />
-                                <GroupIcon />
-                              </div>
-                              <div className=" flex flex-col items-start justify-center gap-2">
-                                <span>Table 0{table.number}</span>
-                                <span>Table for {table.capacity}</span>
-                              </div>
-                            </div> */}
-                            {/* {table.occupied && (
-                              <span className=" absolute top-0 left-0 w-full h-full text-white flex items-center justify-center backdrop-blur-sm bg-white/20">
-                                Occupied
-                              </span>
-                            )} */}
-                          {/* </button>
-                        </li>
-                      ))}
-                    </ul>
-                  )} */}
+                  <div className="lg:hidden flex items-center justify-end">
+                    <Close
+                      onClick={() => setShowBookingMobile(false)}
+                      sx={{
+                        ":hover": {
+                          cursor: "pointer",
+                        },
+                      }}
+                    />
+                  </div>
                 </div>
+                <div className="p-1 rounded-md border border-totem-pole-400 flex flex-col gap-1">
+                  <div>
+                    <h3>
+                      Add <strong>check in</strong> and{" "}
+                      <strong>check out</strong>
+                    </h3>
+                    <Datepicker
+                      inputClassName={
+                        "placeholder:text-sm bg-slate-800 border-none outline-none text-gray-300 font-extralight"
+                      }
+                      useRange={true}
+                      value={date}
+                      readOnly={true}
+                      separator={"to"}
+                      minDate={new Date()}
+                      onChange={handleDateChange}
+                      primaryColor={"orange"}
+                      popoverDirection="left"
+                    />
+                  </div>
 
+                  <div className="relative flex flex-col ">
+                    <div>
+                      <h3>Guests</h3>
+                      <div
+                        className=" flex items-center justify-between py-2 bg-slate-800 rounded-lg px-2 text-gray-400 hover:cursor-pointer"
+                        onClick={() => setShowGuests(!showGuests)}
+                      >
+                        <div className=" text-gray-300 font-extralight">
+                        {allGuests >= 1 && (
+                            <span>{`${allGuests} ${
+                              allGuests !== 1 ? "guests" : "guest"
+                            }`}</span>
+                          )}
+                          {infants >= 1 && (
+                            <span>{`, ${infants} ${
+                              infants !== 1 ? "infants" : "infant"
+                            }`}</span>
+                          )}
+                        </div>
+                        {showGuests ? (
+                          <KeyboardArrowUp />
+                        ) : (
+                          <KeyboardArrowDown />
+                        )}
+                      </div>
+                    </div>
+                    {showGuests && (
+                      <div
+                        className={`absolute top-[70px] bg-white shadow-md border w-full px-2 py-3 flex flex-col gap-5`}
+                      >
+                        <div className=" flex items-center justify-between">
+                          <div>
+                            <p>Adult</p>
+                            <span className=" font-extralight text-sm">
+                              Age 15+
+                            </span>
+                          </div>
+                          <div className=" flex items-center gap-3">
+                            <div
+                              className=" border border-black rounded-full flex items-center justify-center h-7 w-7 hover:cursor-pointer hover:bg-gray-100 transition-colors duration-150 delay-75"
+                              onClick={() =>
+                                setAdults((prevValue) => allGuests >= data.guests  ? data.guests : prevValue + 1 )
+                              }
+                            >
+                              <Add sx={{ height: "1.2rem", width: "1.2rem" }} />
+                            </div>
+
+                            {adults}
+                            <div
+                              className=" border border-black rounded-full flex items-center justify-center h-7 w-7 hover:cursor-pointer hover:bg-gray-100 transition-colors duration-150 delay-75"
+                              onClick={() => {
+                                setAdults((prevValue) => {
+                                  return prevValue <= 1 ? 1 : prevValue - 1;
+                                });
+                              }}
+                            >
+                              <Remove
+                                sx={{ height: "1.2rem", width: "1.2rem" }}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div className=" flex items-center justify-between">
+                          <div>
+                            <p>Children</p>
+                            <span className=" font-extralight text-sm">
+                              Ages 2–14
+                            </span>
+                          </div>
+                          <div className=" flex items-center gap-3">
+                            <div
+                              className=" border border-black rounded-full flex items-center justify-center h-7 w-7 hover:cursor-pointer hover:bg-gray-100 transition-colors duration-150 delay-75"
+                              onClick={() =>
+                                setChildren((prevValue) => allGuests >= data.guests  ? data.guests : prevValue + 1)
+                              }
+                            >
+                              <Add sx={{ height: "1.2rem", width: "1.2rem" }} />
+                            </div>
+
+                            {children}
+                            <div
+                              className=" border border-black rounded-full flex items-center justify-center h-7 w-7 hover:cursor-pointer hover:bg-gray-100 transition-colors duration-150 delay-75"
+                              onClick={() =>
+                                setChildren((prevValue) => {
+                                  return prevValue <= 0 ? 0 : prevValue - 1;
+                                })
+                              }
+                            >
+                              <Remove
+                                sx={{ height: "1.2rem", width: "1.2rem" }}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div className=" flex items-center justify-between">
+                          <div>
+                            <p>Infant</p>
+                            <span className=" text-sm font-extralight">
+                              Under 2
+                            </span>
+                          </div>
+                          <div className=" flex items-center gap-3">
+                            <div
+                              className=" border border-black rounded-full flex items-center justify-center h-7 w-7 hover:cursor-pointer hover:bg-gray-100 transition-colors duration-150 delay-75"
+                              onClick={() =>
+                                setInfants((prevValue) => infants >= 2  ? 2 : prevValue + 1)
+                              }
+                            >
+                              <Add sx={{ height: "1.2rem", width: "1.2rem" }} />
+                            </div>
+
+                            {infants}
+                            <div
+                              className=" border border-black rounded-full flex items-center justify-center h-7 w-7 hover:cursor-pointer hover:bg-gray-100 transition-colors duration-150 delay-75"
+                              onClick={() =>
+                                setInfants((prevValue) => {
+                                  return prevValue <= 0 ? 0 : prevValue - 1;
+                                })
+                              }
+                            >
+                              <Remove
+                                sx={{ height: "1.2rem", width: "1.2rem" }}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
                 <div className=" flex gap-1 text-totem-pole-50">
                   <button
                     className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full"
