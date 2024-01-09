@@ -395,7 +395,7 @@ const RestaurantDetailsPage = () => {
                     </h3>
                     <Datepicker
                       inputClassName={
-                        "placeholder:text-sm bg-slate-800 border-none outline-none text-gray-300"
+                        "placeholder:text-sm bg-slate-800 border-none outline-none text-gray-300 font-extralight"
                       }
                       useRange={true}
                       value={date}
@@ -415,7 +415,7 @@ const RestaurantDetailsPage = () => {
                         className=" flex items-center justify-between py-2 bg-slate-800 rounded-lg px-2 text-gray-400 hover:cursor-pointer"
                         onClick={() => setShowGuests(!showGuests)}
                       >
-                        <div>
+                        <div className=" text-gray-300 font-extralight">
                           {adults >= 1 && (
                             <span>{`${adults} ${
                               adults !== 1 ? "adults" : "adult"
