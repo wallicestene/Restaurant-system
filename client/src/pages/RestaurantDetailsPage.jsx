@@ -6,6 +6,7 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import GroupIcon from "@mui/icons-material/Group";
 import {
+  Add,
   Backspace,
   BedOutlined,
   Close,
@@ -15,6 +16,7 @@ import {
   KeyboardBackspace,
   LocationOn,
   PhotoRounded,
+  Remove,
   TableBar,
 } from "@mui/icons-material";
 import Datepicker from "react-tailwindcss-datepicker";
@@ -27,15 +29,18 @@ const RestaurantDetailsPage = () => {
     startDate: null,
     endDate: null,
   });
-  const [tables, setTables] = useState([]);
-  const [tableId, setTableId] = useState("");
   const [loading, setLoading] = useState(true);
   const [showBookingMobile, setShowBookingMobile] = useState(false);
-  const [showTables, setShowTables] = useState(false);
+  const [showGuests, setShowGuests] = useState(false);
   const [tableError, setTableError] = useState(null);
   const [bookingError, setBookingError] = useState(null);
   const [allAmenities, setAllAmenities] = useState(3);
   const [selectedTable, setSelectedTable] = useState("");
+
+  const [adults, setAdults] = useState(1);
+  const [children, setChildren] = useState(0);
+  const [infants, setInfants] = useState(0);
+
   const [{ user }] = useUserContext();
 
   const { id } = useParams();
@@ -67,9 +72,6 @@ const RestaurantDetailsPage = () => {
   //   };
   //   getTables();
   // }, [data, error, isLoading]);
-  const getSelectedTable = (id) => {
-    setSelectedTable(tables.find((table) => table._id === id));
-  };
   // const BookTable = () => {
   //   if (user && date.startDate && tableId) {
   //     fetch("http://localhost:3000/api/restaurant/reservation", {
@@ -359,7 +361,7 @@ const RestaurantDetailsPage = () => {
                   : "hidden"
               }`}
             >
-              <div className=" bg-white flex flex-col gap-4 p-2 rounded-md">
+              <div className=" bg-white flex flex-col gap-4 p-3 rounded-md border">
                 <div className=" flex w-full justify-between">
                   <div>
                     <p className=" ">
@@ -383,41 +385,113 @@ const RestaurantDetailsPage = () => {
                     />
                   </div>
                 </div>
-                <div className="p-1 rounded-md border border-totem-pole-400">
-                  <h3>
-                    Add <strong>check in</strong> and <strong>check out</strong>
-                  </h3>
-                  <Datepicker
-                    inputClassName={
-                      "placeholder:text-sm bg-slate-800 border-none outline-none text-gray-300"
-                    }
-                    useRange={true}
-                    value={date}
-                    readOnly={true}
-                    separator={"to"}
-                    minDate={new Date()}
-                    onChange={handleDateChange}
-                    primaryColor={"orange"}
-                    popoverDirection="left"
-                  />
-                </div>
-                <div className="relative flex flex-col border border-totem-pole-400 rounded-md p-1 ">
+                <div className="p-1 rounded-md border border-totem-pole-400 flex flex-col gap-1">
                   <div>
-                    <h3>Select table</h3>
-                    <div
-                      className=" flex items-center justify-between py-2 bg-slate-800 rounded-lg px-2 text-gray-400 hover:cursor-pointer"
-                      onClick={() => setShowTables(!showTables)}
-                    >
-                      <span>
-                        {selectedTable
-                          ? `Table 0${selectedTable.number}`
-                          : "Choose table"}
-                      </span>
-                      {showTables ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+                    <h3>
+                      Add <strong>check in</strong> and{" "}
+                      <strong>check out</strong>
+                    </h3>
+                    <Datepicker
+                      inputClassName={
+                        "placeholder:text-sm bg-slate-800 border-none outline-none text-gray-300"
+                      }
+                      useRange={true}
+                      value={date}
+                      readOnly={true}
+                      separator={"to"}
+                      minDate={new Date()}
+                      onChange={handleDateChange}
+                      primaryColor={"orange"}
+                      popoverDirection="left"
+                    />
+                  </div>
+
+                  <div className="relative flex flex-col ">
+                    <div>
+                      <h3>Guests</h3>
+                      <div
+                        className=" flex items-center justify-between py-2 bg-slate-800 rounded-lg px-2 text-gray-400 hover:cursor-pointer"
+                        onClick={() => setShowGuests(!showGuests)}
+                      >
+                        <span>Choose table</span>
+                        {showGuests ? (
+                          <KeyboardArrowUp />
+                        ) : (
+                          <KeyboardArrowDown />
+                        )}
+                      </div>
                     </div>
+                    {showGuests && (
+                      <div
+                        className={`absolute top-[70px] bg-white shadow-md border w-full px-2 py-3 flex flex-col gap-5`}
+                      >
+                        <div className=" flex items-center justify-between">
+                          <div>
+                            <p>Adult</p>
+                            <span className=" font-extralight text-sm">Age 15+</span>
+                          </div>
+                          <div className=" flex items-center gap-3">
+                            <div className=" border border-black rounded-full flex items-center justify-center h-7 w-7 hover:cursor-pointer hover:bg-gray-100 transition-colors duration-150 delay-75" onClick={() => setAdults(prevValue => prevValue + 1)}>
+                              <Add sx={{ height: "1.2rem", width: "1.2rem" }} />
+                            </div>
+
+                            {adults}
+                            <div className=" border border-black rounded-full flex items-center justify-center h-7 w-7 hover:cursor-pointer hover:bg-gray-100 transition-colors duration-150 delay-75" onClick={() => setAdults(prevValue => {
+                              if (prevValue <= 1) {
+                                return 1
+                              }
+                              return prevValue - 1
+                            })}>
+                              <Remove
+                                sx={{ height: "1.2rem", width: "1.2rem" }}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div className=" flex items-center justify-between">
+                          <div>
+                            <p>Children</p>
+                            <span className=" font-extralight text-sm">Ages 2–14</span>
+                          </div>
+                          <div className=" flex items-center gap-3">
+                            <div className=" border border-black rounded-full flex items-center justify-center h-7 w-7 hover:cursor-pointer hover:bg-gray-100 transition-colors duration-150 delay-75" onClick={() => setChildren(prevValue => prevValue + 1)}>
+                              <Add sx={{ height: "1.2rem", width: "1.2rem" }} />
+                            </div>
+
+                            {children}
+                            <div className=" border border-black rounded-full flex items-center justify-center h-7 w-7 hover:cursor-pointer hover:bg-gray-100 transition-colors duration-150 delay-75" onClick={() => setChildren(prevValue => {
+                              return prevValue <= 0 ? 0 : prevValue - 1
+                            })}>
+                              <Remove
+                                sx={{ height: "1.2rem", width: "1.2rem" }}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div className=" flex items-center justify-between">
+                          <div>
+                            <p>Infant</p>
+                            <span className=" text-sm font-extralight">Under 2</span>
+                          </div>
+                          <div className=" flex items-center gap-3">
+                            <div className=" border border-black rounded-full flex items-center justify-center h-7 w-7 hover:cursor-pointer hover:bg-gray-100 transition-colors duration-150 delay-75" onClick={() => setInfants(prevValue => prevValue + 1)}>
+                              <Add sx={{ height: "1.2rem", width: "1.2rem" }} />
+                            </div>
+
+                            {infants}
+                            <div className=" border border-black rounded-full flex items-center justify-center h-7 w-7 hover:cursor-pointer hover:bg-gray-100 transition-colors duration-150 delay-75" onClick={() => setInfants(prevValue => {
+                              return prevValue <= 0 ? 0 : prevValue - 1
+                            })}>
+                              <Remove
+                                sx={{ height: "1.2rem", width: "1.2rem" }}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
-
                 <div className=" flex gap-1 text-totem-pole-50">
                   <button
                     className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full"
