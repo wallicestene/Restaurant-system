@@ -50,6 +50,12 @@ const RestaurantDetailsPage = () => {
   const { data, isLoading, error } = useFetch(
     `http://localhost:3000/api/restaurant/${id}`
   );
+  useEffect(() => {
+    const numberOfGuests = () => {
+      setAllGuests(adults + children);
+    };
+    numberOfGuests();
+  }, [adults, allGuests, children, infants]);
   // useEffect(() => {
   //   const getTables = () => {
   //     if (data && !isLoading && !error) {
@@ -416,14 +422,9 @@ const RestaurantDetailsPage = () => {
                         onClick={() => setShowGuests(!showGuests)}
                       >
                         <div className=" text-gray-300 font-extralight">
-                          {adults >= 1 && (
-                            <span>{`${adults} ${
-                              adults !== 1 ? "adults" : "adult"
-                            }`}</span>
-                          )}
-                          {children >= 1 && (
-                            <span>{`, ${children} ${
-                              children !== 1 ? "children" : "child"
+                        {allGuests >= 1 && (
+                            <span>{`${allGuests} ${
+                              allGuests !== 1 ? "guests" : "guest"
                             }`}</span>
                           )}
                           {infants >= 1 && (
