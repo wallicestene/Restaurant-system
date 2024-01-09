@@ -52,10 +52,11 @@ const RestaurantDetailsPage = () => {
   );
   useEffect(() => {
     const numberOfGuests = () => {
-      setAllGuests(adults + children);
+      const guestsNumber = adults + children
+      setAllGuests(guestsNumber >= data.guests ? data?.guests : guestsNumber);
     };
     numberOfGuests();
-  }, [adults, allGuests, children, infants]);
+  }, [adults, allGuests, children, data.guests]);
   // useEffect(() => {
   //   const getTables = () => {
   //     if (data && !isLoading && !error) {
@@ -455,7 +456,7 @@ const RestaurantDetailsPage = () => {
                             <div
                               className=" border border-black rounded-full flex items-center justify-center h-7 w-7 hover:cursor-pointer hover:bg-gray-100 transition-colors duration-150 delay-75"
                               onClick={() =>
-                                setAdults((prevValue) => prevValue + 1)
+                                setAdults((prevValue) => allGuests >= data.guests  ? data.guests : prevValue + 1 )
                               }
                             >
                               <Add sx={{ height: "1.2rem", width: "1.2rem" }} />
@@ -487,7 +488,7 @@ const RestaurantDetailsPage = () => {
                             <div
                               className=" border border-black rounded-full flex items-center justify-center h-7 w-7 hover:cursor-pointer hover:bg-gray-100 transition-colors duration-150 delay-75"
                               onClick={() =>
-                                setChildren((prevValue) => prevValue + 1)
+                                setChildren((prevValue) => allGuests >= data.guests  ? data.guests : prevValue + 1)
                               }
                             >
                               <Add sx={{ height: "1.2rem", width: "1.2rem" }} />
@@ -519,7 +520,7 @@ const RestaurantDetailsPage = () => {
                             <div
                               className=" border border-black rounded-full flex items-center justify-center h-7 w-7 hover:cursor-pointer hover:bg-gray-100 transition-colors duration-150 delay-75"
                               onClick={() =>
-                                setInfants((prevValue) => prevValue + 1)
+                                setInfants((prevValue) => infants >= 2  ? 2 : prevValue + 1)
                               }
                             >
                               <Add sx={{ height: "1.2rem", width: "1.2rem" }} />
