@@ -36,6 +36,9 @@ const restaurantSchema = new Schema({
       },
     ],
   },
+  guests: {
+    type: Number,
+  },
   price: {
     type: Number,
   },
