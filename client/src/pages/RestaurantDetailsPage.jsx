@@ -461,7 +461,7 @@ const RestaurantDetailsPage = () => {
                               Age 15+
                             </span>
                           </div>
-                          <div className=" flex items-center gap-3">
+                          <div className=" flex flex-row-reverse items-center gap-3">
                             <button
                               disabled={disableGuests}
                               className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75 ${
@@ -497,14 +497,14 @@ const RestaurantDetailsPage = () => {
                             </button>
                           </div>
                         </div>
-                        <div className=" flex items-center justify-between">
+                        <div className=" flex  items-center justify-between">
                           <div>
                             <p>Children</p>
                             <span className=" font-extralight text-sm">
                               Ages 2–14
                             </span>
                           </div>
-                          <div className=" flex items-center gap-3">
+                          <div className=" flex flex-row-reverse items-center gap-3">
                             <button
                               disabled={disableGuests}
                               className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75 ${
@@ -548,7 +548,7 @@ const RestaurantDetailsPage = () => {
                               Under 2
                             </span>
                           </div>
-                          <div className=" flex items-center gap-3">
+                          <div className=" flex flex-row-reverse items-center gap-3">
                             <button
                               disabled={infants === 2}
                               className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75 ${
