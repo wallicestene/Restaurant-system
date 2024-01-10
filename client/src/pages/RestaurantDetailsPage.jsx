@@ -9,6 +9,7 @@ import {
   Add,
   Backspace,
   BedOutlined,
+  Circle,
   Close,
   FavoriteBorder,
   KeyboardArrowDown,
@@ -42,6 +43,7 @@ const RestaurantDetailsPage = () => {
   const [children, setChildren] = useState(0);
   const [infants, setInfants] = useState(0);
   const [allGuests, setAllGuests] = useState(adults);
+  const [disableGuests, setDisableGuests] = useState(false);
 
   const [{ user }] = useUserContext();
 
@@ -52,8 +54,13 @@ const RestaurantDetailsPage = () => {
   );
   useEffect(() => {
     const numberOfGuests = () => {
-      const guestsNumber = adults + children
+      const guestsNumber = adults + children;
       setAllGuests(guestsNumber >= data.guests ? data?.guests : guestsNumber);
+      if (data.guests <= guestsNumber) {
+        setDisableGuests(true);
+      } else {
+        setDisableGuests(false);
+      }
     };
     numberOfGuests();
   }, [adults, allGuests, children, data.guests]);
@@ -231,18 +238,38 @@ const RestaurantDetailsPage = () => {
           )}
         </div>
       )}
-      <div className=" lg:w-11/12 md:w-11/12 mx-auto grid lg:grid-cols-3 grid-cols-1 relative gap-x-2 py-9">
+      <div className=" lg:w-11/12 md:w-11/12 mx-auto grid lg:grid-cols-3 grid-cols-1 relative gap-x-2 py-2">
         <div className=" lg:col-span-2 p-2">
           {data && !isLoading && (
-            <div className=" ">
+            <div className="flex items-center gap-x-2 ">
               <p className="text-sm  font-semibold flex items-center">
                 <LocationOn
                   sx={{
                     fontSize: "1.4rem",
                   }}
                 />
-                <span className=" tracking-wide">{data.address}</span>
+                <span className=" tracking-wide">{data?.address}</span>
               </p>
+              <div className=" flex items-center gap-x-2 text-sm font-extralight">
+                <p className=" flex items-center justify-center gap-x-[2px]">
+                  <Circle
+                    sx={{
+                      height: "0.12em",
+                      width: "0.12em",
+                    }}
+                  />{" "}
+                  {data?.guests} Guest(s)
+                </p>
+                <p className=" flex items-center justify-center gap-x-[2px]">
+                  <Circle
+                    sx={{
+                      height: "0.12em",
+                      width: "0.12em",
+                    }}
+                  />{" "}
+                  {data?.whereToSleep.length} Bedroom(s)
+                </p>
+              </div>
               <div
                 style={{
                   height: "0.01rem",
@@ -364,7 +391,7 @@ const RestaurantDetailsPage = () => {
           </div>
           {data && !isLoading && (
             <div
-              className={`lg:sticky lg:top-20 lg:left-0 lg:bottom-0  w-full  shadow-xl rounded-md  lg:flex flex-col gap-y-2 border font-mulish ${
+              className={`lg:sticky lg:top-20 lg:left-0 lg:bottom-0  w-full  shadow-2xl rounded-md  lg:flex flex-col gap-y-2  font-mulish ${
                 showBookingMobile
                   ? "  lg:h-fit fixed top-0 backdrop-blur-md bg-white/70 z-10 h-screen flex flex-col justify-center"
                   : "hidden"
@@ -394,7 +421,7 @@ const RestaurantDetailsPage = () => {
                     />
                   </div>
                 </div>
-                <div className="p-1 rounded-md border border-totem-pole-400 flex flex-col gap-1">
+                <div className="p-1 rounded-lg border border-totem-pole-400 flex flex-col gap-2 p-2">
                   <div>
                     <h3>
                       Add <strong>check in</strong> and{" "}
@@ -402,7 +429,10 @@ const RestaurantDetailsPage = () => {
                     </h3>
                     <Datepicker
                       inputClassName={
-                        "placeholder:text-sm bg-slate-800 border-none outline-none text-gray-300 font-extralight"
+                        "placeholder:text-sm border-none outline-none font-extralight"
+                      }
+                      containerClassName={
+                        "relative h-14 border border-black flex items-center rounded-lg"
                       }
                       useRange={true}
                       value={date}
@@ -419,11 +449,11 @@ const RestaurantDetailsPage = () => {
                     <div>
                       <h3>Guests</h3>
                       <div
-                        className=" flex items-center justify-between py-2 bg-slate-800 rounded-lg px-2 text-gray-400 hover:cursor-pointer"
+                        className=" flex items-center justify-between py-2 h-14 rounded-lg border border-black px-2 hover:cursor-pointer"
                         onClick={() => setShowGuests(!showGuests)}
                       >
-                        <div className=" text-gray-300 font-extralight">
-                        {allGuests >= 1 && (
+                        <div className=" font-extralight">
+                          {allGuests >= 1 && (
                             <span>{`${allGuests} ${
                               allGuests !== 1 ? "guests" : "guest"
                             }`}</span>
@@ -443,7 +473,7 @@ const RestaurantDetailsPage = () => {
                     </div>
                     {showGuests && (
                       <div
-                        className={`absolute top-[70px] bg-white shadow-md border w-full px-2 py-3 flex flex-col gap-5`}
+                        className={`absolute top-[70px] bg-white shadow-xl border w-full px-2 py-3 flex flex-col gap-5 rounded-md`}
                       >
                         <div className=" flex items-center justify-between">
                           <div>
@@ -452,19 +482,30 @@ const RestaurantDetailsPage = () => {
                               Age 15+
                             </span>
                           </div>
-                          <div className=" flex items-center gap-3">
-                            <div
-                              className=" border border-black rounded-full flex items-center justify-center h-7 w-7 hover:cursor-pointer hover:bg-gray-100 transition-colors duration-150 delay-75"
+                          <div className=" flex flex-row-reverse items-center gap-3">
+                            <button
+                              disabled={disableGuests}
+                              className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75 ${
+                                disableGuests &&
+                                " text-gray-300 border-gray-300"
+                              }`}
                               onClick={() =>
-                                setAdults((prevValue) => allGuests >= data.guests  ? data.guests : prevValue + 1 )
+                                setAdults((prevValue) =>
+                                  allGuests >= data.guests
+                                    ? data.guests
+                                    : prevValue + 1
+                                )
                               }
                             >
                               <Add sx={{ height: "1.2rem", width: "1.2rem" }} />
-                            </div>
+                            </button>
 
                             {adults}
-                            <div
-                              className=" border border-black rounded-full flex items-center justify-center h-7 w-7 hover:cursor-pointer hover:bg-gray-100 transition-colors duration-150 delay-75"
+                            <button
+                              disabled={adults == 1}
+                              className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75 ${
+                                adults == 1 && " text-gray-300 border-gray-300"
+                              }`}
                               onClick={() => {
                                 setAdults((prevValue) => {
                                   return prevValue <= 1 ? 1 : prevValue - 1;
@@ -474,29 +515,41 @@ const RestaurantDetailsPage = () => {
                               <Remove
                                 sx={{ height: "1.2rem", width: "1.2rem" }}
                               />
-                            </div>
+                            </button>
                           </div>
                         </div>
-                        <div className=" flex items-center justify-between">
+                        <div className=" flex  items-center justify-between">
                           <div>
                             <p>Children</p>
                             <span className=" font-extralight text-sm">
                               Ages 2–14
                             </span>
                           </div>
-                          <div className=" flex items-center gap-3">
-                            <div
-                              className=" border border-black rounded-full flex items-center justify-center h-7 w-7 hover:cursor-pointer hover:bg-gray-100 transition-colors duration-150 delay-75"
+                          <div className=" flex flex-row-reverse items-center gap-3">
+                            <button
+                              disabled={disableGuests}
+                              className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75 ${
+                                disableGuests &&
+                                " text-gray-300 border-gray-300"
+                              }`}
                               onClick={() =>
-                                setChildren((prevValue) => allGuests >= data.guests  ? data.guests : prevValue + 1)
+                                setChildren((prevValue) =>
+                                  allGuests >= data.guests
+                                    ? data.guests
+                                    : prevValue + 1
+                                )
                               }
                             >
                               <Add sx={{ height: "1.2rem", width: "1.2rem" }} />
-                            </div>
+                            </button>
 
                             {children}
-                            <div
-                              className=" border border-black rounded-full flex items-center justify-center h-7 w-7 hover:cursor-pointer hover:bg-gray-100 transition-colors duration-150 delay-75"
+                            <button
+                              disabled={children == 0}
+                              className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75 ${
+                                children == 0 &&
+                                " text-gray-300 border-gray-300"
+                              }`}
                               onClick={() =>
                                 setChildren((prevValue) => {
                                   return prevValue <= 0 ? 0 : prevValue - 1;
@@ -506,7 +559,7 @@ const RestaurantDetailsPage = () => {
                               <Remove
                                 sx={{ height: "1.2rem", width: "1.2rem" }}
                               />
-                            </div>
+                            </button>
                           </div>
                         </div>
                         <div className=" flex items-center justify-between">
@@ -516,19 +569,29 @@ const RestaurantDetailsPage = () => {
                               Under 2
                             </span>
                           </div>
-                          <div className=" flex items-center gap-3">
-                            <div
-                              className=" border border-black rounded-full flex items-center justify-center h-7 w-7 hover:cursor-pointer hover:bg-gray-100 transition-colors duration-150 delay-75"
+                          <div className=" flex flex-row-reverse items-center gap-3">
+                            <button
+                              disabled={infants === 2}
+                              className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75 ${
+                                infants === 2 &&
+                                " text-gray-300 border-gray-300"
+                              }`}
                               onClick={() =>
-                                setInfants((prevValue) => infants >= 2  ? 2 : prevValue + 1)
+                                setInfants((prevValue) =>
+                                  infants >= 2 ? 2 : prevValue + 1
+                                )
                               }
                             >
                               <Add sx={{ height: "1.2rem", width: "1.2rem" }} />
-                            </div>
+                            </button>
 
                             {infants}
-                            <div
-                              className=" border border-black rounded-full flex items-center justify-center h-7 w-7 hover:cursor-pointer hover:bg-gray-100 transition-colors duration-150 delay-75"
+                            <button
+                              disabled={infants === 0}
+                              className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75 ${
+                                infants === 0 &&
+                                " text-gray-300 border-gray-300"
+                              }`}
                               onClick={() =>
                                 setInfants((prevValue) => {
                                   return prevValue <= 0 ? 0 : prevValue - 1;
@@ -538,7 +601,7 @@ const RestaurantDetailsPage = () => {
                               <Remove
                                 sx={{ height: "1.2rem", width: "1.2rem" }}
                               />
-                            </div>
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -547,7 +610,7 @@ const RestaurantDetailsPage = () => {
                 </div>
                 <div className=" flex gap-1 text-totem-pole-50">
                   <button
-                    className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full"
+                    className=" p-3 rounded-lg bg-totem-pole-500 w-full"
                     onClick={() => navigate("/login")}
                   >
                     Book
