@@ -42,6 +42,7 @@ const RestaurantDetailsPage = () => {
   const [children, setChildren] = useState(0);
   const [infants, setInfants] = useState(0);
   const [allGuests, setAllGuests] = useState(adults);
+  const [disableGuests, setDisableGuests] = useState(false);
 
   const [{ user }] = useUserContext();
 
@@ -52,8 +53,13 @@ const RestaurantDetailsPage = () => {
   );
   useEffect(() => {
     const numberOfGuests = () => {
-      const guestsNumber = adults + children
+      const guestsNumber = adults + children;
       setAllGuests(guestsNumber >= data.guests ? data?.guests : guestsNumber);
+      if (data.guests <= guestsNumber) {
+        setDisableGuests(true);
+      } else {
+        setDisableGuests(false);
+      }
     };
     numberOfGuests();
   }, [adults, allGuests, children, data.guests]);
@@ -426,7 +432,7 @@ const RestaurantDetailsPage = () => {
                         onClick={() => setShowGuests(!showGuests)}
                       >
                         <div className=" font-extralight">
-                        {allGuests >= 1 && (
+                          {allGuests >= 1 && (
                             <span>{`${allGuests} ${
                               allGuests !== 1 ? "guests" : "guest"
                             }`}</span>
@@ -456,18 +462,29 @@ const RestaurantDetailsPage = () => {
                             </span>
                           </div>
                           <div className=" flex items-center gap-3">
-                            <div
-                              className=" border border-black rounded-full flex items-center justify-center h-7 w-7 hover:cursor-pointer hover:bg-gray-100 transition-colors duration-150 delay-75"
+                            <button
+                              disabled={disableGuests}
+                              className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75 ${
+                                disableGuests &&
+                                " text-gray-300 border-gray-300"
+                              }`}
                               onClick={() =>
-                                setAdults((prevValue) => allGuests >= data.guests  ? data.guests : prevValue + 1 )
+                                setAdults((prevValue) =>
+                                  allGuests >= data.guests
+                                    ? data.guests
+                                    : prevValue + 1
+                                )
                               }
                             >
                               <Add sx={{ height: "1.2rem", width: "1.2rem" }} />
-                            </div>
+                            </button>
 
                             {adults}
-                            <div
-                              className=" border border-black rounded-full flex items-center justify-center h-7 w-7 hover:cursor-pointer hover:bg-gray-100 transition-colors duration-150 delay-75"
+                            <button
+                              disabled={adults == 1}
+                              className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75 ${
+                                adults == 1 && " text-gray-300 border-gray-300"
+                              }`}
                               onClick={() => {
                                 setAdults((prevValue) => {
                                   return prevValue <= 1 ? 1 : prevValue - 1;
@@ -477,7 +494,7 @@ const RestaurantDetailsPage = () => {
                               <Remove
                                 sx={{ height: "1.2rem", width: "1.2rem" }}
                               />
-                            </div>
+                            </button>
                           </div>
                         </div>
                         <div className=" flex items-center justify-between">
@@ -488,18 +505,30 @@ const RestaurantDetailsPage = () => {
                             </span>
                           </div>
                           <div className=" flex items-center gap-3">
-                            <div
-                              className=" border border-black rounded-full flex items-center justify-center h-7 w-7 hover:cursor-pointer hover:bg-gray-100 transition-colors duration-150 delay-75"
+                            <button
+                              disabled={disableGuests}
+                              className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75 ${
+                                disableGuests &&
+                                " text-gray-300 border-gray-300"
+                              }`}
                               onClick={() =>
-                                setChildren((prevValue) => allGuests >= data.guests  ? data.guests : prevValue + 1)
+                                setChildren((prevValue) =>
+                                  allGuests >= data.guests
+                                    ? data.guests
+                                    : prevValue + 1
+                                )
                               }
                             >
                               <Add sx={{ height: "1.2rem", width: "1.2rem" }} />
-                            </div>
+                            </button>
 
                             {children}
-                            <div
-                              className=" border border-black rounded-full flex items-center justify-center h-7 w-7 hover:cursor-pointer hover:bg-gray-100 transition-colors duration-150 delay-75"
+                            <button
+                              disabled={children == 0}
+                              className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75 ${
+                                children == 0 &&
+                                " text-gray-300 border-gray-300"
+                              }`}
                               onClick={() =>
                                 setChildren((prevValue) => {
                                   return prevValue <= 0 ? 0 : prevValue - 1;
@@ -509,7 +538,7 @@ const RestaurantDetailsPage = () => {
                               <Remove
                                 sx={{ height: "1.2rem", width: "1.2rem" }}
                               />
-                            </div>
+                            </button>
                           </div>
                         </div>
                         <div className=" flex items-center justify-between">
@@ -520,18 +549,28 @@ const RestaurantDetailsPage = () => {
                             </span>
                           </div>
                           <div className=" flex items-center gap-3">
-                            <div
-                              className=" border border-black rounded-full flex items-center justify-center h-7 w-7 hover:cursor-pointer hover:bg-gray-100 transition-colors duration-150 delay-75"
+                            <button
+                              disabled={infants === 2}
+                              className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75 ${
+                                infants === 2 &&
+                                " text-gray-300 border-gray-300"
+                              }`}
                               onClick={() =>
-                                setInfants((prevValue) => infants >= 2  ? 2 : prevValue + 1)
+                                setInfants((prevValue) =>
+                                  infants >= 2 ? 2 : prevValue + 1
+                                )
                               }
                             >
                               <Add sx={{ height: "1.2rem", width: "1.2rem" }} />
-                            </div>
+                            </button>
 
                             {infants}
-                            <div
-                              className=" border border-black rounded-full flex items-center justify-center h-7 w-7 hover:cursor-pointer hover:bg-gray-100 transition-colors duration-150 delay-75"
+                            <button
+                              disabled={infants === 0}
+                              className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75 ${
+                                infants === 0 &&
+                                " text-gray-300 border-gray-300"
+                              }`}
                               onClick={() =>
                                 setInfants((prevValue) => {
                                   return prevValue <= 0 ? 0 : prevValue - 1;
@@ -541,7 +580,7 @@ const RestaurantDetailsPage = () => {
                               <Remove
                                 sx={{ height: "1.2rem", width: "1.2rem" }}
                               />
-                            </div>
+                            </button>
                           </div>
                         </div>
                       </div>
