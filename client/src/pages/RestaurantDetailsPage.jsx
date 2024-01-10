@@ -394,7 +394,7 @@ const RestaurantDetailsPage = () => {
                     />
                   </div>
                 </div>
-                <div className="p-1 rounded-md border border-totem-pole-400 flex flex-col gap-1">
+                <div className="p-1 rounded-lg border border-totem-pole-400 flex flex-col gap-2 p-2">
                   <div>
                     <h3>
                       Add <strong>check in</strong> and{" "}
@@ -402,7 +402,10 @@ const RestaurantDetailsPage = () => {
                     </h3>
                     <Datepicker
                       inputClassName={
-                        "placeholder:text-sm bg-slate-800 border-none outline-none text-gray-300 font-extralight"
+                        "placeholder:text-sm border-none outline-none font-extralight"
+                      }
+                      containerClassName={
+                        "relative h-14 border border-black flex items-center rounded-lg"
                       }
                       useRange={true}
                       value={date}
@@ -419,10 +422,10 @@ const RestaurantDetailsPage = () => {
                     <div>
                       <h3>Guests</h3>
                       <div
-                        className=" flex items-center justify-between py-2 bg-slate-800 rounded-lg px-2 text-gray-400 hover:cursor-pointer"
+                        className=" flex items-center justify-between py-2 h-14 rounded-lg border border-black px-2 hover:cursor-pointer"
                         onClick={() => setShowGuests(!showGuests)}
                       >
-                        <div className=" text-gray-300 font-extralight">
+                        <div className=" font-extralight">
                         {allGuests >= 1 && (
                             <span>{`${allGuests} ${
                               allGuests !== 1 ? "guests" : "guest"
@@ -547,7 +550,7 @@ const RestaurantDetailsPage = () => {
                 </div>
                 <div className=" flex gap-1 text-totem-pole-50">
                   <button
-                    className=" py-2 px-3 rounded-md bg-totem-pole-500 w-full"
+                    className=" p-3 rounded-lg bg-totem-pole-500 w-full"
                     onClick={() => navigate("/login")}
                   >
                     Book
