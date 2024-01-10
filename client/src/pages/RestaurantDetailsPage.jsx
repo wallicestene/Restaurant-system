@@ -9,6 +9,7 @@ import {
   Add,
   Backspace,
   BedOutlined,
+  Circle,
   Close,
   FavoriteBorder,
   KeyboardArrowDown,
@@ -237,18 +238,38 @@ const RestaurantDetailsPage = () => {
           )}
         </div>
       )}
-      <div className=" lg:w-11/12 md:w-11/12 mx-auto grid lg:grid-cols-3 grid-cols-1 relative gap-x-2 py-9">
+      <div className=" lg:w-11/12 md:w-11/12 mx-auto grid lg:grid-cols-3 grid-cols-1 relative gap-x-2 py-2">
         <div className=" lg:col-span-2 p-2">
           {data && !isLoading && (
-            <div className=" ">
+            <div className="flex items-center gap-x-2 ">
               <p className="text-sm  font-semibold flex items-center">
                 <LocationOn
                   sx={{
                     fontSize: "1.4rem",
                   }}
                 />
-                <span className=" tracking-wide">{data.address}</span>
+                <span className=" tracking-wide">{data?.address}</span>
               </p>
+              <div className=" flex items-center gap-x-2 text-sm font-extralight">
+                <p className=" flex items-center justify-center gap-x-[2px]">
+                  <Circle
+                    sx={{
+                      height: "0.12em",
+                      width: "0.12em",
+                    }}
+                  />{" "}
+                  {data?.guests} Guest(s)
+                </p>
+                <p className=" flex items-center justify-center gap-x-[2px]">
+                  <Circle
+                    sx={{
+                      height: "0.12em",
+                      width: "0.12em",
+                    }}
+                  />{" "}
+                  {data?.whereToSleep.length} Bedroom(s)
+                </p>
+              </div>
               <div
                 style={{
                   height: "0.01rem",
@@ -370,7 +391,7 @@ const RestaurantDetailsPage = () => {
           </div>
           {data && !isLoading && (
             <div
-              className={`lg:sticky lg:top-20 lg:left-0 lg:bottom-0  w-full  shadow-xl rounded-md  lg:flex flex-col gap-y-2 border font-mulish ${
+              className={`lg:sticky lg:top-20 lg:left-0 lg:bottom-0  w-full  shadow-2xl rounded-md  lg:flex flex-col gap-y-2  font-mulish ${
                 showBookingMobile
                   ? "  lg:h-fit fixed top-0 backdrop-blur-md bg-white/70 z-10 h-screen flex flex-col justify-center"
                   : "hidden"
@@ -452,7 +473,7 @@ const RestaurantDetailsPage = () => {
                     </div>
                     {showGuests && (
                       <div
-                        className={`absolute top-[70px] bg-white shadow-md border w-full px-2 py-3 flex flex-col gap-5`}
+                        className={`absolute top-[70px] bg-white shadow-xl border w-full px-2 py-3 flex flex-col gap-5 rounded-md`}
                       >
                         <div className=" flex items-center justify-between">
                           <div>
