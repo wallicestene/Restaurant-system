@@ -12,15 +12,11 @@ const reservationSchema = new Schema({
     ref: "restaurant",
     required: true,
   },
-  date: {
-    type: {
-      checkIn: {
-        type: Date,
-      },
-      checkOut: {
-        type: Date,
-      },
-    },
+  checkIn: {
+    type: Date,
+  },
+  checkOut: {
+    type: Date,
   },
   guests: {
     type: {

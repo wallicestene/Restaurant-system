@@ -63,7 +63,7 @@ const RestaurantDetailsPage = () => {
     numberOfGuests();
   }, [adults, allGuests, children, data.guests]);
 
-  const BookPlace = () => {
+  const handleBooking = () => {
     if (user && date.startDate && date.endDate) {
       fetch("http://localhost:3000/api/restaurant/reservation", {
         method: "POST",
@@ -74,10 +74,8 @@ const RestaurantDetailsPage = () => {
         body: JSON.stringify({
           userId: user?.userId,
           restaurantId: data._id,
-          date: {
-            checkIn: date.startDate,
-            checkOut: date.endDate,
-          },
+          checkIn: date.startDate,
+          checkOut: date.endDate,
           guests: {
             adults,
             children,
@@ -592,7 +590,7 @@ const RestaurantDetailsPage = () => {
                 <div className=" flex gap-1 text-totem-pole-50">
                   <button
                     className=" p-3 rounded-lg bg-totem-pole-500 w-full"
-                    onClick={BookPlace}
+                    onClick={handleBooking}
                   >
                     Book
                   </button>

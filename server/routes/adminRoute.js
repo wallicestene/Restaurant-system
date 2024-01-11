@@ -23,24 +23,11 @@ const adminBro = new AdminBro({
       resource: Restaurant,
     },
     {
-      resource: Table,
-      options: {
-        properties: {
-          restaurantId: {
-            reference: "restaurant",
-          },
-        },
-      },
-    },
-    {
       resource: Reservation,
       options: {
         properties: {
           userId: {
             reference: "user",
-          },
-          tableId: {
-            reference: "table",
           },
           restaurantId: {
             reference: "restaurant",

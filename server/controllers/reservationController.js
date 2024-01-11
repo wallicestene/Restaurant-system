@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const Reservation = require("../models/reservationModel");
 const Table = require("../models/tableModel");
 const moment = require("moment");
-const schedule = require("node-schedule");
 
 // const updateTableOccupancy = () => {
 //   const today = new Date();
@@ -43,15 +42,14 @@ const schedule = require("node-schedule");
 
 // Add a reservation and update the table occupancy
 const addReservation = (req, res) => {
-  const { userId, restaurantId, date, guests } = req.body;
+  const { userId, restaurantId, checkIn, checkOut, guests } = req.body;
 
   // Checking if the table is already reserved for the given date
-  const { checkIn, checkOut } = date;
   Reservation.findOne({ restaurantId, checkIn, checkOut })
     .then((reservationExists) => {
       if (!reservationExists) {
         // Create a new reservation
-        Reservation.create({ userId, restaurantId, date, guests })
+        Reservation.create({ userId, restaurantId, checkIn, checkOut, guests })
           .then((reservation) => {
             // Return the created reservation
             res.status(200).json(reservation);
@@ -62,7 +60,7 @@ const addReservation = (req, res) => {
             });
           });
       } else {
-        throw Error("Place is already reserved for that date!");
+        throw Error("This place is already booked for that date!");
       }
     })
     .catch((error) => {
