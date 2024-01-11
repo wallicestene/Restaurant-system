@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { useUserContext } from "../hooks/Usercontext";
 import ImagesUploader from "../components/ImagesUploader";
@@ -5,7 +6,6 @@ import MenuItems from "../components/MenuItems";
 import Tags from "../components/Tags";
 import { KeyboardBackspace } from "@mui/icons-material";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import TablesForm from "./TablesForm";
 import Amenities from "../components/Amenities";
 
 const PlacesForm = () => {
@@ -23,6 +23,9 @@ const PlacesForm = () => {
   const [amenities, setAmenities] = useState([]);
   const [tags, setTags] = useState([]);
   const [redirect, setRedirect] = useState(null);
+
+  const [currentPage, setcurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(8);
 
   const { id } = useParams();
   const [{ user }] = useUserContext();
@@ -98,8 +101,8 @@ const PlacesForm = () => {
           setWhereToSleep(data.whereToSleep);
           setAmenities(data.amenities);
           setTags(data.tags);
-          setPrice(data.price)
-          setGuests(data.guests)
+          setPrice(data.price);
+          setGuests(data.guests);
         });
     };
     if (!id) {
@@ -128,96 +131,136 @@ const PlacesForm = () => {
       </button>
       <div className="w-full px-2">
         <form>
-          {inputTitle(
-            "Title",
-            "Title for your restaurant. Should be short and precise"
+          {currentPage === 0 && (
+            <>
+              {inputTitle(
+                "Title",
+                "Title for your restaurant. Should be short and precise"
+              )}
+              <input
+                type="text"
+                className=""
+                placeholder="title, for example: My Restaurant "
+                name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </>
           )}
-          <input
-            type="text"
-            className=""
-            placeholder="title, for example: My Restaurant "
-            name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          {inputTitle("Address", "Address to your restaurant")}
-          <input
-            type="text"
-            className=""
-            placeholder="Address e.g Nairobi,Kenya"
-            name="address"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-          />
-          {inputTitle("Images", "The more the images the better")}
-          <ImagesUploader
-            images={images}
-            setImages={setImages}
-            imageLink={imageLink}
-            setImageLink={setImageLink}
-          />
-          {inputTitle("Description", "The description of your place")}
-          <textarea
-            className=" border border-totem-pole-300 w-full py-2 indent-2 outline-none rounded-md h-36"
-            name="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          ></textarea>
-          {inputTitle(
-            "Place to sleep",
-            "The place to sleep i.e - bedrooms and the sleeping position"
+          {currentPage === 1 && (
+            <>
+              {inputTitle("Address", "Address to your restaurant")}
+              <input
+                type="text"
+                className=""
+                placeholder="Address e.g Nairobi,Kenya"
+                name="address"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+              />
+            </>
           )}
-          <MenuItems
-            bedroom={bedroom}
-            setBedroom={setBedroom}
-            sleepingPosition={sleepingPosition}
-            setSleepingPosition={setSleepingPosition}
-            whereToSleep={whereToSleep}
-            setWhereToSleep={setWhereToSleep}
-          />
-          {inputTitle(
-            "Guests",
-            "The number of guests this place needs e.g 2 adults, 1 child, 1 infant..."
+          {currentPage === 2 && (
+            <>
+              {inputTitle("Images", "The more the images the better")}
+              <ImagesUploader
+                images={images}
+                setImages={setImages}
+                imageLink={imageLink}
+                setImageLink={setImageLink}
+              />
+            </>
           )}
-          <input
-            type="number"
-            className=""
-            placeholder="Nymber of Guests"
-            name="guests"
-            value={guests}
-            min={1}
-            onChange={(e) => setGuests(e.target.value)}
-          />
-          {inputTitle("Price", "The price of your place i.e $ 54")}
-          <input
-            type="number"
-            className=""
-            placeholder="Price eg $ 54"
-            name="price"
-            value={price}
-            min={10}
-            onChange={(e) => setPrice(e.target.value)}
-          />
-          {inputTitle(
-            "Tags",
-            "Tags, for example dates, fast-food, five-star..."
+          {currentPage === 3 && (
+            <>
+              {inputTitle("Description", "The description of your place")}
+              <textarea
+                className=" border border-totem-pole-300 w-full py-2 indent-2 outline-none rounded-md h-36"
+                name="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              ></textarea>
+            </>
           )}
-          <Tags selectedTags={tags} setSelectedTags={setTags} />
-          {inputTitle("Amenities", "Amenities in your place")}
-          <Amenities
-            selectedAmenities={amenities}
-            setSelectedAmenities={setAmenities}
-          />
-          <div className=" my-4 flex items-center justify-center border p-2 rounded">
-            <button
-              onClick={saveRestaurant}
-              className=" lg:w-1/2 w-full bg-green-700 text-totem-pole-50 py-2 text-center rounded-md"
-            >
-              Save
-            </button>
-          </div>
+          {currentPage === 4 && (
+            <>
+              {inputTitle(
+                "Place to sleep",
+                "The place to sleep i.e - bedrooms and the sleeping position"
+              )}
+              <MenuItems
+                bedroom={bedroom}
+                setBedroom={setBedroom}
+                sleepingPosition={sleepingPosition}
+                setSleepingPosition={setSleepingPosition}
+                whereToSleep={whereToSleep}
+                setWhereToSleep={setWhereToSleep}
+              />
+            </>
+          )}
+          {currentPage === 5 && (
+            <>
+              {inputTitle(
+                "Guests",
+                "The number of guests this place needs e.g 2 adults, 1 child, 1 infant..."
+              )}
+              <input
+                type="number"
+                className=""
+                placeholder="Nymber of Guests"
+                name="guests"
+                value={guests}
+                min={1}
+                onChange={(e) => setGuests(e.target.value)}
+              />
+            </>
+          )}
+          {currentPage === 6 && (
+            <>
+              {inputTitle("Price", "The price of your place i.e $ 54")}
+              <input
+                type="number"
+                className=""
+                placeholder="Price eg $ 54"
+                name="price"
+                value={price}
+                min={10}
+                onChange={(e) => setPrice(e.target.value)}
+              />
+            </>
+          )}
+          {currentPage === 7 && (
+            <>
+              {inputTitle(
+                "Tags",
+                "Tags, for example dates, fast-food, five-star..."
+              )}
+              <Tags selectedTags={tags} setSelectedTags={setTags} />
+              {inputTitle("Amenities", "Amenities in your place")}
+              <Amenities
+                selectedAmenities={amenities}
+                setSelectedAmenities={setAmenities}
+              />
+            </>
+          )}
+          {currentPage === 8 && (
+            <div className=" my-4 flex items-center justify-center border p-2 rounded">
+              <button
+                onClick={saveRestaurant}
+                className=" lg:w-1/2 w-full bg-green-700 text-totem-pole-50 py-2 text-center rounded-md"
+              >
+                Save
+              </button>
+            </div>
+          )}
         </form>
-        {id && <TablesForm restaurantId={id} />}
+        <button
+          disabled={currentPage === totalPages}
+          onClick={() => setcurrentPage((prevValue) => prevValue + 1)}
+          className={` bg-green-600 py-2 px-5 rounded-lg text-white`}
+        >
+          Next
+        </button>
       </div>
     </div>
   );
