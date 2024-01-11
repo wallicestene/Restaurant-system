@@ -34,10 +34,8 @@ const RestaurantDetailsPage = () => {
   const [loading, setLoading] = useState(true);
   const [showBookingMobile, setShowBookingMobile] = useState(false);
   const [showGuests, setShowGuests] = useState(false);
-  const [tableError, setTableError] = useState(null);
   const [bookingError, setBookingError] = useState(null);
   const [allAmenities, setAllAmenities] = useState(3);
-  const [selectedTable, setSelectedTable] = useState("");
 
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
@@ -64,68 +62,51 @@ const RestaurantDetailsPage = () => {
     };
     numberOfGuests();
   }, [adults, allGuests, children, data.guests]);
-  // useEffect(() => {
-  //   const getTables = () => {
-  //     if (data && !isLoading && !error) {
-  //       fetch(`http://localhost:3000/api/tables/restaurant/${data._id}`)
-  //         .then((response) => {
-  //           if (!response.ok) {
-  //             throw new Error("Failed to fetch data");
-  //           } else {
-  //             return response.json();
-  //           }
-  //         })
-  //         .then((tables) => {
-  //           setLoading(false);
-  //           // setTables(tables);
-  //           setTableError(null);
-  //         })
-  //         .catch((error) => {
-  //           setTableError(error.message);
-  //           setLoading(false);
-  //         });
-  //     }
-  //   };
-  //   getTables();
-  // }, [data, error, isLoading]);
-  // const BookTable = () => {
-  //   if (user && date.startDate && tableId) {
-  //     fetch("http://localhost:3000/api/restaurant/reservation", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${user?.token}`,
-  //       },
-  //       body: JSON.stringify({
-  //         userId: user?.userId,
-  //         restaurantId: data._id,
-  //         tableId,
-  //         date: date.startDate,
-  //       }),
-  //     })
-  //       .then((response) => response.json())
-  //       .then((result) => {
-  //         if (result.error) {
-  //           setBookingError(result.error);
-  //           toast.error(result.error);
-  //         } else {
-  //           const promise = () =>
-  //             new Promise((resolve) => setTimeout(resolve, 2000));
-  //           toast.promise(promise, {
-  //             loading: "Loading...",
-  //             success: "Reservation Successful!",
-  //             error: "Error",
-  //           });
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         console.log(err.message);
-  //       });
-  //     setSelectedTable("");
-  //   } else {
-  //     toast.error("Please select a Table and Date to book!");
-  //   }
-  // };
+
+  const BookPlace = () => {
+    if (user && date.startDate && date.endDate) {
+      fetch("http://localhost:3000/api/restaurant/reservation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user?.token}`,
+        },
+        body: JSON.stringify({
+          userId: user?.userId,
+          restaurantId: data._id,
+          date: {
+            checkIn: date.startDate,
+            checkOut: date.endDate,
+          },
+          guests: {
+            adults,
+            children,
+            infants,
+          },
+        }),
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.error) {
+            setBookingError(result.error);
+            toast.error(result.error);
+          } else {
+            const promise = () =>
+              new Promise((resolve) => setTimeout(resolve, 2000));
+            toast.promise(promise, {
+              loading: "Loading...",
+              success: "Reservation Successful!",
+              error: "Error",
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    } else {
+      toast.error("Please select check in and check out to book!");
+    }
+  };
   const handleDateChange = (newDate) => {
     setDate(newDate);
   };
@@ -611,7 +592,7 @@ const RestaurantDetailsPage = () => {
                 <div className=" flex gap-1 text-totem-pole-50">
                   <button
                     className=" p-3 rounded-lg bg-totem-pole-500 w-full"
-                    onClick={() => navigate("/login")}
+                    onClick={BookPlace}
                   >
                     Book
                   </button>
