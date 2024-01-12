@@ -43,7 +43,7 @@ const ImagesUploader = ({ images, setImages, imageLink, setImageLink }) => {
   };
   return (
     <>
-      <div className=" flex flex-row gap-2">
+      <div className=" flex flex-row gap-2 w-full">
         <input
           type="text"
           placeholder="Add image by link"

@@ -75,7 +75,7 @@ const whereToSleepItems = ({
           ))}
         </ul>
       )}
-      <div className=" flex flex-row gap-x-2">
+      <div className=" flex flex-row gap-x-2  ">
         <input
           type="number"
           className=" h-20 text-center text-[2rem]  "
@@ -106,7 +106,7 @@ const whereToSleepItems = ({
           <span>Upload image</span>
         </label> */}
       </div>
-      <div className=" my-4 flex items-center justify-center p-2 rounded">
+      <div className=" my-4 flex items-center justify-center p-2 rounded w-full">
         <button
           className=" lg:w-1/2 w-full bg-totem-pole-400 text-totem-pole-50 py-2 text-center rounded-md"
           onClick={addwhereToSleep}

@@ -134,11 +134,11 @@ const PlacesForm = () => {
         </span>
         <span>Back</span>
       </button>
-      <div className=" relative w-full lg:w-3/5 mx-auto border font-mulish h-full  grid place-items-center p-4">
-        <div className="w-full">
-          <form>
+      <div className=" relative w-full lg:w-3/5 mx-auto border font-mulish h-screen  grid place-items-center p-4">
+        <div className="w-full h-full">
+          <form className=" h-full">
             {currentPage === 0 && (
-              <>
+              <div className=" h-full flex flex-col items-start gap-y-10">
                 {inputTitle(
                   "Let's start by adding a Title or Name to your place",
                   "Title for your place. Should be short and precise"
@@ -151,10 +151,10 @@ const PlacesForm = () => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
-              </>
+              </div>
             )}
             {currentPage === 1 && (
-              <>
+              <div className=" h-full flex flex-col items-start gap-y-10">
                 {inputTitle(
                   "Add the Address to your place",
                   "Address to your restaurant"
@@ -167,10 +167,10 @@ const PlacesForm = () => {
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                 />
-              </>
+              </div>
             )}
             {currentPage === 2 && (
-              <>
+              <div className=" h-full flex flex-col items-start gap-y-10">
                 {inputTitle(
                   "Now! Lets add the Images of your place",
                   "The more the images the better"
@@ -181,10 +181,10 @@ const PlacesForm = () => {
                   imageLink={imageLink}
                   setImageLink={setImageLink}
                 />
-              </>
+              </div>
             )}
             {currentPage === 3 && (
-              <>
+              <div className=" h-full flex flex-col items-start gap-y-10">
                 {inputTitle(
                   "Add a Description for your place",
                   "Use a description that suits your place best"
@@ -196,10 +196,10 @@ const PlacesForm = () => {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 ></textarea>
-              </>
+              </div>
             )}
             {currentPage === 4 && (
-              <>
+              <div className=" h-full flex flex-col items-start gap-y-10">
                 {inputTitle(
                   "Add a place to sleep/relax",
                   "The place to sleep i.e bedrooms and the sleeping position"
@@ -212,15 +212,15 @@ const PlacesForm = () => {
                   whereToSleep={whereToSleep}
                   setWhereToSleep={setWhereToSleep}
                 />
-              </>
+              </div>
             )}
             {currentPage === 5 && (
-              <>
+              <div className=" h-full flex flex-col items-start gap-y-10">
                 {inputTitle(
                   "Guests",
                   "The number of guests for this  place e.g 2 adults, 1 child, 1 infant..."
                 )}
-                <div className=" p-2 grid place-items-center">
+                <div className=" p-2 grid place-items-center w-full">
                   <input
                     type="number"
                     className=" text-[2.9rem] border text-center border-black py-2 h-40  indent-2 outline-none rounded-md "
@@ -231,16 +231,16 @@ const PlacesForm = () => {
                     onChange={(e) => setGuests(e.target.value)}
                   />
                 </div>
-              </>
+              </div>
             )}
             {currentPage === 6 && (
-              <>
+              <div className=" h-full flex flex-col items-start gap-y-10">
                 {inputTitle(
                   "Add a Price for your place",
                   "How much do you charge for this place in $?"
                 )}
 
-                <div className=" p-2 grid place-items-center  ">
+                <div className=" p-2 grid place-items-center w-full ">
                   <input
                     type="number"
                     className=" text-[2.9rem] text-center border border-black py-2 h-40  indent-2 outline-none rounded-md "
@@ -251,16 +251,16 @@ const PlacesForm = () => {
                     onChange={(e) => setPrice(e.target.value)}
                   />
                 </div>
-              </>
+              </div>
             )}
             {currentPage === 8 && (
-              <>
+              <div className="  flex flex-col items-start gap-y-10">
                 {inputTitle("Tags", "What is you restaurant best known for?")}
                 <Tags selectedTags={tags} setSelectedTags={setTags} />
-              </>
+              </div>
             )}
             {currentPage === 7 && (
-              <>
+              <div className=" h-full flex flex-col items-start gap-y-10">
                 {inputTitle(
                   "Amenities",
                   "What amenities does your place offer?"
@@ -269,7 +269,7 @@ const PlacesForm = () => {
                   selectedAmenities={amenities}
                   setSelectedAmenities={setAmenities}
                 />
-              </>
+              </div>
             )}
             {currentPage === 8 && (
               <div className=" my-4 flex items-center justify-center border p-2 rounded">
@@ -283,21 +283,29 @@ const PlacesForm = () => {
             )}
           </form>
         </div>
-        <div className=" fixed bottom-4 flex  justify-between w-11/12 lg:w-1/2 mx-auto">
+        <div className=" fixed bottom-5 flex  justify-between w-11/12 lg:w-1/2 mx-auto">
           <button
             disabled={currentPage === 0}
-            onClick={() =>
+            onClick={() => {
               setcurrentPage((prevValue) =>
                 prevValue <= 0 ? 0 : prevValue - 1
-              )
-            }
+              ),
+                window.scrollTo({
+                  top: 0,
+                });
+            }}
             className={` bg-red-600 py-2 px-5 rounded-lg text-white`}
           >
             Back
           </button>
           <button
             disabled={currentPage === totalPages}
-            onClick={() => setcurrentPage((prevValue) => prevValue + 1)}
+            onClick={() => {
+              setcurrentPage((prevValue) => prevValue + 1),
+                window.scrollTo({
+                  top: 0,
+                });
+            }}
             className={` bg-green-600 py-2 px-5 rounded-lg text-white`}
           >
             Next
