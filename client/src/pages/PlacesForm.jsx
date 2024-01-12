@@ -255,16 +255,16 @@ const PlacesForm = () => {
             )}
             {currentPage === 8 && (
               <>
-                {inputTitle(
-                  "Tags",
-                  "What is you restaurant best known for?"
-                )}
+                {inputTitle("Tags", "What is you restaurant best known for?")}
                 <Tags selectedTags={tags} setSelectedTags={setTags} />
               </>
             )}
             {currentPage === 7 && (
               <>
-                {inputTitle("Amenities", "What amenities does your place offer?")}
+                {inputTitle(
+                  "Amenities",
+                  "What amenities does your place offer?"
+                )}
                 <Amenities
                   selectedAmenities={amenities}
                   setSelectedAmenities={setAmenities}
@@ -283,7 +283,7 @@ const PlacesForm = () => {
             )}
           </form>
         </div>
-        <div className=" fixed bottom-4 flex justify-between w-11/12 mx-auto">
+        <div className=" fixed bottom-4 flex  justify-between w-11/12 lg:w-1/2 mx-auto">
           <button
             disabled={currentPage === 0}
             onClick={() =>
