@@ -134,7 +134,7 @@ const PlacesForm = () => {
         </span>
         <span>Back</span>
       </button>
-      <div className=" relative w-full lg:w-3/5 mx-auto border font-mulish h-screen  grid place-items-center p-4">
+      <div className=" relative w-full lg:w-3/5 mx-auto font-mulish h-screen  grid place-items-center p-4">
         <div className="w-full h-full">
           <form className=" h-full">
             {currentPage === 0 && (
@@ -272,7 +272,7 @@ const PlacesForm = () => {
               </div>
             )}
             {currentPage === 8 && (
-              <div className=" my-4 flex items-center justify-center border p-2 rounded">
+              <div className=" my-4 flex items-center justify-center p-2 rounded">
                 <button
                   onClick={saveRestaurant}
                   className=" lg:w-1/2 w-full bg-green-700 text-totem-pole-50 py-2 text-center rounded-md"
