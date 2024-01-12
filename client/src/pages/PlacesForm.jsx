@@ -115,7 +115,7 @@ const PlacesForm = () => {
   }
 
   return (
-    <div className=" flex flex-col justify-center py-20">
+    <div className=" flex flex-col  justify-center pt-20 pb-10">
       {" "}
       <button
         className=" flex items-center text-sm hover:bg-totem-pole-100 w-fit py-1 px-2 rounded-md transition-colors delay-150 duration-300"
@@ -130,7 +130,7 @@ const PlacesForm = () => {
         </span>
         <span>Back</span>
       </button>
-      <div className="w-full lg:w-3/5 mx-auto font-mulish border h-screen overflow-scroll border-black grid place-items-center p-4">
+      <div className=" relative w-full lg:w-3/5 mx-auto  h-[480px] font-mulish border overflow-scroll border-black grid place-items-center p-4">
         <div className="w-full h-full">
           <form>
             {currentPage === 0 && (
@@ -257,7 +257,7 @@ const PlacesForm = () => {
             )}
           </form>
         </div>
-        <div className="  flex justify-between w-11/12 mx-auto">
+        <div className=" absolute bottom-4  flex justify-between w-11/12 mx-auto">
           <button
             disabled={currentPage === 0}
             onClick={() =>

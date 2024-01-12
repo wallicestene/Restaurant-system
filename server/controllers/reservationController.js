@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const Reservation = require("../models/reservationModel");
-const Table = require("../models/tableModel");
 const moment = require("moment");
 
 // const updateTableOccupancy = () => {
