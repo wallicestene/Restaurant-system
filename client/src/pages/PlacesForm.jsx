@@ -185,7 +185,10 @@ const PlacesForm = () => {
             )}
             {currentPage === 3 && (
               <>
-                {inputTitle("Description", "The description of your place")}
+                {inputTitle(
+                  "Add a Description for your place",
+                  "Use a description that suits your place best"
+                )}
                 <textarea
                   className=" border border-black w-full p-2 outline-none rounded-md h-40 text-[1.15rem]  "
                   name="description"
@@ -232,29 +235,36 @@ const PlacesForm = () => {
             )}
             {currentPage === 6 && (
               <>
-                {inputTitle("Price", "The price of your place i.e $ 54")}
+                {inputTitle(
+                  "Add a Price for your place",
+                  "How much do you charge for this place in $?"
+                )}
 
                 <div className=" p-2 grid place-items-center  ">
-                <input
-                  type="number"
-                  className=" text-[2.9rem] text-center border border-black py-2 h-40  indent-2 outline-none rounded-md "
-                  placeholder="Price eg $ 54"
-                  name="price"
-                  value={price}
-                  min={10}
-                  onChange={(e) => setPrice(e.target.value)}
-                />
+                  <input
+                    type="number"
+                    className=" text-[2.9rem] text-center border border-black py-2 h-40  indent-2 outline-none rounded-md "
+                    placeholder="Price eg $ 54"
+                    name="price"
+                    value={price}
+                    min={10}
+                    onChange={(e) => setPrice(e.target.value)}
+                  />
                 </div>
+              </>
+            )}
+            {currentPage === 8 && (
+              <>
+                {inputTitle(
+                  "Tags",
+                  "What is you restaurant best known for?"
+                )}
+                <Tags selectedTags={tags} setSelectedTags={setTags} />
               </>
             )}
             {currentPage === 7 && (
               <>
-                {inputTitle(
-                  "Tags",
-                  "Tags, for example dates, fast-food, five-star..."
-                )}
-                <Tags selectedTags={tags} setSelectedTags={setTags} />
-                {inputTitle("Amenities", "Amenities in your place")}
+                {inputTitle("Amenities", "What amenities does your place offer?")}
                 <Amenities
                   selectedAmenities={amenities}
                   setSelectedAmenities={setAmenities}

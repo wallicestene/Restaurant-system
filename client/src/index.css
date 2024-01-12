@@ -13,7 +13,12 @@ body::-webkit-scrollbar{
 }
 .restaurant::-webkit-scrollbar{
     display: none;
+}input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 input[type="text"],[ type="password"], [ type="email"]{
     @apply border border-black w-full py-2  indent-2 outline-none rounded-md
 }
+
