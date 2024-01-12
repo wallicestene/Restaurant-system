@@ -14,6 +14,6 @@ body::-webkit-scrollbar{
 .restaurant::-webkit-scrollbar{
     display: none;
 }
-input[type="text"],[ type="password"], [ type="email"],[ type="number"]{
-    @apply border border-totem-pole-300 w-full py-2  indent-2 outline-none rounded-md
+input[type="text"],[ type="password"], [ type="email"]{
+    @apply border border-black w-full py-2  indent-2 outline-none rounded-md
 }

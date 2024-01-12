@@ -32,17 +32,21 @@ const PlacesForm = () => {
   const navigate = useNavigate();
 
   const inputHeader = (header) => {
-    return <h2 className=" text-xl mt-4">{header}</h2>;
+    return (
+      <h2 className=" text-[2.3rem] font-semibold font-poppins">{header}</h2>
+    );
   };
   const inputDescription = (description) => {
-    return <p className=" text-sm text-gray-500">{description}</p>;
+    return (
+      <p className=" text-[1.5rem] text-gray-500 font-poppins">{description}</p>
+    );
   };
   const inputTitle = (header, description) => {
     return (
-      <>
+      <div className=" my-4">
         {inputHeader(header)}
         {inputDescription(description)}
-      </>
+      </div>
     );
   };
   const saveRestaurant = (e) => {
@@ -115,7 +119,7 @@ const PlacesForm = () => {
   }
 
   return (
-    <div className=" flex flex-col  justify-center pt-20 pb-10">
+    <div className=" flex flex-col h-full  justify-center pt-20 pb-10 font-poppins">
       {" "}
       <button
         className=" flex items-center text-sm hover:bg-totem-pole-100 w-fit py-1 px-2 rounded-md transition-colors delay-150 duration-300"
@@ -130,19 +134,19 @@ const PlacesForm = () => {
         </span>
         <span>Back</span>
       </button>
-      <div className=" relative w-full lg:w-3/5 mx-auto  h-[480px] font-mulish border overflow-scroll border-black grid place-items-center p-4">
-        <div className="w-full h-full">
+      <div className=" relative w-full lg:w-3/5 mx-auto border font-mulish h-full  grid place-items-center p-4">
+        <div className="w-full">
           <form>
             {currentPage === 0 && (
               <>
                 {inputTitle(
-                  "Title",
-                  "Title for your restaurant. Should be short and precise"
+                  "Let's start by adding a Title or Name to your place",
+                  "Title for your place. Should be short and precise"
                 )}
                 <input
                   type="text"
-                  className=""
-                  placeholder="title, for example: My Restaurant "
+                  className=" h-40 text-[2.9rem] text-center  "
+                  placeholder="title, for example: My Restaurant"
                   name="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -151,10 +155,13 @@ const PlacesForm = () => {
             )}
             {currentPage === 1 && (
               <>
-                {inputTitle("Address", "Address to your restaurant")}
+                {inputTitle(
+                  "Add the Address to your place",
+                  "Address to your restaurant"
+                )}
                 <input
                   type="text"
-                  className=""
+                  className=" h-40 text-center text-[2.9rem]  "
                   placeholder="Address e.g Nairobi,Kenya"
                   name="address"
                   value={address}
@@ -164,7 +171,10 @@ const PlacesForm = () => {
             )}
             {currentPage === 2 && (
               <>
-                {inputTitle("Images", "The more the images the better")}
+                {inputTitle(
+                  "Now! Lets add the Images of your place",
+                  "The more the images the better"
+                )}
                 <ImagesUploader
                   images={images}
                   setImages={setImages}
@@ -177,8 +187,9 @@ const PlacesForm = () => {
               <>
                 {inputTitle("Description", "The description of your place")}
                 <textarea
-                  className=" border border-totem-pole-300 w-full py-2 indent-2 outline-none rounded-md h-36"
+                  className=" border border-black w-full p-2 outline-none rounded-md h-40 text-[1.15rem]  "
                   name="description"
+                  required
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 ></textarea>
@@ -187,8 +198,8 @@ const PlacesForm = () => {
             {currentPage === 4 && (
               <>
                 {inputTitle(
-                  "Place to sleep",
-                  "The place to sleep i.e - bedrooms and the sleeping position"
+                  "Add a place to sleep/relax",
+                  "The place to sleep i.e bedrooms and the sleeping position"
                 )}
                 <MenuItems
                   bedroom={bedroom}
@@ -204,31 +215,36 @@ const PlacesForm = () => {
               <>
                 {inputTitle(
                   "Guests",
-                  "The number of guests this place needs e.g 2 adults, 1 child, 1 infant..."
+                  "The number of guests for this  place e.g 2 adults, 1 child, 1 infant..."
                 )}
-                <input
-                  type="number"
-                  className=""
-                  placeholder="Nymber of Guests"
-                  name="guests"
-                  value={guests}
-                  min={1}
-                  onChange={(e) => setGuests(e.target.value)}
-                />
+                <div className=" p-2 grid place-items-center">
+                  <input
+                    type="number"
+                    className=" text-[2.9rem] border text-center border-black py-2 h-40  indent-2 outline-none rounded-md "
+                    placeholder="Number of Guests"
+                    name="guests"
+                    value={guests}
+                    min={1}
+                    onChange={(e) => setGuests(e.target.value)}
+                  />
+                </div>
               </>
             )}
             {currentPage === 6 && (
               <>
                 {inputTitle("Price", "The price of your place i.e $ 54")}
+
+                <div className=" p-2 grid place-items-center  ">
                 <input
                   type="number"
-                  className=""
+                  className=" text-[2.9rem] text-center border border-black py-2 h-40  indent-2 outline-none rounded-md "
                   placeholder="Price eg $ 54"
                   name="price"
                   value={price}
                   min={10}
                   onChange={(e) => setPrice(e.target.value)}
                 />
+                </div>
               </>
             )}
             {currentPage === 7 && (
@@ -257,7 +273,7 @@ const PlacesForm = () => {
             )}
           </form>
         </div>
-        <div className=" absolute bottom-4  flex justify-between w-11/12 mx-auto">
+        <div className=" fixed bottom-4 flex justify-between w-11/12 mx-auto">
           <button
             disabled={currentPage === 0}
             onClick={() =>

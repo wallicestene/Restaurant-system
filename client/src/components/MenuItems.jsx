@@ -8,7 +8,7 @@ const whereToSleepItems = ({
   sleepingPosition,
   setSleepingPosition,
   whereToSleep,
-  setWhereToSleep
+  setWhereToSleep,
 }) => {
   const addwhereToSleep = (e) => {
     e.preventDefault();
@@ -19,7 +19,7 @@ const whereToSleepItems = ({
       setBedroom("");
       setSleepingPosition("");
     } else {
-      alert("You need to add the item name & image");
+      alert("You need to add a bedroom and the sleeping position");
     }
   };
   // const uploadwhereToSleepImage = (e) => {
@@ -44,10 +44,14 @@ const whereToSleepItems = ({
               key={index}
               className=" relative flex items-center gap-1 border border-totem-pole-400 py-1 px-2 rounded-md"
             >
-              
-              <p className=" text-sm tracking-wide">Bedroom {whereToSleepItem.bedroom}</p>
-              <p className=" text-sm tracking-wide"> {whereToSleepItem.sleepingPosition}</p>
-              
+              <p className=" text-sm tracking-wide">
+                Bedroom {whereToSleepItem.bedroom}
+              </p>
+              <p className=" text-sm tracking-wide">
+                {" "}
+                {whereToSleepItem.sleepingPosition}
+              </p>
+
               <span
                 onClick={() => {
                   setWhereToSleep((prevItems) => {
@@ -74,7 +78,7 @@ const whereToSleepItems = ({
       <div className=" flex flex-row gap-x-2">
         <input
           type="number"
-          className=""
+          className=" h-20 text-center text-[2rem]  "
           placeholder="bedroom"
           name="bedroom"
           value={bedroom}
@@ -83,8 +87,9 @@ const whereToSleepItems = ({
         />
         <input
           type="text"
-          className=""
+          className=" h-20 text-center text-[2rem]  "
           placeholder="Sleeping position"
+          required
           name="sleepingPosition"
           value={sleepingPosition}
           onChange={(e) => setSleepingPosition(e.target.value)}
@@ -101,13 +106,13 @@ const whereToSleepItems = ({
           <span>Upload image</span>
         </label> */}
       </div>
-      <div className=" my-4 flex items-center justify-center border p-2 rounded">
-      <button
-        className=" lg:w-1/2 w-full bg-totem-pole-400 text-totem-pole-50 py-2 text-center rounded-md"
-        onClick={addwhereToSleep}
-      >
-        Add a place to sleep
-      </button>
+      <div className=" my-4 flex items-center justify-center p-2 rounded">
+        <button
+          className=" lg:w-1/2 w-full bg-totem-pole-400 text-totem-pole-50 py-2 text-center rounded-md"
+          onClick={addwhereToSleep}
+        >
+          Add a place to sleep
+        </button>
       </div>
     </>
   );
