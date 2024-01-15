@@ -15,8 +15,8 @@ const restaurantSchema = new Schema({
     type: String,
     required: true,
   },
-  description:{
-    type :String ,
+  description: {
+    type: String,
   },
   images: {
     type: [String],
@@ -30,8 +30,24 @@ const restaurantSchema = new Schema({
           required: true,
         },
         sleepingPosition: {
-          type: String,
-          required: true,
+          type: {
+            kingBed: {
+              type: Number,
+              default: 0,
+            },
+            queenBed: {
+              type: Number,
+              default: 0,
+            },
+            sofa: {
+              type: Number,
+              default: 0,
+            },
+            singleBed: {
+              type: Number,
+              default: 0,
+            },
+          },
         },
       },
     ],
@@ -42,12 +58,12 @@ const restaurantSchema = new Schema({
   price: {
     type: Number,
   },
-  amenities:{
+  amenities: {
     type: [String],
   },
-  tags:{
+  tags: {
     type: [String],
-  }
+  },
 });
 
 module.exports = mongoose.model("restaurant", restaurantSchema);

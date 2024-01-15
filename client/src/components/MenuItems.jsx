@@ -1,6 +1,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { Add, Close, Remove, UploadRounded } from "@mui/icons-material";
+import {
+  Add,
+  Close,
+  KeyboardArrowDown,
+  KeyboardArrowUp,
+  Remove,
+  UploadRounded,
+} from "@mui/icons-material";
 import { useState } from "react";
 
 const WhereToSleepItems = ({
@@ -11,23 +18,22 @@ const WhereToSleepItems = ({
   whereToSleep,
   setWhereToSleep,
 }) => {
-  const [sleepingPositionData, setSleepingPositionData] = useState({
-    kingBed: 0,
-    queenBed: 0,
-    sofa: 0,
-    singleBed: 0,
-  });
+  const [showPosition, setShowPosition] = useState(false);
+
   const addwhereToSleep = (e) => {
     e.preventDefault();
     if (bedroom) {
       setWhereToSleep((prevValue) => {
-        return [...prevValue, { bedroom, sleepingPositionData }];
+        return [...prevValue, { bedroom, sleepingPosition: {
+          ...sleepingPosition
+        } }];
       });
       setBedroom("");
       setSleepingPosition("");
     } else {
       alert("You need to add a bedroom and the sleeping position");
     }
+  
     setSleepingPosition({
       kingBed: 0,
       queenBed: 0,
@@ -35,6 +41,7 @@ const WhereToSleepItems = ({
       singleBed: 0,
     });
   };
+  console.log(whereToSleep);
   // const uploadwhereToSleepImage = (e) => {
   //   const { files } = e.target;
   //   let formData = new FormData();
@@ -83,7 +90,7 @@ const WhereToSleepItems = ({
           ))}
         </ul>
       )}
-      <div className=" flex flex-row justify-between items-center gap-x-2 p-2 w-full border border-black  ">
+      <div className=" flex flex-row justify-between items-center gap-x-2 p-2 w-full">
         <input
           type="number"
           className=" text-[2rem] text-center border border-black py-2 h-20  indent-2 outline-none rounded-md "
@@ -93,6 +100,161 @@ const WhereToSleepItems = ({
           min={1}
           onChange={(e) => setBedroom(e.target.value)}
         />
+        <div className=" relative grid place-items-center border border-black w-full h-full">
+          <div
+            className=" p-2  flex items-center justify-between hover:cursor-pointer"
+            onClick={() => setShowPosition(!showPosition)}
+          >
+            <p className=" text-lg">Sleeping position</p>
+            {showPosition ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+          </div>
+          {showPosition && (
+            <div className=" absolute top-20 shadow-lg p-2 w-full bg-white flex flex-col gap-y-2 justify-between">
+              <div className=" flex items-center justify-between gap-x-2 ">
+                <span>king bed</span>
+                <div className="flex items-center gap-x-2">
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault(),
+                        setSleepingPosition((prevValue) => {
+                          return {
+                            ...prevValue,
+                            kingBed: prevValue.kingBed + 1,
+                          };
+                        });
+                    }}
+                    className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75`}
+                  >
+                    <Add sx={{ height: "1.2rem", width: "1.2rem" }} />
+                  </button>
+                  <span>{sleepingPosition.kingBed}</span>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault(),
+                        setSleepingPosition((prevValue) => {
+                          return {
+                            ...prevValue,
+                            kingBed:
+                              prevValue.kingBed <= 0
+                                ? 0
+                                : prevValue.kingBed - 1,
+                          };
+                        });
+                    }}
+                    className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75`}
+                  >
+                    <Remove sx={{ height: "1.2rem", width: "1.2rem" }} />
+                  </button>
+                </div>
+              </div>
+              <div className=" flex items-center justify-between gap-x-2">
+                <span>queen bed</span>
+                <div className="flex items-center gap-x-2">
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault(),
+                        setSleepingPosition((prevValue) => {
+                          return {
+                            ...prevValue,
+                            queenBed: prevValue.queenBed + 1,
+                          };
+                        });
+                    }}
+                    className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75`}
+                  >
+                    <Add sx={{ height: "1.2rem", width: "1.2rem" }} />
+                  </button>
+                  <span>{sleepingPosition.queenBed}</span>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault(),
+                        setSleepingPosition((prevValue) => {
+                          return {
+                            ...prevValue,
+                            queenBed:
+                              prevValue.queenBed <= 0
+                                ? 0
+                                : prevValue.queenBed - 1,
+                          };
+                        });
+                    }}
+                    className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75`}
+                  >
+                    <Remove sx={{ height: "1.2rem", width: "1.2rem" }} />
+                  </button>
+                </div>
+              </div>
+              <div className=" flex justify-between gap-x-2">
+                <span>Single bed</span>
+                <div className="flex items-center gap-x-2">
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault(),
+                        setSleepingPosition((prevValue) => {
+                          return {
+                            ...prevValue,
+                            singleBed: prevValue.singleBed + 1,
+                          };
+                        });
+                    }}
+                    className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75`}
+                  >
+                    <Add sx={{ height: "1.2rem", width: "1.2rem" }} />
+                  </button>
+                  <span>{sleepingPosition.singleBed}</span>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault(),
+                        setSleepingPosition((prevValue) => {
+                          return {
+                            ...prevValue,
+                            singleBed:
+                              prevValue.singleBed <= 1
+                                ? 1
+                                : prevValue.singleBed - 1,
+                          };
+                        });
+                    }}
+                    className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75`}
+                  >
+                    <Remove sx={{ height: "1.2rem", width: "1.2rem" }} />
+                  </button>
+                </div>
+              </div>
+              <div className="flex  items-center justify-between gap-x-2">
+                <span>Sofa</span>
+                <div className="flex items-center gap-x-2">
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault(),
+                        setSleepingPosition((prevValue) => {
+                          return { ...prevValue, sofa: prevValue.sofa + 1 };
+                        });
+                    }}
+                    className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75`}
+                  >
+                    <Add sx={{ height: "1.2rem", width: "1.2rem" }} />
+                  </button>
+                  <span>{sleepingPosition.sofa}</span>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault(),
+                        setSleepingPosition((prevValue) => {
+                          return {
+                            ...prevValue,
+                            sofa: prevValue.sofa <= 0 ? 0 : prevValue.sofa - 1,
+                          };
+                        });
+                    }}
+                    className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75`}
+                  >
+                    <Remove sx={{ height: "1.2rem", width: "1.2rem" }} />
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
         {/* <input
           type="text"
           className=" h-20 text-center text-[2rem]  "
@@ -102,140 +264,7 @@ const WhereToSleepItems = ({
           value={sleepingPosition}
           onChange={(e) => setSleepingPosition(e.target.value)}
         /> */}
-        <div className=" flex flex-col gap-y-2 justify-between">
-          <div className=" flex items-center justify-between gap-x-2 ">
-            <span>king bed</span>
-            <div className="flex items-center gap-x-2">
-              <button
-                onClick={(e) => {
-                  e.preventDefault(),
-                    setSleepingPositionData((prevValue) => {
-                      return { ...prevValue, kingBed: prevValue.kingBed + 1 };
-                    });
-                }}
-                className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75`}
-              >
-                <Add sx={{ height: "1.2rem", width: "1.2rem" }} />
-              </button>
-              <span>{sleepingPositionData.kingBed}</span>
-              <button
-                onClick={(e) => {
-                  e.preventDefault(),
-                    setSleepingPositionData((prevValue) => {
-                      return {
-                        ...prevValue,
-                        kingBed:
-                          prevValue.kingBed <= 0 ? 0 : prevValue.kingBed - 1,
-                      };
-                    });
-                }}
-                className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75`}
-              >
-                <Remove sx={{ height: "1.2rem", width: "1.2rem" }} />
-              </button>
-            </div>
-          </div>
-          <div className=" flex items-center justify-between gap-x-2">
-            <span>queen bed</span>
-            <div className="flex items-center gap-x-2">
-              <button
-                onClick={(e) => {
-                  e.preventDefault(),
-                    setSleepingPositionData((prevValue) => {
-                      return { ...prevValue, queenBed: prevValue.queenBed + 1 };
-                    });
-                }}
-                className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75`}
-              >
-                <Add sx={{ height: "1.2rem", width: "1.2rem" }} />
-              </button>
-              <span>{sleepingPositionData.queenBed}</span>
-              <button
-                onClick={(e) => {
-                  e.preventDefault(),
-                    setSleepingPositionData((prevValue) => {
-                      return {
-                        ...prevValue,
-                        queenBed:
-                          prevValue.queenBed <= 0 ? 0 : prevValue.queenBed - 1,
-                      };
-                    });
-                }}
-                className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75`}
-              >
-                <Remove sx={{ height: "1.2rem", width: "1.2rem" }} />
-              </button>
-            </div>
-          </div>
-          <div className=" flex justify-between gap-x-2">
-            <span>Single bed</span>
-            <div className="flex items-center gap-x-2">
-              <button
-                onClick={(e) => {
-                  e.preventDefault(),
-                    setSleepingPositionData((prevValue) => {
-                      return {
-                        ...prevValue,
-                        singleBed: prevValue.singleBed + 1,
-                      };
-                    });
-                }}
-                className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75`}
-              >
-                <Add sx={{ height: "1.2rem", width: "1.2rem" }} />
-              </button>
-              <span>{sleepingPositionData.singleBed}</span>
-              <button
-                onClick={(e) => {
-                  e.preventDefault(),
-                    setSleepingPositionData((prevValue) => {
-                      return {
-                        ...prevValue,
-                        singleBed:
-                          prevValue.singleBed <= 1
-                            ? 1
-                            : prevValue.singleBed - 1,
-                      };
-                    });
-                }}
-                className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75`}
-              >
-                <Remove sx={{ height: "1.2rem", width: "1.2rem" }} />
-              </button>
-            </div>
-          </div>
-          <div className="flex  items-center justify-between gap-x-2">
-            <span>Sofa</span>
-            <div className="flex items-center gap-x-2">
-              <button
-                onClick={(e) => {
-                  e.preventDefault(),
-                    setSleepingPositionData((prevValue) => {
-                      return { ...prevValue, sofa: prevValue.sofa + 1 };
-                    });
-                }}
-                className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75`}
-              >
-                <Add sx={{ height: "1.2rem", width: "1.2rem" }} />
-              </button>
-              <span>{sleepingPositionData.sofa}</span>
-              <button
-                onClick={(e) => {
-                  e.preventDefault(),
-                    setSleepingPositionData((prevValue) => {
-                      return {
-                        ...prevValue,
-                        sofa: prevValue.sofa <= 0 ? 0 : prevValue.sofa - 1,
-                      };
-                    });
-                }}
-                className={`border border-black rounded-full flex items-center justify-center h-7 w-7 hover:bg-gray-100 transition-colors duration-150 delay-75`}
-              >
-                <Remove sx={{ height: "1.2rem", width: "1.2rem" }} />
-              </button>
-            </div>
-          </div>
-        </div>
+
         {/* <label className="flex items-center gap-x-1 rounded-md  bg-slate-300 w-40 cursor-pointer">
           <UploadRounded fontSize="small" />
           <input

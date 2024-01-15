@@ -321,7 +321,7 @@ const RestaurantDetailsPage = () => {
                     <div>
                       <p>Bedroom {place?.bedroom}</p>
                       <p className=" mt-[1.7px] text-[0.8em] text-gray-600">
-                        {place?.sleepingPosition}
+                        {place?.sleepingPosition?.kingBed}
                       </p>
                     </div>
                   </div>
@@ -494,7 +494,7 @@ const RestaurantDetailsPage = () => {
                               <Remove
                                 sx={{ height: "1.2rem", width: "1.2rem" }}
                               />
-                            </button>
+                          </button>
                           </div>
                         </div>
                         <div className=" flex  items-center justify-between">

@@ -15,7 +15,12 @@ const PlacesForm = () => {
   const [images, setImages] = useState([]);
   const [imageLink, setImageLink] = useState("");
   const [bedroom, setBedroom] = useState("");
-  const [sleepingPosition, setSleepingPosition] = useState("");
+  const [sleepingPosition, setSleepingPosition] = useState({
+    kingBed: 0,
+    queenBed: 0,
+    sofa: 0,
+    singleBed: 1,
+  });
   const [whereToSleep, setWhereToSleep] = useState([]);
   const [price, setPrice] = useState(10);
   const [guests, setGuests] = useState(10);
