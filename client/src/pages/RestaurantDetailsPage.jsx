@@ -320,9 +320,34 @@ const RestaurantDetailsPage = () => {
                     <BedOutlined />
                     <div>
                       <p>Bedroom {place?.bedroom}</p>
-                      <p className=" mt-[1.7px] text-[0.8em] text-gray-600">
-                        {place?.sleepingPosition?.kingBed}
-                      </p>
+                      {place?.sleepingPosition?.kingBed > 0 && (
+                        <p className=" mt-[1.7px] text-[0.8em] text-gray-600">
+                          {place?.sleepingPosition?.kingBed} King bed
+                          {`${place?.sleepingPosition?.kingBed > 1 ? "s" : ""}`}
+                        </p>
+                      )}
+                      {place?.sleepingPosition?.queenBedBed > 0 && (
+                        <p className=" mt-[1.7px] text-[0.8em] text-gray-600">
+                          {place?.sleepingPosition?.queenBed} Queen bed
+                          {`${
+                            place?.sleepingPosition?.queenBed > 1 ? "s" : ""
+                          }`}
+                        </p>
+                      )}
+                      {place?.sleepingPosition?.singleBed > 0 && (
+                        <p className=" mt-[1.7px] text-[0.8em] text-gray-600">
+                          {place?.sleepingPosition?.singleBed} Single bed
+                          {`${
+                            place?.sleepingPosition?.singleBed > 1 ? "s" : ""
+                          }`}
+                        </p>
+                      )}
+                      {place?.sleepingPosition?.sofa > 0 && (
+                        <p className=" mt-[1.7px] text-[0.8em] text-gray-600">
+                          {place?.sleepingPosition?.sofa} Sofa
+                          {`${place?.sleepingPosition?.sofa > 1 ? "s" : ""}`}
+                        </p>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -494,7 +519,7 @@ const RestaurantDetailsPage = () => {
                               <Remove
                                 sx={{ height: "1.2rem", width: "1.2rem" }}
                               />
-                          </button>
+                            </button>
                           </div>
                         </div>
                         <div className=" flex  items-center justify-between">
