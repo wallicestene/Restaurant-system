@@ -1,24 +1,25 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&family=Mulish:wght@300;500&family=Poppins:wght@300;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&family=Mulish:wght@300;500&family=Poppins:wght@300;500&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.MuiIcon-root{
-    @apply hover:cursor-pointer
+.MuiIcon-root {
+  @apply hover:cursor-pointer;
 }
-body::-webkit-scrollbar{
-    display: none;
+body::-webkit-scrollbar {
+  display: none;
 }
-.restaurant::-webkit-scrollbar{
-    display: none;
-}input::-webkit-outer-spin-button,
+.restaurant::-webkit-scrollbar {
+  display: none;
+}
+input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-input[type="text"],[ type="password"], [ type="email"]{
-    @apply border border-black w-full py-2  indent-2 outline-none rounded-md
+input[type="text"],
+[type="password"],
+[type="email"] {
+  @apply border border-black w-full py-2  indent-2 outline-none rounded-md;
 }
-
