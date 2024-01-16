@@ -4,7 +4,7 @@ import { useUserContext } from "../hooks/Usercontext";
 import ImagesUploader from "../components/ImagesUploader";
 import MenuItems from "../components/MenuItems";
 import Tags from "../components/Tags";
-import { KeyboardBackspace } from "@mui/icons-material";
+import { ArrowBack, ArrowForward, KeyboardBackspace } from "@mui/icons-material";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import Amenities from "../components/Amenities";
 
@@ -127,7 +127,7 @@ const PlacesForm = () => {
     <div className=" flex flex-col h-full  justify-center pt-20 pb-10 font-poppins">
       {" "}
       <button
-        className=" flex items-center text-sm hover:bg-totem-pole-100 w-fit py-1 px-2 rounded-md transition-colors delay-150 duration-300"
+        className=" flex items-center text-sm hover:bg-totem-pole-100 w-fit mx-10 py-1 px-2 rounded-md transition-colors delay-150 duration-300"
         onClick={() => navigate(-1)}
       >
         <span>
@@ -289,21 +289,44 @@ const PlacesForm = () => {
           </form>
         </div>
         {/* <div className=" fixed bottom-5 flex  justify-between w-11/12 lg:w-1/2 mx-auto"> */}
-          <button
-            disabled={currentPage === 0}
-            onClick={() => {
-              setcurrentPage((prevValue) =>
-                prevValue <= 0 ? 0 : prevValue - 1
-              ),
-                window.scrollTo({
-                  top: 0,
-                });
-            }}
-            className={`fixed bottom-10 left-52 bg-red-600 py-2 px-5 rounded-lg text-white ${currentPage === 0 ? " bg-gray-400 cursor-not-allowed" : ""}`}
-          >
+        
+        <button
+           disabled={currentPage === 0}
+           onClick={() => {
+             setcurrentPage((prevValue) => (prevValue <= 0 ? 0 : prevValue - 1)),
+               window.scrollTo({
+                 top: 0,
+               });
+           }}
+          className={`fixed bottom-10 left-52  inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-red-500 rounded-full shadow-md group ${currentPage === 0 ? "  cursor-not-allowed" : ""}`}
+        >
+          <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-red-500 group-hover:translate-x-0 ease">
+            <ArrowBack/>
+          </span>
+          <span className="absolute flex items-center justify-center w-full h-full text-red-500 transition-all duration-300 transform group-hover:translate-x-full ease">
             Back
-          </button>
-          <button
+          </span>
+          <span className="relative invisible">Back</span>
+        </button>
+        <button
+          disabled={currentPage === totalPages}
+          onClick={() => {
+            setcurrentPage((prevValue) => prevValue + 1),
+              window.scrollTo({
+                top: 0,
+              });
+          }}
+          className={`fixed bottom-10 right-52  inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-green-600 rounded-full shadow-md group ${currentPage === totalPages ? " cursor-not-allowed" : ""}`}
+        >
+          <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-green-600 group-hover:translate-x-0 ease">
+            <ArrowForward/>
+          </span>
+          <span className="absolute flex items-center justify-center w-full h-full text-green-600 transition-all duration-300 transform group-hover:translate-x-full ease">
+            Next
+          </span>
+          <span className="relative invisible">Next</span>
+        </button>
+        {/* <button
             disabled={currentPage === totalPages}
             onClick={() => {
               setcurrentPage((prevValue) => prevValue + 1),
@@ -314,9 +337,9 @@ const PlacesForm = () => {
             className={`fixed bottom-10 right-52 bg-green-600 py-2 px-5 rounded-lg text-white ${currentPage === totalPages ? " bg-gray-400 cursor-not-allowed" : ""}`}
           >
             Next
-          </button>
-        </div>
+          </button> */}
       </div>
+    </div>
     // </div>
   );
 };
