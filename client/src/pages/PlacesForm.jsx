@@ -288,7 +288,7 @@ const PlacesForm = () => {
             )}
           </form>
         </div>
-        <div className=" fixed bottom-5 flex  justify-between w-11/12 lg:w-1/2 mx-auto">
+        {/* <div className=" fixed bottom-5 flex  justify-between w-11/12 lg:w-1/2 mx-auto"> */}
           <button
             disabled={currentPage === 0}
             onClick={() => {
@@ -299,7 +299,7 @@ const PlacesForm = () => {
                   top: 0,
                 });
             }}
-            className={` bg-red-600 py-2 px-5 rounded-lg text-white`}
+            className={`fixed bottom-10 left-52 bg-red-600 py-2 px-5 rounded-lg text-white ${currentPage === 0 ? " bg-gray-400 cursor-not-allowed" : ""}`}
           >
             Back
           </button>
@@ -311,13 +311,13 @@ const PlacesForm = () => {
                   top: 0,
                 });
             }}
-            className={` bg-green-600 py-2 px-5 rounded-lg text-white`}
+            className={`fixed bottom-10 right-52 bg-green-600 py-2 px-5 rounded-lg text-white ${currentPage === totalPages ? " bg-gray-400 cursor-not-allowed" : ""}`}
           >
             Next
           </button>
         </div>
       </div>
-    </div>
+    // </div>
   );
 };
 
