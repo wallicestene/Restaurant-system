@@ -24,24 +24,30 @@ const WhereToSleepItems = ({
     e.preventDefault();
     if (bedroom) {
       setWhereToSleep((prevValue) => {
-        return [...prevValue, { bedroom, sleepingPosition: {
-          ...sleepingPosition
-        } }];
+        return [
+          ...prevValue,
+          {
+            bedroom,
+            sleepingPosition: {
+              ...sleepingPosition,
+            },
+          },
+        ];
       });
       setBedroom("");
       setSleepingPosition("");
     } else {
       alert("You need to add a bedroom and the sleeping position");
     }
-  
+
     setSleepingPosition({
       kingBed: 0,
       queenBed: 0,
       sofa: 0,
       singleBed: 0,
     });
+    setShowPosition(false);
   };
-  console.log(whereToSleep);
   // const uploadwhereToSleepImage = (e) => {
   //   const { files } = e.target;
   //   let formData = new FormData();
@@ -62,7 +68,7 @@ const WhereToSleepItems = ({
           {whereToSleep.map((whereToSleepItem, index) => (
             <li
               key={index}
-              className=" relative flex items-center gap-1 border border-totem-pole-400 py-2 px-3 rounded-md"
+              className=" relative flex items-center gap-1 border border-totem-pole-400 py-2 px-3 rounded-lg"
             >
               <p className=" text-sm tracking-wide">
                 Bedroom {whereToSleepItem.bedroom}
@@ -93,14 +99,14 @@ const WhereToSleepItems = ({
       <div className=" flex flex-row justify-between items-center gap-x-2 p-2 w-full">
         <input
           type="number"
-          className=" text-[2rem] text-center border border-black py-2 h-20  indent-2 outline-none rounded-md "
+          className=" text-[2rem] text-center border border-black py-2 h-20  indent-2 outline-none rounded-lg "
           placeholder="bedroom"
           name="bedroom"
           value={bedroom}
           min={1}
           onChange={(e) => setBedroom(e.target.value)}
         />
-        <div className=" relative grid place-items-center border border-black w-full h-full">
+        <div className=" relative grid place-items-center border border-black w-full h-full rounded-lg">
           <div
             className=" p-2  flex items-center justify-between hover:cursor-pointer"
             onClick={() => setShowPosition(!showPosition)}
@@ -148,7 +154,7 @@ const WhereToSleepItems = ({
                 </div>
               </div>
               <div className=" flex items-center justify-between gap-x-2">
-                <span>queen bed</span>
+                <span>Queen bed</span>
                 <div className="flex items-center gap-x-2">
                   <button
                     onClick={(e) => {
@@ -209,8 +215,8 @@ const WhereToSleepItems = ({
                           return {
                             ...prevValue,
                             singleBed:
-                              prevValue.singleBed <= 1
-                                ? 1
+                              prevValue.singleBed <= 0
+                                ? 0
                                 : prevValue.singleBed - 1,
                           };
                         });
@@ -279,7 +285,7 @@ const WhereToSleepItems = ({
       </div>
       <div className=" my-4 flex items-center justify-center p-2 rounded w-full">
         <button
-          className=" lg:w-1/2 w-full bg-totem-pole-400 text-totem-pole-50 py-2 text-center rounded-md"
+          className=" lg:w-1/2 w-full bg-totem-pole-400 text-totem-pole-50 py-2 text-center rounded-lg"
           onClick={addwhereToSleep}
         >
           Add a place to sleep

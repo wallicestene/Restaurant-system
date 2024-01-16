@@ -311,7 +311,7 @@ const RestaurantDetailsPage = () => {
               Where to sleep
             </h2>
             {data && !isLoading && data?.whereToSleep && (
-              <div className=" grid grid-cols-3 ">
+              <div className=" grid grid-cols-3 gap-x-4 gap-y-2">
                 {data.whereToSleep.map((place, index) => (
                   <div
                     key={index}
