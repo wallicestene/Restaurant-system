@@ -4,7 +4,11 @@ import { useUserContext } from "../hooks/Usercontext";
 import ImagesUploader from "../components/ImagesUploader";
 import MenuItems from "../components/MenuItems";
 import Tags from "../components/Tags";
-import { ArrowBack, ArrowForward, KeyboardBackspace } from "@mui/icons-material";
+import {
+  ArrowBack,
+  ArrowForward,
+  KeyboardBackspace,
+} from "@mui/icons-material";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import Amenities from "../components/Amenities";
 
@@ -280,7 +284,7 @@ const PlacesForm = () => {
               <div className=" my-4 flex items-center justify-center p-2 rounded">
                 <button
                   onClick={saveRestaurant}
-                  className=" lg:w-1/2 w-full bg-green-700 text-totem-pole-50 py-2 text-center rounded-md"
+                  className=" w-full py-2 inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-gray-900 rounded-lg hover:bg-gray-800 focus:shadow-outline focus:outline-none"
                 >
                   Save
                 </button>
@@ -289,19 +293,21 @@ const PlacesForm = () => {
           </form>
         </div>
         {/* <div className=" fixed bottom-5 flex  justify-between w-11/12 lg:w-1/2 mx-auto"> */}
-        
+
         <button
-           disabled={currentPage === 0}
-           onClick={() => {
-             setcurrentPage((prevValue) => (prevValue <= 0 ? 0 : prevValue - 1)),
-               window.scrollTo({
-                 top: 0,
-               });
-           }}
-          className={`fixed bottom-10 left-52  inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-red-500 rounded-full shadow-md group ${currentPage === 0 ? "  cursor-not-allowed" : ""}`}
+          disabled={currentPage === 0}
+          onClick={() => {
+            setcurrentPage((prevValue) => (prevValue <= 0 ? 0 : prevValue - 1)),
+              window.scrollTo({
+                top: 0,
+              });
+          }}
+          className={`fixed bg-white bottom-10 left-52  inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-red-500 rounded-full shadow-md group ${
+            currentPage === 0 ? "  cursor-not-allowed" : ""
+          }`}
         >
           <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-red-500 group-hover:translate-x-0 ease">
-            <ArrowBack/>
+            <ArrowBack />
           </span>
           <span className="absolute flex items-center justify-center w-full h-full text-red-500 transition-all duration-300 transform group-hover:translate-x-full ease">
             Back
@@ -316,10 +322,12 @@ const PlacesForm = () => {
                 top: 0,
               });
           }}
-          className={`fixed bottom-10 right-52  inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-green-600 rounded-full shadow-md group ${currentPage === totalPages ? " cursor-not-allowed" : ""}`}
+          className={`fixed bg-white bottom-10 right-52  inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-green-600 rounded-full shadow-md group ${
+            currentPage === totalPages ? " cursor-not-allowed" : ""
+          }`}
         >
           <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-green-600 group-hover:translate-x-0 ease">
-            <ArrowForward/>
+            <ArrowForward />
           </span>
           <span className="absolute flex items-center justify-center w-full h-full text-green-600 transition-all duration-300 transform group-hover:translate-x-full ease">
             Next

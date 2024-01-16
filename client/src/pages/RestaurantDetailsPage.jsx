@@ -477,7 +477,7 @@ const RestaurantDetailsPage = () => {
                     </div>
                     {showGuests && (
                       <div
-                        className={`absolute top-[70px] bg-white shadow-xl border w-full px-2 py-3 flex flex-col gap-5 rounded-md`}
+                        className={`absolute top-[80px] bg-white shadow-xl border w-full px-2 py-3 flex flex-col gap-5 rounded-md`}
                       >
                         <div className=" flex items-center justify-between">
                           <div>
