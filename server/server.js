@@ -8,7 +8,6 @@ require("dotenv").config();
 const userRoutes = require("./routes/UserRoutes");
 const restaurantRoutes = require("./routes/restaurantRoutes");
 const adminRoutes = require("./routes/adminRoute");
-// const tableRoutes = require("./routes/tableRoute");
 const reservationRoutes = require("./routes/reservationRoute");
 
 // initialisizing the app

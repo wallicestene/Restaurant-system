@@ -1,7 +1,6 @@
 const AdminBro = require("admin-bro");
 const AdminBroExpress = require("@admin-bro/express");
 const AdminBroMongoose = require("@admin-bro/mongoose");
-const Table = require("../models/tableModel");
 const User = require("../models/userModel");
 const Restaurant = require("../models/restaurantModel");
 const Reservation = require("../models/reservationModel");
@@ -23,24 +22,11 @@ const adminBro = new AdminBro({
       resource: Restaurant,
     },
     {
-      resource: Table,
-      options: {
-        properties: {
-          restaurantId: {
-            reference: "restaurant",
-          },
-        },
-      },
-    },
-    {
       resource: Reservation,
       options: {
         properties: {
           userId: {
             reference: "user",
-          },
-          tableId: {
-            reference: "table",
           },
           restaurantId: {
             reference: "restaurant",

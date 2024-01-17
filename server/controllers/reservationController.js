@@ -1,59 +1,55 @@
 const mongoose = require("mongoose");
 const Reservation = require("../models/reservationModel");
-const Table = require("../models/tableModel");
 const moment = require("moment");
-const schedule = require("node-schedule");
 
-const updateTableOccupancy = () => {
-  const today = new Date();
-  const formattedToday = moment(today).format("YYYY-MM-DD");
+// const updateTableOccupancy = () => {
+//   const today = new Date();
+//   const formattedToday = moment(today).format("YYYY-MM-DD");
 
-  // Find upcoming reservations
-  Reservation.find({ date: { $gte: formattedToday } })
-    .then((upcomingReservations) => {
-      // Update tables for upcoming reservations where the reservation date has arrived
-      const updateUpcomingTables = upcomingReservations.map((reservation) => {
-        if (formattedToday === moment(reservation.date).format("YYYY-MM-DD")) {
-          return Table.findByIdAndUpdate(reservation.tableId, { occupied: true });
-        }
-        return Promise.resolve(); // Skip updating for future dates
-      });
+//   // Find upcoming reservations
+//   Reservation.find({ date: { $gte: formattedToday } })
+//     .then((upcomingReservations) => {
+//       // Update tables for upcoming reservations where the reservation date has arrived
+//       const updateUpcomingTables = upcomingReservations.map((reservation) => {
+//         if (formattedToday === moment(reservation.date).format("YYYY-MM-DD")) {
+//           return Table.findByIdAndUpdate(reservation.tableId, { occupied: true });
+//         }
+//         return Promise.resolve(); // Skip updating for future dates
+//       });
 
-      // Find expired reservations
-      return Reservation.find({ date: { $lt: formattedToday } })
-        .then((expiredReservations) => {
-          // Update tables for expired reservations
-          const updateExpiredTables = expiredReservations.map((reservation) =>
-            Table.findByIdAndUpdate(reservation.tableId, { occupied: false })
-          );
+//       // Find expired reservations
+//       return Reservation.find({ date: { $lt: formattedToday } })
+//         .then((expiredReservations) => {
+//           // Update tables for expired reservations
+//           const updateExpiredTables = expiredReservations.map((reservation) =>
+//             Table.findByIdAndUpdate(reservation.tableId, { occupied: false })
+//           );
 
-          return Promise.all([...updateUpcomingTables, ...updateExpiredTables]);
-        });
-    })
-    .catch((error) => {
-      console.log(`Error in updating table occupancy ${error}`);
-    });
-};
+//           return Promise.all([...updateUpcomingTables, ...updateExpiredTables]);
+//         });
+//     })
+//     .catch((error) => {
+//       console.log(`Error in updating table occupancy ${error}`);
+//     });
+// };
 
-// schedule the job to run every hour
-const job = schedule.scheduleJob("*/1 * * * *", () => {
-  console.log("Running scheduled job to update occupancy....");
-  updateTableOccupancy()
-})
+// // schedule the job to run every hour
+// const job = schedule.scheduleJob("*/1 * * * *", () => {
+//   console.log("Running scheduled job to update occupancy....");
+//   updateTableOccupancy()
+// })
 
 // Add a reservation and update the table occupancy
 const addReservation = (req, res) => {
-  const { userId, restaurantId, tableId, date } = req.body;
+  const { userId, restaurantId, checkIn, checkOut, guests } = req.body;
 
   // Checking if the table is already reserved for the given date
-  Reservation.findOne({ tableId, date })
+  Reservation.findOne({ restaurantId, checkIn, checkOut })
     .then((reservationExists) => {
       if (!reservationExists) {
         // Create a new reservation
-        Reservation.create({ userId, restaurantId, tableId, date })
+        Reservation.create({ userId, restaurantId, checkIn, checkOut, guests })
           .then((reservation) => {
-            // Update the table occupancy
-            updateTableOccupancy();
             // Return the created reservation
             res.status(200).json(reservation);
           })
@@ -63,7 +59,7 @@ const addReservation = (req, res) => {
             });
           });
       } else {
-        throw Error("Table is already reserved for that date!");
+        throw Error("This place is already booked for that date!");
       }
     })
     .catch((error) => {

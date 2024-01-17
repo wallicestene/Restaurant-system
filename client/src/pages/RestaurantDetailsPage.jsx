@@ -34,10 +34,8 @@ const RestaurantDetailsPage = () => {
   const [loading, setLoading] = useState(true);
   const [showBookingMobile, setShowBookingMobile] = useState(false);
   const [showGuests, setShowGuests] = useState(false);
-  const [tableError, setTableError] = useState(null);
   const [bookingError, setBookingError] = useState(null);
   const [allAmenities, setAllAmenities] = useState(3);
-  const [selectedTable, setSelectedTable] = useState("");
 
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
@@ -64,68 +62,49 @@ const RestaurantDetailsPage = () => {
     };
     numberOfGuests();
   }, [adults, allGuests, children, data.guests]);
-  // useEffect(() => {
-  //   const getTables = () => {
-  //     if (data && !isLoading && !error) {
-  //       fetch(`http://localhost:3000/api/tables/restaurant/${data._id}`)
-  //         .then((response) => {
-  //           if (!response.ok) {
-  //             throw new Error("Failed to fetch data");
-  //           } else {
-  //             return response.json();
-  //           }
-  //         })
-  //         .then((tables) => {
-  //           setLoading(false);
-  //           // setTables(tables);
-  //           setTableError(null);
-  //         })
-  //         .catch((error) => {
-  //           setTableError(error.message);
-  //           setLoading(false);
-  //         });
-  //     }
-  //   };
-  //   getTables();
-  // }, [data, error, isLoading]);
-  // const BookTable = () => {
-  //   if (user && date.startDate && tableId) {
-  //     fetch("http://localhost:3000/api/restaurant/reservation", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${user?.token}`,
-  //       },
-  //       body: JSON.stringify({
-  //         userId: user?.userId,
-  //         restaurantId: data._id,
-  //         tableId,
-  //         date: date.startDate,
-  //       }),
-  //     })
-  //       .then((response) => response.json())
-  //       .then((result) => {
-  //         if (result.error) {
-  //           setBookingError(result.error);
-  //           toast.error(result.error);
-  //         } else {
-  //           const promise = () =>
-  //             new Promise((resolve) => setTimeout(resolve, 2000));
-  //           toast.promise(promise, {
-  //             loading: "Loading...",
-  //             success: "Reservation Successful!",
-  //             error: "Error",
-  //           });
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         console.log(err.message);
-  //       });
-  //     setSelectedTable("");
-  //   } else {
-  //     toast.error("Please select a Table and Date to book!");
-  //   }
-  // };
+
+  const handleBooking = () => {
+    if (user && date.startDate && date.endDate) {
+      fetch("http://localhost:3000/api/restaurant/reservation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user?.token}`,
+        },
+        body: JSON.stringify({
+          userId: user?.userId,
+          restaurantId: data._id,
+          checkIn: date.startDate,
+          checkOut: date.endDate,
+          guests: {
+            adults,
+            children,
+            infants,
+          },
+        }),
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.error) {
+            setBookingError(result.error);
+            toast.error(result.error);
+          } else {
+            const promise = () =>
+              new Promise((resolve) => setTimeout(resolve, 2000));
+            toast.promise(promise, {
+              loading: "Loading...",
+              success: "Reservation Successful!",
+              error: "Error",
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    } else {
+      toast.error("Please select check in and check out to book!");
+    }
+  };
   const handleDateChange = (newDate) => {
     setDate(newDate);
   };
@@ -332,7 +311,7 @@ const RestaurantDetailsPage = () => {
               Where to sleep
             </h2>
             {data && !isLoading && data?.whereToSleep && (
-              <div className=" grid grid-cols-3 ">
+              <div className=" grid grid-cols-3 gap-x-4 gap-y-2">
                 {data.whereToSleep.map((place, index) => (
                   <div
                     key={index}
@@ -341,9 +320,34 @@ const RestaurantDetailsPage = () => {
                     <BedOutlined />
                     <div>
                       <p>Bedroom {place?.bedroom}</p>
-                      <p className=" mt-[1.7px] text-[0.8em] text-gray-600">
-                        {place?.sleepingPosition}
-                      </p>
+                      {place?.sleepingPosition?.kingBed > 0 && (
+                        <p className=" mt-[1.7px] text-[0.8em] text-gray-600">
+                          {place?.sleepingPosition?.kingBed} King bed
+                          {`${place?.sleepingPosition?.kingBed > 1 ? "s" : ""}`}
+                        </p>
+                      )}
+                      {place?.sleepingPosition?.queenBedBed > 0 && (
+                        <p className=" mt-[1.7px] text-[0.8em] text-gray-600">
+                          {place?.sleepingPosition?.queenBed} Queen bed
+                          {`${
+                            place?.sleepingPosition?.queenBed > 1 ? "s" : ""
+                          }`}
+                        </p>
+                      )}
+                      {place?.sleepingPosition?.singleBed > 0 && (
+                        <p className=" mt-[1.7px] text-[0.8em] text-gray-600">
+                          {place?.sleepingPosition?.singleBed} Single bed
+                          {`${
+                            place?.sleepingPosition?.singleBed > 1 ? "s" : ""
+                          }`}
+                        </p>
+                      )}
+                      {place?.sleepingPosition?.sofa > 0 && (
+                        <p className=" mt-[1.7px] text-[0.8em] text-gray-600">
+                          {place?.sleepingPosition?.sofa} Sofa
+                          {`${place?.sleepingPosition?.sofa > 1 ? "s" : ""}`}
+                        </p>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -383,7 +387,7 @@ const RestaurantDetailsPage = () => {
         <div className=" lg:col-span-1 flex flex-col items-center">
           <div className="lg:hidden fixed bottom-2 right-4 flex justify-end items-end w-full">
             <button
-              className=" py-2 px-10 text-totem-pole-100 rounded-md bg-totem-pole-400"
+              className=" py-2 inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-gray-900 rounded-lg hover:bg-gray-800 focus:shadow-outline focus:outline-none"
               onClick={() => setShowBookingMobile(true)}
             >
               Book
@@ -473,7 +477,7 @@ const RestaurantDetailsPage = () => {
                     </div>
                     {showGuests && (
                       <div
-                        className={`absolute top-[70px] bg-white shadow-xl border w-full px-2 py-3 flex flex-col gap-5 rounded-md`}
+                        className={`absolute top-[80px] bg-white shadow-xl border w-full px-2 py-3 flex flex-col gap-5 rounded-md`}
                       >
                         <div className=" flex items-center justify-between">
                           <div>
@@ -610,8 +614,8 @@ const RestaurantDetailsPage = () => {
                 </div>
                 <div className=" flex gap-1 text-totem-pole-50">
                   <button
-                    className=" p-3 rounded-lg bg-totem-pole-500 w-full"
-                    onClick={() => navigate("/login")}
+                    className="inline-flex w-full items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-gray-900 rounded-lg hover:bg-gray-800 focus:shadow-outline focus:outline-none"
+                    onClick={handleBooking}
                   >
                     Book
                   </button>

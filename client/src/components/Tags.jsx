@@ -14,7 +14,7 @@ const Tags = ({ selectedTags, setSelectedTags }) => {
   };
   return (
     <>
-      <div className=" grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-2 mt-2">
+      <div className=" grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-2 mt-2 w-full">
         <label className=" border p-4 flex items-center justify-center gap-x-2 rounded-md cursor-pointer">
           <input
             type="checkbox"
