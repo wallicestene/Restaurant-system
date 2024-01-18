@@ -7,14 +7,13 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 // import AccountPage from "./pages/AccountPage";
 import Profile from "./pages/Profile";
-import { Toaster } from "sonner";
+import { Toaster } from 'sonner'
 import { useUserContext } from "./hooks/Usercontext";
 import { useEffect } from "react";
 import RestaurantsPage from "./pages/RestarantsPage";
 import PlacesForm from "./pages/PlacesForm";
 import MyBookings from "./pages/MyBookings";
 import ImageGallery from "./components/ImageGallery";
-import Scroll from "./components/SmoothScroll";
 const App = () => {
   const [, dispatch] = useUserContext();
   // updating the auth state
@@ -31,17 +30,16 @@ const App = () => {
   }, [dispatch]);
   return (
     <Router>
-      <Toaster position="top-left" richColors />
-      <Scroll />
+       <Toaster  position="top-left" richColors  />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index path="/" element={<HomePage />} />
           <Route path="/restaurant/:id" element={<RestaurantDetailsPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-          <Route path="/account" element={<Profile />} />
-          <Route path="/account/myRestaurants" element={<RestaurantsPage />} />
-          <Route path="/account/myBookings" element={<MyBookings />} />
+          <Route path="/account" element={<Profile/>} />
+          <Route path="/account/myRestaurants" element={<RestaurantsPage/>} />
+          <Route path="/account/myBookings" element={<MyBookings/>} />
           <Route path="/account/myRestaurants/new" element={<PlacesForm />} />
           <Route path="/account/myRestaurants/:id" element={<PlacesForm />} />
           <Route path="/imageGallery/:id" element={<ImageGallery />} />

@@ -4,6 +4,7 @@ import useFetch from "../hooks/useFetch";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+
 import {
   AcUnitRounded,
   Deck,
@@ -37,6 +38,7 @@ import { Alert, CircularProgress } from "@mui/material";
 import { useUserContext } from "../hooks/Usercontext";
 import { toast } from "sonner";
 import { getUnit } from "@mui/material/styles/cssUtils";
+import Scroll from "../components/SmoothScroll";
 const RestaurantDetailsPage = () => {
   const [value, setValue] = useState(0);
   const [date, setDate] = useState({
@@ -132,7 +134,7 @@ const RestaurantDetailsPage = () => {
     });
   };
   return (
-    <div className=" py-16 lg:w-11/12 md:w-11/12 mx-auto font-mulish relative px-2">
+    <div className="h-screen py-16 lg:w-11/12 md:w-11/12 mx-auto font-mulish relative px-2">
       <button
         className=" flex items-center text-sm hover:bg-totem-pole-100 w-fit py-1 px-2 rounded-md transition-colors delay-150 duration-300"
         onClick={() => navigate(-1)}
@@ -299,7 +301,7 @@ const RestaurantDetailsPage = () => {
               <ul className=" grid grid-cols-3 gap-3">
                 {data.amenities.slice(0, allAmenities).map((amenity, index) => (
                   <li
-                    className="first-letter:uppercase p-2 flex w-full flex-col border-[1.5px] rounded-md"
+                    className="first-letter:uppercase p-2 flex w-full items-center gap-x-1 rounded-md"
                     key={index}
                   >
                     <div>

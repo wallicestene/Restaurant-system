@@ -14,7 +14,7 @@ const Restaurant = ({ restaurant }) => {
   const [images, setImages] = useState(restaurant.images);
 
   return (
-    <div className=" flex flex-col gap-y-1 h-full overflow-hidden bg-white rounded-xl shadow-md shadow-gray-300 hover:shadow-gray-400 transition-shadow duration-200 delay-100">
+    <div className=" flex flex-col gap-y-1 h-full overflow-hidden bg-white shadow-md shadow-gray-300 hover:shadow-gray-400 transition-shadow duration-200 delay-100">
       <Carousel
         showThumbs={false}
         emulateTouch
@@ -55,7 +55,7 @@ const Restaurant = ({ restaurant }) => {
           </Link>
         ))}
       </Carousel>
-      <div className="flex flex-col justify-between text-start p-1 font-mulish">
+      <div className="flex flex-col justify-between text-start p-2 font-mulish">
         <Link to={`/restaurant/${restaurant._id}`}>
           <div className=" font-bold tracking-wide first-letter:uppercase ">
             <h2>{restaurant.name}</h2>
