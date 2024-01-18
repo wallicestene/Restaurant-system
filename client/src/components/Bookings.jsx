@@ -1,3 +1,4 @@
+/* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable react/prop-types */
 import { DateRange, LocationOn } from "@mui/icons-material";
 import moment from "moment";
@@ -24,31 +25,38 @@ const Bookings = ({ booking }) => {
       .catch((err) => console.log(err));
   };
 
-  const startDate = moment(booking?.checkIn)
-  const endDate = moment(booking?.checkOut)
+  const startDate = moment(booking?.checkIn);
+  const endDate = moment(booking?.checkOut);
   const duration = moment.duration(endDate.diff(startDate));
   return (
     <>
-      <div>
-        <div className=" h-64 overflow-hidden rounded-xl border border-black inline-block">
+      <div className=" relative border h-64">
+        <div className=" h-full overflow-hidden rounded-xl inline-block ">
           <img
             src={`http://localhost:3000/uploads/${booking?.restaurantId.images[0]}`}
             alt={`${booking?.restaurantId.name} image 1 `}
-            className=" h-full object-cover"
+            className=" h-full object-cover "
           />
         </div>
-        <div>
-          <h2 className="text-lg font-semibold text-gray-700">
+        <div className=" p-2 absolute top-5 left-2">
+          <h2 className="text-lg font-semibold  ">
             {booking?.restaurantId.name}
           </h2>
-          <p className="flex items-center space-x-1 text-sm">
-            <LocationOn/>
-            <span>{booking?.restaurantId.address}</span>
-          </p>
           <p className=" flex gap-2 text-base font-medium text-">
             <span>
-           {duration.asDays() - 1} Night{duration.asDays() == 1 ? "" : "s"}
+              {duration.asDays() - 1} Night{duration.asDays() == 1 ? "" : "s"}
             </span>
+          </p>
+          <p>
+            {(booking?.restaurantId.price).toLocaleString("en-US", {
+              style: "currency",
+              currency: "USD",
+            })}{" "}
+            <span>night</span>
+          </p>
+          <p className="flex items-center space-x-1 text-sm">
+            <LocationOn />
+            <span>{booking?.restaurantId.address}</span>
           </p>
         </div>
       </div>
