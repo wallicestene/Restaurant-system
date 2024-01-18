@@ -292,7 +292,7 @@ const RestaurantDetailsPage = () => {
               />
             </div>
           )}
-          {data && !isLoading && data?.amenities && (
+          {data && !isLoading && data?.amenities.length > 0 && (
             <div className=" px-2">
               <h2 className=" my-2 text-lg font-bold tracking-wide">
                 Amenities in this place
@@ -351,11 +351,11 @@ const RestaurantDetailsPage = () => {
               />{" "}
             </div>
           )}
-          <div className=" px-2">
-            <h2 className=" my-2 text-lg font-bold tracking-wide">
-              Where to sleep
-            </h2>
-            {data && !isLoading && data?.whereToSleep && (
+          {data && !isLoading && data?.whereToSleep.length > 0 && (
+            <div className=" px-2">
+              <h2 className=" my-2 text-lg font-bold tracking-wide">
+                Where to sleep
+              </h2>
               <div className=" grid grid-cols-3 gap-x-4 gap-y-2">
                 {data.whereToSleep.map((place, index) => (
                   <div
@@ -397,16 +397,16 @@ const RestaurantDetailsPage = () => {
                   </div>
                 ))}
               </div>
-            )}
-            <div
+              {/* <div
               style={{
                 height: "0.01rem",
               }}
               className=" bg-black opacity-20 my-5"
-            />
-          </div>
+            /> */}
+            </div>
+          )}
 
-          {data && !isLoading && (
+          {/* {data && !isLoading && (
             <div className=" px-2">
               <h2 className=" my-2 text-lg font-bold tracking-wide">Tags</h2>
               <ul className=" flex flex-wrap items-center gap-2 py-2 px-3">
@@ -426,8 +426,8 @@ const RestaurantDetailsPage = () => {
                 }}
                 className=" bg-black opacity-20 my-5"
               />{" "}
-            </div>
-          )}
+            </div> */}
+          {/* )} */}
         </div>
         <div className=" lg:col-span-1 flex flex-col items-center">
           <div className="lg:hidden fixed bottom-2 right-4 flex justify-end items-end w-full">
@@ -660,7 +660,7 @@ const RestaurantDetailsPage = () => {
                 <div className=" flex gap-1 text-totem-pole-50">
                   <button
                     className="inline-flex w-full items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-gray-900 rounded-lg hover:bg-gray-800 focus:shadow-outline focus:outline-none"
-                    onClick={handleBooking}
+                    onClick={user ? handleBooking : () => navigate("/login")}
                   >
                     Book
                   </button>
