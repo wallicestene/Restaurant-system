@@ -20,7 +20,7 @@ const Profile = () => {
     return <Navigate to={redirect} />;
   }
   return (
-    <div className=" flex flex-col items-center h-screen pt-20 text-sm lg:w-11/12 mx-auto w-full">
+    <div className=" flex flex-col items-center h-screen pt-20 text-sm lg:w-11/12 mx-auto w-full px-2">
     <AccountNav/>
       <div className=" bg-gray-200 bg-opacity-90 py-2 px-4 rounded lg:w-1/2 w-full">
         <h3 className=" text-center">You're Logged in as:</h3>

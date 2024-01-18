@@ -298,7 +298,7 @@ const RestaurantDetailsPage = () => {
               <h2 className=" my-2 text-lg font-bold tracking-wide">
                 Amenities in this place
               </h2>
-              <ul className=" grid grid-cols-3 gap-3">
+              <ul className=" grid lg:grid-cols-3 md:grid-cols-3 grid-cols-2 gap-3">
                 {data.amenities.slice(0, allAmenities).map((amenity, index) => (
                   <li
                     className="first-letter:uppercase p-2 flex w-full items-center gap-x-1 rounded-md"
@@ -357,7 +357,7 @@ const RestaurantDetailsPage = () => {
               <h2 className=" my-2 text-lg font-bold tracking-wide">
                 Where to sleep
               </h2>
-              <div className=" grid grid-cols-3 gap-x-4 gap-y-2">
+              <div className=" grid lg:grid-cols-3 md:grid-cols-3 grid-cols-2 gap-x-4 gap-y-2">
                 {data.whereToSleep.map((place, index) => (
                   <div
                     key={index}

@@ -36,8 +36,8 @@ const AccountNav = () => {
           </li>
           <li>
             <Link
-              className={addStyles("myRestaurants")}
-              to="/account/myRestaurants"
+              className={addStyles("myListings")}
+              to="/account/myListings"
             >
               <RestaurantMenu fontSize="small" />
               <span>My Restaurants</span>
