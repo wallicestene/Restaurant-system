@@ -52,7 +52,7 @@ const RestaurantContainer = () => {
         setSearchInput={setSearchInput}
         searchRestaurant={searchRestaurant}
       />
-      <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 lg:gap-x-5 md:gap-x-10 gap-x-5 gap-y-10 lg:py-7 lg:px-5 py-5 px-2">
+      <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 lg:gap-x-5 md:gap-x-10 gap-x-5 gap-y-10 lg:py-7 py-5 px-5 lg:px-10">
         {loading &&
           skeleton.map((skeleton, index) => (
             <div key={index}>

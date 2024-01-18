@@ -4,7 +4,6 @@ import useFetch from "../hooks/useFetch";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import GroupIcon from "@mui/icons-material/Group";
 import {
   AcUnitRounded,
   Deck,

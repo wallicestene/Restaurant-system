@@ -5,7 +5,7 @@ const HomePage = () => {
   return (
     <section>
       <div>
-        <div >
+        <div>
           <RestauarantContainer />
         </div>
       </div>
