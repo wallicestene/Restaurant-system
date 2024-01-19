@@ -1,6 +1,6 @@
 /* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable react/prop-types */
-import { DateRange, LocationOn } from "@mui/icons-material";
+import { Circle, DateRange, LocationOn } from "@mui/icons-material";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import { useUserContext } from "../hooks/Usercontext";
@@ -30,30 +30,61 @@ const Bookings = ({ booking }) => {
   const duration = moment.duration(endDate.diff(startDate));
   return (
     <>
-      <div className=" relative border h-64">
+      <div className=" relative h-64">
         <div className=" h-full overflow-hidden rounded-xl inline-block ">
           <img
             src={`http://localhost:3000/uploads/${booking?.restaurantId.images[0]}`}
             alt={`${booking?.restaurantId.name} image 1 `}
-            className=" h-full object-cover "
+            className=" h-full object-cover brightness-[0.9]"
           />
         </div>
-        <div className=" p-2 absolute top-5 left-2">
+        <div className=" p-[18px] absolute w-11/12 -bottom-20 left-1/2 -translate-x-1/2 rounded-xl shadow-lg bg-white">
+          <div className=" flex items-center gap-1 text-[0.9rem] text-gray-700">
+            <p>
+              <Circle
+                sx={{
+                  height: "0.12em",
+                  width: "0.12em",
+                }}
+              />{" "}
+              {booking?.guests.adults + booking?.guests.children} Guest(s)
+            </p>
+            <p>
+              <Circle
+                sx={{
+                  height: "0.12em",
+                  width: "0.12em",
+                }}
+              />{" "}
+              {booking?.restaurantId.whereToSleep.length} Bedroom
+              {booking?.restaurantId.whereToSleep.length != 1 ? "s" : ""}
+            </p>
+          </div>
+
           <h2 className="text-lg font-semibold  ">
             {booking?.restaurantId.name}
           </h2>
-          <p className=" flex gap-2 text-base font-medium text-">
-            <span>
-              {duration.asDays() - 1} Night{duration.asDays() == 1 ? "" : "s"}
-            </span>
-          </p>
-          <p>
-            {(booking?.restaurantId.price).toLocaleString("en-US", {
-              style: "currency",
-              currency: "USD",
-            })}{" "}
-            <span>night</span>
-          </p>
+          <div>
+            <p className=" inline-block font-medium text-gray-100 bg-black text-sm py-[2px] px-[10px] rounded-full">
+              <span>
+                {duration.asDays() == 1
+                  ? duration.asDays()
+                  : duration.asDays() - 1}{" "}
+                Night
+                {duration.asDays() == 1 || duration.asDays() - 1 == 1
+                  ? ""
+                  : "s"}
+              </span>
+            </p>
+            <p className=" mx-1 inline-block font-medium text-gray-100 bg-black text-sm py-[2px] px-[10px] rounded-full">
+              {(booking?.restaurantId.price).toLocaleString("en-US", {
+                style: "currency",
+                currency: "USD",
+              })}{" "}
+              <span>night</span>
+            </p>
+          </div>
+
           <p className="flex items-center space-x-1 text-sm">
             <LocationOn />
             <span>{booking?.restaurantId.address}</span>
