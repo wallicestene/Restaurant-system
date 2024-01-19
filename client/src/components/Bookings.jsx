@@ -65,7 +65,7 @@ const Bookings = ({ booking }) => {
             {booking?.restaurantId.name}
           </h2>
           <div>
-            <p className=" inline-block font-medium text-gray-100 bg-black text-sm py-[2px] px-[10px] rounded-full">
+            <p className=" inline-block font-light text-gray-100 bg-black text-sm lg:py-[6px] py-[4px] px-[10px] rounded-full">
               <span>
                 {duration.asDays() == 1
                   ? duration.asDays()
@@ -76,7 +76,7 @@ const Bookings = ({ booking }) => {
                   : "s"}
               </span>
             </p>
-            <p className=" mx-1 inline-block font-medium text-gray-100 bg-black text-sm py-[2px] px-[10px] rounded-full">
+            <p className=" mx-1 inline-block font-light text-gray-100 bg-black text-sm lg:py-[6px] py-[4px] px-[10px] rounded-full">
               {(booking?.restaurantId.price).toLocaleString("en-US", {
                 style: "currency",
                 currency: "USD",
@@ -84,11 +84,15 @@ const Bookings = ({ booking }) => {
               <span>night</span>
             </p>
           </div>
-
-          <p className="flex items-center space-x-1 text-sm">
-            <LocationOn />
-            <span>{booking?.restaurantId.address}</span>
-          </p>
+          <p className="text-sm mt-2 flex items-center">
+                <LocationOn
+                  sx={{
+                    fontSize: "1.1rem",
+                    color: "red"
+                  }}
+                />
+                <span className="">{booking?.restaurantId.address}</span>
+              </p>
         </div>
       </div>
     </>
