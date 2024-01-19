@@ -43,7 +43,7 @@ const MyBookings = () => {
   }, [user?.token, user?.userId]);
   return (
     <>
-      <div className="lg:w-11/12 mx-auto w-full py-20 px-2 font-Montserrat">
+      <div className="lg:w-11/12  mx-auto w-full py-20 px-2 font-Montserrat">
         <AccountNav/>
         <div className=" flex flex-col gap-y-3">
           {loading &&(

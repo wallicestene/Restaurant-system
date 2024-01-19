@@ -20,7 +20,7 @@ const AccountNav = () => {
   };
   return (
     <>
-      <nav className=" flex flex-col items-center my-5 sticky top-24 z-10">
+      <nav className=" flex flex-col items-center my-5 sticky top-24 z-10 font-Montserrat">
         <ul className="bg-gray-200/90 px-1 h-10 rounded flex items-center justify-center gap-10 w-fit text-sm">
           <li>
             <Link className={addStyles("myProfile")} to="/account">

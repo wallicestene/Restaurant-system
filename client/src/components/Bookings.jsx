@@ -1,11 +1,9 @@
 /* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable react/prop-types */
-import { Circle, DateRange, LocationOn } from "@mui/icons-material";
+import { Circle, LocationOn } from "@mui/icons-material";
 import moment from "moment";
-import { Link } from "react-router-dom";
 import { useUserContext } from "../hooks/Usercontext";
 import { toast } from "sonner";
-import { Button } from "@mui/material";
 const Bookings = ({ booking }) => {
   const [{ user }] = useUserContext();
   const deleteBooking = () => {
@@ -19,7 +17,7 @@ const Bookings = ({ booking }) => {
       .then((response) => response.json())
       .then((data) => {
         if (data) {
-          toast.success("Reservation Deleted successfully");
+          toast.success("Booking Deleted successfully");
         }
       })
       .catch((err) => console.log(err));
@@ -31,14 +29,14 @@ const Bookings = ({ booking }) => {
   return (
     <>
       <div className=" relative h-64">
-        <div className=" h-full overflow-hidden rounded-xl inline-block ">
+        <div className=" h-full overflow-hidden shadow-xl shadow-gray-400 rounded-xl inline-block ">
           <img
             src={`http://localhost:3000/uploads/${booking?.restaurantId.images[0]}`}
             alt={`${booking?.restaurantId.name} image 1 `}
             className=" h-full object-cover brightness-[0.9]"
           />
         </div>
-        <div className=" p-[18px] absolute w-11/12 -bottom-20 left-1/2 -translate-x-1/2 rounded-xl shadow-lg bg-white">
+        <div className=" p-[18px] absolute w-11/12 -bottom-20 left-1/2 -translate-x-1/2 rounded-xl shadow-gray-400 shadow-lg bg-white">
           <div className=" flex items-center gap-1 text-[0.9rem] text-gray-700">
             <p>
               <Circle
