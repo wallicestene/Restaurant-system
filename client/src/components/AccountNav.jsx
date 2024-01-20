@@ -40,7 +40,7 @@ const AccountNav = () => {
               to="/account/myListings"
             >
               <RestaurantMenu fontSize="small" />
-              <span>My Restaurants</span>
+              <span>My Listings</span>
             </Link>
           </li>
         </ul>
