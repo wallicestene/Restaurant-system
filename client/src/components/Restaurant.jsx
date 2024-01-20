@@ -14,19 +14,19 @@ const Restaurant = ({ restaurant }) => {
   const [images, setImages] = useState(restaurant.images);
 
   return (
-    <div className=" flex flex-col gap-y-1 h-full rounded-t-xl overflow-hidden bg-white shadow-md shadow-gray-300 hover:shadow-gray-400 transition-shadow duration-200 delay-100">
+    <div className=" flex flex-col gap-y-1 h-full rounded-t-2xl overflow-hidden bg-white shadow-md shadow-gray-300 hover:shadow-gray-400 transition-shadow duration-200 delay-100">
       <Carousel
         showThumbs={false}
         emulateTouch
         stopOnHover
         interval={5000}
         useKeyboardArrows={true}
-        className=" overflow-hidden object-cover group rounded-xl "
+        className=" overflow-hidden object-cover group rounded-2xl "
         renderArrowPrev={(onClickHandler, hasPrev) =>
           hasPrev && (
             <span
               onClick={onClickHandler}
-              className=" h-8 w-8 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full cursor-pointer absolute top-1/2 left-4 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity delay-150 duration-300 ease-linear bg-opacity-80"
+              className=" h-8 w-8 flex items-center justify-center bg-white rounded-full cursor-pointer absolute top-1/2 left-3 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity delay-150 duration-300 ease-linear bg-opacity-80"
             >
               <KeyboardArrowLeft />
             </span>
@@ -36,7 +36,7 @@ const Restaurant = ({ restaurant }) => {
           hasNext && (
             <span
               onClick={onClickHandler}
-              className=" h-8 w-8 flex items-center justify-center bg-totem-pole-500 text-totem-pole-100 rounded-full cursor-pointer absolute top-1/2 right-4 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity delay-150 duration-300 ease-linear bg-opacity-80"
+              className=" h-8 w-8 flex items-center justify-center bg-white rounded-full cursor-pointer absolute top-1/2 right-3 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity delay-150 duration-300 ease-linear bg-opacity-80"
             >
               <KeyboardArrowRight />
             </span>
@@ -49,7 +49,7 @@ const Restaurant = ({ restaurant }) => {
               <img
                 src={`http://localhost:3000/uploads/${image}`}
                 alt={` image ${images.length - 1}`}
-                className=" lg:h-64 h-64 object-cover"
+                className=" lg:h-72 h-72 object-cover"
               />
             </div>
           </Link>
