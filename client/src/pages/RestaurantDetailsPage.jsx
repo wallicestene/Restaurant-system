@@ -398,37 +398,8 @@ const RestaurantDetailsPage = () => {
                   </div>
                 ))}
               </div>
-              {/* <div
-              style={{
-                height: "0.01rem",
-              }}
-              className=" bg-black opacity-20 my-5"
-            /> */}
             </div>
           )}
-
-          {/* {data && !isLoading && (
-            <div className=" px-2">
-              <h2 className=" my-2 text-lg font-bold tracking-wide">Tags</h2>
-              <ul className=" flex flex-wrap items-center gap-2 py-2 px-3">
-                {data?.tags.map((tag, index) => {
-                  return (
-                    <li key={index}>
-                      <p className=" py-2 px-3 rounded-md border border-totem-pole-400">
-                        {tag}
-                      </p>
-                    </li>
-                  );
-                })}
-              </ul>
-              <div
-                style={{
-                  height: "0.01rem",
-                }}
-                className=" bg-black opacity-20 my-5"
-              />{" "}
-            </div> */}
-          {/* )} */}
         </div>
         <div className=" lg:col-span-1 flex flex-col items-center">
           <div className="lg:hidden fixed bottom-2 right-4 flex justify-end items-end w-full">

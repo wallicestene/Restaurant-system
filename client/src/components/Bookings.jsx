@@ -28,7 +28,7 @@ const Bookings = ({ booking }) => {
   const duration = moment.duration(endDate.diff(startDate));
   return (
     <>
-      <div className=" relative h-64">
+      <div className=" relative h-64 w-fit">
         <div className=" h-full overflow-hidden shadow-xl shadow-gray-400 rounded-xl inline-block ">
           <img
             src={`http://localhost:3000/uploads/${booking?.restaurantId.images[0]}`}
@@ -83,15 +83,29 @@ const Bookings = ({ booking }) => {
             </p>
           </div>
           <p className="text-sm mt-2 flex items-center">
-                <LocationOn
-                  sx={{
-                    fontSize: "1.1rem",
-                    color: "red"
-                  }}
-                />
-                <span className="">{booking?.restaurantId.address}</span>
-              </p>
+            <LocationOn
+              sx={{
+                fontSize: "1.1rem",
+                color: "red",
+              }}
+            />
+            <span className="">{booking?.restaurantId.address}</span>
+          </p>
         </div>
+        {/* <button className="  bg bg-white lg:p-2 p-1 rounded-full text-[0.8rem]">
+         Delete
+        </button> */}
+        <button
+          onClick={deleteBooking}
+          className="absolute top-5 right-5 items-center justify-start inline-block p-2 text-sm overflow-hidden bg-white rounded-full group"
+        >
+          <span className="w-32 h-32 rotate-45 translate-x-12 -translate-y-2 absolute left-0 top-0 bg-white opacity-[3%]"></span>
+          <span className="absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24 bg-red-600 opacity-100 group-hover:-translate-x-8"></span>
+          <span className="relative w-full text-left transition-colors duration-200 ease-in-out group-hover:text-gray-100">
+            Delete
+          </span>
+          <span className="absolute inset-0 border-2 border-red-600 rounded-full"></span>
+        </button>
       </div>
     </>
   );
