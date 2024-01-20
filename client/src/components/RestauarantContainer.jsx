@@ -56,7 +56,7 @@ const RestaurantContainer = () => {
         {loading &&
           skeleton.map((skeleton, index) => (
             <div key={index}>
-              <Skeleton variant="rounded" width="100%" height={150} />
+              <Skeleton variant="rounded" width="100%" height={285} />
               <Skeleton width="90%" />
               <Skeleton width="60%" />
             </div>

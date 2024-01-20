@@ -151,7 +151,7 @@ const RestaurantDetailsPage = () => {
       {error && <Alert severity="error">{error}</Alert>}
       {isLoading && <CircularProgress />}
       {!isLoading && !error && (
-        <div className=" relative lg:w-11/12 md:w-11/12 mx-auto px-3">
+        <div className=" relative mx-auto px-3">
           <div>
             <div className="top  text-totem-pole-500 font-semibold  mt-5 lg:text-xl md:text-lg  my-5 first-letter:uppercase tracking-wide">
               <h1>{data?.name}</h1>
@@ -237,7 +237,7 @@ const RestaurantDetailsPage = () => {
           )}
         </div>
       )}
-      <div className=" lg:w-11/12 md:w-11/12 mx-auto grid lg:grid-cols-3 grid-cols-1 relative gap-x-2 py-2">
+      <div className=" grid lg:grid-cols-3 grid-cols-1 relative gap-x-2 py-2">
         <div className=" lg:col-span-2 p-2">
           {data && !isLoading && (
             <div className="flex items-center gap-x-2 ">
