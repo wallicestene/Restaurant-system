@@ -27,11 +27,9 @@ const RestarantsPage = () => {
       )}
       {error && <Alert severity="error">{error}</Alert>}
       {!isLoading && data.length > 0 && (
-        <div className=" grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-x-4 gap-y-24 p-2 lg:place-items-start place-items-center">
+        <div className=" grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-x-4 gap-y-24 p-6 lg:place-items-start place-items-center">
           {data?.map((restaurant) => (
-           
-              <AddedRestaurants key={restaurant._id} restaurant={restaurant} />
-            
+            <AddedRestaurants key={restaurant._id} restaurant={restaurant} />
           ))}
         </div>
       )}
