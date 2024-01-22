@@ -30,8 +30,8 @@ const Navbar = () => {
         "backdrop-blur-xl  bg-white/60 shadow transition-colors duration-300 delay-150"
       }`}
     >
-      <div className="left text-lg font-bold  ">
-        <Link to="/">RestoReserve</Link>
+      <div className="left text-lg font-bold font-Montserrat ">
+        <Link to="/">Bookify</Link>
       </div>
       {showNavMobile && (
         <div className="lg:hidden md:hidden fixed z-20 bg-totem-pole-700 text-totem-pole-50 top-12 right-0 h-screen w-2/5">
