@@ -4,27 +4,41 @@ import useFetch from "../hooks/useFetch";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import GroupIcon from "@mui/icons-material/Group";
+
+import {
+  AcUnitRounded,
+  Deck,
+  FireExtinguisherOutlined,
+  Fireplace,
+  HotTub,
+  Kitchen,
+  LocalLaundryServiceOutlined,
+  MedicalServicesOutlined,
+  OutdoorGrill,
+  PaidOutlined,
+  Pool,
+  TimeToLeave,
+  Tv,
+  Wifi,
+  Work,
+} from "@mui/icons-material";
 import {
   Add,
-  Backspace,
   BedOutlined,
   Circle,
   Close,
-  FavoriteBorder,
   KeyboardArrowDown,
   KeyboardArrowUp,
   KeyboardBackspace,
   LocationOn,
-  PhotoRounded,
   Remove,
-  TableBar,
 } from "@mui/icons-material";
 import Datepicker from "react-tailwindcss-datepicker";
 import { Alert, CircularProgress } from "@mui/material";
 import { useUserContext } from "../hooks/Usercontext";
 import { toast } from "sonner";
 import { getUnit } from "@mui/material/styles/cssUtils";
+import Scroll from "../components/SmoothScroll";
 const RestaurantDetailsPage = () => {
   const [value, setValue] = useState(0);
   const [date, setDate] = useState({
@@ -35,7 +49,7 @@ const RestaurantDetailsPage = () => {
   const [showBookingMobile, setShowBookingMobile] = useState(false);
   const [showGuests, setShowGuests] = useState(false);
   const [bookingError, setBookingError] = useState(null);
-  const [allAmenities, setAllAmenities] = useState(3);
+  const [allAmenities, setAllAmenities] = useState(8);
 
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
@@ -63,6 +77,12 @@ const RestaurantDetailsPage = () => {
     numberOfGuests();
   }, [adults, allGuests, children, data.guests]);
 
+  // handle amenities
+  // useEffect(() => {
+  //   const addAmenityIcon = () => {
+
+  //   }
+  // },[])
   const handleBooking = () => {
     if (user && date.startDate && date.endDate) {
       fetch("http://localhost:3000/api/restaurant/reservation", {
@@ -110,11 +130,11 @@ const RestaurantDetailsPage = () => {
   };
   const showAllAmenities = (amenitiesArray) => {
     setAllAmenities((preAmenities) => {
-      return preAmenities == amenitiesArray.length ? 3 : amenitiesArray.length;
+      return preAmenities == amenitiesArray.length ? 8 : amenitiesArray.length;
     });
   };
   return (
-    <div className=" py-16 lg:w-11/12 md:w-11/12 mx-auto font-mulish relative px-2">
+    <div className="h-screen py-16 lg:w-11/12 md:w-11/12 mx-auto font-mulish relative px-2">
       <button
         className=" flex items-center text-sm hover:bg-totem-pole-100 w-fit py-1 px-2 rounded-md transition-colors delay-150 duration-300"
         onClick={() => navigate(-1)}
@@ -131,7 +151,7 @@ const RestaurantDetailsPage = () => {
       {error && <Alert severity="error">{error}</Alert>}
       {isLoading && <CircularProgress />}
       {!isLoading && !error && (
-        <div className=" relative lg:w-11/12 md:w-11/12 mx-auto px-3">
+        <div className=" relative mx-auto px-3">
           <div>
             <div className="top  text-totem-pole-500 font-semibold  mt-5 lg:text-xl md:text-lg  my-5 first-letter:uppercase tracking-wide">
               <h1>{data?.name}</h1>
@@ -153,7 +173,7 @@ const RestaurantDetailsPage = () => {
             <div className="imgLeft">
               <img
                 src={`http://localhost:3000/uploads/${data?.images[0]}`}
-                className=" h-full w-full object-cover"
+                className=" h-full w-full object-cover object-center"
                 alt=""
               />
             </div>
@@ -169,7 +189,7 @@ const RestaurantDetailsPage = () => {
                   <img
                     src={`http://localhost:3000/uploads/${image}`}
                     alt={data?.name}
-                    className="h-36 w-full  object-cover"
+                    className="h-36 w-full  object-cover object-center"
                   />
                 </div>
               ))}
@@ -217,7 +237,7 @@ const RestaurantDetailsPage = () => {
           )}
         </div>
       )}
-      <div className=" lg:w-11/12 md:w-11/12 mx-auto grid lg:grid-cols-3 grid-cols-1 relative gap-x-2 py-2">
+      <div className=" grid lg:grid-cols-3 grid-cols-1 relative gap-x-2 py-2">
         <div className=" lg:col-span-2 p-2">
           {data && !isLoading && (
             <div className="flex items-center gap-x-2 ">
@@ -273,25 +293,51 @@ const RestaurantDetailsPage = () => {
               />
             </div>
           )}
-          {data && !isLoading && data?.amenities && (
+          {data && !isLoading && data?.amenities.length > 0 && (
             <div className=" px-2">
               <h2 className=" my-2 text-lg font-bold tracking-wide">
                 Amenities in this place
               </h2>
-              <ul className=" grid grid-cols-3 gap-x-3">
+              <ul className=" grid lg:grid-cols-3 md:grid-cols-3 grid-cols-2 gap-3">
                 {data.amenities.slice(0, allAmenities).map((amenity, index) => (
                   <li
-                    className=" border border-black inline border-opacity-20 my-2 first-letter:uppercase py-1 px-2 rounded-sm"
+                    className="first-letter:uppercase p-2 flex w-full items-center gap-x-1 rounded-md"
                     key={index}
                   >
-                    {amenity}
+                    <div>
+                      {(amenity === "Wifi" && <Wifi />) ||
+                        (amenity === "Outdoor dining" && <Deck />) ||
+                        (amenity === "TV" && <Tv />) ||
+                        (amenity === "Kitchen" && <Kitchen />) ||
+                        (amenity === "Washer" && (
+                          <LocalLaundryServiceOutlined />
+                        )) ||
+                        (amenity === "Free parking" && <TimeToLeave />) ||
+                        (amenity === "Paid parking" && <PaidOutlined />) ||
+                        (amenity === "Air conditioning" && <AcUnitRounded />) ||
+                        (amenity === "Workspace" && <Work />) ||
+                        (amenity === "Hot tub" && <HotTub />) ||
+                        (amenity === "Pool" && <Pool />) ||
+                        (amenity === "Outdoor grill" && <OutdoorGrill />) ||
+                        (amenity === "Fire place" && <Fireplace />) ||
+                        (amenity === "Fire extinguisher" && (
+                          <FireExtinguisherOutlined />
+                        )) ||
+                        (amenity === "First aid kit" && (
+                          <MedicalServicesOutlined />
+                        )) ||
+                        (amenity === "Smoke detector" && (
+                          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAgElEQVR4nGNgGAUkgP9UxgNnAT6x/wT4uMTwS5AIcJrzFCphxUA+sIaa8QSbZDsVw78VmwVsUEtgPiEHP4EaDjILL1gO1ZBBRLBkQNWC9BANSNG0nATHwIEGGcGjwUAiICUunjMwMDAyjEjwn4yiYtQCBqoGETqguoEM9LZg8AEAeEuZ96V4tvUAAAAASUVORK5CYII="></img>
+                        ))}
+                    </div>
+                    <p>{amenity}</p>
                   </li>
                 ))}{" "}
               </ul>
               {data.amenities.length > 3 && (
                 <button
                   onClick={() => showAllAmenities(data.amenities)}
-                  className=" py-2 px-3 border border-black rounded-md hover:bg-gray-100 hover:transition-colors duration-150 delay-75"
+                  className=" mt-3 py-2 px-3 border border-black rounded-md hover:bg-gray-100 hover:transition-colors duration-150 delay-75"
                 >
                   {allAmenities === data.amenities.length
                     ? "Show less"
@@ -306,12 +352,12 @@ const RestaurantDetailsPage = () => {
               />{" "}
             </div>
           )}
-          <div className=" px-2">
-            <h2 className=" my-2 text-lg font-bold tracking-wide">
-              Where to sleep
-            </h2>
-            {data && !isLoading && data?.whereToSleep && (
-              <div className=" grid grid-cols-3 gap-x-4 gap-y-2">
+          {data && !isLoading && data?.whereToSleep.length > 0 && (
+            <div className=" px-2">
+              <h2 className=" my-2 text-lg font-bold tracking-wide">
+                Where to sleep
+              </h2>
+              <div className=" grid lg:grid-cols-3 md:grid-cols-3 grid-cols-2 gap-x-4 gap-y-2">
                 {data.whereToSleep.map((place, index) => (
                   <div
                     key={index}
@@ -352,35 +398,6 @@ const RestaurantDetailsPage = () => {
                   </div>
                 ))}
               </div>
-            )}
-            <div
-              style={{
-                height: "0.01rem",
-              }}
-              className=" bg-black opacity-20 my-5"
-            />
-          </div>
-
-          {data && !isLoading && (
-            <div className=" px-2">
-              <h2 className=" my-2 text-lg font-bold tracking-wide">Tags</h2>
-              <ul className=" flex flex-wrap items-center gap-2 py-2 px-3">
-                {data?.tags.map((tag, index) => {
-                  return (
-                    <li key={index}>
-                      <p className=" py-2 px-3 rounded-md border border-totem-pole-400">
-                        {tag}
-                      </p>
-                    </li>
-                  );
-                })}
-              </ul>
-              <div
-                style={{
-                  height: "0.01rem",
-                }}
-                className=" bg-black opacity-20 my-5"
-              />{" "}
             </div>
           )}
         </div>
@@ -615,7 +632,7 @@ const RestaurantDetailsPage = () => {
                 <div className=" flex gap-1 text-totem-pole-50">
                   <button
                     className="inline-flex w-full items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-gray-900 rounded-lg hover:bg-gray-800 focus:shadow-outline focus:outline-none"
-                    onClick={handleBooking}
+                    onClick={user ? handleBooking : () => navigate("/login")}
                   >
                     Book
                   </button>

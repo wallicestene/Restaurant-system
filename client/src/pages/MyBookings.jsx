@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useUserContext } from "../hooks/Usercontext";
 import Bookings from "../components/Bookings";
-import { Skeleton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import AccountNav from "../components/AccountNav";
+import { CircularProgress } from "@mui/material";
 
 // eslint-disable-next-line react/prop-types
 const MyBookings = () => {
@@ -12,7 +12,6 @@ const MyBookings = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [{ user }] = useUserContext();
-  const skeleton = [1, 2, 3, 4,];
   const navigate = useNavigate();
   useEffect(() => {
     const getMyBookings = () => {
@@ -40,96 +39,48 @@ const MyBookings = () => {
           setLoading(false);
         });
     };
-      getMyBookings();
+    getMyBookings();
   }, [user?.token, user?.userId]);
   return (
     <>
-      <div className="w-1/2 mx-auto py-20 font-mulish">
-        <AccountNav/>
+      <div className="lg:w-11/12  mx-auto w-full py-20 px-2 font-Montserrat">
+        <AccountNav />
         <div className=" flex flex-col gap-y-3">
-          {loading &&
-            skeleton.map((skeleton, index) => (
-              <div key={index} className=" bg-gray-200/90 rounded">
-                <div className=" flex gap-3">
-                  <Skeleton
-                    animation="wave"
-                    variant="rounded"
-                    width="50%"
-                    height={120}
-                    sx={{
-                      bgcolor: "grey.500",
-                    }}
-                  />
-                  <div className=" w-full flex flex-col justify-between py-3 ">
-                    <Skeleton
-                      animation="wave"
-                      variant="rounded"
-                      width="80%"
-                      height={22}
-                      sx={{
-                        bgcolor: "grey.500",
-                      }}
-                    />
-                    <div className=" flex justify-around gap-x-2 px-2">
-                      <Skeleton
-                        animation="wave"
-                        variant="rounded"
-                        width="50%"
-                        height={22}
-                        sx={{
-                          bgcolor: "grey.500",
-                        }}
-                      />
-                      <Skeleton
-                        animation="wave"
-                        variant="rounded"
-                        width="50%"
-                        height={22}
-                        sx={{
-                          bgcolor: "grey.500",
-                        }}
-                      />
-                      <Skeleton
-                        animation="wave"
-                        variant="rounded"
-                        width="50%"
-                        height={22}
-                        sx={{
-                          bgcolor: "grey.500",
-                        }}
-                      />
-                    </div>
-                    <Skeleton
-                      animation="wave"
-                      variant="rounded"
-                      width="50%"
-                      height={22}
-                      sx={{
-                        bgcolor: "grey.500",
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
-            ))}
+          {loading && (
+            <div className="flex justify-center items-center h-48">
+              <CircularProgress />
+            </div>
+          )}
         </div>
         {error && <p>{error}</p>}
-        {!loading &&!error && myBookings.length > 0 ? (
-          <div className=" flex flex-col gap-y-3">
+        {!loading && !error && myBookings.length > 0 ? (
+          <div className=" grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-x-4 gap-y-24 p-2 lg:place-items-start place-items-center">
             {myBookings.map((booking) => (
               <Bookings key={booking?._id} booking={booking} />
             ))}
           </div>
         ) : (
           <div className=" flex flex-col gap-y-1">
-            <h1 className=" lg:text-2xl md:text-xl text-lg font-bold">No Bookings...Yet</h1>
+            <h1 className=" lg:text-2xl md:text-xl text-lg font-bold">
+              No Bookings...Yet
+            </h1>
             <p>
-              You {"don't"} have bookings yet. Click the button below to make a new
-              one.
+              You {"don't"} have bookings yet. Click the button below to make a
+              new one.
             </p>
-            <button onClick={() => {
-              navigate("/")
-            }} className=" py-2 px-3 border border-totem-pole-400 rounded w-fit">Start searching</button>
+            {/* <button  className=" py-2 px-3 border border-totem-pole-400 rounded w-fit">Start searching</button> */}
+            <button
+              onClick={() => {
+                navigate("/");
+              }}
+              className="relative w-fit inline-block px-4 py-2 font-medium group"
+            >
+              <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
+              <span className="absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black"></span>
+              <span className="relative text-black group-hover:text-white">
+                Start Searching
+              </span>
+            </button>
           </div>
         )}
       </div>

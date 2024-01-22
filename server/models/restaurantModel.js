@@ -64,6 +64,8 @@ const restaurantSchema = new Schema({
   tags: {
     type: [String],
   },
+},{
+  timestamps: true
 });
 
 module.exports = mongoose.model("restaurant", restaurantSchema);

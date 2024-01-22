@@ -11,15 +11,15 @@ const RestarantsPage = () => {
     `http://localhost:3000/api/restaurants/owner/${user?.userId}`
   );
   return (
-    <div className=" lg:w-1/2 mx-auto w-full pt-20">
+    <div className=" lg:w-11/12  mx-auto w-full py-20 px-2 font-Montserrat">
       <AccountNav />
-      <div className=" flex justify-center">
+      <div className=" flex justify-center ">
         <Link
-          className=" py-1 px-2 cursor-pointer flex item-center justify-center gap-x-1 bg-totem-pole-500 rounded-full text-totem-pole-50 w-fit"
+          className="inline-flex items-center justify-center gap-2 h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-gray-900 rounded-lg hover:bg-gray-800 focus:shadow-outline focus:outline-none"
           to="/account/myRestaurants/new"
         >
-          <Add  />
-          <span>Add new Restaurant</span>
+          <Add />
+          <span>Add new Listing</span>
         </Link>
       </div>
       {isLoading && (
@@ -27,11 +27,9 @@ const RestarantsPage = () => {
       )}
       {error && <Alert severity="error">{error}</Alert>}
       {!isLoading && data.length > 0 && (
-        <div className=" mt-4 flex flex-col gap-y-3">
+        <div className=" grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-x-4 gap-y-24 p-6 lg:place-items-start place-items-center">
           {data?.map((restaurant) => (
-            <Link key={restaurant._id} to={`/account/myRestaurants/${restaurant._id}`}>
-              <AddedRestaurants restaurant={restaurant} />
-            </Link>
+            <AddedRestaurants key={restaurant._id} restaurant={restaurant} />
           ))}
         </div>
       )}

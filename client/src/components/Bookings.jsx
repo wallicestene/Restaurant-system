@@ -1,18 +1,11 @@
+/* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable react/prop-types */
-import {
-  DateRange,
-  Delete,
-  LocationOn,
-  Numbers,
-  TableBarOutlined,
-} from "@mui/icons-material";
+import { Circle, LocationOn } from "@mui/icons-material";
 import moment from "moment";
-import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useUserContext } from "../hooks/Usercontext";
 import { toast } from "sonner";
 const Bookings = ({ booking }) => {
   const [{ user }] = useUserContext();
-  const history = useNavigate()
   const deleteBooking = () => {
     fetch(`http://localhost:3000/api/restaurant/reservation/${booking._id}`, {
       method: "DELETE",
@@ -24,56 +17,97 @@ const Bookings = ({ booking }) => {
       .then((response) => response.json())
       .then((data) => {
         if (data) {
-          toast.success("Reservation Deleted successfully");
+          toast.success("Booking Deleted successfully");
         }
-        
       })
       .catch((err) => console.log(err));
   };
 
+  const startDate = moment(booking?.checkIn);
+  const endDate = moment(booking?.checkOut);
+  const duration = moment.duration(endDate.diff(startDate));
   return (
-    <div className=" flex gap-x-2 bg-gray-200/90 w-full rounded-md overflow-hidden shadow-lg text-slate-900">
-      <div className="leftDiv h-28 w-1/2  overflow-hidden ">
-        <img
-          src={`http://localhost:3000/uploads/${booking?.restaurantId.images[0]}`}
-          alt={booking?.restaurantId.name}
-          className=" h-full w-full object-cover"
-        />
-      </div>
-      <div className="rightDiv relative flex flex-col justify-between py-3 w-full">
-        <Link to={`/restaurant/${booking?.restaurantId._id}`}>
-          <h1 className=" text-base">{booking?.restaurantId.name}</h1>
-        </Link>
-        <div className=" flex gap-x-2 justify-around ">
-          <p className=" flex items-center gap-x-1 bg-slate-900 px-2 py-1 text-totem-pole-50 rounded">
-            <TableBarOutlined fontSize="small" />{" "}
-            <span> Table 0{booking?.tableId.number}</span>
-          </p>
-          <p className=" flex items-center gap-x-1 bg-slate-900 px-2 py-1 text-totem-pole-50 rounded">
-            <Numbers fontSize="small" /> Table for {booking?.tableId.capacity}
-          </p>
-          <p className=" flex items-center gap-x-1 bg-slate-900 px-2 py-1 text-totem-pole-50 rounded">
-            {" "}
-            <DateRange fontSize="small" />{" "}
-            {moment(booking?.date).format("YYYY-MM-DD")}
+    <>
+      <div className=" relative h-64 w-fit">
+        <div className=" h-full overflow-hidden shadow-xl shadow-gray-400 rounded-xl inline-block">
+          <img
+            src={`http://localhost:3000/uploads/${booking?.restaurantId.images[0]}`}
+            alt={`${booking?.restaurantId.name} image 1 `}
+            className=" h-full object-cover brightness-[0.9]"
+          />
+        </div>
+        <div className=" p-[18px] absolute w-11/12 -bottom-20 left-1/2 -translate-x-1/2 rounded-xl shadow-gray-400 shadow-lg bg-white">
+          <div className=" flex items-center gap-1 text-[0.9rem] text-gray-700">
+            <p>
+              <Circle
+                sx={{
+                  height: "0.12em",
+                  width: "0.12em",
+                }}
+              />{" "}
+              {booking?.guests.adults + booking?.guests.children} Guest(s)
+            </p>
+            <p>
+              <Circle
+                sx={{
+                  height: "0.12em",
+                  width: "0.12em",
+                }}
+              />{" "}
+              {booking?.restaurantId.whereToSleep.length} Bedroom
+              {booking?.restaurantId.whereToSleep.length != 1 ? "s" : ""}
+            </p>
+          </div>
+
+          <h2 className="text-lg font-semibold  ">
+            {booking?.restaurantId.name}
+          </h2>
+          <div>
+            <p className=" inline-block font-light text-gray-100 bg-gray-900 text-sm lg:py-[6px] py-[4px] px-[10px] rounded-full">
+              <span>
+                {duration.asDays() == 1
+                  ? duration.asDays()
+                  : duration.asDays() - 1}{" "}
+                Night
+                {duration.asDays() == 1 || duration.asDays() - 1 == 1
+                  ? ""
+                  : "s"}
+              </span>
+            </p>
+            <p className=" mx-1 inline-block font-light text-gray-100 bg-gray-900 text-sm lg:py-[6px] py-[4px] px-[10px] rounded-full">
+              {(booking?.restaurantId.price).toLocaleString("en-US", {
+                style: "currency",
+                currency: "USD",
+              })}{" "}
+              <span>night</span>
+            </p>
+          </div>
+          <p className="text-sm mt-2 flex items-center">
+            <LocationOn
+              sx={{
+                fontSize: "1.1rem",
+                color: "red",
+              }}
+            />
+            <span className="">{booking?.restaurantId.address}</span>
           </p>
         </div>
-        <p className=" flex items-center text-xs">
-          <LocationOn
-            sx={{
-              fontSize: "1.0rem",
-            }}
-          />
-          {booking?.restaurantId.address}
-        </p><div>
-        <button className=" absolute top-1 right-1 rounded-md bg-red-500 px-2 text-white" onClick={deleteBooking
-          }>
-          Delete
+        {/* <button className="  bg bg-white lg:p-2 p-1 rounded-full text-[0.8rem]">
+         Delete
+        </button> */}
+        <button
+          onClick={deleteBooking}
+          className="absolute top-5 right-5 items-center justify-start inline-block p-2 text-sm overflow-hidden bg-white rounded-full group"
+        >
+          <span className="w-32 h-32 rotate-45 translate-x-12 -translate-y-2 absolute left-0 top-0 bg-white opacity-[3%]"></span>
+          <span className="absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24 bg-red-600 opacity-100 group-hover:-translate-x-8"></span>
+          <span className="relative w-full text-left transition-colors duration-200 ease-in-out group-hover:text-gray-100">
+            Delete
+          </span>
+          <span className="absolute inset-0 border-2 border-red-600 rounded-full"></span>
         </button>
       </div>
-      </div>
-      
-    </div>
+    </>
   );
 };
 

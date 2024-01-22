@@ -100,7 +100,7 @@ const PlacesForm = () => {
         .then((response) => response.json())
         .then((data) => console.log(data));
     }
-    setRedirect("/account/myRestaurants");
+    setRedirect("/account/myListings");
   };
   useEffect(() => {
     const getRestaurant = () => {
@@ -131,7 +131,7 @@ const PlacesForm = () => {
     <div className=" flex flex-col h-full  justify-center pt-20 pb-10 font-poppins">
       {" "}
       <button
-        className=" flex items-center text-sm hover:bg-totem-pole-100 w-fit mx-10 py-1 px-2 rounded-md transition-colors delay-150 duration-300"
+        className=" flex items-center text-sm lg:text-base hover:bg-gray-200 w-fit mx-4 lg:mx-10 md:mx-5 py-1 px-2 rounded-md transition-colors delay-150 duration-300"
         onClick={() => navigate(-1)}
       >
         <span>
@@ -302,7 +302,7 @@ const PlacesForm = () => {
                 top: 0,
               });
           }}
-          className={`fixed bg-white bottom-10 left-52  inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-red-500 rounded-full shadow-md group ${
+          className={`fixed bg-white bottom-10 lg:left-52 md:left-10 left-2   inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-red-500 rounded-full shadow-md group ${
             currentPage === 0 ? "  cursor-not-allowed" : ""
           }`}
         >
@@ -322,7 +322,7 @@ const PlacesForm = () => {
                 top: 0,
               });
           }}
-          className={`fixed bg-white bottom-10 right-52  inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-green-600 rounded-full shadow-md group ${
+          className={`fixed bg-white bottom-10 lg:right-52 md:right-10 right-2 inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-green-600 rounded-full shadow-md group ${
             currentPage === totalPages ? " cursor-not-allowed" : ""
           }`}
         >
