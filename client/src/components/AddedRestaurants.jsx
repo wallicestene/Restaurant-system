@@ -51,7 +51,7 @@ const AddedRestaurants = ({ restaurant }) => {
                   : "s"}
               </span>
             </p> */}
-            <p className=" mx-1 inline-block font-light text-gray-100 bg-black text-sm lg:py-[6px] py-[4px] px-[10px] rounded-full">
+            <p className=" mx-1 inline-block font-light text-gray-100 bg-gray-900 text-sm lg:py-[6px] py-[4px] px-[10px] rounded-full">
               {(restaurant?.price).toLocaleString("en-US", {
                 style: "currency",
                 currency: "USD",

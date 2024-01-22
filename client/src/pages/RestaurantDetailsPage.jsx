@@ -173,7 +173,7 @@ const RestaurantDetailsPage = () => {
             <div className="imgLeft">
               <img
                 src={`http://localhost:3000/uploads/${data?.images[0]}`}
-                className=" h-full w-full object-cover"
+                className=" h-full w-full object-cover object-center"
                 alt=""
               />
             </div>
@@ -189,7 +189,7 @@ const RestaurantDetailsPage = () => {
                   <img
                     src={`http://localhost:3000/uploads/${image}`}
                     alt={data?.name}
-                    className="h-36 w-full  object-cover"
+                    className="h-36 w-full  object-cover object-center"
                   />
                 </div>
               ))}

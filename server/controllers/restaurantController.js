@@ -100,7 +100,7 @@ const uploadImageByLink = (req, res) => {
 const findAllRestaurants = (req, res) => {
   Restaurant.find()
     .sort({
-      createdAt: 1,
+      updatedAt: -1,
     })
     .then((restaurants) => {
       res.status(200).json(restaurants);

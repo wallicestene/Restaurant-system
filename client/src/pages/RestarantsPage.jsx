@@ -15,11 +15,11 @@ const RestarantsPage = () => {
       <AccountNav />
       <div className=" flex justify-center ">
         <Link
-          className=" py-1 px-2 cursor-pointer flex item-center justify-center gap-x-1 bg-totem-pole-500 rounded-full text-totem-pole-50 w-fit"
+          className="inline-flex items-center justify-center gap-2 h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-gray-900 rounded-lg hover:bg-gray-800 focus:shadow-outline focus:outline-none"
           to="/account/myRestaurants/new"
         >
           <Add />
-          <span>Add new Restaurant</span>
+          <span>Add new Listing</span>
         </Link>
       </div>
       {isLoading && (
