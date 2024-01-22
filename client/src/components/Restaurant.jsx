@@ -49,7 +49,7 @@ const Restaurant = ({ restaurant }) => {
               <img
                 src={`http://localhost:3000/uploads/${image}`}
                 alt={` image ${images.length - 1}`}
-                className=" lg:h-72 h-72 object-cover"
+                className=" lg:h-72 h-72 object-cover brightness-[0.9]"
               />
             </div>
           </Link>
