@@ -100,7 +100,7 @@ const PlacesForm = () => {
         .then((response) => response.json())
         .then((data) => console.log(data));
     }
-    setRedirect("/account/myRestaurants");
+    setRedirect("/account/myListings");
   };
   useEffect(() => {
     const getRestaurant = () => {

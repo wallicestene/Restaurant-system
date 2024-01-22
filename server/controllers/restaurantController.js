@@ -19,7 +19,7 @@ const addRestaurant = (req, res) => {
     guests,
     price,
     amenities,
-    tags
+    tags,
   } = req.body;
   Restaurant.create({
     owner,
@@ -31,7 +31,7 @@ const addRestaurant = (req, res) => {
     guests,
     price,
     amenities,
-    tags
+    tags,
   })
     .then((result) => {
       res.status(200).json(result);
@@ -99,6 +99,9 @@ const uploadImageByLink = (req, res) => {
 };
 const findAllRestaurants = (req, res) => {
   Restaurant.find()
+    .sort({
+      createdAt: 1,
+    })
     .then((restaurants) => {
       res.status(200).json(restaurants);
     })
@@ -117,7 +120,7 @@ const updateRestaurant = (req, res) => {
     guests,
     price,
     amenities,
-    tags
+    tags,
   } = req.body;
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
