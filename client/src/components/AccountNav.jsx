@@ -4,7 +4,6 @@ import {
   RestaurantMenu,
 } from "@mui/icons-material";
 import { Link, useLocation } from "react-router-dom";
-
 const AccountNav = () => {
     const {pathname} = useLocation();
     let subPage = pathname.split('/')?.[2];
