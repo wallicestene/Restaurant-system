@@ -635,7 +635,13 @@ const RestaurantDetailsPage = () => {
                   <button
                     className="inline-flex w-full items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-gray-900 rounded-lg hover:bg-gray-800 focus:shadow-outline focus:outline-none"
                     // onClick={user ? handleBooking : () => navigate("/login")}
-                    onClick={() => setShowDetails(true)}
+                    onClick={() => {
+                      setShowDetails(true),
+                        window.scrollTo({
+                          top: 300,
+                          behavior: "smooth"
+                        });
+                    }}
                   >
                     Book
                   </button>

@@ -41,7 +41,7 @@ const BookingPage = ({setShowDetails}) => {
       {/* <Zoom className=" w-full h-full grid place-items-center"> */}
       <form
         onSubmit={handleSubmit}
-        className=" bg-white lg:w-11/12 w-11/12 shadow-xl py-5 px-7 flex flex-col gap-5 rounded-md"
+        className=" bg-white lg:w-11/12 w-full shadow-xl py-5 px-7 flex flex-col gap-5 rounded-md"
       >
         <div className=" flex items-center justify-between">
           <div>
