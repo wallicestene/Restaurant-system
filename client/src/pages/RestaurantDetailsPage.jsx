@@ -444,7 +444,7 @@ const RestaurantDetailsPage = () => {
                     />
                   </div>
                 </div>
-                <div className="p-1 rounded-lg border border-totem-pole-400 flex flex-col gap-2 p-2">
+                <div className=" rounded-lg border border-totem-pole-400 flex flex-col gap-2 p-2">
                   <div>
                     <h3>
                       Add <strong>check in</strong> and{" "}
