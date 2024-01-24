@@ -639,8 +639,9 @@ const RestaurantDetailsPage = () => {
                       setShowDetails(true),
                         window.scrollTo({
                           top: 300,
-                          behavior: "smooth"
-                        });
+                          behavior: "smooth",
+                        }),
+                        setShowBookingMobile(false);
                     }}
                   >
                     Book
