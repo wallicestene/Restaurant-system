@@ -39,6 +39,7 @@ import { useUserContext } from "../hooks/Usercontext";
 import { toast } from "sonner";
 import { getUnit } from "@mui/material/styles/cssUtils";
 import Scroll from "../components/SmoothScroll";
+import BookingPage from "../components/BookingPage";
 const RestaurantDetailsPage = () => {
   const [value, setValue] = useState(0);
   const [date, setDate] = useState({
@@ -56,6 +57,7 @@ const RestaurantDetailsPage = () => {
   const [infants, setInfants] = useState(0);
   const [allGuests, setAllGuests] = useState(adults);
   const [disableGuests, setDisableGuests] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
 
   const [{ user }] = useUserContext();
 
@@ -134,7 +136,7 @@ const RestaurantDetailsPage = () => {
     });
   };
   return (
-    <div className="h-screen py-16 lg:w-11/12 md:w-11/12 mx-auto font-mulish relative px-2">
+    <div className=" h-scre py-16 lg:w-11/12 md:w-11/12 mx-auto font-mulish relative px-2">
       <button
         className=" flex items-center text-sm hover:bg-totem-pole-100 w-fit py-1 px-2 rounded-md transition-colors delay-150 duration-300"
         onClick={() => navigate(-1)}
@@ -632,7 +634,18 @@ const RestaurantDetailsPage = () => {
                 <div className=" flex gap-1 text-totem-pole-50">
                   <button
                     className="inline-flex w-full items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-gray-900 rounded-lg hover:bg-gray-800 focus:shadow-outline focus:outline-none"
-                    onClick={user ? handleBooking : () => navigate("/login")}
+                    onClick={
+                      user
+                        ? () => {
+                            setShowDetails(true),
+                              window.scrollTo({
+                                top: 300,
+                                behavior: "smooth",
+                              }),
+                              setShowBookingMobile(false);
+                          }
+                        : () => navigate("/login")
+                    }
                   >
                     Book
                   </button>
@@ -642,6 +655,7 @@ const RestaurantDetailsPage = () => {
           )}
         </div>
       </div>
+      {showDetails && <BookingPage setShowDetails={setShowDetails} />}
     </div>
   );
 };
