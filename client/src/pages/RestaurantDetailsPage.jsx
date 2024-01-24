@@ -634,15 +634,18 @@ const RestaurantDetailsPage = () => {
                 <div className=" flex gap-1 text-totem-pole-50">
                   <button
                     className="inline-flex w-full items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-gray-900 rounded-lg hover:bg-gray-800 focus:shadow-outline focus:outline-none"
-                    // onClick={user ? handleBooking : () => navigate("/login")}
-                    onClick={() => {
-                      setShowDetails(true),
-                        window.scrollTo({
-                          top: 300,
-                          behavior: "smooth",
-                        }),
-                        setShowBookingMobile(false);
-                    }}
+                    onClick={
+                      user
+                        ? () => {
+                            setShowDetails(true),
+                              window.scrollTo({
+                                top: 300,
+                                behavior: "smooth",
+                              }),
+                              setShowBookingMobile(false);
+                          }
+                        : () => navigate("/login")
+                    }
                   >
                     Book
                   </button>
