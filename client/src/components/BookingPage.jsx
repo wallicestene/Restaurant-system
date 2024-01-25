@@ -3,7 +3,10 @@ import { Close } from "@mui/icons-material";
 import { useState } from "react";
 import { toast } from "sonner";
 // import { Zoom } from "react-awesome-reveal";
-
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // You can also use <link> for styles
+// ..
+AOS.init();
 const BookingPage = ({ setShowDetails, handleBooking }) => {
   const [paymentDetails, setPaymentDetails] = useState({
     name: "",
@@ -35,7 +38,8 @@ const BookingPage = ({ setShowDetails, handleBooking }) => {
     });
   };
   return (
-    <section className=" absolute top-0 z-20 grid place-content-center bg-white/10 backdrop-blur-sm h-full w-screen bg-opacity-50 ">
+    <section data-aos="fade-up"
+    data-aos-duration="1000" className=" absolute top-0 z-20 grid place-content-center bg-white/10 backdrop-blur-sm h-full w-screen bg-opacity-50 ">
       {/* <Zoom className=" w-full h-full grid place-items-center"> */}
       <form
         onSubmit={handleSubmit}
