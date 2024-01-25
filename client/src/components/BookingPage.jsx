@@ -1,15 +1,15 @@
+/* eslint-disable react/prop-types */
 import { Close } from "@mui/icons-material";
 import { useState } from "react";
+import { toast } from "sonner";
 // import { Zoom } from "react-awesome-reveal";
 
-const BookingPage = ({setShowDetails}) => {
+const BookingPage = ({ setShowDetails, handleBooking }) => {
   const [paymentDetails, setPaymentDetails] = useState({
     name: "",
     email: "",
     cardNumber: "",
     cvv: "",
-    date: "",
-    country: "",
   });
 
   const handleChange = (e) => {
@@ -31,8 +31,6 @@ const BookingPage = ({setShowDetails}) => {
         email: "",
         cardNumber: "",
         cvv: "",
-        date: "",
-        country: "",
       };
     });
   };
@@ -50,7 +48,7 @@ const BookingPage = ({setShowDetails}) => {
               Enter details below to purchase your products.
             </p>
           </div>
-          <div onClick={() => setShowDetails(false)}>
+          <div className=" hover:cursor-pointer" onClick={() => setShowDetails(false)}>
             <Close />
           </div>
         </div>
@@ -83,7 +81,7 @@ const BookingPage = ({setShowDetails}) => {
                 name="cardNumber"
                 required
                 onChange={handleChange}
-                className=" col-span-2 border outline-none indent-2 py-1 w-full rounded"
+                className=" col-span-2 border border-black outline-none indent-2 py-1 w-full rounded"
                 placeholder="Card number"
               />
               <div className=" col-span-2 flex items-center gap-5">
@@ -96,32 +94,24 @@ const BookingPage = ({setShowDetails}) => {
                   className=" border outline-none indent-2 py-1 w-full rounded"
                   placeholder="CVV"
                 />
-                <input
-                  type="month"
-                  name="date"
-                  required
-                  onChange={handleChange}
-                  value={paymentDetails.date}
-                  className=" border outline-none indent-2 py-1 w-full rounded"
-                  placeholder=""
-                />
               </div>
             </div>
           </div>
-          <select
-            name="country"
-            id="country"
-            onChange={handleChange}
-            value={paymentDetails.country}
-            className=" border outline-none indent-2 py-1 w-full rounded"
+          <button
+            onClick={() => {
+              if (
+                paymentDetails.email &&
+                paymentDetails.name &&
+                paymentDetails.cardNumber &&
+                paymentDetails.cvv
+              ) {
+                handleBooking();
+              } else {
+                toast.error("Please enter all payment details!");
+              }
+            }}
+            className=" bg-black p-1 h-12 w-full rounded-md text-white"
           >
-            <option value="kenya">Kenya</option>
-            <option value="USA">USA</option>
-            <option value="Mexico">Mexico</option>
-            <option value="UK">UK</option>
-            <option value="Nigeria">Nigeria</option>
-          </select>
-          <button className=" bg-black py-1 w-full rounded text-white">
             Make Payment
           </button>
         </div>

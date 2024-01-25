@@ -136,7 +136,7 @@ const RestaurantDetailsPage = () => {
     });
   };
   return (
-    <div className=" h-scre py-16 lg:w-11/12 md:w-11/12 mx-auto font-mulish relative px-2">
+    <div className=" py-16 lg:w-11/12 md:w-11/12 mx-auto font-mulish relative px-2">
       <button
         className=" flex items-center text-sm hover:bg-totem-pole-100 w-fit py-1 px-2 rounded-md transition-colors delay-150 duration-300"
         onClick={() => navigate(-1)}
@@ -660,7 +660,7 @@ const RestaurantDetailsPage = () => {
           )}
         </div>
       </div>
-      {showDetails && <BookingPage setShowDetails={setShowDetails} />}
+      {showDetails && <BookingPage handleBooking={handleBooking} setShowDetails={setShowDetails} />}
     </div>
   );
 };
