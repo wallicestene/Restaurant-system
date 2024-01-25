@@ -37,7 +37,7 @@ const BookingPage = ({setShowDetails}) => {
     });
   };
   return (
-    <section className=" absolute top-0 grid place-content-center bg-white/10 backdrop-blur-sm h-full w-screen bg-opacity-50 ">
+    <section className=" absolute top-0 z-20 grid place-content-center bg-white/10 backdrop-blur-sm h-full w-screen bg-opacity-50 ">
       {/* <Zoom className=" w-full h-full grid place-items-center"> */}
       <form
         onSubmit={handleSubmit}

@@ -416,7 +416,7 @@ const RestaurantDetailsPage = () => {
             <div
               className={`lg:sticky lg:top-20 lg:left-0 lg:bottom-0  w-full  shadow-2xl rounded-md  lg:flex flex-col gap-y-2  font-mulish ${
                 showBookingMobile
-                  ? "  lg:h-fit fixed top-0 backdrop-blur-md bg-white/70 z-10 h-screen flex flex-col justify-center"
+                  ? "  lg:h-fit fixed top-0 z-10 backdrop-blur-md bg-white/70 h-screen flex flex-col justify-center"
                   : "hidden"
               }`}
             >
@@ -444,7 +444,7 @@ const RestaurantDetailsPage = () => {
                     />
                   </div>
                 </div>
-                <div className=" rounded-lg border border-totem-pole-400 flex flex-col gap-2 p-2">
+                <div className="rounded-lg border border-totem-pole-400 flex flex-col gap-2 p-2">
                   <div>
                     <h3>
                       Add <strong>check in</strong> and{" "}
@@ -637,12 +637,17 @@ const RestaurantDetailsPage = () => {
                     onClick={
                       user
                         ? () => {
-                            setShowDetails(true),
-                              window.scrollTo({
-                                top: 300,
-                                behavior: "smooth",
-                              }),
-                              setShowBookingMobile(false);
+                            if (date.startDate && date.endDate) {
+                              setShowDetails(true),
+                                window.scrollTo({
+                                  top: 300,
+                                  behavior: "smooth",
+                                });
+                            } else {
+                              toast.error(
+                                "Please select check in and check out to book!"
+                              );
+                            }
                           }
                         : () => navigate("/login")
                     }
