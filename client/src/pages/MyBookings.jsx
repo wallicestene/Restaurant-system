@@ -45,21 +45,21 @@ const MyBookings = () => {
     <>
       <div className="lg:w-11/12  mx-auto w-full py-20 px-2 font-Montserrat">
         <AccountNav />
-        <div className=" flex flex-col gap-y-3">
-          {loading && (
-            <div className="flex justify-center items-center h-48">
-              <CircularProgress />
-            </div>
-          )}
-        </div>
         {error && <p>{error}</p>}
-        {!loading && !error && myBookings.length > 0 ? (
+        {loading && (
+          <div className="flex justify-center items-center h-48">
+            <CircularProgress />
+          </div>
+        )}
+
+        {!loading && (
           <div className=" grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-x-4 gap-y-24 p-2 lg:place-items-start place-items-center">
             {myBookings.map((booking) => (
               <Bookings key={booking?._id} booking={booking} />
             ))}
           </div>
-        ) : (
+        )}
+        {myBookings.length === 0 && (
           <div className=" flex flex-col gap-y-1">
             <h1 className=" lg:text-2xl md:text-xl text-lg font-bold">
               No Bookings...Yet
