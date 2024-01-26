@@ -23,8 +23,8 @@ const Profile = () => {
   return (
     <div className="  flex flex-col items-center py-20 text-sm lg:w-11/12 mx-auto w-full px-2">
       <AccountNav />
-      <div className="lg:w-1/2 w-full grid place-items-center border border-gray-300 shadow-lg rounded-lg overflow-hidden">
-        <div className="relative flex items-center gap-2 bg-gradient-to-l from-rose-400 via-fuchsia-500 rounded-b-xl to-indigo-500 h-40 w-full p-2">
+      <div className="lg:w-1/2 w-full grid place-items-center border border-gray-300 shadow-lg shadow-gray-400 rounded-lg overflow-hidden">
+        <div className="relative flex items-center gap-2 bg-gradient-to-l from-rose-400 via-fuchsia-500 rounded-b-lg to-indigo-500 h-52 w-full p-2">
           <div className=" absolute z-10 -bottom-24 right-1/2 translate-x-1/2 -translate-y-1/2">
             <Avatar
               sx={{
@@ -40,7 +40,7 @@ const Profile = () => {
         </div>
         <div className="w-full p-5">
           <div className=" mt-5">
-            <h1 className="text-5xl font-bold leading-tight tracking-t">
+            <h1 className="text-5xl font-bold leading-tight tracking-tight">
               Hello, {`${user?.first_name} ${user?.last_name}`}
             </h1>
           </div>
