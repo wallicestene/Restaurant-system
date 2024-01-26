@@ -24,7 +24,7 @@ const Profile = () => {
     <div className=" flex flex-col items-center h-screen pt-20 text-sm lg:w-11/12 mx-auto w-full px-2">
       <AccountNav />
       <div className="w-full grid place-items-center">
-        <div className=" flex items-center gap-2 bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 h-40 lg:w-1/2 w-full p-2">
+        <div className=" flex items-center gap-2 bg-gradient-to-l from-rose-400 via-fuchsia-500 rounded-md to-indigo-500 h-40 lg:w-1/2 w-full p-2">
           <div>
             <Avatar sx={{ width: 50, height: 50, backgroundColor: "#0F172A" }}>
               {user?.first_name[0]}
