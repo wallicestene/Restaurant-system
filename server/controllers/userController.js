@@ -13,7 +13,7 @@ const loginUser = (req, res) => {
     .then((user) => {
       const token = createToken(user._id);
       const first_name = user.first_name;
-      const last_name = user.first_name;
+      const last_name = user.last_name;
       res.status(200).json({ first_name, last_name, email, token, userId: user._id  });
     })
     .catch((error) => {
