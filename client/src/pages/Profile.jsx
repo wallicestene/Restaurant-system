@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useUserContext } from "../hooks/Usercontext";
 import { Navigate } from "react-router-dom";
 import AccountNav from "../components/AccountNav";
+import { Avatar } from "@mui/material";
 const Profile = () => {
   const [redirect, setRedirect] = useState(null);
   const [{ user }, dispatch] = useUserContext();
@@ -21,34 +22,26 @@ const Profile = () => {
   }
   return (
     <div className=" flex flex-col items-center h-screen pt-20 text-sm lg:w-11/12 mx-auto w-full px-2">
-    <AccountNav/>
-      <div className=" bg-gray-200 bg-opacity-90 py-2 px-4 rounded lg:w-1/2 w-full">
-        <h3 className=" text-center">You're Logged in as:</h3>
-        <div
-          style={{
-            height: "0.01rem",
-          }}
-          className=" bg-black opacity-20"
-        />
-        <div className="flex flex-col gap-1 p-2">
-          <p className=" grid grid-cols-2 gap-x-0 place-items-start">
-            <span className=" text-slate-900">First Name: </span>{" "}
-            <span className=" text-gray-500 text-xs">{user?.first_name}</span>
-          </p>
-          <p className=" grid grid-cols-2 place-items-start">
-            <span className=" text-slate-900 ">Last Name: </span>{" "}
-            <span className=" text-gray-500 text-xs">{user?.last_name}</span>
-          </p>
-          <p className=" grid grid-cols-2 place-items-start">
-            <span className=" text-slate-900">Email: </span>{" "}
-            <span className=" text-gray-500 text-xs">{user?.email}</span>
-          </p>
-          <button
-            className=" bg-red-600 rounded-md py-2 w-full text-white"
-            onClick={LogOutUser}
-          >
-            Log Out
-          </button>
+      <AccountNav />
+      <div className="w-full grid place-items-center">
+        <div className=" flex items-center gap-2 bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 h-40 lg:w-1/2 w-full p-2">
+          <div>
+            <Avatar sx={{ width: 50, height: 50, backgroundColor: "#0F172A" }}>
+              {user?.first_name[0]}
+            </Avatar>
+          </div>
+          <div>
+            <div className=" flex items-center gap-x-[2px]">
+              <p>@{user?.first_name}</p>
+              <p>{user?.last_name}</p>
+            </div>
+            <p className="text-xs font-light text-gray-400">{user?.email}</p>
+          </div>
+        </div>
+        <div>
+          <div></div>
+          <div></div>
+          <div></div>
         </div>
       </div>
     </div>
