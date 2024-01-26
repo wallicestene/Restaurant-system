@@ -118,6 +118,7 @@ const RestaurantDetailsPage = () => {
               success: "Reservation Successful!",
               error: "Error",
             });
+            setTimeout(navigate("/account/myBookings"), 2000);
           }
         })
         .catch((err) => {
@@ -660,7 +661,12 @@ const RestaurantDetailsPage = () => {
           )}
         </div>
       </div>
-      {showDetails && <BookingPage handleBooking={handleBooking} setShowDetails={setShowDetails} />}
+      {showDetails && (
+        <BookingPage
+          handleBooking={handleBooking}
+          setShowDetails={setShowDetails}
+        />
+      )}
     </div>
   );
 };
