@@ -80,7 +80,7 @@ const LoginPage = () => {
               className=" border outline-non text-slate-950 shadow-lg h-12 bg-none"
             />
           </label>
-          <button className="bg-gradient-to-l from-rose-400 via-fuchsia-500 rounded-b-lg to-indigo-500 rounded-md py-2 shadow-lg h-12">
+          <button className="bg-gradient-to-l from-rose-400 via-fuchsia-500 rounded-b-lg to-indigo-500 rounded-md py-2 shadow-lg h-12 text-white font-semibold tracking-wide text-[1rem]">
             Log In
           </button>
         </form>
