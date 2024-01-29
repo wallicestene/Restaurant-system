@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-const TagsOption = ({ handleTags, selectedTags, title }) => {
+const TagsOption = ({ handleTags, selectedTags, title, Icon }) => {
   return (
     <>
       <div
@@ -8,6 +8,7 @@ const TagsOption = ({ handleTags, selectedTags, title }) => {
           selectedTags.includes(title) ? " border-black" : ""
         }`}
       >
+        <div>{Icon}</div>
         <p>{title}</p>
       </div>
     </>
