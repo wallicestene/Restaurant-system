@@ -1,5 +1,4 @@
 import {
-  BeachAccess,
   BeachAccessOutlined,
   BedOutlined,
   CabinOutlined,
@@ -9,7 +8,6 @@ import {
   HouseboatOutlined,
   Pool,
 } from "@mui/icons-material";
-import AmenitiesOption from "./AmenitiesOption";
 import TagsOption from "./TagsOption";
 
 /* eslint-disable react/prop-types */
