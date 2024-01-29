@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useUserContext } from "../hooks/Usercontext";
 import { ErrorOutline } from "@mui/icons-material";
+import logo from "../assets/loginFormImages/Bookify (200 x 200 px) (Website) (2).svg"
 
 const SignupPage = () => {
   const [userDetails, setUserDetails] = useState({
@@ -56,7 +57,14 @@ const SignupPage = () => {
   return (
     <div className="bg-gradient-to-r from-orange-600 to-orange-500  grid  place-items-center h-screen font-mulish text-sm px-4">
       <div className="bg-white flex flex-col gap-y-3 lg:w-5/12 md:w-1/2 w-full lg:p-5 md:px-1 px-3 py-5 rounded-md shadow-lg text-sm">
-        <h2 className=" text-center text-base">Sign Up</h2>
+      <div className=" flex flex-col justify-center items-center text-[1.5rem] font-semibold"> 
+        <Link to="/">
+          <img src={logo} alt="" className=" h-14 w-36 object-center object-contain rounded-md"/>
+        </Link>
+        <h2>
+          Welcome to <span className=" text-totem-pole-600">Bookify</span>
+        </h2>
+       </div>
         <form className=" flex flex-col gap-y-3" onSubmit={handleSubmit}>
           <div className=" flex w-full gap-3 items-center justify-between">
             <label htmlFor="first_name" className=" w-full">
