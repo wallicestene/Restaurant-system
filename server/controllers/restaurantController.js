@@ -5,9 +5,22 @@ const imageDownloader = require("image-downloader");
 const { request } = require("express");
 const path = require("path");
 const { extname } = require("path");
+const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+require("dotenv").config();
+
 // const path = req
 // add a restaurant
-
+const bucketName = process.env.BUCKET_NAME;
+const bucketRegion = process.env.BUCKET_REGION;
+const accessKey = process.env.ACCESS_KEY;
+const secretKey = process.env.SECRET_KEY;
+const s3 = new S3Client({
+  credentials: {
+    accessKeyId: accessKey,
+    secretAccessKey: secretKey,
+  },
+  region: bucketRegion,
+});
 const addRestaurant = (req, res) => {
   const {
     owner,
@@ -75,7 +88,23 @@ const uploadImages = (req, res) => {
   for (let i = 0; i < req.files.length; i++) {
     const { filename } = req.files[i];
     uploadedImages.push(filename);
+    const params = {
+      Bucket: bucketName,
+      Key: filename,
+      Body: req.files[i].buffer,
+      contentType: req.files[i].mimetype
+    };
+    const command = new PutObjectCommand(params)
+    s3.send(command, (err, data) => {
+      if (err) {
+        console.log(err); 
+      } else {
+        console.log(data);
+      }
+    })
+    
   }
+
   res.json(uploadedImages);
 };
 // uploading menu item image
@@ -179,6 +208,9 @@ const searchRestaurant = (req, res) => {
       },
     ],
   })
+    .sort({
+      updatedAt: -1,
+    })
     .then((restaurants) => {
       if (!restaurants) {
         res.status(404).json({ error: "No matching restaurants found!" });
