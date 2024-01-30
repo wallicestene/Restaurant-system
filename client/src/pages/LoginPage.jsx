@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useUserContext } from "../hooks/Usercontext";
 import { ErrorOutline } from "@mui/icons-material";
-
+import logo from "../assets/loginFormImages/Bookify (200 x 200 px) (Website) (2).svg"
 const LoginPage = () => {
   const [{ user }, dispatch] = useUserContext();
   const [userDetails, setUserDetails] = useState({
@@ -52,9 +52,16 @@ const LoginPage = () => {
     return <Navigate to="/" />;
   }
   return (
-    <div className=" grid bg-[url('.\assets\loginFormImages\restaurant1.png')] bg-cover bg-center place-items-center h-screen font-mulish text-sm text-white">
-      <div className=" backdrop-blur-md border border-totem-pole-200  flex flex-col gap-y-3 lg:w-5/12 md:w-1/2 w-full lg:p-5 md:px-1 px-3 py-5 rounded-md shadow-lg ">
-        <h2 className=" text-center text-base">Log In</h2>
+    <div className="bg-gradient-to-r from-orange-600 to-orange-500  grid  place-items-center h-screen font-mulish text-sm px-4">
+      <div className=" bg-white flex flex-col gap-y-3 lg:w-5/12 md:w-1/2 w-full lg:p-5 md:px-1 px-3 py-5 rounded-md shadow-lg ">
+       <div className=" flex flex-col justify-center items-center text-[1.5rem] font-semibold"> 
+        <Link to="/">
+          <img src={logo} alt="" className=" h-14 w-36 object-center object-contain rounded-md"/>
+        </Link>
+        <h2>
+          Welcome to <span className=" text-totem-pole-600">Bookify</span>
+        </h2>
+       </div>
         <form className=" flex flex-col gap-y-3" onSubmit={handleSubmit}>
           <label htmlFor="email">
             Email: <br />
@@ -65,7 +72,7 @@ const LoginPage = () => {
               placeholder="Enter email"
               value={userDetails.email}
               onChange={handleChange}
-              className=" border-none outline-none text-slate-950 shadow-lg"
+              className=" border outline-none text-slate-950 shadow-lg h-12 bg-none"
             />
           </label>
           <label htmlFor="password">
@@ -77,23 +84,23 @@ const LoginPage = () => {
               placeholder="Enter password"
               value={userDetails.password}
               onChange={handleChange}
-              className=" border-none outline-non text-slate-950 shadow-lg"
+              className=" border outline-non text-slate-950 shadow-lg h-12 bg-none"
             />
           </label>
-          <button className="bg-blue-500 hover:bg-blue-700 text-white rounded-md py-2 shadow-lg">
+          <button className="bg-gradient-to-l from-rose-400 via-fuchsia-500 rounded-b-lg to-indigo-500 rounded-md py-2 shadow-lg h-12 text-white font-semibold tracking-wide text-[1rem]">
             Log In
           </button>
         </form>
         {logInError && (
-          <div className=" text-center border border-red-500 text-red-500 my-2 rounded-md bg-red-300 py-1">
-            <div className=" flex items-center justify-center gap-x-1">
+          <div className=" text-center border border-red-500 text-red-500 my-2 rounded-md bg-red-300 py-1 ">
+            <div className="h-10 flex items-center justify-center gap-x-1">
               <ErrorOutline/>
               <p>{logInError}!</p>
             </div>
           </div>
         )}
         <div className=" text-center text-xs">
-          <span className=" text-white">Not Registered? </span>
+          <span className="">Not Registered? </span>
           <Link to="/signup" className=" text-center">
             <span className=" underline text-blue-800">Sign Up</span>
           </Link>

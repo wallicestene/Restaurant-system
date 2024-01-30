@@ -3,8 +3,8 @@ import { Close } from "@mui/icons-material";
 import { useState } from "react";
 import { toast } from "sonner";
 // import { Zoom } from "react-awesome-reveal";
-import AOS from 'aos';
-import 'aos/dist/aos.css'; // You can also use <link> for styles
+import AOS from "aos";
+import "aos/dist/aos.css"; // You can also use <link> for styles
 // ..
 AOS.init();
 const BookingPage = ({ setShowDetails, handleBooking }) => {
@@ -38,8 +38,13 @@ const BookingPage = ({ setShowDetails, handleBooking }) => {
     });
   };
   return (
-    <section data-aos="fade-up"
-    data-aos-duration="1000" className=" absolute top-0 z-20 grid place-content-center bg-white/10 backdrop-blur-sm h-full w-screen bg-opacity-50 ">
+    <section
+      data-aos="fade-up"
+      data-aos-duration="800"
+      data-aos-easing="linear"
+      data-aos-offset="500"
+      className=" absolute top-0 z-20 grid place-content-center bg-white/10 backdrop-blur-sm h-full w-screen bg-opacity-50 "
+    >
       {/* <Zoom className=" w-full h-full grid place-items-center"> */}
       <form
         onSubmit={handleSubmit}
@@ -52,7 +57,10 @@ const BookingPage = ({ setShowDetails, handleBooking }) => {
               Enter details below to purchase your products.
             </p>
           </div>
-          <div className=" hover:cursor-pointer" onClick={() => setShowDetails(false)}>
+          <div
+            className=" hover:cursor-pointer"
+            onClick={() => setShowDetails(false)}
+          >
             <Close />
           </div>
         </div>

@@ -24,7 +24,7 @@ const Filter = ({searchInput, setSearchInput, searchRestaurant}) => {
     <section className="p-2">
       <div className=" font-mulish mt-20">
         <form className=" flex items-center justify-center gap-3">
-          <div className="  border border-totem-pole-500 h-10 rounded-full lg:w-96 w-9/12 flex items-center gap-1 overflow-hidden px-1 ">
+          <div className="  border-[1px] border-gray-300 shadow-lg h-12 rounded-full lg:w-96 w-9/12 flex items-center gap-1 overflow-hidden px-1 ">
             <input
               type="text"
               placeholder="Search restaurant by name or location"
@@ -34,7 +34,7 @@ const Filter = ({searchInput, setSearchInput, searchRestaurant}) => {
             />
           </div>
 
-          <button className=" p-2 bg-totem-pole-500 rounded-full text-orange-50 text-sm hover:bg-totem-pole-600 transition-all delay-100 duration-150 hover:transform hover:scale-105 ease-linear" onClick={searchRestaurant}>
+          <button className=" p-3 bg-totem-pole-500 rounded-full text-orange-50 text-sm hover:bg-totem-pole-600 transition-all delay-100 duration-150 hover:transform hover:scale-105 ease-linear" onClick={searchRestaurant}>
             <Search/>
           </button>
         </form>

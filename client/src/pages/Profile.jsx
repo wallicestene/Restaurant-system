@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useUserContext } from "../hooks/Usercontext";
 import { Navigate } from "react-router-dom";
 import AccountNav from "../components/AccountNav";
+import { Avatar } from "@mui/material";
 const Profile = () => {
   const [redirect, setRedirect] = useState(null);
   const [{ user }, dispatch] = useUserContext();
@@ -20,35 +21,39 @@ const Profile = () => {
     return <Navigate to={redirect} />;
   }
   return (
-    <div className=" flex flex-col items-center h-screen pt-20 text-sm lg:w-11/12 mx-auto w-full px-2">
-    <AccountNav/>
-      <div className=" bg-gray-200 bg-opacity-90 py-2 px-4 rounded lg:w-1/2 w-full">
-        <h3 className=" text-center">You're Logged in as:</h3>
-        <div
-          style={{
-            height: "0.01rem",
-          }}
-          className=" bg-black opacity-20"
-        />
-        <div className="flex flex-col gap-1 p-2">
-          <p className=" grid grid-cols-2 gap-x-0 place-items-start">
-            <span className=" text-slate-900">First Name: </span>{" "}
-            <span className=" text-gray-500 text-xs">{user?.first_name}</span>
-          </p>
-          <p className=" grid grid-cols-2 place-items-start">
-            <span className=" text-slate-900 ">Last Name: </span>{" "}
-            <span className=" text-gray-500 text-xs">{user?.last_name}</span>
-          </p>
-          <p className=" grid grid-cols-2 place-items-start">
-            <span className=" text-slate-900">Email: </span>{" "}
-            <span className=" text-gray-500 text-xs">{user?.email}</span>
-          </p>
-          <button
-            className=" bg-red-600 rounded-md py-2 w-full text-white"
+    <div className="  flex flex-col items-center py-20 text-sm lg:w-11/12 mx-auto w-full px-2">
+      <AccountNav />
+      <div className="lg:w-1/2 w-full grid place-items-center border border-gray-300 shadow-lg shadow-gray-400 rounded-lg overflow-hidden">
+        <div className="relative flex items-center gap-2 bg-gradient-to-l from-rose-400 via-fuchsia-500 rounded-b-lg to-indigo-500 h-52 w-full p-2">
+          <div className=" absolute z-10 -bottom-24 right-1/2 translate-x-1/2 -translate-y-1/2">
+            <Avatar
+              sx={{
+                width: 100,
+                height: 100,
+                backgroundColor: "#0F172A",
+                fontSize: "3rem",
+              }}
+            >
+              {user?.first_name[0]}
+            </Avatar>
+          </div>
+        </div>
+        <div className="w-full p-5">
+          <div className=" mt-5">
+            <h1 className="text-5xl font-bold leading-tight tracking-tight">
+              Hello, {`${user?.first_name} ${user?.last_name}`}
+            </h1>
+          </div>
+          <div className="my-4 h-12 text-gray-600 text-[1rem] flex items-center justify-center rounded-lg ">
+            <p>{user?.email}</p>
+          </div>
+          <div>
+            <button
             onClick={LogOutUser}
-          >
-            Log Out
-          </button>
+              className="inline-flex items-center justify-center h-12 px-10 py-0 text-xl font-semibold text-center no-underline align-middle transition-all duration-300 ease-in-out bg-transparent border-2 border-black border-solid rounded-lg cursor-pointer select-none hover:text-white hover:bg-black w-full hover:border-white focus:shadow-xs focus:no-underline"
+            >Log Out
+            </button>
+          </div>
         </div>
       </div>
     </div>
