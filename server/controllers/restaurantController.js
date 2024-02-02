@@ -4,9 +4,11 @@ const multer = require("multer");
 const imageDownloader = require("image-downloader");
 const { request } = require("express");
 const path = require("path");
+const fs = require('fs');
 const { extname } = require("path");
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 require("dotenv").config();
+
 
 // const path = req
 // add a restaurant
@@ -88,21 +90,21 @@ const uploadImages = (req, res) => {
   for (let i = 0; i < req.files.length; i++) {
     const { filename } = req.files[i];
     uploadedImages.push(filename);
+    console.log(req.files[i])
     const params = {
       Bucket: bucketName,
       Key: filename,
-      Body: req.files[i].buffer,
-      contentType: req.files[i].mimetype
+      Body: fs.readFileSync(req.files[i].path),
+      ContentType: req.files[i].mimetype,
     };
-    const command = new PutObjectCommand(params)
+    const command = new PutObjectCommand(params);
     s3.send(command, (err, data) => {
       if (err) {
-        console.log(err); 
+        console.log(err);
       } else {
         console.log(data);
       }
-    })
-    
+    });
   }
 
   res.json(uploadedImages);
