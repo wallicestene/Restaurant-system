@@ -92,17 +92,16 @@ const uploadImages = (req, res) => {
       Bucket: bucketName,
       Key: filename,
       Body: req.files[i].buffer,
-      contentType: req.files[i].mimetype
+      contentType: req.files[i].mimetype,
     };
-    const command = new PutObjectCommand(params)
+    const command = new PutObjectCommand(params);
     s3.send(command, (err, data) => {
       if (err) {
-        console.log(err); 
+        console.log(err);
       } else {
         console.log(data);
       }
-    })
-    
+    });
   }
 
   res.json(uploadedImages);
