@@ -56,7 +56,7 @@ const ImageGallery = () => {
             {data?.images.map((image, index) => (
               <img
                 key={index}
-                src={`http://localhost:3000/uploads/${image}`}
+                src={image}
                 alt={`image ${index + 1}`}
                 className="w-full lg:h-1/2 object-contain"
               />
