@@ -89,8 +89,6 @@ const uploadImages = (req, res) => {
   const uploadedImages = [];
   for (let i = 0; i < req.files.length; i++) {
     const { filename } = req.files[i];
-    uploadedImages.push(filename);
-    console.log(req.files[i])
     const params = {
       Bucket: bucketName,
       Key: filename,
@@ -105,8 +103,8 @@ const uploadImages = (req, res) => {
         console.log(data);
       }
     });
+    uploadedImages.push(`https://bookify-app-bucket.s3.amazonaws.com/${filename}`);
   }
-
   res.json(uploadedImages);
 };
 // uploading menu item image

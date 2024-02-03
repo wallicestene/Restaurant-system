@@ -47,8 +47,8 @@ const Restaurant = ({ restaurant }) => {
           <Link key={index} to={`/restaurant/${restaurant._id}`}>
             <div className=" h-full w-full  overflow-hidden ">
               <img
-                src={`http://localhost:3000/uploads/${image}`}
-                alt={` image ${images.length - 1}`}
+                src={image}
+                alt={` image ${index + 1}`}
                 className=" lg:h-72 h-72 object-cover brightness-[0.9]"
               />
             </div>

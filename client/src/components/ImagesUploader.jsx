@@ -63,7 +63,7 @@ const ImagesUploader = ({ images, setImages, imageLink, setImageLink }) => {
           images.map((image, index) => (
             <div key={index} className=" relative">
               <img
-                src={`http://localhost:3000/uploads/${image}`}
+                src={image}
                 alt=""
                 className=" h-28 lg:h-32 w-full rounded-md object-cover"
               />
