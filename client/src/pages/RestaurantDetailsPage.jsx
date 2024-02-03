@@ -79,12 +79,6 @@ const RestaurantDetailsPage = () => {
     numberOfGuests();
   }, [adults, allGuests, children, data.guests]);
 
-  // handle amenities
-  // useEffect(() => {
-  //   const addAmenityIcon = () => {
-
-  //   }
-  // },[])
   const handleBooking = () => {
     if (user && date.startDate && date.endDate) {
       fetch("http://localhost:3000/api/restaurant/reservation", {
@@ -175,7 +169,7 @@ const RestaurantDetailsPage = () => {
           >
             <div className="imgLeft">
               <img
-                src={`http://localhost:3000/uploads/${data?.images[0]}`}
+                src={data?.images[0]}
                 className=" h-full w-full object-cover object-center"
                 alt=""
               />
@@ -190,7 +184,7 @@ const RestaurantDetailsPage = () => {
               {data?.images.slice(1, 5).map((image, index) => (
                 <div key={index} className="overflow-hidden">
                   <img
-                    src={`http://localhost:3000/uploads/${image}`}
+                    src={image}
                     alt={data?.name}
                     className="h-36 w-full  object-cover object-center"
                   />
@@ -229,7 +223,7 @@ const RestaurantDetailsPage = () => {
                 {data?.images.map((image, index) => (
                   <div key={index} className="  overflow-hidden h-64 w-full">
                     <img
-                      src={`http://localhost:3000/uploads/${image}`}
+                      src={image}
                       alt={data.name}
                       className=" w-full h-full object-cover"
                     />
