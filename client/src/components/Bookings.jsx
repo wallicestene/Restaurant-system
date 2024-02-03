@@ -29,9 +29,9 @@ const Bookings = ({ booking }) => {
   return (
     <>
       <div className=" relative h-64 w-fit">
-        <div className=" h-full overflow-hidden shadow-xl shadow-gray-400 rounded-xl inline-block">
+        <div className=" h-full w-full overflow-hidden shadow-xl shadow-gray-400 rounded-xl inline-block">
           <img
-            src={`http://localhost:3000/uploads/${booking?.restaurantId.images[0]}`}
+            src={booking?.restaurantId.images[0]}
             alt={`${booking?.restaurantId.name} image 1 `}
             className=" h-full object-cover brightness-[0.9]"
           />

@@ -14,7 +14,7 @@ const Restaurant = ({ restaurant }) => {
   const [images, setImages] = useState(restaurant.images);
 
   return (
-    <div className=" flex flex-col gap-y-1 h-full rounded-t-2xl overflow-hidden bg-white shadow-md shadow-gray-300 hover:shadow-gray-400 transition-shadow duration-200 delay-100 ease-linear">
+    <div className=" flex flex-col gap-y-1 h-full rounded-t-2xl overflow-hidden bg-white shadow-md shadow-gray-300 hover:shadow-gray-400 transition-shadow duration-200 delay-100 ease-linear hover:rounded-xl">
       <Carousel
         showThumbs={false}
         emulateTouch
@@ -47,8 +47,8 @@ const Restaurant = ({ restaurant }) => {
           <Link key={index} to={`/restaurant/${restaurant._id}`}>
             <div className=" h-full w-full  overflow-hidden ">
               <img
-                src={`http://localhost:3000/uploads/${image}`}
-                alt={` image ${images.length - 1}`}
+                src={image}
+                alt={` image ${index + 1}`}
                 className=" lg:h-72 h-72 object-cover brightness-[0.9]"
               />
             </div>
@@ -62,7 +62,7 @@ const Restaurant = ({ restaurant }) => {
           </div>
         </Link>
         <div className=" flex  flex-col  gap-y-1 justify-between h-full text-sm">
-          <div className=" flex flex-row gap-x-2 gap-y-1 flex-wrap">
+          <div className=" flex flex-row gap-x-2 gap-y-1 flex-wrap text-gray-600">
             {restaurant.tags.slice(0, 5).map((tag, index) => (
               <div
                 key={index}
@@ -72,18 +72,20 @@ const Restaurant = ({ restaurant }) => {
               </div>
             ))}
           </div>
-          <div className=" ">
+          <div className=" text-[0.97rem]">
             <p>
-              <span>
+              <span className=" font-semibold">
                 {(restaurant?.price).toLocaleString("en-US", {
                   style: "currency",
                   currency: "USD",
                 })}{" "}
-                night
+              </span>
+              <span>
+              night
               </span>
             </p>
           </div>
-          <div className=" flex items-center justify-start gap-1  text-gray-600">
+          <div className=" flex items-center justify-start gap-1 text-[0.97rem]">
             <LocationOn
               sx={{
                 fontSize: "1.1rem",

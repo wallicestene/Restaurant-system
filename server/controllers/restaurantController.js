@@ -4,11 +4,10 @@ const multer = require("multer");
 const imageDownloader = require("image-downloader");
 const { request } = require("express");
 const path = require("path");
-const fs = require('fs');
+const fs = require("fs");
 const { extname } = require("path");
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 require("dotenv").config();
-
 
 // const path = req
 // add a restaurant
@@ -74,9 +73,6 @@ const getRestaurantByOwner = (req, res) => {
 };
 // custom filename and destination
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, __dirname + "/uploads");
-  },
   filename: (req, file, cb) => {
     cb(null, "photo" + Date.now() + path.extname(file.originalname));
   },
@@ -89,8 +85,6 @@ const uploadImages = (req, res) => {
   const uploadedImages = [];
   for (let i = 0; i < req.files.length; i++) {
     const { filename } = req.files[i];
-    uploadedImages.push(filename);
-    console.log(req.files[i])
     const params = {
       Bucket: bucketName,
       Key: filename,
@@ -105,8 +99,10 @@ const uploadImages = (req, res) => {
         console.log(data);
       }
     });
+    uploadedImages.push(
+      `https://bookify-app-bucket.s3.amazonaws.com/${filename}`
+    );
   }
-
   res.json(uploadedImages);
 };
 // uploading menu item image
@@ -118,16 +114,45 @@ const uploadMenuImage = (req, res) => {
 const uploadImageByLink = (req, res) => {
   const { link } = req.body;
   const newName = "photo" + Date.now() + ".jpg";
+  const filePath = `${__dirname}/uploads/${newName}`;
+
   imageDownloader
     .image({
       url: link,
-      dest: __dirname + "/uploads/" + newName,
+      dest: filePath,
     })
-    .then((image) => {
-      res.json(newName);
+    .then(() => {
+      // Upload the image to S3
+      const fileStream = fs.createReadStream(filePath);
+      const params = {
+        Bucket: bucketName,
+        Key: newName,
+        Body: fileStream,
+        ContentType: "image/jpeg",
+      };
+      const command = new PutObjectCommand(params);
+
+      s3.send(command, (err, data) => {
+        if (err) {
+          console.error("Error uploading image to S3:", err);
+          res.status(500).json({ error: "Failed to upload image to S3" });
+        } else {
+          console.log("Image uploaded successfully.");
+          //Deleting the local file after uploading to S3
+          fs.unlinkSync(filePath);
+
+          return res.json(
+            `https://bookify-app-bucket.s3.amazonaws.com/${newName}`
+          );
+        }
+      });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.error("Error downloading image:", err);
+      res.status(500).json({ error: "Failed to download image" });
+    });
 };
+
 const findAllRestaurants = (req, res) => {
   Restaurant.find()
     .sort({
