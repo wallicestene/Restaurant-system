@@ -36,8 +36,8 @@ const RestaurantContainer = () => {
         setLoading(false);
         setSearchError(null);
         if (result.length === 0) {
-          setSearchError("No restaurant found!");
-          toast.error("No restaurant found!")
+          setSearchError("No place found!");
+          toast.error("No place found!")
         }
       })
       .catch((error) => {
