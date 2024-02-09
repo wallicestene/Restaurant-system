@@ -9,8 +9,8 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="text-ebony-50  bg-black py-5 px-1 lg:px-8  font-mulish">
-      <div className="  lg:grid lg:grid-cols-4 grid-cols-2 lg:gap-5 gap-8 place-items-center flex flex-row flex-wrap">
+    <footer className="text-ebony-50 py-5 px-1 lg:px-8  font-mulish border rounded-t-md">
+      <div className=" font-thin lg:grid lg:grid-cols-4 grid-cols-2 lg:gap-5 gap-8 place-items-center flex flex-row flex-wrap">
         <div>
           <h1 className=" text-lg my-1 font-semibold text-totem-pole-600">
             Bookify
@@ -31,7 +31,7 @@ const Footer = () => {
           </div>
         </div>
         <div>
-          <h1 className=" text-white text-lg text-ebony-50 my-1 uppercase font-semibold">
+          <h1 className="  text-lg text-ebony-50 my-1 uppercase font-semibold">
             Company
           </h1>
           <div className=" lg:text-sm text-xs text-neutral-500 flex flex-col gap-2">
@@ -42,7 +42,7 @@ const Footer = () => {
           </div>
         </div>
         <div>
-          <h1 className=" text-white text-lg text-ebony-50 my-1 uppercase font-semibold">
+          <h1 className=" text-lg text-ebony-50 my-1 uppercase font-semibold">
             Discover
           </h1>
           <div className="lg:text-sm text-xs text-neutral-500 flex flex-col gap-2">
@@ -53,7 +53,7 @@ const Footer = () => {
           </div>
         </div>
         <div>
-          <h1 className="lg:text-xl text-white text-lg text-ebony-50 my-1 uppercase font-semibold">
+          <h1 className="lg:text-xl text-lg text-ebony-50 my-1 uppercase font-semibold">
             Hosting
           </h1>
           <div className="lg:text-sm text-xs text-neutral-500 flex flex-col gap-2">
