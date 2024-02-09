@@ -13,7 +13,7 @@ const Navbar = () => {
   // console.log(user);
   useEffect(() => {
     const navShow = () => {
-      if (window.scrollY > 50) {
+      if (window.scrollY > 10) {
         setShowNavbar(true);
       } else {
         setShowNavbar(false);

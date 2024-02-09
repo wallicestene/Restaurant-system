@@ -16,6 +16,7 @@ const Restaurant = ({ restaurant }) => {
   return (
     <div className=" flex flex-col gap-y-1 h-full rounded-t-2xl overflow-hidden bg-white shadow-md shadow-gray-300 hover:shadow-gray-400 transition-shadow duration-200 delay-100 ease-linear hover:rounded-xl">
       <Carousel
+        showStatus={false}
         showThumbs={false}
         emulateTouch
         stopOnHover
@@ -26,7 +27,7 @@ const Restaurant = ({ restaurant }) => {
           hasPrev && (
             <span
               onClick={onClickHandler}
-              className=" h-8 w-8 flex items-center justify-center bg-white rounded-full cursor-pointer absolute top-1/2 left-3 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity delay-150 duration-300 ease-linear bg-opacity-80"
+              className=" h-8 w-8 flex items-center justify-center bg-white rounded-full cursor-pointer absolute top-1/2 left-3 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity delay-150 duration-300 ease-linear"
             >
               <KeyboardArrowLeft />
             </span>
@@ -36,7 +37,7 @@ const Restaurant = ({ restaurant }) => {
           hasNext && (
             <span
               onClick={onClickHandler}
-              className=" h-8 w-8 flex items-center justify-center bg-white rounded-full cursor-pointer absolute top-1/2 right-3 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity delay-150 duration-300 ease-linear bg-opacity-80"
+              className=" h-8 w-8 flex items-center justify-center bg-white rounded-full cursor-pointer absolute top-1/2 right-3 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity delay-150 duration-300 ease-linear"
             >
               <KeyboardArrowRight />
             </span>
@@ -80,9 +81,7 @@ const Restaurant = ({ restaurant }) => {
                   currency: "USD",
                 })}{" "}
               </span>
-              <span>
-              night
-              </span>
+              <span>night</span>
             </p>
           </div>
           <div className=" flex items-center justify-start gap-1 text-[0.97rem]">
