@@ -26,7 +26,7 @@ const Restaurant = ({ restaurant }) => {
           hasPrev && (
             <span
               onClick={onClickHandler}
-              className=" h-8 w-8 flex items-center justify-center bg-white rounded-full cursor-pointer absolute top-1/2 left-3 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity delay-150 duration-300 ease-linear bg-opacity-80"
+              className=" h-8 w-8 flex items-center justify-center bg-white rounded-full cursor-pointer absolute top-1/2 left-3 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity delay-150 duration-300 ease-linear"
             >
               <KeyboardArrowLeft />
             </span>
@@ -36,7 +36,7 @@ const Restaurant = ({ restaurant }) => {
           hasNext && (
             <span
               onClick={onClickHandler}
-              className=" h-8 w-8 flex items-center justify-center bg-white rounded-full cursor-pointer absolute top-1/2 right-3 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity delay-150 duration-300 ease-linear bg-opacity-80"
+              className=" h-8 w-8 flex items-center justify-center bg-white rounded-full cursor-pointer absolute top-1/2 right-3 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity delay-150 duration-300 ease-linear"
             >
               <KeyboardArrowRight />
             </span>
