@@ -211,6 +211,7 @@ const RestaurantDetailsPage = () => {
             <div>
               <Carousel
                 showThumbs={false}
+                showStatus={false}
                 autoPlay
                 emulateTouch
                 infiniteLoop
