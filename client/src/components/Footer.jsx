@@ -31,7 +31,7 @@ const Footer = () => {
           </div>
         </div>
         <div>
-          <h1 className="  text-lg text-ebony-50 my-1 uppercase font-semibold">
+          <h1 className="  text-lg text-ebony-50 my-1 first-letter:uppercase font-semibold">
             Company
           </h1>
           <div className=" lg:text-sm text-xs text-neutral-500 flex flex-col gap-2">
@@ -42,7 +42,7 @@ const Footer = () => {
           </div>
         </div>
         <div>
-          <h1 className=" text-lg text-ebony-50 my-1 uppercase font-semibold">
+          <h1 className=" text-lg text-ebony-50 my-1 first-letter:uppercase font-semibold">
             Discover
           </h1>
           <div className="lg:text-sm text-xs text-neutral-500 flex flex-col gap-2">
@@ -53,7 +53,7 @@ const Footer = () => {
           </div>
         </div>
         <div>
-          <h1 className="lg:text-xl text-lg text-ebony-50 my-1 uppercase font-semibold">
+          <h1 className="lg:text-xl text-lg text-ebony-50 my-1 first-letter:uppercase font-semibold">
             Hosting
           </h1>
           <div className="lg:text-sm text-xs text-neutral-500 flex flex-col gap-2">
