@@ -150,7 +150,7 @@ const RestaurantDetailsPage = () => {
       {!isLoading && !error && (
         <div className=" relative mx-auto px-3">
           <div>
-            <div className="top  text-totem-pole-500 font-semibold  mt-5 lg:text-xl md:text-lg  my-5 first-letter:uppercase tracking-wide">
+            <div className="top font-semibold  mt-5 lg:text-xl md:text-lg  my-5 first-letter:uppercase tracking-wide">
               <h1>{data?.name}</h1>
             </div>
           </div>
