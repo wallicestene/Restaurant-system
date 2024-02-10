@@ -1,6 +1,5 @@
 import {
   Close,
-  Favorite,
   GitHub,
   Instagram,
   KeyboardArrowDown,
@@ -14,21 +13,12 @@ const Footer = () => {
   const [showFooter, setShowfooter] = useState(false);
   return (
     <footer
-      className={`fixed bottom-0 left-0 z-10 w-full px-2 bg-white text-ebony-50 font-mulish border rounded-t-md transition-all duration-300 ease-linear h-10 ${
-        showFooter && " h-[210px] "
+      className={`fixed bottom-0 left-0 z-10 w-full px-2 bg-white text-ebony-50 font-mulish border rounded-t-md transition-all duration-300 ease-linear lg:h-10 h-14 flex items-center ${
+        showFooter && " lg:h-[210px] h-[350px]"
       }`}
     >
       {!showFooter ? (
-        <div className=" flex items-center justify-between flex-wrap h-10">
-          <div className=" lg:text-sm text-xs text-neutral-500 grid place-items-center">
-            <p>
-              Made with{" "}
-              <span className=" text-red-600">
-                <Favorite fontSize="small" />
-              </span>{" "}
-              By Wallicestene Waweru
-            </p>
-          </div>
+        <div className=" flex items-center justify-around flex-wrap h-10 w-full">
           <div className=" lg:text-sm text-xs text-neutral-500 grid place-items-center">
             <p>
               &copy; {new Date().getFullYear()}{" "}
@@ -38,6 +28,7 @@ const Footer = () => {
               All rights reserved
             </p>
           </div>
+          
 
           <div className="flex items-center justify-center gap-3 text-neutral-400">
             <a href="https://github.com/wallicestene">
@@ -70,6 +61,7 @@ const Footer = () => {
             </button>
           </div>
         </div>
+        
       ) : (
         <div className="py-5 px-1 lg:px-8">
           <div>
