@@ -13,7 +13,7 @@ const Footer = () => {
   const [showFooter, setShowfooter] = useState(false);
   return (
     <footer
-      className={`fixed bottom-0 left-0 z-10 w-full px-2 bg-white text-ebony-50 font-mulish border rounded-t-md transition-all duration-300 ease-linear lg:h-10 h-14 flex items-center ${
+      className={`fixed bottom-0 left-0 z-10 w-full px-2 bg-white text-ebony-50 font-mulish border rounded-t-md transition-all duration-300 ease-linear h-10 flex items-center ${
         showFooter && " lg:h-[210px] h-[350px]"
       }`}
     >
