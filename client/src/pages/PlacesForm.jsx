@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useUserContext } from "../hooks/Usercontext";
 import ImagesUploader from "../components/ImagesUploader";
-import MenuItems from "../components/MenuItems";
+import WhereToSleep from "../components/MenuItems";
 import Tags from "../components/Tags";
 import {
   ArrowBack,
@@ -213,7 +213,7 @@ const PlacesForm = () => {
                   "Add a place to sleep",
                   "The place to sleep i.e bedrooms and the sleeping position"
                 )}
-                <MenuItems
+                <WhereToSleep
                   bedroom={bedroom}
                   setBedroom={setBedroom}
                   sleepingPosition={sleepingPosition}
@@ -232,7 +232,7 @@ const PlacesForm = () => {
                 <div className=" p-2 grid place-items-center w-full">
                   <input
                     type="number"
-                    className=" text-[2.9rem] border text-center border-black py-2 h-40  indent-2 outline-none rounded-md "
+                    className=" text-[2.9rem] w-full border text-center border-black py-2 h-40  indent-2 outline-none rounded-md "
                     placeholder="Number of Guests"
                     name="guests"
                     value={guests}
@@ -252,7 +252,7 @@ const PlacesForm = () => {
                 <div className=" p-2 grid place-items-center w-full ">
                   <input
                     type="number"
-                    className=" text-[2.9rem] text-center border border-black py-2 h-40  indent-2 outline-none rounded-md "
+                    className=" text-[2.9rem] w-full text-center border border-black py-2 h-40  indent-2 outline-none rounded-md "
                     placeholder="Price eg $ 54"
                     name="price"
                     value={price}

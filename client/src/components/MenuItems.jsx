@@ -6,7 +6,6 @@ import {
   KeyboardArrowDown,
   KeyboardArrowUp,
   Remove,
-  UploadRounded,
 } from "@mui/icons-material";
 import { useState } from "react";
 
@@ -83,7 +82,7 @@ const WhereToSleepItems = ({
           ))}
         </ul>
       )}
-      <div className=" flex flex-row justify-between gap-x-2 items-center">
+      <div className=" flex flex-row justify-between lg:gap-x-3 gap-x-2 items-center">
         <input
           type="number"
           className=" text-[2rem] w-full text-center border border-black py-2 h-20  indent-2 outline-none rounded-lg "
