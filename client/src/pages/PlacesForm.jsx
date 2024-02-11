@@ -210,7 +210,7 @@ const PlacesForm = () => {
             {currentPage === 4 && (
               <div className=" h-full flex flex-col items-start gap-y-10">
                 {inputTitle(
-                  "Add a place to sleep/relax",
+                  "Add a place to sleep",
                   "The place to sleep i.e bedrooms and the sleeping position"
                 )}
                 <MenuItems
@@ -334,18 +334,6 @@ const PlacesForm = () => {
           </span>
           <span className="relative invisible">Next</span>
         </button>
-        {/* <button
-            disabled={currentPage === totalPages}
-            onClick={() => {
-              setcurrentPage((prevValue) => prevValue + 1),
-                window.scrollTo({
-                  top: 0,
-                });
-            }}
-            className={`fixed bottom-10 right-52 bg-green-600 py-2 px-5 rounded-lg text-white ${currentPage === totalPages ? " bg-gray-400 cursor-not-allowed" : ""}`}
-          >
-            Next
-          </button> */}
       </div>
     </div>
     // </div>
