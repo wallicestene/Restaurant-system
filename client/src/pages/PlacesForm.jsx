@@ -263,9 +263,20 @@ const PlacesForm = () => {
               </div>
             )}
             {currentPage === 8 && (
-              <div className="  flex flex-col items-start gap-y-10">
-                {inputTitle("Tags", "What is you restaurant best known for?")}
-                <Tags selectedTags={tags} setSelectedTags={setTags} />
+              <div>
+                <div className=" h-full  flex flex-col items-start gap-y-10">
+                  {inputTitle("Tags", "What is you restaurant best known for?")}
+                  <Tags selectedTags={tags} setSelectedTags={setTags} />
+                </div>
+
+                <div className="mb-[45px] w-full flex items-center justify-center p-2 rounded">
+                  <button
+                    onClick={saveRestaurant}
+                    className=" w-full py-2 inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-gray-900 rounded-lg hover:bg-gray-800 focus:shadow-outline focus:outline-none"
+                  >
+                    Save
+                  </button>
+                </div>
               </div>
             )}
             {currentPage === 7 && (
@@ -280,8 +291,8 @@ const PlacesForm = () => {
                 />
               </div>
             )}
-            {currentPage === 8 && (
-              <div className=" my-4 flex items-center justify-center p-2 rounded">
+            {/* {currentPage === 8 && (
+              <div className="mb-[50px] flex items-center justify-center p-2 rounded">
                 <button
                   onClick={saveRestaurant}
                   className=" w-full py-2 inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-gray-900 rounded-lg hover:bg-gray-800 focus:shadow-outline focus:outline-none"
@@ -289,7 +300,7 @@ const PlacesForm = () => {
                   Save
                 </button>
               </div>
-            )}
+            )} */}
           </form>
         </div>
         {/* <div className=" fixed bottom-5 flex  justify-between w-11/12 lg:w-1/2 mx-auto"> */}
