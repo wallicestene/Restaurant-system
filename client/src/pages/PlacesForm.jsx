@@ -42,12 +42,12 @@ const PlacesForm = () => {
 
   const inputHeader = (header) => {
     return (
-      <h2 className=" text-[2.3rem] font-semibold font-poppins">{header}</h2>
+      <h2 className=" text-[2.3rem] font-semibold font-Mulish">{header}</h2>
     );
   };
   const inputDescription = (description) => {
     return (
-      <p className=" text-[1.5rem] text-gray-500 font-poppins">{description}</p>
+      <p className=" text-[1.5rem] text-gray-500 font-Mulish">{description}</p>
     );
   };
   const inputTitle = (header, description) => {
@@ -128,7 +128,7 @@ const PlacesForm = () => {
   }
 
   return (
-    <div className=" flex flex-col h-full  justify-center pt-20 pb-10 font-poppins">
+    <div className=" flex flex-col h-full  justify-center pt-20 pb-10 font-Mulish">
       {" "}
       <button
         className=" flex items-center text-sm lg:text-base hover:bg-gray-200 w-fit mx-4 lg:mx-10 md:mx-5 py-1 px-2 rounded-md transition-colors delay-150 duration-300"
@@ -143,7 +143,7 @@ const PlacesForm = () => {
         </span>
         <span>Back</span>
       </button>
-      <div className=" relative w-full lg:w-3/5 mx-auto font-mulish h-screen  grid place-items-center p-4">
+      <div className=" relative w-full lg:w-3/5 mx-auto font-Mulish h-screen  grid place-items-center p-4">
         <div className="w-full h-full">
           <form className=" h-full">
             {currentPage === 0 && (
