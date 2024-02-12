@@ -131,7 +131,7 @@ const RestaurantDetailsPage = () => {
     });
   };
   return (
-    <div className=" py-16 lg:w-11/12 md:w-11/12 mx-auto font-mulish relative px-2">
+    <div className=" py-16 lg:w-11/12 md:w-11/12 mx-auto font-Mulish relative px-2">
       <button
         className=" flex items-center text-sm hover:bg-totem-pole-100 w-fit py-1 px-2 rounded-md transition-colors delay-150 duration-300"
         onClick={() => navigate(-1)}
@@ -150,7 +150,7 @@ const RestaurantDetailsPage = () => {
       {!isLoading && !error && (
         <div className=" relative mx-auto px-3">
           <div>
-            <div className="top font-semibold  mt-5 lg:text-xl md:text-lg  my-5 first-letter:uppercase tracking-wide">
+            <div className="top font-semibold  mt-5 text-lg  my-5 first-letter:uppercase ">
               <h1>{data?.name}</h1>
             </div>
           </div>
@@ -196,7 +196,7 @@ const RestaurantDetailsPage = () => {
             <div>
               <Link
                 to={`/imageGallery/${id}`}
-                className=" hidden absolute bottom-2 right-4 bg-white/70 backdrop-blur-md text-xs tracking-wide lg:flex items-center font-semibold gap-1 py-1 px-2 rounded-md hover:cursor-pointer"
+                className=" hidden absolute bottom-2 right-4 bg-white/70 backdrop-blur-md text-xs  lg:flex items-center font-semibold gap-1 py-1 px-2 rounded-md hover:cursor-pointer"
               >
                 {/* <PhotoRounded fontSize="small" /> */}
                 <img
@@ -245,7 +245,7 @@ const RestaurantDetailsPage = () => {
                     fontSize: "1.4rem",
                   }}
                 />
-                <span className=" tracking-wide">{data?.address}</span>
+                <span className=" ">{data?.address}</span>
               </p>
               <div className=" flex items-center gap-x-2 text-sm font-extralight">
                 <p className=" flex items-center justify-center gap-x-[2px]">
@@ -277,10 +277,10 @@ const RestaurantDetailsPage = () => {
           )}
           {data && !isLoading && (
             <div className=" px-2">
-              <h2 className=" my-2 text-lg font-bold tracking-wide">
+              <h2 className=" my-2 text-lg font-semibold ">
                 About this place
               </h2>
-              <p className="text-md text-gray-900 text-sm tracking-wide line-clamp-[4]">
+              <p className="text-md text-gray-900 text-sm  line-clamp-[4]">
                 {data?.description}
               </p>
               <div
@@ -293,7 +293,7 @@ const RestaurantDetailsPage = () => {
           )}
           {data && !isLoading && data?.amenities.length > 0 && (
             <div className=" px-2">
-              <h2 className=" my-2 text-lg font-bold tracking-wide">
+              <h2 className=" my-2 text-lg font-semibold ">
                 Amenities in this place
               </h2>
               <ul className=" grid lg:grid-cols-3 md:grid-cols-3 grid-cols-2 gap-3">
@@ -352,7 +352,7 @@ const RestaurantDetailsPage = () => {
           )}
           {data && !isLoading && data?.whereToSleep.length > 0 && (
             <div className=" px-2">
-              <h2 className=" my-2 text-lg font-bold tracking-wide">
+              <h2 className=" my-2 text-lg font-semibold ">
                 Where to sleep
               </h2>
               <div className=" grid lg:grid-cols-3 md:grid-cols-3 grid-cols-2 gap-x-4 gap-y-2">
@@ -400,9 +400,9 @@ const RestaurantDetailsPage = () => {
           )}
         </div>
         <div className=" lg:col-span-1 flex flex-col items-center">
-          <div className="lg:hidden fixed bottom-2 right-4 flex justify-end items-end w-full">
+          <div className="lg:hidden fixed bottom-[40px] right-4 flex justify-end items-end w-full">
             <button
-              className=" py-2 inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-gray-900 rounded-lg hover:bg-gray-800 focus:shadow-outline focus:outline-none"
+              className=" py-2 inline-flex items-center justify-center h-12 px-6 font-medium  text-white transition duration-200 bg-gray-900 rounded-lg hover:bg-gray-800 focus:shadow-outline focus:outline-none"
               onClick={() => setShowBookingMobile(true)}
             >
               Book
@@ -420,7 +420,7 @@ const RestaurantDetailsPage = () => {
                 <div className=" flex w-full justify-between">
                   <div>
                     <p className=" ">
-                      <span className="text-[1.2em] font-semibold tracking-wide">
+                      <span className="text-[1.2em] font-semibold ">
                         {data.price.toLocaleString("en-US", {
                           style: "currency",
                           currency: "USD",
@@ -629,7 +629,7 @@ const RestaurantDetailsPage = () => {
                 </div>
                 <div className=" flex gap-1 text-totem-pole-50">
                   <button
-                    className="inline-flex w-full items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-gray-900 rounded-lg hover:bg-gray-800 focus:shadow-outline focus:outline-none"
+                    className="inline-flex w-full items-center justify-center h-12 px-6 font-medium  text-white transition duration-200 bg-gray-900 rounded-lg hover:bg-gray-800 focus:shadow-outline focus:outline-none"
                     onClick={
                       user
                         ? () => {

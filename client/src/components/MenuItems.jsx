@@ -6,7 +6,6 @@ import {
   KeyboardArrowDown,
   KeyboardArrowUp,
   Remove,
-  UploadRounded,
 } from "@mui/icons-material";
 import { useState } from "react";
 
@@ -48,21 +47,8 @@ const WhereToSleepItems = ({
     });
     setShowPosition(false);
   };
-  // const uploadwhereToSleepImage = (e) => {
-  //   const { files } = e.target;
-  //   let formData = new FormData();
-  //   formData.append("sleepingPosition", files[0]);
-  //   fetch("http://localhost:3000/api/upload-whereToSleep-image", {
-  //     method: "POST",
-  //     body: formData,
-  //   })
-  //     .then((response) => response.json())
-  //     .then((image) => {
-  //       setSleepingPosition(image);
-  //     });
-  // };
   return (
-    <>
+    <div>
       {whereToSleep.length > 0 && (
         <ul className="flex gap-2 flex-wrap py-2 px-3">
           {whereToSleep.map((whereToSleepItem, index) => (
@@ -96,17 +82,17 @@ const WhereToSleepItems = ({
           ))}
         </ul>
       )}
-      <div className=" flex flex-row justify-between items-center gap-x-2 p-2 w-full">
+      <div className=" flex flex-row justify-between lg:gap-x-3 gap-x-2 items-center">
         <input
           type="number"
-          className=" text-[2rem] text-center border border-black py-2 h-20  indent-2 outline-none rounded-lg "
+          className=" text-[2rem] w-full text-center border border-black py-2 h-20  indent-2 outline-none rounded-lg "
           placeholder="bedroom"
           name="bedroom"
           value={bedroom}
           min={1}
           onChange={(e) => setBedroom(e.target.value)}
         />
-        <div className=" relative grid place-items-center border border-black w-full h-full rounded-lg">
+        <div className=" relative grid place-items-center border border-black w-full h-20 rounded-lg">
           <div
             className=" p-2  flex items-center justify-between hover:cursor-pointer"
             onClick={() => setShowPosition(!showPosition)}
@@ -261,27 +247,6 @@ const WhereToSleepItems = ({
             </div>
           )}
         </div>
-        {/* <input
-          type="text"
-          className=" h-20 text-center text-[2rem]  "
-          placeholder="Sleeping position"
-          required
-          name="sleepingPosition"
-          value={sleepingPosition}
-          onChange={(e) => setSleepingPosition(e.target.value)}
-        /> */}
-
-        {/* <label className="flex items-center gap-x-1 rounded-md  bg-slate-300 w-40 cursor-pointer">
-          <UploadRounded fontSize="small" />
-          <input
-            type="file"
-            name="whereToSleepItemImage"
-            placeholder="whereToSleep item image"
-            className=" hidden"
-            onChange={uploadwhereToSleepImage}
-          />
-          <span>Upload image</span>
-        </label> */}
       </div>
       <div className=" my-4 flex items-center justify-center p-2 rounded w-full">
         <button
@@ -291,7 +256,7 @@ const WhereToSleepItems = ({
           Add a place to sleep
         </button>
       </div>
-    </>
+    </div>
   );
 };
 

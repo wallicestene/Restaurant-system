@@ -9,7 +9,7 @@ const AccountNav = () => {
   let subPage = pathname.split("/")?.[2];
   const addStyles = (pageTitle = null) => {
     let styles =
-      " px-1 h-12  cursor-pointer flex items-center gap-x-1 text-[0.7rem] lg:text-base md:text-base ";
+      " px-1 h-12  cursor-pointer flex items-center gap-x-1 text-base ";
     if (
       pageTitle === subPage ||
       (subPage === undefined && pageTitle === "myProfile")
@@ -20,7 +20,7 @@ const AccountNav = () => {
   };
   return (
     <>
-      <nav className=" flex flex-col w-full items-center my-5 sticky top-24 z-20 font-Montserrat">
+      <nav className=" flex flex-col w-full items-center my-5 sticky top-24 z-20 font-Mulish">
         <ul className="bg-gray-200/90 h-12  rounded flex items-center lg:justify-center md:justify-center md:gap-8 lg:gap-10 lg:w-fit justify-between w-full text-sm">
           <li>
             <Link className={addStyles("myProfile")} to="/account">

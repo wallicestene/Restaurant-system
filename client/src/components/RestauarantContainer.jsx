@@ -46,13 +46,13 @@ const RestaurantContainer = () => {
       });
   };
   return (
-    <section className=" ">
+    <section>
       <Filter
         searchInput={searchInput}
         setSearchInput={setSearchInput}
         searchRestaurant={searchRestaurant}
       />
-      <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 lg:gap-x-5 md:gap-x-10 gap-x-5 gap-y-10 lg:py-7 py-5 px-5 lg:px-10">
+      <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 lg:gap-x-5 md:gap-x-10 gap-x-5 gap-y-10 py-[50px] px-5 lg:px-10">
         {loading &&
           skeleton.map((skeleton, index) => (
             <div key={index}>

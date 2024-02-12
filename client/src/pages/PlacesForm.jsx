@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useUserContext } from "../hooks/Usercontext";
 import ImagesUploader from "../components/ImagesUploader";
-import MenuItems from "../components/MenuItems";
+import WhereToSleep from "../components/MenuItems";
 import Tags from "../components/Tags";
 import {
   ArrowBack,
@@ -42,12 +42,12 @@ const PlacesForm = () => {
 
   const inputHeader = (header) => {
     return (
-      <h2 className=" text-[2.3rem] font-semibold font-poppins">{header}</h2>
+      <h2 className=" text-[2.3rem] font-semibold font-Mulish">{header}</h2>
     );
   };
   const inputDescription = (description) => {
     return (
-      <p className=" text-[1.5rem] text-gray-500 font-poppins">{description}</p>
+      <p className=" text-[1.5rem] text-gray-500 font-Mulish">{description}</p>
     );
   };
   const inputTitle = (header, description) => {
@@ -128,7 +128,7 @@ const PlacesForm = () => {
   }
 
   return (
-    <div className=" flex flex-col h-full  justify-center pt-20 pb-10 font-poppins">
+    <div className=" flex flex-col h-full  justify-center pt-20 pb-10 font-Mulish">
       {" "}
       <button
         className=" flex items-center text-sm lg:text-base hover:bg-gray-200 w-fit mx-4 lg:mx-10 md:mx-5 py-1 px-2 rounded-md transition-colors delay-150 duration-300"
@@ -143,7 +143,7 @@ const PlacesForm = () => {
         </span>
         <span>Back</span>
       </button>
-      <div className=" relative w-full lg:w-3/5 mx-auto font-mulish h-screen  grid place-items-center p-4">
+      <div className=" relative w-full lg:w-3/5 mx-auto font-Mulish h-screen  grid place-items-center p-4">
         <div className="w-full h-full">
           <form className=" h-full">
             {currentPage === 0 && (
@@ -210,10 +210,10 @@ const PlacesForm = () => {
             {currentPage === 4 && (
               <div className=" h-full flex flex-col items-start gap-y-10">
                 {inputTitle(
-                  "Add a place to sleep/relax",
+                  "Add a place to sleep",
                   "The place to sleep i.e bedrooms and the sleeping position"
                 )}
-                <MenuItems
+                <WhereToSleep
                   bedroom={bedroom}
                   setBedroom={setBedroom}
                   sleepingPosition={sleepingPosition}
@@ -232,7 +232,7 @@ const PlacesForm = () => {
                 <div className=" p-2 grid place-items-center w-full">
                   <input
                     type="number"
-                    className=" text-[2.9rem] border text-center border-black py-2 h-40  indent-2 outline-none rounded-md "
+                    className=" text-[2.9rem] w-full border text-center border-black py-2 h-40  indent-2 outline-none rounded-md "
                     placeholder="Number of Guests"
                     name="guests"
                     value={guests}
@@ -252,7 +252,7 @@ const PlacesForm = () => {
                 <div className=" p-2 grid place-items-center w-full ">
                   <input
                     type="number"
-                    className=" text-[2.9rem] text-center border border-black py-2 h-40  indent-2 outline-none rounded-md "
+                    className=" text-[2.9rem] w-full text-center border border-black py-2 h-40  indent-2 outline-none rounded-md "
                     placeholder="Price eg $ 54"
                     name="price"
                     value={price}
@@ -263,9 +263,20 @@ const PlacesForm = () => {
               </div>
             )}
             {currentPage === 8 && (
-              <div className="  flex flex-col items-start gap-y-10">
-                {inputTitle("Tags", "What is you restaurant best known for?")}
-                <Tags selectedTags={tags} setSelectedTags={setTags} />
+              <div>
+                <div className=" h-full  flex flex-col items-start gap-y-10">
+                  {inputTitle("Tags", "What is you restaurant best known for?")}
+                  <Tags selectedTags={tags} setSelectedTags={setTags} />
+                </div>
+
+                <div className="mb-[45px] w-full flex items-center justify-center p-2 rounded">
+                  <button
+                    onClick={saveRestaurant}
+                    className="inline-flex w-full items-center justify-center h-12 px-6 font-medium  text-white transition duration-200 bg-gray-900 rounded-lg hover:bg-gray-800 focus:shadow-outline focus:outline-none"
+                  >
+                    Save
+                  </button>
+                </div>
               </div>
             )}
             {currentPage === 7 && (
@@ -280,8 +291,8 @@ const PlacesForm = () => {
                 />
               </div>
             )}
-            {currentPage === 8 && (
-              <div className=" my-4 flex items-center justify-center p-2 rounded">
+            {/* {currentPage === 8 && (
+              <div className="mb-[50px] flex items-center justify-center p-2 rounded">
                 <button
                   onClick={saveRestaurant}
                   className=" w-full py-2 inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-gray-900 rounded-lg hover:bg-gray-800 focus:shadow-outline focus:outline-none"
@@ -289,7 +300,7 @@ const PlacesForm = () => {
                   Save
                 </button>
               </div>
-            )}
+            )} */}
           </form>
         </div>
         {/* <div className=" fixed bottom-5 flex  justify-between w-11/12 lg:w-1/2 mx-auto"> */}
@@ -334,18 +345,6 @@ const PlacesForm = () => {
           </span>
           <span className="relative invisible">Next</span>
         </button>
-        {/* <button
-            disabled={currentPage === totalPages}
-            onClick={() => {
-              setcurrentPage((prevValue) => prevValue + 1),
-                window.scrollTo({
-                  top: 0,
-                });
-            }}
-            className={`fixed bottom-10 right-52 bg-green-600 py-2 px-5 rounded-lg text-white ${currentPage === totalPages ? " bg-gray-400 cursor-not-allowed" : ""}`}
-          >
-            Next
-          </button> */}
       </div>
     </div>
     // </div>

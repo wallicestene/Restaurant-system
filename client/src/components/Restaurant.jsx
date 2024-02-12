@@ -14,7 +14,7 @@ const Restaurant = ({ restaurant }) => {
   const [images, setImages] = useState(restaurant.images);
 
   return (
-    <div className=" flex flex-col gap-y-1 h-full rounded-t-2xl overflow-hidden bg-white shadow-md shadow-gray-300 hover:shadow-gray-400 transition-shadow duration-200 delay-100 ease-linear hover:rounded-xl">
+    <div className=" flex flex-col gap-y-1 h-full rounded-t-2xl overflow-hidden bg-white shadow-md shadow-gray-300 hover:shadow-gray-400 transition-shadow duration-200 delay-100 ease-linear hover:rounded-b-xl font-Mulish">
       <Carousel
         showStatus={false}
         showThumbs={false}
@@ -56,9 +56,9 @@ const Restaurant = ({ restaurant }) => {
           </Link>
         ))}
       </Carousel>
-      <div className="flex flex-col justify-between text-start p-2 font-mulish">
+      <div className="flex flex-col justify-between text-start p-2 ">
         <Link to={`/restaurant/${restaurant._id}`}>
-          <div className=" font-bold tracking-wide first-letter:uppercase ">
+          <div className=" text-base font-semibold first-letter:uppercase ">
             <h2>{restaurant.name}</h2>
           </div>
         </Link>
