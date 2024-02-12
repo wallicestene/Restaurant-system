@@ -43,7 +43,7 @@ const MyBookings = () => {
   }, [user?.token, user?.userId]);
   return (
     <>
-      <div className="lg:w-11/12  mx-auto w-full py-20 px-2 font-Montserrat">
+      <div className="lg:w-11/12  mx-auto w-full py-20 px-2 font-Mulish">
         <AccountNav />
         {error && <p>{error}</p>}
         {loading && (
@@ -61,10 +61,10 @@ const MyBookings = () => {
         )}
         {myBookings.length === 0 && (
           <div className=" flex flex-col gap-y-1">
-            <h1 className=" lg:text-2xl md:text-xl text-lg font-bold">
+            <h1 className=" text-xl font-bold">
               No Bookings...Yet
             </h1>
-            <p>
+            <p className=" text-base">
               You {"don't"} have bookings yet. Click the button below to make a
               new one.
             </p>
@@ -77,7 +77,7 @@ const MyBookings = () => {
             >
               <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
               <span className="absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black"></span>
-              <span className="relative text-black group-hover:text-white">
+              <span className="relative text-base text-black group-hover:text-white">
                 Start Searching
               </span>
             </button>

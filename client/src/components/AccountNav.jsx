@@ -9,7 +9,7 @@ const AccountNav = () => {
   let subPage = pathname.split("/")?.[2];
   const addStyles = (pageTitle = null) => {
     let styles =
-      " px-1 h-12  cursor-pointer flex items-center gap-x-1 text-[0.7rem] lg:text-base md:text-base ";
+      " px-1 h-12  cursor-pointer flex items-center gap-x-1 text-base ";
     if (
       pageTitle === subPage ||
       (subPage === undefined && pageTitle === "myProfile")
