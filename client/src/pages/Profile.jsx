@@ -21,7 +21,7 @@ const Profile = () => {
     return <Navigate to={redirect} />;
   }
   return (
-    <div className="  flex flex-col items-center py-20 text-sm lg:w-11/12 mx-auto w-full px-2 font-mulish">
+    <div className="  flex flex-col items-center py-20 text-sm lg:w-11/12 mx-auto w-full px-2 font-Mulish">
       <AccountNav />
       <div className="lg:w-1/2 w-full grid place-items-center border border-gray-300 shadow-lg shadow-gray-400 rounded-lg overflow-hidden">
         <div className="relative flex items-center gap-2 bg-gradient-to-l from-rose-400 via-fuchsia-500 rounded-b-lg to-indigo-500 h-52 w-full p-2">
