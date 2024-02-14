@@ -61,7 +61,7 @@ const MyBookings = () => {
         )}
         {myBookings.length === 0 && (
           <div className=" flex flex-col gap-y-1">
-            <h1 className=" text-xl font-bold">
+            <h1 className=" text-xl font-semibold">
               No Bookings...Yet
             </h1>
             <p className=" text-base">
