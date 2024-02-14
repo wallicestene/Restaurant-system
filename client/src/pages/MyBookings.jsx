@@ -43,7 +43,7 @@ const MyBookings = () => {
   }, [user?.token, user?.userId]);
   return (
     <>
-      <div className="lg:w-11/12  mx-auto w-full py-20 px-2 font-Mulish">
+      <div className="lg:w-11/12  mx-auto w-full py-20 px-2 font-Mulish ">
         <AccountNav />
         {error && <p>{error}</p>}
         {loading && (
