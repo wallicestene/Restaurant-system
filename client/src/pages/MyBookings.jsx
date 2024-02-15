@@ -45,11 +45,12 @@ const MyBookings = () => {
       <div className="lg:w-11/12  mx-auto w-full py-20 px-2 font-Mulish ">
         <AccountNav />
         {error && <p>{error}</p>}
-        {loading ? (
+        {loading && (
           <div className="flex justify-center items-center h-48">
             <BeatLoader color="#ff7a00" size={20} speedMultiplier={0.8} />
           </div>
-        ) : (
+        )}
+        {!loading && !error && (
           <div className=" grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-x-4 gap-y-24 p-2 lg:place-items-start place-items-center">
             {myBookings.map((booking) => (
               <Bookings key={booking?._id} booking={booking} />
