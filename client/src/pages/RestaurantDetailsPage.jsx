@@ -65,7 +65,7 @@ const RestaurantDetailsPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { data, isLoading, error } = useFetch(
-    `http://localhost:3000/api/restaurants/${id}`
+    `http://localhost:3000/api/restaurant/${id}`
   );
   useEffect(() => {
     const numberOfGuests = () => {

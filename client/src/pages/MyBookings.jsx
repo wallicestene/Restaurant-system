@@ -5,6 +5,7 @@ import Bookings from "../components/Bookings";
 import { useNavigate } from "react-router-dom";
 import AccountNav from "../components/AccountNav";
 import BeatLoader from "react-spinners/BeatLoader";
+import { Alert } from "@mui/material";
 // eslint-disable-next-line react/prop-types
 const MyBookings = () => {
   const [myBookings, setMyBookings] = useState([]);
@@ -14,13 +15,16 @@ const MyBookings = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const getMyBookings = () => {
-      fetch(`http://localhost:3000/api/reservations/?userId=${user?.userId}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user?.token}`,
-        },
-      })
+      fetch(
+        `http://localhost:3000/api/reservations/?userId=${user?.userId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      )
         .then((response) => {
           if (!response.ok) {
             throw new Error("Failed to fetch data");
@@ -44,7 +48,11 @@ const MyBookings = () => {
     <>
       <div className="lg:w-11/12  mx-auto w-full py-20 px-2 font-Mulish ">
         <AccountNav />
-        {error && <p>{error}</p>}
+        {error && (
+          <div className="w-full h-48 flex items-center justify-center">
+            <Alert severity="error">{error}</Alert>
+          </div>
+        )}
         {loading && (
           <div className="flex justify-center items-center h-48">
             <BeatLoader color="#ff7a00" size={20} speedMultiplier={0.8} />
@@ -57,7 +65,7 @@ const MyBookings = () => {
             ))}
           </div>
         )}
-        {!loading && myBookings.length == 0 && (
+        {!loading && myBookings.length == 0 && !error && (
           <div className=" flex flex-col gap-y-1">
             <h1 className=" text-xl font-semibold">No Bookings...Yet</h1>
             <p className=" text-base">

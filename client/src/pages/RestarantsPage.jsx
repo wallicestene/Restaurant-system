@@ -28,7 +28,7 @@ const RestarantsPage = () => {
         <BeatLoader color="#ff7a00" size={20} speedMultiplier={0.8} />
       </div>
       )}
-      {error && <Alert severity="error">{error}</Alert>}
+      {error &&         <div className="w-full h-48 flex items-center justify-center"><Alert severity="error">{error}</Alert></div>}
       {!isLoading && data.length > 0 && (
         <div className=" grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-x-4 gap-y-24 p-6 lg:place-items-start place-items-center">
           {data?.map((restaurant) => (
