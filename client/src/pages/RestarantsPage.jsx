@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import AddedRestaurants from "../components/AddedRestaurants";
 import useFetch from "../hooks/useFetch";
-import { Alert, CircularProgress } from "@mui/material";
+import { Alert} from "@mui/material";
 import { Add } from "@mui/icons-material";
 import { useUserContext } from "../hooks/Usercontext";
 import AccountNav from "../components/AccountNav";
