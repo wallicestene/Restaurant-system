@@ -1,17 +1,18 @@
 import { Link } from "react-router-dom";
 import AddedRestaurants from "../components/AddedRestaurants";
 import useFetch from "../hooks/useFetch";
-import { Alert, CircularProgress } from "@mui/material";
+import { Alert} from "@mui/material";
 import { Add } from "@mui/icons-material";
 import { useUserContext } from "../hooks/Usercontext";
 import AccountNav from "../components/AccountNav";
+import BeatLoader from "react-spinners/BeatLoader";
 const RestarantsPage = () => {
   const [{ user }] = useUserContext();
   const { data, isLoading, error } = useFetch(
     `http://localhost:3000/api/restaurants/owner/${user?.userId}`
   );
   return (
-    <div className=" lg:w-11/12  mx-auto w-full py-20 px-2 font-Mulish">
+    <div className=" lg:w-11/12  mx-auto w-full py-28 px-2 font-Mulish">
       <AccountNav />
       <div className=" flex justify-center ">
         <Link
@@ -23,9 +24,11 @@ const RestarantsPage = () => {
         </Link>
       </div>
       {isLoading && (
-        <CircularProgress color="secondary" size={50} thickness={4} />
+        <div className="flex justify-center items-center h-48">
+        <BeatLoader color="#ff7a00" size={20} speedMultiplier={0.8} />
+      </div>
       )}
-      {error && <Alert severity="error">{error}</Alert>}
+      {error &&         <div className="w-full h-48 flex items-center justify-center"><Alert severity="error">{error}</Alert></div>}
       {!isLoading && data.length > 0 && (
         <div className=" grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-x-4 gap-y-24 p-6 lg:place-items-start place-items-center">
           {data?.map((restaurant) => (
