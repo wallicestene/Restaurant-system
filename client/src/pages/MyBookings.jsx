@@ -4,8 +4,7 @@ import { useUserContext } from "../hooks/Usercontext";
 import Bookings from "../components/Bookings";
 import { useNavigate } from "react-router-dom";
 import AccountNav from "../components/AccountNav";
-import { CircularProgress } from "@mui/material";
-
+import BeatLoader from "react-spinners/BeatLoader";
 // eslint-disable-next-line react/prop-types
 const MyBookings = () => {
   const [myBookings, setMyBookings] = useState([]);
@@ -46,24 +45,20 @@ const MyBookings = () => {
       <div className="lg:w-11/12  mx-auto w-full py-20 px-2 font-Mulish ">
         <AccountNav />
         {error && <p>{error}</p>}
-        {loading && (
+        {loading ? (
           <div className="flex justify-center items-center h-48">
-            <CircularProgress />
+            <BeatLoader color="#ff7a00" size={20} speedMultiplier={0.8} />
           </div>
-        )}
-
-        {!loading && (
+        ) : (
           <div className=" grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-x-4 gap-y-24 p-2 lg:place-items-start place-items-center">
             {myBookings.map((booking) => (
               <Bookings key={booking?._id} booking={booking} />
             ))}
           </div>
         )}
-        {myBookings.length === 0 && (
+        {!loading && myBookings.length == 0 && (
           <div className=" flex flex-col gap-y-1">
-            <h1 className=" text-xl font-semibold">
-              No Bookings...Yet
-            </h1>
+            <h1 className=" text-xl font-semibold">No Bookings...Yet</h1>
             <p className=" text-base">
               You {"don't"} have bookings yet. Click the button below to make a
               new one.
