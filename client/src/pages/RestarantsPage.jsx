@@ -5,6 +5,7 @@ import { Alert, CircularProgress } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import { useUserContext } from "../hooks/Usercontext";
 import AccountNav from "../components/AccountNav";
+import BeatLoader from "react-spinners/BeatLoader";
 const RestarantsPage = () => {
   const [{ user }] = useUserContext();
   const { data, isLoading, error } = useFetch(
@@ -23,7 +24,9 @@ const RestarantsPage = () => {
         </Link>
       </div>
       {isLoading && (
-        <CircularProgress color="secondary" size={50} thickness={4} />
+        <div className="flex justify-center items-center h-48">
+        <BeatLoader color="#ff7a00" size={20} speedMultiplier={0.8} />
+      </div>
       )}
       {error && <Alert severity="error">{error}</Alert>}
       {!isLoading && data.length > 0 && (
