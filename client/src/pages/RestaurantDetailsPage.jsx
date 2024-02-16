@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
@@ -41,6 +42,7 @@ import { getUnit } from "@mui/material/styles/cssUtils";
 import Scroll from "../components/SmoothScroll";
 import BookingPage from "../components/BookingPage";
 import BeatLoader from "react-spinners/BeatLoader";
+import useServer from "../hooks/ServerUrl";
 const RestaurantDetailsPage = () => {
   const [value, setValue] = useState(0);
   const [date, setDate] = useState({
@@ -65,7 +67,7 @@ const RestaurantDetailsPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { data, isLoading, error } = useFetch(
-    `http://localhost:3000/api/restaurant/${id}`
+    `${useServer()}api/restaurant/${id}`
   );
   useEffect(() => {
     const numberOfGuests = () => {
@@ -82,7 +84,7 @@ const RestaurantDetailsPage = () => {
 
   const handleBooking = () => {
     if (user && date.startDate && date.endDate) {
-      fetch("http://localhost:3000/api/restaurant/reservation", {
+      fetch(`${useServer()}api/restaurant/reservation`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

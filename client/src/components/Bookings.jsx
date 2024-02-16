@@ -4,10 +4,12 @@ import { Circle, LocationOn } from "@mui/icons-material";
 import moment from "moment";
 import { useUserContext } from "../hooks/Usercontext";
 import { toast } from "sonner";
+import useServer from "../hooks/ServerUrl";
 const Bookings = ({ booking }) => {
   const [{ user }] = useUserContext();
   const deleteBooking = () => {
-    fetch(`http://localhost:3000/api/restaurant/reservation/${booking._id}`, {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    fetch(`${useServer()}api/restaurant/reservation/${booking._id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

@@ -11,6 +11,7 @@ import {
 } from "@mui/icons-material";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import Amenities from "../components/Amenities";
+import useServer from "../hooks/ServerUrl";
 
 const PlacesForm = () => {
   const [name, setName] = useState("");
@@ -61,7 +62,8 @@ const PlacesForm = () => {
   const saveRestaurant = (e) => {
     e.preventDefault();
     if (id) {
-      fetch(`http://localhost:3000/api/restaurant/${id}`, {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      fetch(`${useServer()}api/restaurant/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -79,7 +81,8 @@ const PlacesForm = () => {
         }),
       });
     } else {
-      fetch("http://localhost:3000/api/restaurant", {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      fetch(`${useServer()}api/restaurant`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -104,7 +107,8 @@ const PlacesForm = () => {
   };
   useEffect(() => {
     const getRestaurant = () => {
-      fetch(`http://localhost:3000/api/restaurant/${id}`)
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      fetch(`${useServer()}api/restaurant/${id}`)
         .then((res) => res.json())
         .then((data) => {
           setName(data.name);

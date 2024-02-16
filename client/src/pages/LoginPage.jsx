@@ -4,6 +4,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useUserContext } from "../hooks/Usercontext";
 import { ErrorOutline } from "@mui/icons-material";
 import logo from "../assets/loginFormImages/Bookify (200 x 200 px) (Website) (2).svg"
+import useServer from "../hooks/ServerUrl";
 const LoginPage = () => {
   const [{ user }, dispatch] = useUserContext();
   const [userDetails, setUserDetails] = useState({
@@ -15,7 +16,8 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("http://localhost:3000/user/login", {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    fetch(`${useServer()}user/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

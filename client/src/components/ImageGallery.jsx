@@ -2,11 +2,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import { Close, KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import { Carousel } from "react-responsive-carousel";
+import useServer from "../hooks/ServerUrl";
 
 const ImageGallery = () => {
   const { id } = useParams();
   const { data, isLoading, error } = useFetch(
-    `http://localhost:3000/api/restaurant/${id}`
+    `${useServer()}api/restaurant/${id}`
   );
   const navigate = useNavigate();
   return (

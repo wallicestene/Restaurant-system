@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import Restaurant from "./Restaurant";
@@ -5,6 +6,7 @@ import useFetch from "../hooks/useFetch";
 import { Skeleton } from "@mui/material";
 import Filter from "./Filter";
 import { toast } from "sonner";
+import useServer from "../hooks/ServerUrl";
 
 const RestaurantContainer = () => {
   const skeleton = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -12,10 +14,11 @@ const RestaurantContainer = () => {
   const [searchData, setSearchData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchError, setSearchError] = useState(null);
-  const { data, isLoading: initialLoading, error: initialError } = useFetch(
-    "http://localhost:3000/api/restaurant"
-  );
-
+  const {
+    data,
+    isLoading: initialLoading,
+    error: initialError,
+  } = useFetch(`${useServer()}api/restaurant`);
   useEffect(() => {
     setLoading(initialLoading);
     setSearchError(initialError);
@@ -23,7 +26,7 @@ const RestaurantContainer = () => {
 
   const searchRestaurant = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:3000/api/search/restaurant/?query=${searchInput}`)
+    fetch(`${useServer()}api/search/restaurant/?query=${searchInput}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch data");
@@ -37,7 +40,7 @@ const RestaurantContainer = () => {
         setSearchError(null);
         if (result.length === 0) {
           setSearchError("No place found!");
-          toast.error("No place found!")
+          toast.error("No place found!");
         }
       })
       .catch((error) => {
@@ -63,15 +66,13 @@ const RestaurantContainer = () => {
           ))}
         {initialError && <p>{initialError}</p>}
         {!loading &&
-          (searchData.length > 0 ? (
-            searchData.map((restaurant) => (
-              <Restaurant key={restaurant._id} restaurant={restaurant} />
-            ))
-          ) : (
-            data.map((restaurant) => (
-              <Restaurant key={restaurant._id} restaurant={restaurant} />
-            ))
-          ))}
+          (searchData.length > 0
+            ? searchData.map((restaurant) => (
+                <Restaurant key={restaurant._id} restaurant={restaurant} />
+              ))
+            : data.map((restaurant) => (
+                <Restaurant key={restaurant._id} restaurant={restaurant} />
+              )))}
       </div>
     </section>
   );

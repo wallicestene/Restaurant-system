@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import AccountNav from "../components/AccountNav";
 import BeatLoader from "react-spinners/BeatLoader";
 import { Alert } from "@mui/material";
+import useServer from "../hooks/ServerUrl";
 // eslint-disable-next-line react/prop-types
 const MyBookings = () => {
   const [myBookings, setMyBookings] = useState([]);
@@ -16,7 +17,8 @@ const MyBookings = () => {
   useEffect(() => {
     const getMyBookings = () => {
       fetch(
-        `http://localhost:3000/api/reservations/?userId=${user?.userId}`,
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        `${useServer()}api/reservations/?userId=${user?.userId}`,
         {
           method: "GET",
           headers: {
