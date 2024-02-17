@@ -149,13 +149,13 @@ const RestaurantDetailsPage = () => {
       {!isLoading && !error && (
         <div className=" py-16 lg:w-11/12 md:w-11/12 mx-auto font-Mulish relative px-2">
           <button
-            className=" flex items-center text-sm hover:bg-totem-pole-100 w-fit py-1 px-2 rounded-md transition-colors delay-150 duration-300"
+            className=" flex items-center text-base hover:bg-totem-pole-100 w-fit p-2 rounded-md transition-colors delay-150 duration-300"
             onClick={() => navigate(-1)}
           >
             <span>
               <KeyboardBackspace
                 sx={{
-                  fontSize: "1.3rem",
+                  fontSize: "1.5rem",
                 }}
               />
             </span>

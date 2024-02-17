@@ -135,13 +135,13 @@ const PlacesForm = () => {
     <div className=" flex flex-col h-full  justify-center pt-20 pb-10 font-Mulish">
       {" "}
       <button
-        className=" flex items-center text-sm lg:text-base hover:bg-gray-200 w-fit mx-4 lg:mx-10 md:mx-5 py-1 px-2 rounded-md transition-colors delay-150 duration-300"
+        className=" flex items-center text-base lg:text-base hover:bg-gray-200 w-fit mx-4 lg:mx-10 md:mx-5 py-1 px-2 rounded-md transition-colors delay-150 duration-300"
         onClick={() => navigate(-1)}
       >
         <span>
           <KeyboardBackspace
             sx={{
-              fontSize: "1.3rem",
+              fontSize: "1.5rem",
             }}
           />
         </span>
