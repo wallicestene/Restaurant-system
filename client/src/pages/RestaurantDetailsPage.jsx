@@ -229,6 +229,7 @@ const RestaurantDetailsPage = () => {
                   preventMovementUntilSwipeScrollTolerance
                   swipeScrollTolerance={10}
                   emulateTouch
+                  transitionTime={650}
                   infiniteLoop
                   stopOnHover
                   interval={5000}
@@ -237,7 +238,7 @@ const RestaurantDetailsPage = () => {
                   className=" relative lg:hidden rounded-lg overflow-hidden"
                 >
                   {data?.images.map((image, index) => (
-                    <div key={index} className="  overflow-hidden h-64 w-full">
+                    <div key={index} className="  overflow-hidden h-72 w-full">
                       <img
                         src={image}
                         alt={data.name}
