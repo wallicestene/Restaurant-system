@@ -15,12 +15,15 @@ const Restaurant = ({ restaurant }) => {
 
   return (
     <div className=" flex flex-col gap-y-1 h-full rounded-t-2xl overflow-hidden bg-white shadow-md shadow-gray-300 hover:shadow-gray-400 transition-shadow duration-200 delay-100 ease-linear hover:rounded-b-xl font-Mulish">
+      <div>
       <Carousel
         showStatus={false}
         showThumbs={false}
         emulateTouch
         stopOnHover
         interval={5000}
+        preventMovementUntilSwipeScrollTolerance
+        swipeScrollTolerance={10}
         useKeyboardArrows={true}
         className=" overflow-hidden object-cover group rounded-2xl "
         renderArrowPrev={(onClickHandler, hasPrev) =>
@@ -56,6 +59,7 @@ const Restaurant = ({ restaurant }) => {
           </Link>
         ))}
       </Carousel>
+      </div>
       <div className="flex flex-col justify-between text-start p-2 ">
         <Link to={`/restaurant/${restaurant._id}`}>
           <div className=" text-base font-semibold first-letter:uppercase ">

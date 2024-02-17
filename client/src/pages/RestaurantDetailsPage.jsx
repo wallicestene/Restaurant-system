@@ -226,6 +226,8 @@ const RestaurantDetailsPage = () => {
                   showThumbs={false}
                   showStatus={false}
                   autoPlay
+                  preventMovementUntilSwipeScrollTolerance
+                  swipeScrollTolerance={10}
                   emulateTouch
                   infiniteLoop
                   stopOnHover
