@@ -1,9 +1,11 @@
 /* eslint-disable react/prop-types */
 import { CloudUploadOutlined, DeleteOutlineRounded } from "@mui/icons-material";
+import useServer from "../hooks/ServerUrl";
 const ImagesUploader = ({ images, setImages, imageLink, setImageLink }) => {
   const uploadByLink = (e) => {
     e.preventDefault();
-    fetch("http://localhost:3000/api/upload-by-link", {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    fetch(`${useServer()}api/upload-by-link`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -25,7 +27,8 @@ const ImagesUploader = ({ images, setImages, imageLink, setImageLink }) => {
     for (let i = 0; i < files.length; i++) {
       formData.append("images", files[i]);
     }
-    fetch("http://localhost:3000/api/upload-images", {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    fetch(`${useServer()}api/upload-images`, {
       method: "POST",
       body: formData,
     })
