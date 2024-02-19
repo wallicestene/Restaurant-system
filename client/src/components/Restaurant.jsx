@@ -61,8 +61,15 @@ const Restaurant = ({ restaurant }) => {
       </Carousel>
       <div className="flex flex-col justify-between text-start p-2 ">
         <Link to={`/restaurant/${restaurant._id}`}>
-          <div className=" text-base font-semibold first-letter:uppercase ">
-            <h2>{restaurant.name}</h2>
+          <div className=" flex items-center justify-start gap-1 text-[0.97rem]">
+            <LocationOn
+              sx={{
+                fontSize: "1.1rem",
+              }}
+            />
+            <h1 className="font-semibold">
+              <span>{restaurant.address}</span>
+            </h1>
           </div>
         </Link>
         <div className=" flex  flex-col  gap-y-1 justify-between h-full text-sm">
@@ -85,16 +92,6 @@ const Restaurant = ({ restaurant }) => {
                 })}{" "}
               </span>
               <span>night</span>
-            </p>
-          </div>
-          <div className=" flex items-center justify-start gap-1 text-[0.97rem]">
-            <LocationOn
-              sx={{
-                fontSize: "1.1rem",
-              }}
-            />
-            <p>
-              <span>{restaurant.address}</span>
             </p>
           </div>
         </div>
