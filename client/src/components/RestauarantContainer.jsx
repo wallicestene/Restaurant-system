@@ -60,8 +60,13 @@ const RestaurantContainer = () => {
           skeleton.map((skeleton, index) => (
             <div key={index}>
               <Skeleton variant="rounded" width="100%" height={285} />
-              <Skeleton width="90%" />
-              <Skeleton width="60%" />
+              <Skeleton width="90%" height="35px" />
+              <div className=" flex flex-row gap-x-2 gap-y-1">
+                <Skeleton width="100%" height="55px" />
+                <Skeleton width="100%" height="55px" />
+                <Skeleton width="100%" height="55px" />
+              </div>
+              <Skeleton width="60%" height="35px" />
             </div>
           ))}
         {initialError && <p>{initialError}</p>}

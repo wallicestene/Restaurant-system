@@ -14,7 +14,7 @@ const Restaurant = ({ restaurant }) => {
   const [images, setImages] = useState(restaurant.images);
 
   return (
-    <div className=" flex flex-col gap-y-1 h-full rounded-t-2xl overflow-hidden bg-white shadow-md shadow-gray-400 rounded-xl transition-shadow duration-200 delay-100 ease-linear  font-Mulish">
+    <div className=" flex flex-col gap-y-1 h-full rounded-t-2xl overflow-hidden bg-white shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)]  rounded-xl transition-shadow duration-200 delay-100 ease-linear  font-Mulish">
       <Carousel
         showStatus={false}
         showThumbs={false}
