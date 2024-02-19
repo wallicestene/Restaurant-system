@@ -147,23 +147,25 @@ const RestaurantDetailsPage = () => {
         </div>
       )}
       {!isLoading && !error && (
-        <div className=" py-16 lg:w-11/12 md:w-11/12 mx-auto font-Mulish relative px-2">
-          <button
-            className=" flex items-center text-base hover:bg-totem-pole-100 w-fit p-2 rounded-md transition-colors delay-150 duration-300"
-            onClick={() => navigate(-1)}
-          >
-            <span>
-              <KeyboardBackspace
-                sx={{
-                  fontSize: "1.5rem",
-                }}
-              />
-            </span>
-            <span>Back</span>
-          </button>
-          <div className=" relative mx-auto px-3">
+        <div className=" py-16 lg:w-11/12 md:w-11/12 w-full mx-auto font-Mulish relative">
+          <div className="px-2">
+            <button
+              className=" flex items-center justify-between text-base hover:bg-totem-pole-100 w-fit p-1 rounded-md transition-colors delay-150 duration-300"
+              onClick={() => navigate(-1)}
+            >
+              <span>
+                <KeyboardBackspace
+                  sx={{
+                    fontSize: "1.5rem",
+                  }}
+                />
+              </span>
+              <span>Back</span>
+            </button>
+          </div>
+          <div className=" relative mx-auto lg:px-3 md:px-3 ">
             <div>
-              <div className="top font-semibold  mt-5 text-lg  my-5 first-letter:uppercase ">
+              <div className="px-2 font-semibold  mt-5 text-lg  my-5 first-letter:uppercase ">
                 <h1>{data?.name}</h1>
               </div>
             </div>
@@ -235,10 +237,10 @@ const RestaurantDetailsPage = () => {
                   interval={5000}
                   showArrows={false}
                   useKeyboardArrows={true}
-                  className=" relative lg:hidden rounded-lg overflow-hidden"
+                  className=" relative lg:hidden w-full overflow-hidden"
                 >
                   {data?.images.map((image, index) => (
-                    <div key={index} className="  overflow-hidden h-72 w-full">
+                    <div key={index} className="  overflow-hidden h-80 w-full">
                       <img
                         src={image}
                         alt={data.name}
