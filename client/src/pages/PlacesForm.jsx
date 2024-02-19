@@ -101,9 +101,12 @@ const PlacesForm = () => {
         }),
       })
         .then((response) => response.json())
-        .then((data) => console.log(data));
+        .then((data) => {
+         if(data){
+          setRedirect("/account/myListings");
+         }
+        });
     }
-    setRedirect("/account/myListings");
   };
   useEffect(() => {
     const getRestaurant = () => {

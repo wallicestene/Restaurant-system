@@ -62,7 +62,7 @@ const ImagesUploader = ({ images, setImages, imageLink, setImageLink }) => {
           Add Image
         </button>
       </div>
-      <div className=" grid grid-cols-3 gap-3 mt-2">
+      <div className=" grid grid-cols-3 gap-3 mt-2 w-full">
         {images.length > 0 &&
           images.map((image, index) => (
             <div key={index} className=" relative">
