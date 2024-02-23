@@ -4,8 +4,9 @@ import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useUserContext } from "../hooks/Usercontext";
 import { ErrorOutline } from "@mui/icons-material";
-import logo from "../assets/loginFormImages/Bookify (200 x 200 px) (Website) (2).svg"
+import logo from "../assets/loginFormImages/Bookify (200 x 200 px) (Website) (2).svg";
 import useServer from "../hooks/ServerUrl";
+import { toast } from "sonner";
 
 const SignupPage = () => {
   const [userDetails, setUserDetails] = useState({
@@ -30,6 +31,11 @@ const SignupPage = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data.error) {
+          if (data.error === "Password not strong enough") {
+            toast.error(
+              "Strong passwords are at least 8 characters long and include a mix of uppercase, lowercase, and special characters."
+            );
+          }
           throw Error(data.error);
         } else {
           // saving user to local storage
@@ -37,7 +43,7 @@ const SignupPage = () => {
           // updating the user context
           dispatch({ type: "SET_USER", payload: data });
           setSignUpError(null);
-          setRedirect(true)
+          setRedirect(true);
         }
       })
       .catch((error) => {
@@ -59,14 +65,18 @@ const SignupPage = () => {
   return (
     <div className="bg-gradient-to-r from-orange-600 to-orange-500  grid  place-items-center h-screen font-mulish text-sm px-4">
       <div className="bg-white flex flex-col gap-y-3 lg:w-5/12 md:w-1/2 w-full lg:p-5 md:px-1 px-3 py-5 rounded-md shadow-lg text-sm">
-      <div className=" flex flex-col justify-center items-center text-[1.5rem] font-semibold"> 
-        <Link to="/">
-          <img src={logo} alt="" className=" h-14 w-36 object-center object-contain rounded-md"/>
-        </Link>
-        <h2>
-          Welcome to <span className=" text-totem-pole-600">Bookify</span>
-        </h2>
-       </div>
+        <div className=" flex flex-col justify-center items-center text-[1.5rem] font-semibold">
+          <Link to="/">
+            <img
+              src={logo}
+              alt=""
+              className=" h-14 w-36 object-center object-contain rounded-md"
+            />
+          </Link>
+          <h2>
+            Welcome to <span className=" text-totem-pole-600">Bookify</span>
+          </h2>
+        </div>
         <form className=" flex flex-col gap-y-3" onSubmit={handleSubmit}>
           <div className=" flex w-full gap-3 items-center justify-between">
             <label htmlFor="first_name" className=" w-full">
@@ -78,8 +88,7 @@ const SignupPage = () => {
                 placeholder="First name"
                 value={userDetails.first_name}
                 onChange={handleChange}
-              className=" border outline-none text-slate-950 shadow-lg h-12 bg-none"
-
+                className=" border outline-none text-slate-950 shadow-lg h-12 bg-none"
               />
             </label>
             <label htmlFor="last_name" className=" w-full">
@@ -91,12 +100,12 @@ const SignupPage = () => {
                 placeholder="Last name"
                 value={userDetails.last_name}
                 onChange={handleChange}
-              className=" border outline-none text-slate-950 shadow-lg h-12 bg-none"
+                className=" border outline-none text-slate-950 shadow-lg h-12 bg-none"
               />
             </label>
           </div>
 
-          <label htmlFor="email" >
+          <label htmlFor="email">
             Email: <br />
             <input
               type="email"
@@ -106,10 +115,9 @@ const SignupPage = () => {
               value={userDetails.email}
               onChange={handleChange}
               className=" border outline-none text-slate-950 shadow-lg h-12 bg-none"
-
             />
           </label>
-          <label htmlFor="password" >
+          <label htmlFor="password">
             Password: <br />
             <input
               id="password"
@@ -119,7 +127,6 @@ const SignupPage = () => {
               value={userDetails.password}
               onChange={handleChange}
               className=" border outline-none text-slate-950 shadow-lg h-12 bg-none"
-
             />
           </label>
           <button className="bg-gradient-to-l from-rose-400 via-fuchsia-500 rounded-b-lg to-indigo-500 rounded-md py-2 shadow-lg h-12 text-white font-semibold tracking-wide text-[1rem]">
@@ -127,12 +134,9 @@ const SignupPage = () => {
           </button>
         </form>
         {signUpError && (
-          <div className=" text-center border border-red-500 text-red-500 my-2 rounded-md bg-red-300 py-1">
-            <div className=" h-10 flex items-center justify-center gap-x-1">
-              <ErrorOutline/>
-              <p>{signUpError}!</p>
-            </div>
-          </div>
+          <Alert variant="filled" severity="error">
+            {signUpError}
+          </Alert>
         )}
         <div className=" text-center text-xs">
           <span>Already Registered?</span>{" "}

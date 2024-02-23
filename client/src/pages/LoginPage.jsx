@@ -5,6 +5,7 @@ import { useUserContext } from "../hooks/Usercontext";
 import { ErrorOutline } from "@mui/icons-material";
 import logo from "../assets/loginFormImages/Bookify (200 x 200 px) (Website) (2).svg"
 import useServer from "../hooks/ServerUrl";
+import { Alert } from "@mui/material";
 const LoginPage = () => {
   const [{ user }, dispatch] = useUserContext();
   const [userDetails, setUserDetails] = useState({
@@ -94,12 +95,7 @@ const LoginPage = () => {
           </button>
         </form>
         {logInError && (
-          <div className=" text-center border border-red-500 text-red-500 my-2 rounded-md bg-red-300 py-1 ">
-            <div className="h-10 flex items-center justify-center gap-x-1">
-              <ErrorOutline/>
-              <p>{logInError}!</p>
-            </div>
-          </div>
+          <Alert variant="filled" severity="error">{logInError}</Alert>
         )}
         <div className=" text-center text-xs">
           <span className="">Not Registered? </span>

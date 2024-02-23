@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Restaurant from "./Restaurant";
 import useFetch from "../hooks/useFetch";
-import { Skeleton } from "@mui/material";
+import { Alert, Skeleton } from "@mui/material";
 import Filter from "./Filter";
 import { toast } from "sonner";
 import useServer from "../hooks/ServerUrl";
@@ -60,21 +60,21 @@ const RestaurantContainer = () => {
           skeleton.map((skeleton, index) => (
             <div
               key={index}
-              className=" bg-white shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)]  rounded-xl transition-shadow"
+              className=" shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)]  rounded-xl overflow-hidden transition-shadow"
             >
               <Skeleton variant="rounded" width="100%" height={285} />
               <div className=" p-2">
                 <Skeleton width="90%" height="35px" />
                 <div className=" flex flex-row gap-x-2">
-                  <Skeleton width="100%" height="55px" />
-                  <Skeleton width="100%" height="55px" />
-                  <Skeleton width="100%" height="55px" />
+                  <Skeleton width="100%" height="50px" />
+                  <Skeleton width="100%" height="50px" />
+                  <Skeleton width="100%" height="50px" />
                 </div>
                 <Skeleton width="60%" height="35px" />
               </div>
             </div>
           ))}
-        {initialError && <p>{initialError}</p>}
+        {initialError && <Alert severity="error">{initialError}</Alert>}
         {!loading &&
           (searchData.length > 0
             ? searchData.map((restaurant) => (
