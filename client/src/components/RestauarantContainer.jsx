@@ -55,18 +55,23 @@ const RestaurantContainer = () => {
         setSearchInput={setSearchInput}
         searchRestaurant={searchRestaurant}
       />
-      <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 lg:gap-x-5 md:gap-x-10 gap-x-5 gap-y-10 py-[50px] px-5 lg:px-10">
+      <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 lg:gap-x-5 md:gap-x-10 gap-x-5 gap-y-10 py-[50px] px-5 lg:px-10 ">
         {loading &&
           skeleton.map((skeleton, index) => (
-            <div key={index}>
+            <div
+              key={index}
+              className=" bg-white shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)]  rounded-xl transition-shadow"
+            >
               <Skeleton variant="rounded" width="100%" height={285} />
-              <Skeleton width="90%" height="35px" />
-              <div className=" flex flex-row gap-x-2 gap-y-1">
-                <Skeleton width="100%" height="55px" />
-                <Skeleton width="100%" height="55px" />
-                <Skeleton width="100%" height="55px" />
+              <div className=" p-2">
+                <Skeleton width="90%" height="35px" />
+                <div className=" flex flex-row gap-x-2">
+                  <Skeleton width="100%" height="55px" />
+                  <Skeleton width="100%" height="55px" />
+                  <Skeleton width="100%" height="55px" />
+                </div>
+                <Skeleton width="60%" height="35px" />
               </div>
-              <Skeleton width="60%" height="35px" />
             </div>
           ))}
         {initialError && <p>{initialError}</p>}
