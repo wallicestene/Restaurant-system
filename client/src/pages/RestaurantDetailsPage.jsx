@@ -156,21 +156,21 @@ const RestaurantDetailsPage = () => {
               <span>
                 <KeyboardBackspace
                   sx={{
-                    fontSize: "1.5rem",
+                    fontSize: "1.3rem",
                   }}
                 />
               </span>
-              <span>Back</span>
+              <span className=" text-[1rem]">Back</span>
             </button>
           </div>
           <div className=" relative mx-auto lg:px-3 md:px-3 ">
             <div>
-              <div className="px-2 font-semibold  mt-5 text-lg  my-5 first-letter:uppercase ">
+              <div className="px-2 font-semibold my-2 text-lg  first-letter:uppercase ">
                 <h1>{data?.name}</h1>
               </div>
             </div>
             <div
-              className={`top hidden lg:grid gap-2 h-72 overflow-hidden rounded-xl ${
+              className={`top hidden lg:grid gap-2 h-80 overflow-hidden rounded-xl ${
                 data?.images.length == 1 && "grid-cols-1 h-64 w-7/12 mx-auto"
               }
             ${
@@ -190,7 +190,7 @@ const RestaurantDetailsPage = () => {
                 />
               </div>
               <div
-                className={`imgright grid gap-2 h-72 w-full overflow-hidden ${
+                className={`imgright grid gap-2 h-80 w-full overflow-hidden ${
                   data.images.slice(1).length <= 2 && " grid-cols-1"
                 }
               ${data.images.slice(1).length >= 3 && "grid-cols-2"}
@@ -201,7 +201,7 @@ const RestaurantDetailsPage = () => {
                     <img
                       src={image}
                       alt={data?.name}
-                      className="h-36 w-full  object-cover object-center"
+                      className="h-40 w-full  object-cover object-center"
                     />
                   </div>
                 ))}
