@@ -33,7 +33,9 @@ const SignupPage = () => {
         if (data.error) {
           if (data.error === "Password not strong enough") {
             toast.error(
-              "Strong passwords are at least 8 characters long and include a mix of uppercase, lowercase, and special characters."
+              "Strong passwords are at least 8 characters long and include a mix of uppercase, lowercase, and special characters.",{
+                duration: 7000,
+              }
             );
           }
           throw Error(data.error);
