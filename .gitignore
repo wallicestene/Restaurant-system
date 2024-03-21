@@ -1,0 +1,3 @@
+# i want to hide node modules and .env file
+node_modules
+.env
